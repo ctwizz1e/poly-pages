@@ -272,6 +272,35 @@
       font-weight: 500; color: var(--text-muted);
     }
 
+    /* ── Temp filter ────────────────────────────────────────── */
+    #temp-filter {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    #temp-filter span { font-weight: 500; }
+    #temp-filter input[type="number"] {
+      width: 58px;
+      padding: 3px 6px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: inherit;
+      background: var(--surface);
+      color: var(--text);
+      -moz-appearance: textfield;
+    }
+    #temp-filter input[type="number"]::-webkit-outer-spin-button,
+    #temp-filter input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    #temp-filter input[type="number"]:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(3,102,214,.15);
+    }
+
     /* ── Loading / error states ─────────────────────────────── */
     .loading { padding: 24px; text-align: center; color: var(--text-muted); font-size: 12px; }
     .error-note {
@@ -284,24 +313,25 @@
       margin: 8px 0;
     }
 
-    /* ── Chart cards (full-width) ───────────────────────────── */
-    .card-full { grid-column: 1 / -1; }
-    .chart-wrap { position: relative; height: 220px; }
-
     /* ── Responsive ─────────────────────────────────────────── */
     @media (max-width: 600px) {
       .cards { grid-template-columns: 1fr; }
       .value-display { gap: 16px; }
       .value-stat .v-num { font-size: 22px; }
-      .chart-wrap { height: 180px; }
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
 <header>
   <h1>Atlanta TMAX Predictions</h1>
+  <div id="temp-filter">
+    <span>Temp range:</span>
+    <input type="number" id="filter-min" placeholder="min" step="1">
+    <span>–</span>
+    <input type="number" id="filter-max" placeholder="max" step="1">
+    <span>°F</span>
+  </div>
   <div id="status-bar">Last updated: <span id="last-updated">—</span> &nbsp;|&nbsp; Next refresh in <span id="countdown">15:00</span></div>
 </header>
 
@@ -344,31 +374,6 @@
     </div>
   </section>
 
-  <!-- TIMESERIES ────────────────────────────────────────────── -->
-  <section id="section-timeseries">
-    <h2>2-Day Temperature History</h2>
-    <div class="cards">
-      <div class="card card-full">
-        <div class="card-header">
-          <h3>Hourly Observations</h3>
-          <span class="meta" id="meta-obs-timeseries"></span>
-        </div>
-        <div class="card-body">
-          <div class="chart-wrap"><canvas id="chart-obs"></canvas></div>
-        </div>
-      </div>
-      <div class="card card-full">
-        <div class="card-header">
-          <h3>Model Forecasts · Hourly</h3>
-          <span class="meta" id="meta-fcst-timeseries"></span>
-        </div>
-        <div class="card-body">
-          <div class="chart-wrap"><canvas id="chart-fcst"></canvas></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- TOMORROW ──────────────────────────────────────────────── -->
   <section id="section-tomorrow">
     <h2>Tomorrow — <span id="tomorrow-label"></span></h2>
@@ -404,10 +409,19 @@ const DATA_FILES = {
   valueTomorrow:       "data/value_tomorrow.json",
   ensembleEven:        "data/ensemble_even_tomorrow.json",
   ensembleOdd:         "data/ensemble_odd_tomorrow.json",
-  obsTimeseries:       "data/obs_timeseries.json",
-  fcstTimeseries:      "data/forecast_timeseries.json",
 };
 const REFRESH_MS = 15 * 60 * 1000;
+
+// ── Temp filter state ─────────────────────────────────────────
+let loadedData = {};
+function getTempFilter() {
+  const minVal = el("filter-min").value;
+  const maxVal = el("filter-max").value;
+  return {
+    min: minVal !== "" ? parseFloat(minVal) : -Infinity,
+    max: maxVal !== "" ? parseFloat(maxVal) :  Infinity,
+  };
+}
 
 // ── Utilities ────────────────────────────────────────────────
 function fmtPct(p)  { return p == null ? "—" : (p * 100).toFixed(1) + "%"; }
@@ -521,9 +535,13 @@ function renderIntradayHours(data, bodyEl, metaEl) {
   });
 
   // Bucket rows
+  const { min: fMin, max: fMax } = getTempFilter();
+  let firstVisible = true;
   buckets.forEach((bkt, bi) => {
+    if (bkt.lo < fMin || bkt.lo > fMax) return;
     const tr = tbody.insertRow();
-    tr.className = bi === 0 ? "sep" : "";
+    tr.className = firstVisible ? "sep" : "";
+    firstVisible = false;
     const tdLabel = tr.insertCell();
     tdLabel.textContent = bkt.label;
     tdLabel.style.color = bucketColor(bkt.lo);
@@ -611,7 +629,8 @@ function renderIntradayCompare(data, bodyEl, metaEl) {
 
   const tbody = table.createTBody();
   let totalIntraday = 0, totalD1Prior = 0, totalD1Now = 0;
-  (data.buckets || []).forEach(b => {
+  const { min: cMin, max: cMax } = getTempFilter();
+  (data.buckets || []).filter(b => b.lo >= cMin && b.lo <= cMax).forEach(b => {
     const tr = tbody.insertRow();
     const deltaPrior = (b.intraday != null && b.d1_prior != null) ? b.intraday - b.d1_prior : null;
     const deltaNow   = (b.intraday != null && b.d1_now   != null) ? b.intraday - b.d1_now   : null;
@@ -704,8 +723,8 @@ function renderEnsemble(data, bodyEl, metaEl) {
 
     const tbody = table.createTBody();
     let totalEns = 0;
-
-    (hz.buckets || []).forEach(b => {
+    const { min: eMin, max: eMax } = getTempFilter();
+    (hz.buckets || []).filter(b => b.lo >= eMin && b.lo <= eMax).forEach(b => {
       const tr = tbody.insertRow();
       const tdLabel = tr.insertCell();
       tdLabel.textContent = b.label;
@@ -753,97 +772,6 @@ function hexToRgb(hex) {
   return `${r},${g},${b}`;
 }
 
-// ── Timeseries charts ─────────────────────────────────────────
-const MODEL_COLORS = {
-  gfs:         "#0366d6",
-  ecmwf_hres:  "#e8622a",
-  hrrr:        "#22863a",
-  nbm:         "#6f42c1",
-  weather_com: "#cb2431",
-};
-const MODEL_LABELS = {
-  gfs:         "GFS",
-  ecmwf_hres:  "ECMWF",
-  hrrr:        "HRRR",
-  nbm:         "NBM",
-  weather_com: "Weather.com",
-};
-
-function tsLabels(items, keyFn) {
-  return items.map(item => {
-    const d = new Date(keyFn(item));
-    return d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", hour12: true });
-  });
-}
-
-function renderObsTimeseries(data) {
-  const obs = data.observations || [];
-  if (!obs.length) return;
-  const labels = tsLabels(obs, o => o.time);
-  const ctx = document.getElementById("chart-obs").getContext("2d");
-  new Chart(ctx, {
-    type: "line",
-    data: {
-      labels,
-      datasets: [{
-        label: "Temp (°F)",
-        data: obs.map(o => o.temp),
-        borderColor: "#0366d6",
-        backgroundColor: "rgba(3,102,214,0.08)",
-        borderWidth: 1.5,
-        pointRadius: 0,
-        tension: 0.3,
-        fill: true,
-      }],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { maxTicksLimit: 14, maxRotation: 0, font: { size: 10 } } },
-        y: { title: { display: true, text: "°F", font: { size: 11 } } },
-      },
-    },
-  });
-  const meta = document.getElementById("meta-obs-timeseries");
-  if (meta) meta.textContent = fmtDate(data.generated_at);
-}
-
-function renderFcstTimeseries(data) {
-  const fcsts = data.forecasts || [];
-  const models = data.models || [];
-  if (!fcsts.length || !models.length) return;
-  const labels = tsLabels(fcsts, f => f.time);
-  const datasets = models.map(m => ({
-    label: MODEL_LABELS[m] || m.toUpperCase(),
-    data: fcsts.map(f => f[m]),
-    borderColor: MODEL_COLORS[m] || "#888",
-    backgroundColor: "transparent",
-    borderWidth: 1.5,
-    pointRadius: 0,
-    tension: 0.3,
-  }));
-  const ctx = document.getElementById("chart-fcst").getContext("2d");
-  new Chart(ctx, {
-    type: "line",
-    data: { labels, datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { position: "top", labels: { boxWidth: 10, font: { size: 11 } } },
-      },
-      scales: {
-        x: { ticks: { maxTicksLimit: 14, maxRotation: 0, font: { size: 10 } } },
-        y: { title: { display: true, text: "°F", font: { size: 11 } } },
-      },
-    },
-  });
-  const meta = document.getElementById("meta-fcst-timeseries");
-  if (meta) meta.textContent = fmtDate(data.generated_at);
-}
-
 // ── Main load ─────────────────────────────────────────────────
 async function loadAll() {
   const today = new Date();
@@ -859,38 +787,40 @@ async function loadAll() {
     })
   );
 
-  const data = {};
+  loadedData = {};
   results.forEach(r => {
-    if (r.status === "fulfilled") data[r.value[0]] = r.value[1];
+    if (r.status === "fulfilled") loadedData[r.value[0]] = r.value[1];
   });
 
   // Find most recent generated_at across all loaded files
-  const times = Object.values(data).map(d => d.generated_at).filter(Boolean).sort();
+  const times = Object.values(loadedData).map(d => d.generated_at).filter(Boolean).sort();
   if (times.length) el("last-updated").textContent = fmtDate(times[times.length - 1]);
 
-  if (data.intradayEvenHours)
-    renderIntradayHours(data.intradayEvenHours,   el("body-even-hours"),    el("meta-even-hours"));
-  if (data.intradayOddHours)
-    renderIntradayHours(data.intradayOddHours,    el("body-odd-hours"),     el("meta-odd-hours"));
-  if (data.intradayEvenCompare)
-    renderIntradayCompare(data.intradayEvenCompare, el("body-even-compare"), el("meta-even-compare"));
-  if (data.intradayOddCompare)
-    renderIntradayCompare(data.intradayOddCompare,  el("body-odd-compare"),  el("meta-odd-compare"));
-  if (data.valueTomorrow)
-    renderValue(data.valueTomorrow,    el("value-section-stats-tomorrow"));
-  if (data.ensembleEven)
-    renderEnsemble(data.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
-  if (data.ensembleOdd)
-    renderEnsemble(data.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
-  if (data.obsTimeseries)
-    renderObsTimeseries(data.obsTimeseries);
-  if (data.fcstTimeseries)
-    renderFcstTimeseries(data.fcstTimeseries);
+  if (loadedData.valueTomorrow)
+    renderValue(loadedData.valueTomorrow, el("value-section-stats-tomorrow"));
+
+  rerender();
 
   // Show errors for anything that failed to load
   results.forEach(r => {
     if (r.status === "rejected") console.warn("Failed to load:", r.reason);
   });
+}
+
+// ── Re-render charts with current filter ─────────────────────
+function rerender() {
+  if (loadedData.intradayEvenHours)
+    renderIntradayHours(loadedData.intradayEvenHours,   el("body-even-hours"),    el("meta-even-hours"));
+  if (loadedData.intradayOddHours)
+    renderIntradayHours(loadedData.intradayOddHours,    el("body-odd-hours"),     el("meta-odd-hours"));
+  if (loadedData.intradayEvenCompare)
+    renderIntradayCompare(loadedData.intradayEvenCompare, el("body-even-compare"), el("meta-even-compare"));
+  if (loadedData.intradayOddCompare)
+    renderIntradayCompare(loadedData.intradayOddCompare,  el("body-odd-compare"),  el("meta-odd-compare"));
+  if (loadedData.ensembleEven)
+    renderEnsemble(loadedData.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
+  if (loadedData.ensembleOdd)
+    renderEnsemble(loadedData.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
 }
 
 // ── Countdown + auto-refresh ──────────────────────────────────
@@ -910,6 +840,11 @@ setInterval(tick, 1000);
 // Collapsible sections
 document.querySelectorAll("section > h2").forEach(h2 => {
   h2.addEventListener("click", () => h2.closest("section").classList.toggle("collapsed"));
+});
+
+// Filter inputs re-render without re-fetching
+["filter-min", "filter-max"].forEach(id => {
+  el(id).addEventListener("input", rerender);
 });
 
 // Initial load
