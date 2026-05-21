@@ -342,6 +342,7 @@
   <!-- TODAY ─────────────────────────────────────────────────── -->
   <section id="section-today">
     <h2>Today — <span id="today-label"></span></h2>
+    <div id="value-section-stats-today" class="section-stats"></div>
     <div class="cards">
       <div class="card" id="card-intraday-even-hours">
         <div class="card-header">
@@ -409,6 +410,7 @@ const DATA_FILES = {
   intradayOddHours:    "data/intraday_odd_hours_today.json",
   intradayEvenCompare: "data/intraday_even_compare_today.json",
   intradayOddCompare:  "data/intraday_odd_compare_today.json",
+  valueToday:          "data/value_today.json",
   valueTomorrow:       "data/value_tomorrow.json",
   ensembleEven:        "data/ensemble_even_tomorrow.json",
   ensembleOdd:         "data/ensemble_odd_tomorrow.json",
@@ -799,6 +801,8 @@ async function loadAll() {
   const times = Object.values(loadedData).map(d => d.generated_at).filter(Boolean).sort();
   if (times.length) el("last-updated").textContent = fmtDate(times[times.length - 1]);
 
+  if (loadedData.valueToday)
+    renderValue(loadedData.valueToday,    el("value-section-stats-today"));
   if (loadedData.valueTomorrow)
     renderValue(loadedData.valueTomorrow, el("value-section-stats-tomorrow"));
 
