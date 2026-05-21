@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Atlanta TMAX Predictions</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
   <style>
     :root {
       --bg:         #f0f2f5;
@@ -263,6 +264,11 @@
       font-weight: 500; color: var(--text-muted);
     }
 
+    /* ── Charts ─────────────────────────────────────────────── */
+    .chart-full { grid-column: 1 / -1; }
+    .chart-wrap { position: relative; height: 280px; }
+    .chart-wrap-sm { position: relative; height: 200px; }
+
     /* ── Loading / error states ─────────────────────────────── */
     .loading { padding: 24px; text-align: center; color: var(--text-muted); font-size: 12px; }
     .error-note {
@@ -303,20 +309,20 @@
         <div class="card-body" id="body-even-hours"><div class="loading">Loading…</div></div>
       </div>
 
-      <div class="card" id="card-intraday-odd-hours">
-        <div class="card-header">
-          <h3>Intraday · Odd Buckets · Hourly Snapshots</h3>
-          <span class="meta" id="meta-odd-hours"></span>
-        </div>
-        <div class="card-body" id="body-odd-hours"><div class="loading">Loading…</div></div>
-      </div>
-
       <div class="card" id="card-intraday-even-compare">
         <div class="card-header">
           <h3>Intraday · Even Buckets · Live vs D1</h3>
           <span class="meta" id="meta-even-compare"></span>
         </div>
         <div class="card-body" id="body-even-compare"><div class="loading">Loading…</div></div>
+      </div>
+
+      <div class="card" id="card-intraday-odd-hours">
+        <div class="card-header">
+          <h3>Intraday · Odd Buckets · Hourly Snapshots</h3>
+          <span class="meta" id="meta-odd-hours"></span>
+        </div>
+        <div class="card-body" id="body-odd-hours"><div class="loading">Loading…</div></div>
       </div>
 
       <div class="card" id="card-intraday-odd-compare">
@@ -334,11 +340,11 @@
     <h2>Tomorrow — <span id="tomorrow-label"></span></h2>
     <div class="cards">
       <div class="card" id="card-value-tomorrow">
-        <div class="card-header">
+        <div class="card-header" style="flex-wrap:wrap; row-gap:6px;">
           <h3>Value Model Prediction</h3>
+          <div id="value-header-stats-tomorrow" style="display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;font-size:12px;"></div>
           <span class="meta" id="meta-value-tomorrow"></span>
         </div>
-        <div class="card-body" id="body-value-tomorrow"><div class="loading">Loading…</div></div>
       </div>
 
       <div class="card" id="card-ensemble-even">
@@ -358,6 +364,31 @@
       </div>
     </div>
   </section>
+
+  <!-- CHARTS ────────────────────────────────────────────────── -->
+  <section id="section-charts">
+    <h2>Observations &amp; Forecasts</h2>
+    <div class="cards">
+      <div class="card chart-full">
+        <div class="card-header">
+          <h3>Today — Temperatures</h3>
+          <span class="meta" id="meta-chart-today"></span>
+        </div>
+        <div class="card-body">
+          <div class="chart-wrap"><canvas id="chart-today"></canvas></div>
+        </div>
+      </div>
+      <div class="card chart-full">
+        <div class="card-header">
+          <h3>Tomorrow — Forecast Predictions</h3>
+          <span class="meta" id="meta-chart-tomorrow"></span>
+        </div>
+        <div class="card-body">
+          <div class="chart-wrap-sm"><canvas id="chart-tomorrow"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <script>
@@ -370,6 +401,7 @@ const DATA_FILES = {
   valueTomorrow:       "data/value_tomorrow.json",
   ensembleEven:        "data/ensemble_even_tomorrow.json",
   ensembleOdd:         "data/ensemble_odd_tomorrow.json",
+  chartTomorrow:       "data/chart_tomorrow.json",
 };
 const REFRESH_MS = 15 * 60 * 1000;
 
@@ -414,9 +446,9 @@ function h(tag, cls, content) {
 }
 
 // ── Bar cell ─────────────────────────────────────────────────
-function barCell(prob, lo) {
+function barCell(prob, lo, mini = false) {
   const td = document.createElement("td");
-  td.className = "bar-cell";
+  if (mini) td.style.minWidth = "70px"; else td.className = "bar-cell";
   const color = bucketColor(lo);
   const pct = prob == null ? 0 : Math.round(prob * 100);
   td.innerHTML = `
@@ -611,46 +643,26 @@ function renderIntradayCompare(data, bodyEl, metaEl) {
 }
 
 // ── Render: value model ───────────────────────────────────────
-function renderValue(data, bodyEl, metaEl) {
+function renderValue(data, statsEl, metaEl) {
   metaEl.textContent = fmtDate(data.generated_at);
-  if (!data.horizons || data.horizons.length === 0) {
-    bodyEl.innerHTML = '<div class="loading">No data available.</div>';
-    return;
-  }
+  if (!data.horizons || data.horizons.length === 0) return;
 
-  const frag = document.createDocumentFragment();
-  data.horizons.forEach(h => {
+  statsEl.innerHTML = "";
+  data.horizons.forEach((h, i) => {
     const diff = h.delta_vs_weighted;
-    const diffClass = diff == null ? "" : diff > 0.2 ? "value-up" : diff < -0.2 ? "value-down" : "";
-    const div = document.createElement("div");
-    div.className = "value-display";
-    div.innerHTML = `
-      <div class="value-stat">
-        <span class="v-label">Weighted avg</span>
-        <span class="v-num">${h.weighted_avg != null ? h.weighted_avg.toFixed(1) + "°F" : "—"}</span>
-      </div>
-      <div class="value-stat">
-        <span class="v-label">80% CI</span>
-        <span class="v-num" style="font-size:20px">
-          ${h.ci_lo != null && h.ci_hi != null ? `${h.ci_lo}–${h.ci_hi}°F` : "—"}
-        </span>
-        <span class="v-sub">${h.ci_spread != null ? "±" + h.ci_spread.toFixed(1) + "°F spread" : ""}</span>
-      </div>
-      ${h.value_pred != null ? `
-      <div class="value-stat">
-        <span class="v-label">Value model</span>
-        <span class="v-num ${diffClass}">${h.value_pred.toFixed(1)}°F</span>
-        <span class="v-sub">${diff != null ? (diff >= 0 ? "+" : "") + diff.toFixed(1) + "°F vs avg" : ""}</span>
-      </div>` : ""}
-    `;
-    const meta = document.createElement("p");
-    meta.style.cssText = "font-size:11px;color:var(--text-muted);margin-top:10px;padding-top:8px;border-top:1px solid var(--border)";
-    meta.textContent = `${h.horizon.toUpperCase()} · target ${h.target_date} · prev obs ${h.obs_date}`;
-    frag.appendChild(div);
-    frag.appendChild(meta);
+    const diffCls = diff == null ? "" : diff > 0.2 ? "value-up" : diff < -0.2 ? "value-down" : "";
+    const group = document.createElement("span");
+    group.style.cssText = `display:inline-flex;gap:10px;align-items:baseline;${i < data.horizons.length - 1 ? "border-right:1px solid var(--border);padding-right:16px;margin-right:0;" : ""}`;
+    group.innerHTML =
+      `<span style="color:var(--text-muted);font-weight:600">${h.horizon.toUpperCase()}</span>` +
+      `<span>Wtd&nbsp;<strong>${h.weighted_avg != null ? h.weighted_avg.toFixed(1) + "°F" : "—"}</strong></span>` +
+      `<span>CI&nbsp;<strong>${h.ci_lo != null ? `${h.ci_lo}–${h.ci_hi}°F` : "—"}</strong></span>` +
+      (h.value_pred != null
+        ? `<span>Val&nbsp;<strong class="${diffCls}" style="font-size:13px">${h.value_pred.toFixed(1)}°F</strong>` +
+          (diff != null ? `&nbsp;<span style="color:var(--text-muted)">(${diff >= 0 ? "+" : ""}${diff.toFixed(1)})</span>` : "") + `</span>`
+        : "");
+    statsEl.appendChild(group);
   });
-  bodyEl.innerHTML = "";
-  bodyEl.appendChild(frag);
 }
 
 // ── Render: daily ensemble ────────────────────────────────────
@@ -680,7 +692,7 @@ function renderEnsemble(data, bodyEl, metaEl) {
     table.className = "prob-table";
     const thead = table.createTHead();
     const hrow = thead.insertRow();
-    const cols = ["Bucket", ...sources.map(s => s.toUpperCase()), "Ens", ""];
+    const cols = ["Bucket", ...sources.map(s => s.toUpperCase()), "Ens"];
     cols.forEach((c, i) => {
       const th = document.createElement("th");
       th.textContent = c;
@@ -699,17 +711,11 @@ function renderEnsemble(data, bodyEl, metaEl) {
       tdLabel.style.fontWeight = "600";
 
       sources.forEach(s => {
-        const td = tr.insertCell();
-        const v = b.source_scores?.[s];
-        td.textContent = v != null ? fmtPct(v) : "—";
-        td.style.cssText = "text-align:right;color:var(--text-muted);font-size:11px";
+        const v = b.source_scores?.[s] ?? null;
+        tr.appendChild(barCell(v, b.lo, true));
       });
 
-      const tdEns = tr.insertCell();
-      tdEns.textContent = fmtPct(b.prob);
-      tdEns.style.cssText = "text-align:right;font-weight:600";
       totalEns += b.prob || 0;
-
       tr.appendChild(barCell(b.prob, b.lo));
     });
 
@@ -720,7 +726,6 @@ function renderEnsemble(data, bodyEl, metaEl) {
     const totalCell = trow.insertCell();
     totalCell.textContent = fmtPct(totalEns);
     totalCell.style.cssText = "text-align:right;font-weight:600";
-    trow.insertCell();
 
     if (hz.expected_temp != null) {
       const erow = tbody.insertRow();
@@ -729,7 +734,6 @@ function renderEnsemble(data, bodyEl, metaEl) {
       const ec = erow.insertCell();
       ec.textContent = hz.expected_temp.toFixed(1) + "°F";
       ec.style.cssText = "text-align:right;font-weight:700;font-size:13px;color:var(--text)";
-      erow.insertCell();
     }
 
     frag.appendChild(table);
@@ -745,6 +749,107 @@ function hexToRgb(hex) {
   const g = parseInt(hex.slice(3,5),16);
   const b = parseInt(hex.slice(5,7),16);
   return `${r},${g},${b}`;
+}
+
+// ── Charts ───────────────────────────────────────────────────
+const SRC_COLORS = {
+  gfs: '#5bba6f', ecmwf: '#f5a623', hrrr: '#d0021b',
+  nbm: '#9b59b6', weather_com: '#1abc9c',
+};
+let _chartToday = null, _chartTom = null;
+
+function renderCharts(intradayData, valueTomData, chartTomData) {
+  // ── Today line chart ─────────────────────────────────────────
+  const snaps = intradayData?.snapshots || [];
+  const todayFcsts = intradayData?.d1_forecasts || {};
+  if (_chartToday) { _chartToday.destroy(); _chartToday = null; }
+
+  if (snaps.length === 0) {
+    el("meta-chart-today").textContent = "No obs yet — check back after 7 am ET";
+  } else {
+    const labels = snaps.map(s => s.time_label);
+    const datasets = [
+      {
+        label: "Current Temp",
+        data: snaps.map(s => s.current_temp),
+        borderColor: "#4a90e2", backgroundColor: "rgba(74,144,226,0.08)",
+        fill: true, tension: 0.3, pointRadius: 4, borderWidth: 2, order: 1,
+      },
+      {
+        label: "Running Max",
+        data: snaps.map(s => s.running_max),
+        borderColor: "#e8622a", tension: 0.3, pointRadius: 4, borderWidth: 2, order: 2,
+      },
+      ...Object.entries(todayFcsts).map(([src, val]) => ({
+        label: src.toUpperCase(),
+        data: labels.map(() => val),
+        borderColor: SRC_COLORS[src] || "#888",
+        borderDash: [5, 5], borderWidth: 1.5, pointRadius: 0, tension: 0, order: 3,
+      })),
+    ];
+    _chartToday = new Chart(el("chart-today"), {
+      type: "line",
+      data: { labels, datasets },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: "top", labels: { font: { size: 11 }, boxWidth: 18, padding: 10 } },
+        },
+        scales: {
+          x: { ticks: { font: { size: 11 } } },
+          y: { ticks: { font: { size: 11 }, callback: v => v + "°F" } },
+        },
+        interaction: { mode: "index", intersect: false },
+      },
+    });
+    el("meta-chart-today").textContent = fmtDate(intradayData.generated_at);
+  }
+
+  // ── Tomorrow bar chart ───────────────────────────────────────
+  if (_chartTom) { _chartTom.destroy(); _chartTom = null; }
+
+  const tomFcsts = chartTomData?.forecasts || {};
+  const h0 = valueTomData?.horizons?.[0];
+  const entries = [
+    ...Object.entries(tomFcsts).map(([src, val]) => ({ label: src.toUpperCase(), val, model: false })),
+    ...(h0?.weighted_avg != null ? [{ label: "Ens Wtd", val: h0.weighted_avg, model: true }] : []),
+    ...(h0?.value_pred   != null ? [{ label: "Val Model", val: h0.value_pred,  model: true }] : []),
+  ];
+
+  if (entries.length > 0) {
+    const vals = entries.map(e => e.val);
+    const spread = Math.max(...vals) - Math.min(...vals);
+    const pad = Math.max(1, spread * 0.6);
+    _chartTom = new Chart(el("chart-tomorrow"), {
+      type: "bar",
+      data: {
+        labels: entries.map(e => e.label),
+        datasets: [{
+          label: "Predicted TMAX",
+          data: vals,
+          backgroundColor: entries.map(e => e.model ? "rgba(203,36,49,0.75)" : "rgba(74,144,226,0.7)"),
+          borderColor:      entries.map(e => e.model ? "#cb2431"               : "#4a90e2"),
+          borderWidth: 1, borderRadius: 3,
+        }],
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => ctx.parsed.y.toFixed(1) + "°F" } },
+        },
+        scales: {
+          x: { ticks: { font: { size: 11 } } },
+          y: {
+            min: Math.floor(Math.min(...vals) - pad),
+            max: Math.ceil(Math.max(...vals) + pad),
+            ticks: { font: { size: 11 }, callback: v => v + "°F" },
+          },
+        },
+      },
+    });
+    el("meta-chart-tomorrow").textContent = fmtDate(chartTomData?.generated_at || valueTomData?.generated_at);
+  }
 }
 
 // ── Main load ─────────────────────────────────────────────────
@@ -780,11 +885,13 @@ async function loadAll() {
   if (data.intradayOddCompare)
     renderIntradayCompare(data.intradayOddCompare,  el("body-odd-compare"),  el("meta-odd-compare"));
   if (data.valueTomorrow)
-    renderValue(data.valueTomorrow,    el("body-value-tomorrow"), el("meta-value-tomorrow"));
+    renderValue(data.valueTomorrow,    el("value-header-stats-tomorrow"), el("meta-value-tomorrow"));
   if (data.ensembleEven)
     renderEnsemble(data.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
   if (data.ensembleOdd)
     renderEnsemble(data.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
+
+  renderCharts(data.intradayEvenHours, data.valueTomorrow, data.chartTomorrow);
 
   // Show errors for anything that failed to load
   results.forEach(r => {
