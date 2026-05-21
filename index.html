@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atlanta TMAX Predictions</title>
+  <style>
+    :root {
+      --bg:         #f0f2f5;
+      --surface:    #ffffff;
+      --border:     #e1e4e8;
+      --text:       #24292e;
+      --text-muted: #6a737d;
+      --accent:     #0366d6;
+      --up:         #22863a;
+      --down:       #cb2431;
+      --radius:     8px;
+      --shadow:     0 1px 4px rgba(0,0,0,.08);
+
+      /* Temperature bucket gradient (cool → hot) */
+      --t-1: #4a90e2;
+      --t-2: #5bba6f;
+      --t-3: #f5a623;
+      --t-4: #e8622a;
+      --t-5: #d0021b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ── Header ─────────────────────────────────────────────── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -.3px;
+    }
+    #status-bar {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+    #status-bar span { font-weight: 500; color: var(--text); }
+
+    /* ── Layout ─────────────────────────────────────────────── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    section > h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .card-header h3 {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .card-header .meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .card-body { padding: 12px 16px; }
+
+    /* ── State row (running max / current / velocity) ──────── */
+    .state-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 8px 0 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .state-row .stat { display: flex; flex-direction: column; }
+    .state-row .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted); }
+    .state-row .stat-value { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; }
+    .state-row .stat-value.up   { color: var(--down); }  /* heating up = red */
+    .state-row .stat-value.down { color: var(--accent); }
+
+    /* ── D1 forecast chips ──────────────────────────────────── */
+    .fcst-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .fcst-chip {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 12px;
+      background: #f1f3f5;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    /* ── Probability tables ─────────────────────────────────── */
+    .prob-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .prob-table th {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 4px 8px 4px 0;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .prob-table th:first-child { text-align: left; }
+    .prob-table td {
+      padding: 3px 8px 3px 0;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .prob-table td:first-child { text-align: left; font-weight: 500; }
+    .prob-table tr.total-row td {
+      border-top: 1px solid var(--border);
+      font-weight: 600;
+      padding-top: 6px;
+    }
+    .prob-table tr:hover td { background: #f8f9fa; }
+
+    /* Probability bar */
+    .bar-cell { min-width: 120px; }
+    .bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .bar-bg {
+      flex: 1;
+      height: 8px;
+      background: #f1f3f5;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width .3s ease;
+    }
+    .bar-pct { font-size: 11px; font-variant-numeric: tabular-nums; min-width: 38px; text-align: right; }
+
+    /* Delta coloring */
+    .pos { color: var(--up); font-weight: 600; }
+    .neg { color: var(--down); font-weight: 600; }
+    .neu { color: var(--text-muted); }
+
+    /* ── Multi-hour table ───────────────────────────────────── */
+    .scroll-x { overflow-x: auto; }
+    .multi-table { border-collapse: collapse; font-size: 12px; min-width: 500px; }
+    .multi-table th {
+      font-size: 10px; text-transform: uppercase; letter-spacing: .4px;
+      color: var(--text-muted); font-weight: 600;
+      padding: 4px 12px 4px 0; text-align: right; white-space: nowrap;
+    }
+    .multi-table th:first-child { text-align: left; min-width: 80px; }
+    .multi-table td {
+      padding: 3px 12px 3px 0; text-align: right;
+      font-variant-numeric: tabular-nums; white-space: nowrap;
+    }
+    .multi-table td:first-child { text-align: left; font-weight: 500; }
+    .multi-table tr.sep td { border-top: 1px solid var(--border); }
+    .multi-table tr.state-r td { color: var(--text-muted); font-size: 11px; }
+    .multi-table tr:hover td { background: #f8f9fa; }
+    .cell-heat {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+    }
+
+    /* ── Value prediction card ──────────────────────────────── */
+    .value-display {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 8px 0;
+    }
+    .value-stat { display: flex; flex-direction: column; }
+    .value-stat .v-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
+    .value-stat .v-num { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
+    .value-stat .v-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .value-stat .v-num.value-up { color: var(--down); }
+    .value-stat .v-num.value-down { color: var(--accent); }
+
+    /* ── Source scores legend ───────────────────────────────── */
+    .source-legend {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;
+    }
+    .src-chip {
+      font-size: 10px; padding: 2px 7px; border-radius: 10px;
+      border: 1px solid var(--border); background: #f1f3f5;
+      font-weight: 500; color: var(--text-muted);
+    }
+
+    /* ── Loading / error states ─────────────────────────────── */
+    .loading { padding: 24px; text-align: center; color: var(--text-muted); font-size: 12px; }
+    .error-note {
+      padding: 10px 12px;
+      background: #fff5f5;
+      border: 1px solid #fecdca;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #b91c1c;
+      margin: 8px 0;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .cards { grid-template-columns: 1fr; }
+      .value-display { gap: 16px; }
+      .value-stat .v-num { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Atlanta TMAX Predictions</h1>
+  <div id="status-bar">Last updated: <span id="last-updated">—</span> &nbsp;|&nbsp; Next refresh in <span id="countdown">15:00</span></div>
+</header>
+
+<main>
+  <!-- TODAY ─────────────────────────────────────────────────── -->
+  <section id="section-today">
+    <h2>Today — <span id="today-label"></span></h2>
+    <div class="cards">
+      <div class="card" id="card-intraday-even-hours">
+        <div class="card-header">
+          <h3>Intraday · Even Buckets · Hourly Snapshots</h3>
+          <span class="meta" id="meta-even-hours"></span>
+        </div>
+        <div class="card-body" id="body-even-hours"><div class="loading">Loading…</div></div>
+      </div>
+
+      <div class="card" id="card-intraday-even-compare">
+        <div class="card-header">
+          <h3>Intraday · Even Buckets · Live vs D1</h3>
+          <span class="meta" id="meta-even-compare"></span>
+        </div>
+        <div class="card-body" id="body-even-compare"><div class="loading">Loading…</div></div>
+      </div>
+
+      <div class="card" id="card-intraday-odd-compare">
+        <div class="card-header">
+          <h3>Intraday · Odd Buckets · Live vs D1</h3>
+          <span class="meta" id="meta-odd-compare"></span>
+        </div>
+        <div class="card-body" id="body-odd-compare"><div class="loading">Loading…</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOMORROW ──────────────────────────────────────────────── -->
+  <section id="section-tomorrow">
+    <h2>Tomorrow — <span id="tomorrow-label"></span></h2>
+    <div class="cards">
+      <div class="card" id="card-value-tomorrow">
+        <div class="card-header">
+          <h3>Value Model Prediction</h3>
+          <span class="meta" id="meta-value-tomorrow"></span>
+        </div>
+        <div class="card-body" id="body-value-tomorrow"><div class="loading">Loading…</div></div>
+      </div>
+
+      <div class="card" id="card-ensemble-even">
+        <div class="card-header">
+          <h3>Daily Ensemble · Even Buckets</h3>
+          <span class="meta" id="meta-ensemble-even"></span>
+        </div>
+        <div class="card-body" id="body-ensemble-even"><div class="loading">Loading…</div></div>
+      </div>
+
+      <div class="card" id="card-ensemble-odd">
+        <div class="card-header">
+          <h3>Daily Ensemble · Odd Buckets</h3>
+          <span class="meta" id="meta-ensemble-odd"></span>
+        </div>
+        <div class="card-body" id="body-ensemble-odd"><div class="loading">Loading…</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// ── Config ───────────────────────────────────────────────────
+const DATA_FILES = {
+  intradayEvenHours:   "data/intraday_even_hours_today.json",
+  intradayEvenCompare: "data/intraday_even_compare_today.json",
+  intradayOddCompare:  "data/intraday_odd_compare_today.json",
+  valueTomorrow:       "data/value_tomorrow.json",
+  ensembleEven:        "data/ensemble_even_tomorrow.json",
+  ensembleOdd:         "data/ensemble_odd_tomorrow.json",
+};
+const REFRESH_MS = 15 * 60 * 1000;
+
+// ── Utilities ────────────────────────────────────────────────
+function fmtPct(p)  { return p == null ? "—" : (p * 100).toFixed(1) + "%"; }
+function fmtTemp(t) { return t == null ? "—" : t.toFixed(1) + "°F"; }
+function fmtDate(iso) {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  return d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true });
+}
+function labelDate(str) {
+  if (!str) return "";
+  const [y, m, d] = str.split("-").map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+}
+
+// Temperature bucket → color (for Atlanta summer range roughly 78–100°F)
+function bucketColor(lo) {
+  if (lo == null || lo < 80)  return "#4a90e2";
+  if (lo < 84)                return "#5bba6f";
+  if (lo < 88)                return "#f5a623";
+  if (lo < 92)                return "#e8622a";
+  return "#d0021b";
+}
+
+function deltaClass(d) {
+  if (d == null) return "neu";
+  return d > 0.005 ? "pos" : d < -0.005 ? "neg" : "neu";
+}
+function fmtDelta(d) {
+  if (d == null) return "—";
+  return (d >= 0 ? "+" : "") + (d * 100).toFixed(1) + "%";
+}
+
+function el(id) { return document.getElementById(id); }
+function h(tag, cls, content) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (content != null) e.innerHTML = content;
+  return e;
+}
+
+// ── Bar cell ─────────────────────────────────────────────────
+function barCell(prob, lo) {
+  const td = document.createElement("td");
+  td.className = "bar-cell";
+  const color = bucketColor(lo);
+  const pct = prob == null ? 0 : Math.round(prob * 100);
+  td.innerHTML = `
+    <div class="bar-wrap">
+      <div class="bar-bg"><div class="bar-fill" style="width:${Math.min(pct,100)}%;background:${color}"></div></div>
+      <span class="bar-pct">${fmtPct(prob)}</span>
+    </div>`;
+  return td;
+}
+
+// ── Fetch with cache-bust ─────────────────────────────────────
+async function fetchJSON(url) {
+  const res = await fetch(url + "?t=" + Date.now());
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+// ── Render: multi-hour intraday ───────────────────────────────
+function renderIntradayHours(data, bodyEl, metaEl) {
+  metaEl.textContent = fmtDate(data.generated_at);
+  if (!data.snapshots || data.snapshots.length === 0) {
+    bodyEl.innerHTML = '<div class="loading">No snapshot data yet — check back after 7am ET.</div>';
+    return;
+  }
+
+  const snaps = data.snapshots;
+  const buckets = snaps[0].buckets;
+
+  // D1 forecast chips
+  let chipsHtml = "";
+  if (data.d1_forecasts && Object.keys(data.d1_forecasts).length) {
+    const chips = Object.entries(data.d1_forecasts)
+      .map(([src, v]) => `<span class="fcst-chip">${src.toUpperCase()} ${v?.toFixed(1)}°F</span>`)
+      .join("");
+    chipsHtml = `<div class="fcst-chips">${chips}</div>`;
+  }
+
+  const table = document.createElement("table");
+  table.className = "multi-table";
+
+  // Header row
+  const thead = table.createTHead();
+  const hrow = thead.insertRow();
+  const thLabel = document.createElement("th"); thLabel.textContent = ""; hrow.appendChild(thLabel);
+  snaps.forEach(s => {
+    const th = document.createElement("th"); th.textContent = s.time_label; hrow.appendChild(th);
+  });
+
+  const tbody = table.createTBody();
+
+  // State rows
+  const stateRows = [
+    { label: "Run Max",  fn: s => fmtTemp(s.running_max) },
+    { label: "Current",  fn: s => fmtTemp(s.current_temp) },
+    { label: "Velocity", fn: s => (s.velocity >= 0 ? "+" : "") + s.velocity.toFixed(1) + "°F/h" },
+  ];
+  stateRows.forEach((sr, idx) => {
+    const tr = tbody.insertRow();
+    tr.className = "state-r" + (idx === stateRows.length - 1 ? " sep" : "");
+    const tdLabel = tr.insertCell(); tdLabel.textContent = sr.label;
+    snaps.forEach(s => {
+      const td = tr.insertCell();
+      td.textContent = sr.fn(s);
+      if (sr.label === "Velocity") td.className = s.velocity > 0.5 ? "pos" : s.velocity < -0.5 ? "neg" : "neu";
+    });
+  });
+
+  // Bucket rows
+  buckets.forEach((bkt, bi) => {
+    const tr = tbody.insertRow();
+    tr.className = bi === 0 ? "sep" : "";
+    const tdLabel = tr.insertCell();
+    tdLabel.textContent = bkt.label;
+    tdLabel.style.color = bucketColor(bkt.lo);
+    tdLabel.style.fontWeight = "600";
+    snaps.forEach(s => {
+      const p = s.buckets[bi]?.prob;
+      const td = tr.insertCell();
+      const pct = p == null ? 0 : Math.round(p * 100);
+      const alpha = 0.15 + pct * 0.007;
+      td.style.background = `rgba(${hexToRgb(bucketColor(bkt.lo))},${alpha.toFixed(2)})`;
+      td.innerHTML = `<span class="cell-heat">${fmtPct(p)}</span>`;
+    });
+  });
+
+  bodyEl.innerHTML = chipsHtml;
+  bodyEl.appendChild(document.createElement("div")).className = "scroll-x";
+  bodyEl.querySelector(".scroll-x").appendChild(table);
+}
+
+// ── Render: compare D1 ───────────────────────────────────────
+function renderIntradayCompare(data, bodyEl, metaEl) {
+  metaEl.textContent = fmtDate(data.generated_at);
+
+  if (data.error) {
+    bodyEl.innerHTML = `<div class="error-note">${data.error}</div>`;
+    return;
+  }
+
+  // State row
+  const stateHtml = `
+    <div class="state-row">
+      <div class="stat">
+        <span class="stat-label">As of</span>
+        <span class="stat-value">${data.time_label || "—"} ET</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Run Max</span>
+        <span class="stat-value up">${fmtTemp(data.running_max)}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Current</span>
+        <span class="stat-value">${fmtTemp(data.current_temp)}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Velocity</span>
+        <span class="stat-value ${data.velocity > 0.5 ? 'up' : data.velocity < -0.5 ? 'down' : ''}">
+          ${data.velocity >= 0 ? "+" : ""}${data.velocity?.toFixed(1)}°F/h
+        </span>
+      </div>
+      ${data.dewpoint != null ? `<div class="stat">
+        <span class="stat-label">Dewpoint</span>
+        <span class="stat-value">${fmtTemp(data.dewpoint)}</span>
+      </div>` : ""}
+    </div>`;
+
+  // D1 forecast chips
+  let chipsHtml = "";
+  if (data.d1_forecasts && Object.keys(data.d1_forecasts).length) {
+    const chips = Object.entries(data.d1_forecasts)
+      .map(([src, v]) => `<span class="fcst-chip">${src.toUpperCase()} ${v?.toFixed(1)}°F</span>`)
+      .join("");
+    chipsHtml = `<div class="fcst-chips">${chips}</div>`;
+  }
+
+  const hasD1 = data.has_d1_comparison && data.buckets?.some(b => b.d1_prior != null);
+  const hasNow = data.buckets?.some(b => b.d1_now != null);
+
+  const table = document.createElement("table");
+  table.className = "prob-table";
+  const thead = table.createTHead();
+  const hrow = thead.insertRow();
+  [
+    ["Bucket", "left"],
+    ["Intraday", "right"],
+    ...(hasD1  ? [["D1 Prior", "right"]] : []),
+    ...(hasNow ? [["D1 Now", "right"]] : []),
+    ...(hasD1  ? [["Δ Prior", "right"]] : []),
+    ...(hasNow ? [["Δ Now", "right"]] : []),
+    ["", "left"],
+  ].forEach(([text, align]) => {
+    const th = document.createElement("th");
+    th.textContent = text;
+    th.style.textAlign = align;
+    hrow.appendChild(th);
+  });
+
+  const tbody = table.createTBody();
+  let totalIntraday = 0, totalD1Prior = 0, totalD1Now = 0;
+  (data.buckets || []).forEach(b => {
+    const tr = tbody.insertRow();
+    const deltaPrior = (b.intraday != null && b.d1_prior != null) ? b.intraday - b.d1_prior : null;
+    const deltaNow   = (b.intraday != null && b.d1_now   != null) ? b.intraday - b.d1_now   : null;
+    totalIntraday += b.intraday || 0;
+    totalD1Prior  += b.d1_prior || 0;
+    totalD1Now    += b.d1_now   || 0;
+
+    const tdLabel = tr.insertCell(); tdLabel.textContent = b.label;
+    tdLabel.style.color = bucketColor(b.lo); tdLabel.style.fontWeight = "600";
+
+    const tdID = tr.insertCell(); tdID.textContent = fmtPct(b.intraday); tdID.style.textAlign = "right";
+    if (hasD1)  { const td = tr.insertCell(); td.textContent = fmtPct(b.d1_prior); td.style.textAlign = "right"; }
+    if (hasNow) { const td = tr.insertCell(); td.textContent = fmtPct(b.d1_now);   td.style.textAlign = "right"; }
+    if (hasD1)  { const td = tr.insertCell(); td.className = deltaClass(deltaPrior); td.textContent = fmtDelta(deltaPrior); td.style.textAlign = "right"; }
+    if (hasNow) { const td = tr.insertCell(); td.className = deltaClass(deltaNow);   td.textContent = fmtDelta(deltaNow);   td.style.textAlign = "right"; }
+
+    tr.appendChild(barCell(b.intraday, b.lo));
+  });
+
+  // Total row
+  const trow = tbody.insertRow(); trow.className = "total-row";
+  const ttd = trow.insertCell(); ttd.textContent = "TOTAL";
+  const tiCell = trow.insertCell(); tiCell.textContent = fmtPct(totalIntraday); tiCell.style.textAlign = "right";
+  if (hasD1)  { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Prior); td.style.textAlign = "right"; }
+  if (hasNow) { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Now);   td.style.textAlign = "right"; }
+  if (hasD1)  trow.insertCell();
+  if (hasNow) trow.insertCell();
+  trow.insertCell();
+
+  bodyEl.innerHTML = stateHtml + chipsHtml;
+  bodyEl.appendChild(table);
+}
+
+// ── Render: value model ───────────────────────────────────────
+function renderValue(data, bodyEl, metaEl) {
+  metaEl.textContent = fmtDate(data.generated_at);
+  if (!data.horizons || data.horizons.length === 0) {
+    bodyEl.innerHTML = '<div class="loading">No data available.</div>';
+    return;
+  }
+
+  const frag = document.createDocumentFragment();
+  data.horizons.forEach(h => {
+    const diff = h.delta_vs_weighted;
+    const diffClass = diff == null ? "" : diff > 0.2 ? "value-up" : diff < -0.2 ? "value-down" : "";
+    const div = document.createElement("div");
+    div.className = "value-display";
+    div.innerHTML = `
+      <div class="value-stat">
+        <span class="v-label">Weighted avg</span>
+        <span class="v-num">${h.weighted_avg != null ? h.weighted_avg.toFixed(1) + "°F" : "—"}</span>
+      </div>
+      <div class="value-stat">
+        <span class="v-label">80% CI</span>
+        <span class="v-num" style="font-size:20px">
+          ${h.ci_lo != null && h.ci_hi != null ? `${h.ci_lo}–${h.ci_hi}°F` : "—"}
+        </span>
+        <span class="v-sub">${h.ci_spread != null ? "±" + h.ci_spread.toFixed(1) + "°F spread" : ""}</span>
+      </div>
+      ${h.value_pred != null ? `
+      <div class="value-stat">
+        <span class="v-label">Value model</span>
+        <span class="v-num ${diffClass}">${h.value_pred.toFixed(1)}°F</span>
+        <span class="v-sub">${diff != null ? (diff >= 0 ? "+" : "") + diff.toFixed(1) + "°F vs avg" : ""}</span>
+      </div>` : ""}
+    `;
+    const meta = document.createElement("p");
+    meta.style.cssText = "font-size:11px;color:var(--text-muted);margin-top:10px;padding-top:8px;border-top:1px solid var(--border)";
+    meta.textContent = `${h.horizon.toUpperCase()} · target ${h.target_date} · prev obs ${h.obs_date}`;
+    frag.appendChild(div);
+    frag.appendChild(meta);
+  });
+  bodyEl.innerHTML = "";
+  bodyEl.appendChild(frag);
+}
+
+// ── Render: daily ensemble ────────────────────────────────────
+function renderEnsemble(data, bodyEl, metaEl) {
+  metaEl.textContent = fmtDate(data.generated_at);
+  if (!data.horizons || data.horizons.length === 0) {
+    bodyEl.innerHTML = '<div class="loading">No data available.</div>';
+    return;
+  }
+
+  const frag = document.createDocumentFragment();
+  data.horizons.forEach(hz => {
+    // Source legend
+    const sources = hz.buckets?.[0]?.source_scores ? Object.keys(hz.buckets[0].source_scores) : [];
+    const srcLegend = sources.length
+      ? `<div class="source-legend">${sources.map(s => `<span class="src-chip">${s.toUpperCase()}</span>`).join("")}<span class="src-chip">ENS</span></div>`
+      : "";
+
+    const metaLine = document.createElement("p");
+    metaLine.style.cssText = "font-size:11px;color:var(--text-muted);margin-bottom:8px";
+    metaLine.textContent = `${hz.horizon.toUpperCase()} · target ${hz.target_date} · prev obs ${hz.obs_date}` +
+      (hz.tmax_obs != null ? `  ·  obs TMAX ${hz.tmax_obs}°F / TMIN ${hz.tmin_obs}°F` : "");
+    frag.appendChild(metaLine);
+    if (srcLegend) frag.appendChild(Object.assign(document.createElement("div"), { innerHTML: srcLegend }));
+
+    const table = document.createElement("table");
+    table.className = "prob-table";
+    const thead = table.createTHead();
+    const hrow = thead.insertRow();
+    const cols = ["Bucket", ...sources.map(s => s.toUpperCase()), "Ens", ""];
+    cols.forEach((c, i) => {
+      const th = document.createElement("th");
+      th.textContent = c;
+      if (i === 0) th.style.textAlign = "left";
+      hrow.appendChild(th);
+    });
+
+    const tbody = table.createTBody();
+    let totalEns = 0;
+
+    (hz.buckets || []).forEach(b => {
+      const tr = tbody.insertRow();
+      const tdLabel = tr.insertCell();
+      tdLabel.textContent = b.label;
+      tdLabel.style.color = bucketColor(b.lo);
+      tdLabel.style.fontWeight = "600";
+
+      sources.forEach(s => {
+        const td = tr.insertCell();
+        const v = b.source_scores?.[s];
+        td.textContent = v != null ? fmtPct(v) : "—";
+        td.style.cssText = "text-align:right;color:var(--text-muted);font-size:11px";
+      });
+
+      const tdEns = tr.insertCell();
+      tdEns.textContent = fmtPct(b.prob);
+      tdEns.style.cssText = "text-align:right;font-weight:600";
+      totalEns += b.prob || 0;
+
+      tr.appendChild(barCell(b.prob, b.lo));
+    });
+
+    // Total + expected temp
+    const trow = tbody.insertRow(); trow.className = "total-row";
+    trow.insertCell().textContent = "TOTAL";
+    sources.forEach(() => trow.insertCell());
+    const totalCell = trow.insertCell();
+    totalCell.textContent = fmtPct(totalEns);
+    totalCell.style.cssText = "text-align:right;font-weight:600";
+    trow.insertCell();
+
+    if (hz.expected_temp != null) {
+      const erow = tbody.insertRow();
+      erow.insertCell().textContent = "Exp temp";
+      sources.forEach(() => erow.insertCell());
+      const ec = erow.insertCell();
+      ec.textContent = hz.expected_temp.toFixed(1) + "°F";
+      ec.style.cssText = "text-align:right;font-weight:700;font-size:13px;color:var(--text)";
+      erow.insertCell();
+    }
+
+    frag.appendChild(table);
+  });
+
+  bodyEl.innerHTML = "";
+  bodyEl.appendChild(frag);
+}
+
+// ── Helper: hex → rgb ─────────────────────────────────────────
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
+}
+
+// ── Main load ─────────────────────────────────────────────────
+async function loadAll() {
+  const today = new Date();
+  const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+  const fmt = d => d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  el("today-label").textContent    = fmt(today);
+  el("tomorrow-label").textContent = fmt(tomorrow);
+
+  const results = await Promise.allSettled(
+    Object.entries(DATA_FILES).map(async ([key, url]) => {
+      const data = await fetchJSON(url);
+      return [key, data];
+    })
+  );
+
+  const data = {};
+  results.forEach(r => {
+    if (r.status === "fulfilled") data[r.value[0]] = r.value[1];
+  });
+
+  // Find most recent generated_at across all loaded files
+  const times = Object.values(data).map(d => d.generated_at).filter(Boolean).sort();
+  if (times.length) el("last-updated").textContent = fmtDate(times[times.length - 1]);
+
+  if (data.intradayEvenHours)
+    renderIntradayHours(data.intradayEvenHours,   el("body-even-hours"),    el("meta-even-hours"));
+  if (data.intradayEvenCompare)
+    renderIntradayCompare(data.intradayEvenCompare, el("body-even-compare"), el("meta-even-compare"));
+  if (data.intradayOddCompare)
+    renderIntradayCompare(data.intradayOddCompare,  el("body-odd-compare"),  el("meta-odd-compare"));
+  if (data.valueTomorrow)
+    renderValue(data.valueTomorrow,    el("body-value-tomorrow"), el("meta-value-tomorrow"));
+  if (data.ensembleEven)
+    renderEnsemble(data.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
+  if (data.ensembleOdd)
+    renderEnsemble(data.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
+
+  // Show errors for anything that failed to load
+  results.forEach(r => {
+    if (r.status === "rejected") console.warn("Failed to load:", r.reason);
+  });
+}
+
+// ── Countdown + auto-refresh ──────────────────────────────────
+let remaining = REFRESH_MS;
+function tick() {
+  remaining -= 1000;
+  if (remaining <= 0) {
+    remaining = REFRESH_MS;
+    loadAll();
+  }
+  const m = String(Math.floor(remaining / 60000)).padStart(2, "0");
+  const s = String(Math.floor((remaining % 60000) / 1000)).padStart(2, "0");
+  el("countdown").textContent = `${m}:${s}`;
+}
+setInterval(tick, 1000);
+
+// Initial load
+loadAll();
+</script>
+</body>
+</html>
