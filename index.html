@@ -401,6 +401,27 @@
     </div>
   </section>
 
+  <!-- 2-DAY HISTORY ──────────────────────────────────────────── -->
+  <section id="section-timeseries">
+    <h2>2-Day Temperature History</h2>
+    <div class="cards">
+      <div class="card card-full">
+        <div class="card-header">
+          <h3>Hourly Observations</h3>
+          <span class="meta" id="meta-obs-timeseries"></span>
+        </div>
+        <div class="card-body" id="body-obs-timeseries"><div class="loading">Loading…</div></div>
+      </div>
+      <div class="card card-full">
+        <div class="card-header">
+          <h3>Model Forecasts · Hourly</h3>
+          <span class="meta" id="meta-fcst-timeseries"></span>
+        </div>
+        <div class="card-body" id="body-fcst-timeseries"><div class="loading">Loading…</div></div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <script>
@@ -414,6 +435,8 @@ const DATA_FILES = {
   valueTomorrow:       "data/value_tomorrow.json",
   ensembleEven:        "data/ensemble_even_tomorrow.json",
   ensembleOdd:         "data/ensemble_odd_tomorrow.json",
+  obsTimeseries:       "data/obs_timeseries.json",
+  fcstTimeseries:      "data/forecast_timeseries.json",
 };
 const REFRESH_MS = 15 * 60 * 1000;
 
@@ -777,6 +800,84 @@ function hexToRgb(hex) {
   return `${r},${g},${b}`;
 }
 
+// ── Timeseries helpers ────────────────────────────────────────
+function tempCell(t) {
+  const td = document.createElement("td");
+  if (t == null) { td.textContent = "—"; return td; }
+  const color = bucketColor(Math.round(t));
+  const alpha = 0.12 + Math.max(0, Math.min(1, (t - 60) / 40)) * 0.35;
+  td.style.background = `rgba(${hexToRgb(color)},${alpha.toFixed(2)})`;
+  td.innerHTML = `<span class="cell-heat">${t.toFixed(1)}°</span>`;
+  return td;
+}
+
+function tsColLabel(timeStr) {
+  const d = new Date(timeStr);
+  return d.toLocaleString("en-US", { month: "numeric", day: "numeric", hour: "numeric", hour12: true });
+}
+
+function renderObsTimeseries(data, bodyEl, metaEl) {
+  metaEl.textContent = fmtDate(data.generated_at);
+  const obs = data.observations || [];
+  if (!obs.length) {
+    bodyEl.innerHTML = '<div class="loading">No observation data available.</div>';
+    return;
+  }
+  const step = Math.max(1, Math.floor(obs.length / 24));
+  const sampled = obs.filter((_, i) => i % step === 0);
+
+  const table = document.createElement("table");
+  table.className = "multi-table";
+  const hrow = table.createTHead().insertRow();
+  const thL = document.createElement("th"); thL.textContent = ""; hrow.appendChild(thL);
+  sampled.forEach(o => {
+    const th = document.createElement("th"); th.textContent = tsColLabel(o.time); hrow.appendChild(th);
+  });
+
+  const tr = table.createTBody().insertRow();
+  const tdL = tr.insertCell(); tdL.textContent = "Temp (°F)";
+  sampled.forEach(o => tr.appendChild(tempCell(o.temp)));
+
+  bodyEl.innerHTML = "";
+  const wrap = document.createElement("div"); wrap.className = "scroll-x";
+  wrap.appendChild(table);
+  bodyEl.appendChild(wrap);
+}
+
+function renderFcstTimeseries(data, bodyEl, metaEl) {
+  metaEl.textContent = fmtDate(data.generated_at);
+  const fcsts = data.forecasts || [];
+  const models = data.models || [];
+  if (!fcsts.length || !models.length) {
+    bodyEl.innerHTML = '<div class="loading">No forecast data available.</div>';
+    return;
+  }
+  const step = Math.max(1, Math.floor(fcsts.length / 24));
+  const sampled = fcsts.filter((_, i) => i % step === 0);
+
+  const MODEL_DISPLAY = { gfs: "GFS", ecmwf_hres: "ECMWF", hrrr: "HRRR", nbm: "NBM", weather_com: "WxCom" };
+
+  const table = document.createElement("table");
+  table.className = "multi-table";
+  const hrow = table.createTHead().insertRow();
+  const thL = document.createElement("th"); thL.textContent = "Model"; hrow.appendChild(thL);
+  sampled.forEach(f => {
+    const th = document.createElement("th"); th.textContent = tsColLabel(f.time); hrow.appendChild(th);
+  });
+
+  const tbody = table.createTBody();
+  models.forEach(m => {
+    const tr = tbody.insertRow();
+    const tdL = tr.insertCell(); tdL.textContent = MODEL_DISPLAY[m] || m.toUpperCase();
+    sampled.forEach(f => tr.appendChild(tempCell(f[m])));
+  });
+
+  bodyEl.innerHTML = "";
+  const wrap = document.createElement("div"); wrap.className = "scroll-x";
+  wrap.appendChild(table);
+  bodyEl.appendChild(wrap);
+}
+
 // ── Main load ─────────────────────────────────────────────────
 async function loadAll() {
   const today = new Date();
@@ -805,6 +906,10 @@ async function loadAll() {
     renderValue(loadedData.valueToday,    el("value-section-stats-today"));
   if (loadedData.valueTomorrow)
     renderValue(loadedData.valueTomorrow, el("value-section-stats-tomorrow"));
+  if (loadedData.obsTimeseries)
+    renderObsTimeseries(loadedData.obsTimeseries,  el("body-obs-timeseries"),  el("meta-obs-timeseries"));
+  if (loadedData.fcstTimeseries)
+    renderFcstTimeseries(loadedData.fcstTimeseries, el("body-fcst-timeseries"), el("meta-fcst-timeseries"));
 
   rerender();
 
