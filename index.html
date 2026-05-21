@@ -303,6 +303,14 @@
         <div class="card-body" id="body-even-hours"><div class="loading">Loading…</div></div>
       </div>
 
+      <div class="card" id="card-intraday-odd-hours">
+        <div class="card-header">
+          <h3>Intraday · Odd Buckets · Hourly Snapshots</h3>
+          <span class="meta" id="meta-odd-hours"></span>
+        </div>
+        <div class="card-body" id="body-odd-hours"><div class="loading">Loading…</div></div>
+      </div>
+
       <div class="card" id="card-intraday-even-compare">
         <div class="card-header">
           <h3>Intraday · Even Buckets · Live vs D1</h3>
@@ -356,6 +364,7 @@
 // ── Config ───────────────────────────────────────────────────
 const DATA_FILES = {
   intradayEvenHours:   "data/intraday_even_hours_today.json",
+  intradayOddHours:    "data/intraday_odd_hours_today.json",
   intradayEvenCompare: "data/intraday_even_compare_today.json",
   intradayOddCompare:  "data/intraday_odd_compare_today.json",
   valueTomorrow:       "data/value_tomorrow.json",
@@ -764,6 +773,8 @@ async function loadAll() {
 
   if (data.intradayEvenHours)
     renderIntradayHours(data.intradayEvenHours,   el("body-even-hours"),    el("meta-even-hours"));
+  if (data.intradayOddHours)
+    renderIntradayHours(data.intradayOddHours,    el("body-odd-hours"),     el("meta-odd-hours"));
   if (data.intradayEvenCompare)
     renderIntradayCompare(data.intradayEvenCompare, el("body-even-compare"), el("meta-even-compare"));
   if (data.intradayOddCompare)
