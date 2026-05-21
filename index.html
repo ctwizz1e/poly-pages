@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Atlanta TMAX Predictions</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
   <style>
     :root {
       --bg:         #f0f2f5;
@@ -93,8 +92,17 @@
     section.collapsed > h2::after {
       transform: rotate(-90deg);
     }
-    section.collapsed > .cards {
+    section.collapsed > .cards,
+    section.collapsed > .section-stats {
       display: none;
+    }
+    .section-stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: baseline;
+      font-size: 12px;
+      margin-bottom: 12px;
     }
 
     .cards {
@@ -264,11 +272,6 @@
       font-weight: 500; color: var(--text-muted);
     }
 
-    /* ── Charts ─────────────────────────────────────────────── */
-    .chart-full { grid-column: 1 / -1; }
-    .chart-wrap { position: relative; height: 280px; }
-    .chart-wrap-sm { position: relative; height: 200px; }
-
     /* ── Loading / error states ─────────────────────────────── */
     .loading { padding: 24px; text-align: center; color: var(--text-muted); font-size: 12px; }
     .error-note {
@@ -338,15 +341,8 @@
   <!-- TOMORROW ──────────────────────────────────────────────── -->
   <section id="section-tomorrow">
     <h2>Tomorrow — <span id="tomorrow-label"></span></h2>
+    <div id="value-section-stats-tomorrow" class="section-stats"></div>
     <div class="cards">
-      <div class="card" id="card-value-tomorrow">
-        <div class="card-header" style="flex-wrap:wrap; row-gap:6px;">
-          <h3>Value Model Prediction</h3>
-          <div id="value-header-stats-tomorrow" style="display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;font-size:12px;"></div>
-          <span class="meta" id="meta-value-tomorrow"></span>
-        </div>
-      </div>
-
       <div class="card" id="card-ensemble-even">
         <div class="card-header">
           <h3>Daily Ensemble · Even Buckets</h3>
@@ -365,30 +361,6 @@
     </div>
   </section>
 
-  <!-- CHARTS ────────────────────────────────────────────────── -->
-  <section id="section-charts">
-    <h2>Observations &amp; Forecasts</h2>
-    <div class="cards">
-      <div class="card chart-full">
-        <div class="card-header">
-          <h3>Today — Temperatures</h3>
-          <span class="meta" id="meta-chart-today"></span>
-        </div>
-        <div class="card-body">
-          <div class="chart-wrap"><canvas id="chart-today"></canvas></div>
-        </div>
-      </div>
-      <div class="card chart-full">
-        <div class="card-header">
-          <h3>Tomorrow — Forecast Predictions</h3>
-          <span class="meta" id="meta-chart-tomorrow"></span>
-        </div>
-        <div class="card-body">
-          <div class="chart-wrap-sm"><canvas id="chart-tomorrow"></canvas></div>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
 
 <script>
@@ -401,7 +373,6 @@ const DATA_FILES = {
   valueTomorrow:       "data/value_tomorrow.json",
   ensembleEven:        "data/ensemble_even_tomorrow.json",
   ensembleOdd:         "data/ensemble_odd_tomorrow.json",
-  chartTomorrow:       "data/chart_tomorrow.json",
 };
 const REFRESH_MS = 15 * 60 * 1000;
 
@@ -751,107 +722,6 @@ function hexToRgb(hex) {
   return `${r},${g},${b}`;
 }
 
-// ── Charts ───────────────────────────────────────────────────
-const SRC_COLORS = {
-  gfs: '#5bba6f', ecmwf: '#f5a623', hrrr: '#d0021b',
-  nbm: '#9b59b6', weather_com: '#1abc9c',
-};
-let _chartToday = null, _chartTom = null;
-
-function renderCharts(intradayData, valueTomData, chartTomData) {
-  // ── Today line chart ─────────────────────────────────────────
-  const snaps = intradayData?.snapshots || [];
-  const todayFcsts = intradayData?.d1_forecasts || {};
-  if (_chartToday) { _chartToday.destroy(); _chartToday = null; }
-
-  if (snaps.length === 0) {
-    el("meta-chart-today").textContent = "No obs yet — check back after 7 am ET";
-  } else {
-    const labels = snaps.map(s => s.time_label);
-    const datasets = [
-      {
-        label: "Current Temp",
-        data: snaps.map(s => s.current_temp),
-        borderColor: "#4a90e2", backgroundColor: "rgba(74,144,226,0.08)",
-        fill: true, tension: 0.3, pointRadius: 4, borderWidth: 2, order: 1,
-      },
-      {
-        label: "Running Max",
-        data: snaps.map(s => s.running_max),
-        borderColor: "#e8622a", tension: 0.3, pointRadius: 4, borderWidth: 2, order: 2,
-      },
-      ...Object.entries(todayFcsts).map(([src, val]) => ({
-        label: src.toUpperCase(),
-        data: labels.map(() => val),
-        borderColor: SRC_COLORS[src] || "#888",
-        borderDash: [5, 5], borderWidth: 1.5, pointRadius: 0, tension: 0, order: 3,
-      })),
-    ];
-    _chartToday = new Chart(el("chart-today"), {
-      type: "line",
-      data: { labels, datasets },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: {
-          legend: { position: "top", labels: { font: { size: 11 }, boxWidth: 18, padding: 10 } },
-        },
-        scales: {
-          x: { ticks: { font: { size: 11 } } },
-          y: { ticks: { font: { size: 11 }, callback: v => v + "°F" } },
-        },
-        interaction: { mode: "index", intersect: false },
-      },
-    });
-    el("meta-chart-today").textContent = fmtDate(intradayData.generated_at);
-  }
-
-  // ── Tomorrow bar chart ───────────────────────────────────────
-  if (_chartTom) { _chartTom.destroy(); _chartTom = null; }
-
-  const tomFcsts = chartTomData?.forecasts || {};
-  const h0 = valueTomData?.horizons?.[0];
-  const entries = [
-    ...Object.entries(tomFcsts).map(([src, val]) => ({ label: src.toUpperCase(), val, model: false })),
-    ...(h0?.weighted_avg != null ? [{ label: "Ens Wtd", val: h0.weighted_avg, model: true }] : []),
-    ...(h0?.value_pred   != null ? [{ label: "Val Model", val: h0.value_pred,  model: true }] : []),
-  ];
-
-  if (entries.length > 0) {
-    const vals = entries.map(e => e.val);
-    const spread = Math.max(...vals) - Math.min(...vals);
-    const pad = Math.max(1, spread * 0.6);
-    _chartTom = new Chart(el("chart-tomorrow"), {
-      type: "bar",
-      data: {
-        labels: entries.map(e => e.label),
-        datasets: [{
-          label: "Predicted TMAX",
-          data: vals,
-          backgroundColor: entries.map(e => e.model ? "rgba(203,36,49,0.75)" : "rgba(74,144,226,0.7)"),
-          borderColor:      entries.map(e => e.model ? "#cb2431"               : "#4a90e2"),
-          borderWidth: 1, borderRadius: 3,
-        }],
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: { callbacks: { label: ctx => ctx.parsed.y.toFixed(1) + "°F" } },
-        },
-        scales: {
-          x: { ticks: { font: { size: 11 } } },
-          y: {
-            min: Math.floor(Math.min(...vals) - pad),
-            max: Math.ceil(Math.max(...vals) + pad),
-            ticks: { font: { size: 11 }, callback: v => v + "°F" },
-          },
-        },
-      },
-    });
-    el("meta-chart-tomorrow").textContent = fmtDate(chartTomData?.generated_at || valueTomData?.generated_at);
-  }
-}
-
 // ── Main load ─────────────────────────────────────────────────
 async function loadAll() {
   const today = new Date();
@@ -890,8 +760,6 @@ async function loadAll() {
     renderEnsemble(data.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
   if (data.ensembleOdd)
     renderEnsemble(data.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
-
-  renderCharts(data.intradayEvenHours, data.valueTomorrow, data.chartTomorrow);
 
   // Show errors for anything that failed to load
   results.forEach(r => {
