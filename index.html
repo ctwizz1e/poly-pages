@@ -317,6 +317,20 @@
     .card-full { grid-column: 1 / -1; }
     .chart-wrap { position: relative; height: 220px; }
 
+    /* ── Market tabs ─────────────────────────────────────────── */
+    #market-tabs {
+      display: flex; gap: 6px; margin: 0 0 4px;
+    }
+    .market-tab {
+      padding: 6px 18px; border-radius: 6px; border: 1px solid var(--border);
+      background: var(--card); color: var(--text-muted); cursor: pointer;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.02em; transition: all .15s;
+    }
+    .market-tab:hover { border-color: var(--accent); color: var(--accent); }
+    .market-tab.active {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+
     /* ── Responsive ─────────────────────────────────────────── */
     @media (max-width: 600px) {
       .cards { grid-template-columns: 1fr; }
@@ -330,6 +344,10 @@
 
 <header>
   <h1>Atlanta TMAX Predictions</h1>
+  <div id="market-tabs">
+    <button class="market-tab active" data-market="kalshi">Kalshi</button>
+    <button class="market-tab" data-market="polymarket">Polymarket</button>
+  </div>
   <div id="temp-filter">
     <span>Temp range:</span>
     <input type="number" id="filter-min" placeholder="min" step="1">
@@ -429,21 +447,36 @@
 <script>
 // ── Config ───────────────────────────────────────────────────
 const DATA_FILES = {
-  intradayEvenHours:   "data/intraday_even_hours_today.json",
-  intradayOddHours:    "data/intraday_odd_hours_today.json",
-  intradayEvenCompare: "data/intraday_even_compare_today.json",
-  intradayOddCompare:  "data/intraday_odd_compare_today.json",
-  valueToday:          "data/value_today.json",
-  valueTomorrow:       "data/value_tomorrow.json",
-  ensembleEven:        "data/ensemble_even_tomorrow.json",
-  ensembleOdd:         "data/ensemble_odd_tomorrow.json",
-  obsTimeseries:       "data/obs_timeseries.json",
-  fcstTimeseries:      "data/forecast_timeseries.json",
+  kalshi: {
+    intradayEvenHours:   "data/intraday_even_hours_today_kalshi.json",
+    intradayOddHours:    "data/intraday_odd_hours_today_kalshi.json",
+    intradayEvenCompare: "data/intraday_even_compare_today_kalshi.json",
+    intradayOddCompare:  "data/intraday_odd_compare_today_kalshi.json",
+    valueToday:          "data/value_today_kalshi.json",
+    valueTomorrow:       "data/value_tomorrow_kalshi.json",
+    ensembleEven:        "data/ensemble_even_tomorrow_kalshi.json",
+    ensembleOdd:         "data/ensemble_odd_tomorrow_kalshi.json",
+  },
+  polymarket: {
+    intradayEvenHours:   "data/intraday_even_hours_today_polymarket.json",
+    intradayOddHours:    "data/intraday_odd_hours_today_polymarket.json",
+    intradayEvenCompare: "data/intraday_even_compare_today_polymarket.json",
+    intradayOddCompare:  "data/intraday_odd_compare_today_polymarket.json",
+    valueToday:          "data/value_today_polymarket.json",
+    valueTomorrow:       "data/value_tomorrow_polymarket.json",
+    ensembleEven:        "data/ensemble_even_tomorrow_polymarket.json",
+    ensembleOdd:         "data/ensemble_odd_tomorrow_polymarket.json",
+  },
+  shared: {
+    obsTimeseries:  "data/obs_timeseries.json",
+    fcstTimeseries: "data/forecast_timeseries.json",
+  },
 };
 const REFRESH_MS = 15 * 60 * 1000;
 
 // ── Temp filter state ─────────────────────────────────────────
-let loadedData = {};
+let loadedData = { kalshi: {}, polymarket: {}, shared: {} };
+let activeMarket = "kalshi";
 function getTempFilter() {
   const minVal = el("filter-min").value;
   const maxVal = el("filter-max").value;
@@ -888,34 +921,48 @@ async function loadAll() {
   el("today-label").textContent    = fmt(today);
   el("tomorrow-label").textContent = fmt(tomorrow);
 
+  const fetches = [];
+  for (const market of ["kalshi", "polymarket"]) {
+    for (const [key, url] of Object.entries(DATA_FILES[market])) {
+      fetches.push([market, key, url]);
+    }
+  }
+  for (const [key, url] of Object.entries(DATA_FILES.shared)) {
+    fetches.push(["shared", key, url]);
+  }
+
   const results = await Promise.allSettled(
-    Object.entries(DATA_FILES).map(async ([key, url]) => {
+    fetches.map(async ([market, key, url]) => {
       const data = await fetchJSON(url);
-      return [key, data];
+      return [market, key, data];
     })
   );
 
-  loadedData = {};
+  loadedData = { kalshi: {}, polymarket: {}, shared: {} };
   results.forEach(r => {
-    if (r.status === "fulfilled") loadedData[r.value[0]] = r.value[1];
+    if (r.status === "fulfilled") {
+      const [market, key, data] = r.value;
+      loadedData[market][key] = data;
+    }
   });
 
   // Find most recent generated_at across all loaded files
-  const times = Object.values(loadedData).map(d => d.generated_at).filter(Boolean).sort();
+  const allData = [
+    ...Object.values(loadedData.kalshi),
+    ...Object.values(loadedData.polymarket),
+    ...Object.values(loadedData.shared),
+  ];
+  const times = allData.map(d => d.generated_at).filter(Boolean).sort();
   if (times.length) el("last-updated").textContent = fmtDate(times[times.length - 1]);
 
-  if (loadedData.valueToday)
-    renderValue(loadedData.valueToday,    el("value-section-stats-today"));
-  if (loadedData.valueTomorrow)
-    renderValue(loadedData.valueTomorrow, el("value-section-stats-tomorrow"));
-  if (loadedData.obsTimeseries)
-    renderObsTimeseries(loadedData.obsTimeseries,  null, el("meta-obs-timeseries"));
-  if (loadedData.fcstTimeseries)
-    renderFcstTimeseries(loadedData.fcstTimeseries, null, el("meta-fcst-timeseries"));
+  const shared = loadedData.shared;
+  if (shared.obsTimeseries)
+    renderObsTimeseries(shared.obsTimeseries,  null, el("meta-obs-timeseries"));
+  if (shared.fcstTimeseries)
+    renderFcstTimeseries(shared.fcstTimeseries, null, el("meta-fcst-timeseries"));
 
   rerender();
 
-  // Show errors for anything that failed to load
   results.forEach(r => {
     if (r.status === "rejected") console.warn("Failed to load:", r.reason);
   });
@@ -923,18 +970,15 @@ async function loadAll() {
 
 // ── Re-render charts with current filter ─────────────────────
 function rerender() {
-  if (loadedData.intradayEvenHours)
-    renderIntradayHours(loadedData.intradayEvenHours,   el("body-even-hours"),    el("meta-even-hours"));
-  if (loadedData.intradayOddHours)
-    renderIntradayHours(loadedData.intradayOddHours,    el("body-odd-hours"),     el("meta-odd-hours"));
-  if (loadedData.intradayEvenCompare)
-    renderIntradayCompare(loadedData.intradayEvenCompare, el("body-even-compare"), el("meta-even-compare"));
-  if (loadedData.intradayOddCompare)
-    renderIntradayCompare(loadedData.intradayOddCompare,  el("body-odd-compare"),  el("meta-odd-compare"));
-  if (loadedData.ensembleEven)
-    renderEnsemble(loadedData.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
-  if (loadedData.ensembleOdd)
-    renderEnsemble(loadedData.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
+  const d = loadedData[activeMarket] || {};
+  if (d.valueToday)          renderValue(d.valueToday,    el("value-section-stats-today"));
+  if (d.valueTomorrow)       renderValue(d.valueTomorrow, el("value-section-stats-tomorrow"));
+  if (d.intradayEvenHours)   renderIntradayHours(d.intradayEvenHours,   el("body-even-hours"),    el("meta-even-hours"));
+  if (d.intradayOddHours)    renderIntradayHours(d.intradayOddHours,    el("body-odd-hours"),     el("meta-odd-hours"));
+  if (d.intradayEvenCompare) renderIntradayCompare(d.intradayEvenCompare, el("body-even-compare"), el("meta-even-compare"));
+  if (d.intradayOddCompare)  renderIntradayCompare(d.intradayOddCompare,  el("body-odd-compare"),  el("meta-odd-compare"));
+  if (d.ensembleEven)        renderEnsemble(d.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
+  if (d.ensembleOdd)         renderEnsemble(d.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
 }
 
 // ── Countdown + auto-refresh ──────────────────────────────────
@@ -950,6 +994,15 @@ function tick() {
   el("countdown").textContent = `${m}:${s}`;
 }
 setInterval(tick, 1000);
+
+// Market tab switching
+document.querySelectorAll(".market-tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    activeMarket = btn.dataset.market;
+    document.querySelectorAll(".market-tab").forEach(b => b.classList.toggle("active", b === btn));
+    rerender();
+  });
+});
 
 // Collapsible sections
 document.querySelectorAll("section > h2").forEach(h2 => {
