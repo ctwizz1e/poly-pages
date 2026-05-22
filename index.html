@@ -772,11 +772,13 @@ function renderEnsemble(data, bodyEl, metaEl) {
     frag.appendChild(metaLine);
     if (srcLegend) frag.appendChild(Object.assign(document.createElement("div"), { innerHTML: srcLegend }));
 
+    const hasFo = (hz.buckets || []).some(b => b.fo_prob != null);
+
     const table = document.createElement("table");
     table.className = "prob-table";
     const thead = table.createTHead();
     const hrow = thead.insertRow();
-    const cols = ["Bucket", ...sources.map(s => s.toUpperCase()), "Ens"];
+    const cols = ["Bucket", ...sources.map(s => s.toUpperCase()), "Ens", ...(hasFo ? ["FO"] : [])];
     cols.forEach((c, i) => {
       const th = document.createElement("th");
       th.textContent = c;
@@ -785,7 +787,7 @@ function renderEnsemble(data, bodyEl, metaEl) {
     });
 
     const tbody = table.createTBody();
-    let totalEns = 0;
+    let totalEns = 0, totalFo = 0;
     const { min: eMin, max: eMax } = getTempFilter();
     (hz.buckets || []).filter(b => b.lo >= eMin && b.lo <= eMax).forEach(b => {
       const tr = tbody.insertRow();
@@ -801,6 +803,11 @@ function renderEnsemble(data, bodyEl, metaEl) {
 
       totalEns += b.prob || 0;
       tr.appendChild(barCell(b.prob, b.lo));
+
+      if (hasFo) {
+        totalFo += b.fo_prob || 0;
+        tr.appendChild(barCell(b.fo_prob ?? null, b.lo, true));
+      }
     });
 
     // Total + expected temp
@@ -810,6 +817,11 @@ function renderEnsemble(data, bodyEl, metaEl) {
     const totalCell = trow.insertCell();
     totalCell.textContent = fmtPct(totalEns);
     totalCell.style.cssText = "text-align:right;font-weight:600";
+    if (hasFo) {
+      const foTotalCell = trow.insertCell();
+      foTotalCell.textContent = fmtPct(totalFo);
+      foTotalCell.style.cssText = "text-align:right;font-weight:600";
+    }
 
     if (hz.expected_temp != null) {
       const erow = tbody.insertRow();
@@ -818,6 +830,11 @@ function renderEnsemble(data, bodyEl, metaEl) {
       const ec = erow.insertCell();
       ec.textContent = hz.expected_temp.toFixed(1) + "°F";
       ec.style.cssText = "text-align:right;font-weight:700;font-size:13px;color:var(--text)";
+      if (hasFo) {
+        const fec = erow.insertCell();
+        fec.textContent = hz.fo_expected_temp != null ? hz.fo_expected_temp.toFixed(1) + "°F" : "—";
+        fec.style.cssText = "text-align:right;font-weight:700;font-size:13px;color:var(--text-muted)";
+      }
     }
 
     frag.appendChild(table);
