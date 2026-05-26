@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T13:31:00",
+  "generated_at": "2026-05-26T13:45:41",
   "date": "2026-05-26",
   "market": "polymarket",
   "even": {
@@ -8,36 +8,36 @@
       "label": "80-81F",
       "lo": 80,
       "hi": 82,
-      "prob": 0.5899
+      "prob": 0.5901
     },
     "daily_signals": {
-      "max_prob": 0.5899,
-      "gap": 0.2772,
-      "entropy": 1.6265
+      "max_prob": 0.5901,
+      "gap": 0.3789,
+      "entropy": 1.6986
     },
     "hours": [
       {
         "hour": 7,
         "time_label": "07:00",
-        "top_bucket": "82-83F",
-        "top_lo": 82,
+        "top_bucket": "84-85F",
+        "top_lo": 84,
         "top_prob": 0.225,
         "matches_daily": false
       },
       {
         "hour": 9,
         "time_label": "09:00",
-        "top_bucket": "80-81F",
-        "top_lo": 80,
+        "top_bucket": "82-83F",
+        "top_lo": 82,
         "top_prob": 0.3019,
-        "matches_daily": true
+        "matches_daily": false
       },
       {
         "hour": 11,
         "time_label": "11:00",
-        "top_bucket": "84-85F",
-        "top_lo": 84,
-        "top_prob": 0.2331,
+        "top_bucket": "82-83F",
+        "top_lo": 82,
+        "top_prob": 0.2759,
         "matches_daily": false
       },
       {
@@ -45,15 +45,15 @@
         "time_label": "13:00",
         "top_bucket": "82-83F",
         "top_lo": 82,
-        "top_prob": 0.3412,
+        "top_prob": 0.3913,
         "matches_daily": false
       }
     ],
-    "abort_signal": "none",
-    "abort_precision": null,
-    "recommendation": "hold",
+    "abort_signal": "4hr",
+    "abort_precision": 0.66,
+    "recommendation": "exit_if_above_34pct",
     "hours_available": 4,
-    "hours_disagree": 3
+    "hours_disagree": 4
   },
   "odd": {
     "daily_tier": 1,
@@ -61,12 +61,12 @@
       "label": "79-80F",
       "lo": 79,
       "hi": 81,
-      "prob": 0.465
+      "prob": 0.3269
     },
     "daily_signals": {
-      "max_prob": 0.465,
-      "gap": 0.1649,
-      "entropy": 1.6382
+      "max_prob": 0.3269,
+      "gap": 0.0971,
+      "entropy": 1.8375
     },
     "hours": [
       {
@@ -74,7 +74,7 @@
         "time_label": "07:00",
         "top_bucket": "83-84F",
         "top_lo": 83,
-        "top_prob": 0.2647,
+        "top_prob": 0.4348,
         "matches_daily": false
       },
       {
@@ -88,17 +88,17 @@
       {
         "hour": 11,
         "time_label": "11:00",
-        "top_bucket": "81-82F",
-        "top_lo": 81,
+        "top_bucket": "83-84F",
+        "top_lo": 83,
         "top_prob": 0.3111,
         "matches_daily": false
       },
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "85-86F",
-        "top_lo": 85,
-        "top_prob": 0.3136,
+        "top_bucket": "83-84F",
+        "top_lo": 83,
+        "top_prob": 0.4167,
         "matches_daily": false
       }
     ],
