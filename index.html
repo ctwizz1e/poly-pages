@@ -331,6 +331,86 @@
       background: var(--accent); border-color: var(--accent); color: #fff;
     }
 
+    /* ── Score sections ─────────────────────────────────────── */
+    .score-tier {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 13px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .score-meta-row {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      font-size: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .score-reason { color: var(--text-muted); font-size: 11px; }
+    .score-tops { margin-bottom: 10px; }
+    .score-top-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .score-top-label { font-size: 12px; font-weight: 600; min-width: 76px; }
+    .score-signals {
+      display: flex;
+      gap: 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .score-signals strong { color: var(--text); }
+
+    .tier-badge {
+      display: inline-block;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+      letter-spacing: .3px;
+    }
+    .abort-daily-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .abort-daily-bucket { font-size: 13px; font-weight: 700; }
+    .abort-daily-meta { font-size: 11px; color: var(--text-muted); }
+    .abort-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
+    .abort-table tr:hover td { background: #f8f9fa; }
+    .abort-time  { padding: 3px 8px 3px 0; color: var(--text-muted); font-variant-numeric: tabular-nums; width: 46px; }
+    .abort-bucket { padding: 3px 8px; font-weight: 600; }
+    .abort-prob  { padding: 3px 0 3px 8px; text-align: right; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+    .abort-match    { color: var(--up);   font-weight: 600; padding: 3px 8px; font-size: 11px; }
+    .abort-disagree { color: var(--down); font-weight: 600; padding: 3px 8px; font-size: 11px; }
+    .abort-rec {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+    .abort-rec-icon { font-size: 16px; flex-shrink: 0; line-height: 1.4; }
+    .abort-rec-text { font-weight: 700; margin-bottom: 2px; }
+    .abort-rec-sub  { color: var(--text-muted); font-size: 11px; }
+    .abort-ok    { background: #f0fff4; border: 1px solid #9be9a8; }
+    .abort-warn  { background: #fff8e1; border: 1px solid #ffd54f; }
+    .abort-abort { background: #fff5f5; border: 1px solid #fecdca; }
+    .abort-skip  { background: #f8f9fa; border: 1px solid var(--border); }
+
     /* ── Responsive ─────────────────────────────────────────── */
     @media (max-width: 600px) {
       .cards { grid-template-columns: 1fr; }
@@ -442,6 +522,48 @@
     </div>
   </section>
 
+  <!-- SCORE TODAY ───────────────────────────────────────── -->
+  <section id="section-score-today">
+    <h2>Score · Today — Abort Signal</h2>
+    <div class="cards">
+      <div class="card" id="card-score-today-even">
+        <div class="card-header">
+          <h3>Abort Signal · Even Buckets</h3>
+          <span class="meta" id="meta-score-today-even"></span>
+        </div>
+        <div class="card-body" id="body-score-today-even"><div class="loading">Loading…</div></div>
+      </div>
+      <div class="card" id="card-score-today-odd">
+        <div class="card-header">
+          <h3>Abort Signal · Odd Buckets</h3>
+          <span class="meta" id="meta-score-today-odd"></span>
+        </div>
+        <div class="card-body" id="body-score-today-odd"><div class="loading">Loading…</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCORE TOMORROW ─────────────────────────────────────── -->
+  <section id="section-score-tomorrow">
+    <h2>Score · Tomorrow — Entry Signal</h2>
+    <div class="cards">
+      <div class="card" id="card-score-tomorrow-even">
+        <div class="card-header">
+          <h3>Entry Signal · Even Buckets</h3>
+          <span class="meta" id="meta-score-tomorrow-even"></span>
+        </div>
+        <div class="card-body" id="body-score-tomorrow-even"><div class="loading">Loading…</div></div>
+      </div>
+      <div class="card" id="card-score-tomorrow-odd">
+        <div class="card-header">
+          <h3>Entry Signal · Odd Buckets</h3>
+          <span class="meta" id="meta-score-tomorrow-odd"></span>
+        </div>
+        <div class="card-body" id="body-score-tomorrow-odd"><div class="loading">Loading…</div></div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <script>
@@ -456,6 +578,8 @@ const DATA_FILES = {
     valueTomorrow:       "data/value_tomorrow_kalshi.json",
     ensembleEven:        "data/ensemble_even_tomorrow_kalshi.json",
     ensembleOdd:         "data/ensemble_odd_tomorrow_kalshi.json",
+    scoreIntraday:       "data/score_intraday_today_kalshi.json",
+    scorePrediction:     "data/score_prediction_tomorrow_kalshi.json",
   },
   polymarket: {
     intradayEvenHours:   "data/intraday_even_hours_today_polymarket.json",
@@ -466,6 +590,8 @@ const DATA_FILES = {
     valueTomorrow:       "data/value_tomorrow_polymarket.json",
     ensembleEven:        "data/ensemble_even_tomorrow_polymarket.json",
     ensembleOdd:         "data/ensemble_odd_tomorrow_polymarket.json",
+    scoreIntraday:       "data/score_intraday_today_polymarket.json",
+    scorePrediction:     "data/score_prediction_tomorrow_polymarket.json",
   },
   shared: {
     obsTimeseries:  "data/obs_timeseries.json",
@@ -881,7 +1007,8 @@ function renderObsTimeseries(data, _bodyEl, metaEl) {
         borderColor: "#0366d6",
         backgroundColor: "rgba(3,102,214,0.08)",
         borderWidth: 1.5,
-        pointRadius: 0,
+        pointRadius: 2,
+        pointHoverRadius: 5,
         tension: 0.3,
         fill: true,
       }],
@@ -889,6 +1016,7 @@ function renderObsTimeseries(data, _bodyEl, metaEl) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
       plugins: { legend: { display: false } },
       scales: {
         x: { ticks: { maxTicksLimit: 12, maxRotation: 0, font: { size: 10 } } },
@@ -921,6 +1049,7 @@ function renderFcstTimeseries(data, _bodyEl, metaEl) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
       plugins: { legend: { position: "top", labels: { boxWidth: 10, font: { size: 11 } } } },
       scales: {
         x: { ticks: { maxTicksLimit: 12, maxRotation: 0, font: { size: 10 } } },
@@ -928,6 +1057,133 @@ function renderFcstTimeseries(data, _bodyEl, metaEl) {
       },
     },
   });
+}
+
+// ── Render: score prediction (entry signal) ───────────────
+function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
+  metaEl.textContent = fmtDate(data.generated_at);
+  if (data.error) { bodyEl.innerHTML = `<div class="error-note">${data.error}</div>`; return; }
+  const d = data[bucketStart];
+  if (!d) { bodyEl.innerHTML = '<div class="loading">No data</div>'; return; }
+
+  const TIER_COLOR = { 1: "#22863a", 2: "#0366d6", 3: "#e8622a", 4: "#cb2431" };
+  const TIER_LABEL = {
+    1: "✅ TIER 1 · TRADE AGGRESSIVELY",
+    2: "✅ TIER 2 · TRADE NORMALLY",
+    3: "⚠️ TIER 3 · TRADE CAUTIOUSLY",
+    4: "❌ TIER 4 · DON'T TRADE",
+  };
+
+  const frag = document.createDocumentFragment();
+
+  const tierDiv = document.createElement("div");
+  tierDiv.className = "score-tier";
+  tierDiv.style.background = TIER_COLOR[d.tier] || "#888";
+  tierDiv.textContent = TIER_LABEL[d.tier];
+  frag.appendChild(tierDiv);
+
+  const metaRow = document.createElement("div");
+  metaRow.className = "score-meta-row";
+  metaRow.innerHTML = `<span>Expected: <strong>${Math.round(d.expected_accuracy * 100)}%</strong></span><span class="score-reason">${d.reason}</span>`;
+  frag.appendChild(metaRow);
+
+  const topsDiv = document.createElement("div");
+  topsDiv.className = "score-tops";
+  [["#1", d.top1], ["#2", d.top2]].forEach(([rank, t]) => {
+    if (!t) return;
+    const row = document.createElement("div");
+    row.className = "score-top-row";
+    const pct = Math.min(Math.round(t.prob * 100), 100);
+    const color = bucketColor(t.lo);
+    row.innerHTML = `
+      <span class="score-top-label" style="color:${color}">${rank} ${t.label}</span>
+      <div class="bar-wrap" style="flex:1">
+        <div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${color}"></div></div>
+        <span class="bar-pct">${fmtPct(t.prob)}</span>
+      </div>`;
+    topsDiv.appendChild(row);
+  });
+  frag.appendChild(topsDiv);
+
+  const gapPct = (d.signals.gap * 100).toFixed(1);
+  const gapQ = d.signals.gap > 0.10 ? "excellent" : d.signals.gap > 0.05 ? "good" : d.signals.gap > 0.03 ? "moderate" : "poor";
+  const ent = d.signals.entropy != null ? d.signals.entropy.toFixed(2) : "—";
+  const entQ = d.signals.entropy == null ? "—" : d.signals.entropy < 1.72 ? "excellent" : d.signals.entropy < 2.02 ? "good" : "poor";
+
+  const sigDiv = document.createElement("div");
+  sigDiv.className = "score-signals";
+  sigDiv.innerHTML = `
+    <span>Gap <strong>${gapPct}%</strong> <span class="neu">(${gapQ})</span></span>
+    <span>Entropy <strong>${ent}</strong> <span class="neu">(${entQ})</span></span>
+    <span>Max <strong>${Math.round(d.signals.max_prob * 100)}%</strong></span>`;
+  frag.appendChild(sigDiv);
+
+  bodyEl.innerHTML = "";
+  bodyEl.appendChild(frag);
+}
+
+// ── Render: score intraday (abort signal) ─────────────────
+function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
+  metaEl.textContent = fmtDate(data.generated_at);
+  if (data.error) { bodyEl.innerHTML = `<div class="error-note">${data.error}</div>`; return; }
+  const d = data[bucketStart];
+  if (!d) { bodyEl.innerHTML = '<div class="loading">No data</div>'; return; }
+
+  const TIER_COLOR = { 1: "#22863a", 2: "#0366d6", 3: "#e8622a", 4: "#cb2431" };
+  const TIER_SHORT = { 1: "T1", 2: "T2", 3: "T3", 4: "T4" };
+  const frag = document.createDocumentFragment();
+
+  const dailyRow = document.createElement("div");
+  dailyRow.className = "abort-daily-row";
+  dailyRow.innerHTML = `
+    <span class="tier-badge" style="background:${TIER_COLOR[d.daily_tier] || "#888"}">${TIER_SHORT[d.daily_tier]}</span>
+    <span class="abort-daily-bucket" style="color:${bucketColor(d.daily_top.lo)}">${d.daily_top.label}</span>
+    <span class="abort-daily-meta">${fmtPct(d.daily_top.prob)} · gap ${(d.daily_signals.gap * 100).toFixed(1)}%</span>`;
+  frag.appendChild(dailyRow);
+
+  if (d.hours && d.hours.length > 0) {
+    const tbl = document.createElement("table");
+    tbl.className = "abort-table";
+    const tbody = tbl.createTBody();
+    d.hours.forEach(hr => {
+      const tr = tbody.insertRow();
+      const matchCls = hr.matches_daily ? "abort-match" : "abort-disagree";
+      const matchTxt = hr.matches_daily ? "✓ MATCH" : "✗ DISAGREE";
+      tr.innerHTML = `
+        <td class="abort-time">${hr.time_label}</td>
+        <td class="abort-bucket" style="color:${bucketColor(hr.top_lo)}">${hr.top_bucket}</td>
+        <td class="${matchCls}">${matchTxt}</td>
+        <td class="abort-prob">${fmtPct(hr.top_prob)}</td>`;
+    });
+    frag.appendChild(tbl);
+  } else {
+    const noData = document.createElement("div");
+    noData.style.cssText = "color:var(--text-muted);font-size:11px;padding:8px 0 10px";
+    noData.textContent = "No intraday data yet — check back after 7am ET";
+    frag.appendChild(noData);
+  }
+
+  const REC = {
+    none:     { cls: "abort-ok",    icon: "✅", text: "NO ABORT — HOLD",                         sub: "Daily prediction is still valid" },
+    "2hr":    { cls: "abort-warn",  icon: "⚠️", text: "2 HOURS DISAGREE",                        sub: "Hold for now, wait for 11am signal" },
+    "3hr":    { cls: "abort-warn",  icon: "⚠️", text: "3 HOURS DISAGREE — REDUCE 50%",           sub: `Precision: ${d.abort_precision ? Math.round(d.abort_precision * 100) : "—"}%` },
+    "4hr":    { cls: "abort-abort", icon: "🚨", text: "ALL 4 HOURS DISAGREE",                    sub: `EXIT if market > 34%  ·  Precision: ${d.abort_precision ? Math.round(d.abort_precision * 100) : "—"}%` },
+    no_trade: { cls: "abort-skip",  icon: "❌", text: "TIER 4 — DON'T TRADE",                    sub: "Daily model says skip this day" },
+  };
+  const sig = REC[d.abort_signal] || REC.none;
+
+  const recDiv = document.createElement("div");
+  recDiv.className = `abort-rec ${sig.cls}`;
+  recDiv.innerHTML = `
+    <span class="abort-rec-icon">${sig.icon}</span>
+    <div>
+      <div class="abort-rec-text">${sig.text}</div>
+      <div class="abort-rec-sub">${sig.sub}</div>
+    </div>`;
+  frag.appendChild(recDiv);
+
+  bodyEl.innerHTML = "";
+  bodyEl.appendChild(frag);
 }
 
 // ── Main load ─────────────────────────────────────────────────
@@ -996,6 +1252,14 @@ function rerender() {
   if (d.intradayOddCompare)  renderIntradayCompare(d.intradayOddCompare,  el("body-odd-compare"),  el("meta-odd-compare"));
   if (d.ensembleEven)        renderEnsemble(d.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
   if (d.ensembleOdd)         renderEnsemble(d.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
+  if (d.scoreIntraday) {
+    renderScoreIntraday(d.scoreIntraday, "even", el("body-score-today-even"), el("meta-score-today-even"));
+    renderScoreIntraday(d.scoreIntraday, "odd",  el("body-score-today-odd"),  el("meta-score-today-odd"));
+  }
+  if (d.scorePrediction) {
+    renderScorePrediction(d.scorePrediction, "even", el("body-score-tomorrow-even"), el("meta-score-tomorrow-even"));
+    renderScorePrediction(d.scorePrediction, "odd",  el("body-score-tomorrow-odd"),  el("meta-score-tomorrow-odd"));
+  }
 }
 
 // ── Countdown + auto-refresh ──────────────────────────────────
