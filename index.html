@@ -524,8 +524,22 @@
 
   <!-- SCORE TODAY ───────────────────────────────────────── -->
   <section id="section-score-today">
-    <h2>Score · Today — Abort Signal</h2>
+    <h2>Score Today — <span id="score-today-date"></span></h2>
     <div class="cards">
+      <div class="card" id="card-score-today-d1-even">
+        <div class="card-header">
+          <h3>Daily Prediction · Even Buckets</h3>
+          <span class="meta" id="meta-score-today-d1-even"></span>
+        </div>
+        <div class="card-body" id="body-score-today-d1-even"><div class="loading">Loading…</div></div>
+      </div>
+      <div class="card" id="card-score-today-d1-odd">
+        <div class="card-header">
+          <h3>Daily Prediction · Odd Buckets</h3>
+          <span class="meta" id="meta-score-today-d1-odd"></span>
+        </div>
+        <div class="card-body" id="body-score-today-d1-odd"><div class="loading">Loading…</div></div>
+      </div>
       <div class="card" id="card-score-today-even">
         <div class="card-header">
           <h3>Abort Signal · Even Buckets</h3>
@@ -545,7 +559,7 @@
 
   <!-- SCORE TOMORROW ─────────────────────────────────────── -->
   <section id="section-score-tomorrow">
-    <h2>Score · Tomorrow — Entry Signal</h2>
+    <h2>Score Tomorrow — <span id="score-tomorrow-date"></span></h2>
     <div class="cards">
       <div class="card" id="card-score-tomorrow-even">
         <div class="card-header">
@@ -560,6 +574,20 @@
           <span class="meta" id="meta-score-tomorrow-odd"></span>
         </div>
         <div class="card-body" id="body-score-tomorrow-odd"><div class="loading">Loading…</div></div>
+      </div>
+      <div class="card" id="card-score-tomorrow-intra-even">
+        <div class="card-header">
+          <h3>Intraday Monitor · Even Buckets</h3>
+          <span class="meta" id="meta-score-tomorrow-intra-even"></span>
+        </div>
+        <div class="card-body" id="body-score-tomorrow-intra-even"><div class="loading">Loading…</div></div>
+      </div>
+      <div class="card" id="card-score-tomorrow-intra-odd">
+        <div class="card-header">
+          <h3>Intraday Monitor · Odd Buckets</h3>
+          <span class="meta" id="meta-score-tomorrow-intra-odd"></span>
+        </div>
+        <div class="card-body" id="body-score-tomorrow-intra-odd"><div class="loading">Loading…</div></div>
       </div>
     </div>
   </section>
@@ -578,8 +606,10 @@ const DATA_FILES = {
     valueTomorrow:       "data/value_tomorrow_kalshi.json",
     ensembleEven:        "data/ensemble_even_tomorrow_kalshi.json",
     ensembleOdd:         "data/ensemble_odd_tomorrow_kalshi.json",
-    scoreIntraday:       "data/score_intraday_today_kalshi.json",
-    scorePrediction:     "data/score_prediction_tomorrow_kalshi.json",
+    scoreIntradayToday:      "data/score_intraday_today_kalshi.json",
+    scoreIntradayTomorrow:   "data/score_intraday_tomorrow_kalshi.json",
+    scorePredictionToday:    "data/score_prediction_today_kalshi.json",
+    scorePredictionTomorrow: "data/score_prediction_tomorrow_kalshi.json",
   },
   polymarket: {
     intradayEvenHours:   "data/intraday_even_hours_today_polymarket.json",
@@ -590,8 +620,10 @@ const DATA_FILES = {
     valueTomorrow:       "data/value_tomorrow_polymarket.json",
     ensembleEven:        "data/ensemble_even_tomorrow_polymarket.json",
     ensembleOdd:         "data/ensemble_odd_tomorrow_polymarket.json",
-    scoreIntraday:       "data/score_intraday_today_polymarket.json",
-    scorePrediction:     "data/score_prediction_tomorrow_polymarket.json",
+    scoreIntradayToday:      "data/score_intraday_today_polymarket.json",
+    scoreIntradayTomorrow:   "data/score_intraday_tomorrow_polymarket.json",
+    scorePredictionToday:    "data/score_prediction_today_polymarket.json",
+    scorePredictionTomorrow: "data/score_prediction_tomorrow_polymarket.json",
   },
   shared: {
     obsTimeseries:  "data/obs_timeseries.json",
@@ -1191,8 +1223,10 @@ async function loadAll() {
   const today = new Date();
   const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
   const fmt = d => d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
-  el("today-label").textContent    = fmt(today);
-  el("tomorrow-label").textContent = fmt(tomorrow);
+  el("today-label").textContent          = fmt(today);
+  el("tomorrow-label").textContent       = fmt(tomorrow);
+  el("score-today-date").textContent     = fmt(today);
+  el("score-tomorrow-date").textContent  = fmt(tomorrow);
 
   const fetches = [];
   for (const market of ["kalshi", "polymarket"]) {
@@ -1252,13 +1286,21 @@ function rerender() {
   if (d.intradayOddCompare)  renderIntradayCompare(d.intradayOddCompare,  el("body-odd-compare"),  el("meta-odd-compare"));
   if (d.ensembleEven)        renderEnsemble(d.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
   if (d.ensembleOdd)         renderEnsemble(d.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
-  if (d.scoreIntraday) {
-    renderScoreIntraday(d.scoreIntraday, "even", el("body-score-today-even"), el("meta-score-today-even"));
-    renderScoreIntraday(d.scoreIntraday, "odd",  el("body-score-today-odd"),  el("meta-score-today-odd"));
+  if (d.scorePredictionToday) {
+    renderScorePrediction(d.scorePredictionToday, "even", el("body-score-today-d1-even"), el("meta-score-today-d1-even"));
+    renderScorePrediction(d.scorePredictionToday, "odd",  el("body-score-today-d1-odd"),  el("meta-score-today-d1-odd"));
   }
-  if (d.scorePrediction) {
-    renderScorePrediction(d.scorePrediction, "even", el("body-score-tomorrow-even"), el("meta-score-tomorrow-even"));
-    renderScorePrediction(d.scorePrediction, "odd",  el("body-score-tomorrow-odd"),  el("meta-score-tomorrow-odd"));
+  if (d.scoreIntradayToday) {
+    renderScoreIntraday(d.scoreIntradayToday, "even", el("body-score-today-even"), el("meta-score-today-even"));
+    renderScoreIntraday(d.scoreIntradayToday, "odd",  el("body-score-today-odd"),  el("meta-score-today-odd"));
+  }
+  if (d.scorePredictionTomorrow) {
+    renderScorePrediction(d.scorePredictionTomorrow, "even", el("body-score-tomorrow-even"), el("meta-score-tomorrow-even"));
+    renderScorePrediction(d.scorePredictionTomorrow, "odd",  el("body-score-tomorrow-odd"),  el("meta-score-tomorrow-odd"));
+  }
+  if (d.scoreIntradayTomorrow) {
+    renderScoreIntraday(d.scoreIntradayTomorrow, "even", el("body-score-tomorrow-intra-even"), el("meta-score-tomorrow-intra-even"));
+    renderScoreIntraday(d.scoreIntradayTomorrow, "odd",  el("body-score-tomorrow-intra-odd"),  el("meta-score-tomorrow-intra-odd"));
   }
 }
 
