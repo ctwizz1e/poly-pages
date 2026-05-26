@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T12:30:35",
+  "generated_at": "2026-05-26T12:45:40",
   "date": "2026-05-26",
   "market": "polymarket",
   "even": {
@@ -8,21 +8,21 @@
       "label": "80-81F",
       "lo": 80,
       "hi": 82,
-      "prob": 0.6261
+      "prob": 0.5899
     },
     "daily_signals": {
-      "max_prob": 0.6261,
-      "gap": 0.3206,
-      "entropy": 1.6548
+      "max_prob": 0.5899,
+      "gap": 0.2772,
+      "entropy": 1.6265
     },
     "hours": [
       {
         "hour": 7,
         "time_label": "07:00",
-        "top_bucket": "80-81F",
-        "top_lo": 80,
+        "top_bucket": "82-83F",
+        "top_lo": 82,
         "top_prob": 0.225,
-        "matches_daily": true
+        "matches_daily": false
       },
       {
         "hour": 9,
@@ -35,8 +35,8 @@
       {
         "hour": 11,
         "time_label": "11:00",
-        "top_bucket": "82-83F",
-        "top_lo": 82,
+        "top_bucket": "84-85F",
+        "top_lo": 84,
         "top_prob": 0.2331,
         "matches_daily": false
       },
@@ -53,7 +53,7 @@
     "abort_precision": null,
     "recommendation": "hold",
     "hours_available": 4,
-    "hours_disagree": 2
+    "hours_disagree": 3
   },
   "odd": {
     "daily_tier": 1,
@@ -61,12 +61,12 @@
       "label": "79-80F",
       "lo": 79,
       "hi": 81,
-      "prob": 0.4679
+      "prob": 0.465
     },
     "daily_signals": {
-      "max_prob": 0.4679,
-      "gap": 0.1678,
-      "entropy": 1.6877
+      "max_prob": 0.465,
+      "gap": 0.1649,
+      "entropy": 1.6382
     },
     "hours": [
       {
@@ -88,17 +88,17 @@
       {
         "hour": 11,
         "time_label": "11:00",
-        "top_bucket": "83-84F",
-        "top_lo": 83,
-        "top_prob": 0.2676,
+        "top_bucket": "81-82F",
+        "top_lo": 81,
+        "top_prob": 0.3111,
         "matches_daily": false
       },
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "83-84F",
-        "top_lo": 83,
-        "top_prob": 0.3136,
+        "top_bucket": "85-86F",
+        "top_lo": 85,
+        "top_prob": 0.2214,
         "matches_daily": false
       }
     ],
