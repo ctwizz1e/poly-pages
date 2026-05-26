@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T04:15:41",
+  "generated_at": "2026-05-26T04:31:01",
   "date": "2026-05-26",
   "market": "polymarket",
   "even": {
@@ -72,40 +72,40 @@
       {
         "hour": 7,
         "time_label": "07:00",
-        "top_bucket": "79-80F",
-        "top_lo": 79,
+        "top_bucket": "81-82F",
+        "top_lo": 81,
         "top_prob": 0.2204,
-        "matches_daily": true
+        "matches_daily": false
       },
       {
         "hour": 9,
         "time_label": "09:00",
-        "top_bucket": "79-80F",
-        "top_lo": 79,
+        "top_bucket": "81-82F",
+        "top_lo": 81,
         "top_prob": 0.2204,
-        "matches_daily": true
+        "matches_daily": false
       },
       {
         "hour": 11,
         "time_label": "11:00",
-        "top_bucket": "79-80F",
-        "top_lo": 79,
+        "top_bucket": "81-82F",
+        "top_lo": 81,
         "top_prob": 0.2204,
-        "matches_daily": true
+        "matches_daily": false
       },
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "79-80F",
-        "top_lo": 79,
+        "top_bucket": "81-82F",
+        "top_lo": 81,
         "top_prob": 0.2204,
-        "matches_daily": true
+        "matches_daily": false
       }
     ],
-    "abort_signal": "none",
-    "abort_precision": null,
-    "recommendation": "hold",
+    "abort_signal": "4hr",
+    "abort_precision": 0.66,
+    "recommendation": "exit_if_above_34pct",
     "hours_available": 4,
-    "hours_disagree": 0
+    "hours_disagree": 4
   }
 }
