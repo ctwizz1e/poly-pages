@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-27T10:17:12",
+  "generated_at": "2026-05-27T10:30:44",
   "date": "2026-05-27",
   "market": "kalshi",
   "even": {
@@ -8,12 +8,12 @@
       "label": "86-87F",
       "lo": 86,
       "hi": 88,
-      "prob": 0.1156
+      "prob": 0.0931
     },
     "daily_signals": {
-      "max_prob": 0.1156,
-      "gap": 0.0301,
-      "entropy": 2.0782
+      "max_prob": 0.0931,
+      "gap": 0.0088,
+      "entropy": 2.1336
     },
     "hours": [
       {
@@ -21,23 +21,23 @@
         "time_label": "07:00",
         "top_bucket": "86-87F",
         "top_lo": 86,
-        "top_prob": 0.225,
+        "top_prob": 0.1786,
         "matches_daily": true
       },
       {
         "hour": 9,
         "time_label": "09:00",
-        "top_bucket": "86-87F",
-        "top_lo": 86,
-        "top_prob": 0.2857,
-        "matches_daily": true
+        "top_bucket": "88-89F",
+        "top_lo": 88,
+        "top_prob": 0.1875,
+        "matches_daily": false
       },
       {
         "hour": 11,
         "time_label": "11:00",
         "top_bucket": "84-85F",
         "top_lo": 84,
-        "top_prob": 0.3333,
+        "top_prob": 0.2574,
         "matches_daily": false
       },
       {
@@ -45,7 +45,7 @@
         "time_label": "13:00",
         "top_bucket": "84-85F",
         "top_lo": 84,
-        "top_prob": 0.3333,
+        "top_prob": 0.2574,
         "matches_daily": false
       }
     ],
@@ -53,7 +53,7 @@
     "abort_precision": null,
     "recommendation": "skip",
     "hours_available": 4,
-    "hours_disagree": 2
+    "hours_disagree": 3
   },
   "odd": {
     "daily_tier": 1,
@@ -61,12 +61,12 @@
       "label": "85-86F",
       "lo": 85,
       "hi": 87,
-      "prob": 0.3069
+      "prob": 0.3714
     },
     "daily_signals": {
-      "max_prob": 0.3069,
-      "gap": 0.0898,
-      "entropy": 1.6243
+      "max_prob": 0.3714,
+      "gap": 0.1864,
+      "entropy": 1.5855
     },
     "hours": [
       {
