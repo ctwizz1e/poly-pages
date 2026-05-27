@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-05-27T07:30:42",
+  "generated_at": "2026-05-27T07:45:30",
   "date": "2026-05-27",
   "market": "kalshi",
   "even": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "84-85F",
-      "lo": 84,
-      "hi": 86,
-      "prob": 0.1732
+      "label": "86-87F",
+      "lo": 86,
+      "hi": 88,
+      "prob": 0.1251
     },
     "daily_signals": {
-      "max_prob": 0.1732,
-      "gap": 0.0341,
-      "entropy": 2.0377
+      "max_prob": 0.1251,
+      "gap": 0.0132,
+      "entropy": 2.1285
     },
     "hours": [
       {
@@ -22,7 +22,7 @@
         "top_bucket": "86-87F",
         "top_lo": 86,
         "top_prob": 0.225,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 9,
@@ -30,7 +30,7 @@
         "top_bucket": "86-87F",
         "top_lo": 86,
         "top_prob": 0.225,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 11,
@@ -38,7 +38,7 @@
         "top_bucket": "86-87F",
         "top_lo": 86,
         "top_prob": 0.225,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 13,
@@ -46,27 +46,27 @@
         "top_bucket": "86-87F",
         "top_lo": 86,
         "top_prob": 0.225,
-        "matches_daily": false
+        "matches_daily": true
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
     "hours_available": 4,
-    "hours_disagree": 4
+    "hours_disagree": 0
   },
   "odd": {
-    "daily_tier": 4,
+    "daily_tier": 2,
     "daily_top": {
       "label": "85-86F",
       "lo": 85,
       "hi": 87,
-      "prob": 0.188
+      "prob": 0.212
     },
     "daily_signals": {
-      "max_prob": 0.188,
-      "gap": 0.0392,
-      "entropy": 1.8311
+      "max_prob": 0.212,
+      "gap": 0.0614,
+      "entropy": 1.7906
     },
     "hours": [
       {
@@ -102,9 +102,9 @@
         "matches_daily": true
       }
     ],
-    "abort_signal": "no_trade",
+    "abort_signal": "none",
     "abort_precision": null,
-    "recommendation": "skip",
+    "recommendation": "hold",
     "hours_available": 4,
     "hours_disagree": 0
   }
