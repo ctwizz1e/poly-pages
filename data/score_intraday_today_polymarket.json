@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-27T01:30:46",
+  "generated_at": "2026-05-27T01:45:51",
   "date": "2026-05-27",
   "market": "polymarket",
   "even": {
@@ -8,12 +8,12 @@
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "prob": 0.478
+      "prob": 0.4722
     },
     "daily_signals": {
-      "max_prob": 0.478,
-      "gap": 0.2305,
-      "entropy": 1.9967
+      "max_prob": 0.4722,
+      "gap": 0.1088,
+      "entropy": 1.8924
     },
     "hours": [
       {
@@ -56,17 +56,17 @@
     "hours_disagree": 4
   },
   "odd": {
-    "daily_tier": 1,
+    "daily_tier": 4,
     "daily_top": {
       "label": "81-82F",
       "lo": 81,
       "hi": 83,
-      "prob": 0.3518
+      "prob": 0.2341
     },
     "daily_signals": {
-      "max_prob": 0.3518,
-      "gap": 0.1217,
-      "entropy": 1.9814
+      "max_prob": 0.2341,
+      "gap": 0.017,
+      "entropy": 2.0839
     },
     "hours": [
       {
@@ -102,9 +102,9 @@
         "matches_daily": false
       }
     ],
-    "abort_signal": "4hr",
-    "abort_precision": 0.66,
-    "recommendation": "exit_if_above_34pct",
+    "abort_signal": "no_trade",
+    "abort_precision": null,
+    "recommendation": "skip",
     "hours_available": 4,
     "hours_disagree": 4
   }
