@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-27T11:00:23",
+  "generated_at": "2026-05-27T11:15:28",
   "date": "2026-05-27",
   "market": "kalshi",
   "even": {
@@ -8,12 +8,12 @@
       "label": "86-87F",
       "lo": 86,
       "hi": 88,
-      "prob": 0.1048
+      "prob": 0.1224
     },
     "daily_signals": {
-      "max_prob": 0.1048,
-      "gap": 0.0176,
-      "entropy": 2.1156
+      "max_prob": 0.1224,
+      "gap": 0.0056,
+      "entropy": 2.0738
     },
     "hours": [
       {
@@ -21,39 +21,39 @@
         "time_label": "07:00",
         "top_bucket": "86-87F",
         "top_lo": 86,
-        "top_prob": 0.1786,
+        "top_prob": 0.225,
         "matches_daily": true
       },
       {
         "hour": 9,
         "time_label": "09:00",
-        "top_bucket": "88-89F",
-        "top_lo": 88,
-        "top_prob": 0.1875,
-        "matches_daily": false
+        "top_bucket": "86-87F",
+        "top_lo": 86,
+        "top_prob": 0.2857,
+        "matches_daily": true
       },
       {
         "hour": 11,
         "time_label": "11:00",
-        "top_bucket": "86-87F",
-        "top_lo": 86,
-        "top_prob": 0.2574,
-        "matches_daily": true
+        "top_bucket": "84-85F",
+        "top_lo": 84,
+        "top_prob": 0.3333,
+        "matches_daily": false
       },
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "86-87F",
-        "top_lo": 86,
-        "top_prob": 0.2574,
-        "matches_daily": true
+        "top_bucket": "84-85F",
+        "top_lo": 84,
+        "top_prob": 0.3333,
+        "matches_daily": false
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
     "hours_available": 4,
-    "hours_disagree": 1
+    "hours_disagree": 2
   },
   "odd": {
     "daily_tier": 1,
@@ -61,12 +61,12 @@
       "label": "85-86F",
       "lo": 85,
       "hi": 87,
-      "prob": 0.3627
+      "prob": 0.4441
     },
     "daily_signals": {
-      "max_prob": 0.3627,
-      "gap": 0.1775,
-      "entropy": 1.5876
+      "max_prob": 0.4441,
+      "gap": 0.2498,
+      "entropy": 1.4942
     },
     "hours": [
       {
