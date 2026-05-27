@@ -444,7 +444,7 @@
     <h2>Today — <span id="today-label"></span></h2>
     <div id="value-section-stats-today" class="section-stats"></div>
     <div class="cards">
-      <div class="card" id="card-intraday-even-hours">
+      <div class="card" id="card-intraday-even-hours" data-bucket="even" data-day="today">
         <div class="card-header">
           <h3>Intraday · Even Buckets · Hourly Snapshots</h3>
           <span class="meta" id="meta-even-hours"></span>
@@ -452,7 +452,7 @@
         <div class="card-body" id="body-even-hours"><div class="loading">Loading…</div></div>
       </div>
 
-      <div class="card" id="card-intraday-even-compare">
+      <div class="card" id="card-intraday-even-compare" data-bucket="even" data-day="today">
         <div class="card-header">
           <h3>Intraday · Even Buckets · Live vs D1</h3>
           <span class="meta" id="meta-even-compare"></span>
@@ -460,7 +460,7 @@
         <div class="card-body" id="body-even-compare"><div class="loading">Loading…</div></div>
       </div>
 
-      <div class="card" id="card-intraday-odd-hours">
+      <div class="card" id="card-intraday-odd-hours" data-bucket="odd" data-day="today">
         <div class="card-header">
           <h3>Intraday · Odd Buckets · Hourly Snapshots</h3>
           <span class="meta" id="meta-odd-hours"></span>
@@ -468,7 +468,7 @@
         <div class="card-body" id="body-odd-hours"><div class="loading">Loading…</div></div>
       </div>
 
-      <div class="card" id="card-intraday-odd-compare">
+      <div class="card" id="card-intraday-odd-compare" data-bucket="odd" data-day="today">
         <div class="card-header">
           <h3>Intraday · Odd Buckets · Live vs D1</h3>
           <span class="meta" id="meta-odd-compare"></span>
@@ -483,7 +483,7 @@
     <h2>Tomorrow — <span id="tomorrow-label"></span></h2>
     <div id="value-section-stats-tomorrow" class="section-stats"></div>
     <div class="cards">
-      <div class="card card-full" id="card-ensemble-even">
+      <div class="card card-full" id="card-ensemble-even" data-bucket="even" data-day="tomorrow">
         <div class="card-header">
           <h3>Daily Ensemble · Even Buckets</h3>
           <span class="meta" id="meta-ensemble-even"></span>
@@ -491,7 +491,7 @@
         <div class="card-body" id="body-ensemble-even"><div class="loading">Loading…</div></div>
       </div>
 
-      <div class="card card-full" id="card-ensemble-odd">
+      <div class="card card-full" id="card-ensemble-odd" data-bucket="odd" data-day="tomorrow">
         <div class="card-header">
           <h3>Daily Ensemble · Odd Buckets</h3>
           <span class="meta" id="meta-ensemble-odd"></span>
@@ -526,28 +526,28 @@
   <section id="section-score-today">
     <h2>Score Today — <span id="score-today-date"></span></h2>
     <div class="cards">
-      <div class="card" id="card-score-today-d1-even">
+      <div class="card" id="card-score-today-d1-even" data-bucket="even" data-day="today">
         <div class="card-header">
           <h3>Daily Prediction · Even Buckets</h3>
           <span class="meta" id="meta-score-today-d1-even"></span>
         </div>
         <div class="card-body" id="body-score-today-d1-even"><div class="loading">Loading…</div></div>
       </div>
-      <div class="card" id="card-score-today-d1-odd">
+      <div class="card" id="card-score-today-d1-odd" data-bucket="odd" data-day="today">
         <div class="card-header">
           <h3>Daily Prediction · Odd Buckets</h3>
           <span class="meta" id="meta-score-today-d1-odd"></span>
         </div>
         <div class="card-body" id="body-score-today-d1-odd"><div class="loading">Loading…</div></div>
       </div>
-      <div class="card" id="card-score-today-even">
+      <div class="card" id="card-score-today-even" data-bucket="even" data-day="today">
         <div class="card-header">
           <h3>Abort Signal · Even Buckets</h3>
           <span class="meta" id="meta-score-today-even"></span>
         </div>
         <div class="card-body" id="body-score-today-even"><div class="loading">Loading…</div></div>
       </div>
-      <div class="card" id="card-score-today-odd">
+      <div class="card" id="card-score-today-odd" data-bucket="odd" data-day="today">
         <div class="card-header">
           <h3>Abort Signal · Odd Buckets</h3>
           <span class="meta" id="meta-score-today-odd"></span>
@@ -561,28 +561,28 @@
   <section id="section-score-tomorrow">
     <h2>Score Tomorrow — <span id="score-tomorrow-date"></span></h2>
     <div class="cards">
-      <div class="card" id="card-score-tomorrow-even">
+      <div class="card" id="card-score-tomorrow-even" data-bucket="even" data-day="tomorrow">
         <div class="card-header">
           <h3>Entry Signal · Even Buckets</h3>
           <span class="meta" id="meta-score-tomorrow-even"></span>
         </div>
         <div class="card-body" id="body-score-tomorrow-even"><div class="loading">Loading…</div></div>
       </div>
-      <div class="card" id="card-score-tomorrow-odd">
+      <div class="card" id="card-score-tomorrow-odd" data-bucket="odd" data-day="tomorrow">
         <div class="card-header">
           <h3>Entry Signal · Odd Buckets</h3>
           <span class="meta" id="meta-score-tomorrow-odd"></span>
         </div>
         <div class="card-body" id="body-score-tomorrow-odd"><div class="loading">Loading…</div></div>
       </div>
-      <div class="card" id="card-score-tomorrow-intra-even">
+      <div class="card" id="card-score-tomorrow-intra-even" data-bucket="even" data-day="tomorrow">
         <div class="card-header">
           <h3>Intraday Monitor · Even Buckets</h3>
           <span class="meta" id="meta-score-tomorrow-intra-even"></span>
         </div>
         <div class="card-body" id="body-score-tomorrow-intra-even"><div class="loading">Loading…</div></div>
       </div>
-      <div class="card" id="card-score-tomorrow-intra-odd">
+      <div class="card" id="card-score-tomorrow-intra-odd" data-bucket="odd" data-day="tomorrow">
         <div class="card-header">
           <h3>Intraday Monitor · Odd Buckets</h3>
           <span class="meta" id="meta-score-tomorrow-intra-odd"></span>
@@ -628,6 +628,7 @@ const DATA_FILES = {
   shared: {
     obsTimeseries:  "data/obs_timeseries.json",
     fcstTimeseries: "data/forecast_timeseries.json",
+    marketConfig:   "data/market_config.json",
   },
 };
 const REFRESH_MS = 15 * 60 * 1000;
@@ -1218,6 +1219,24 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
   bodyEl.appendChild(frag);
 }
 
+// ── Bucket filter ─────────────────────────────────────────────
+// Hide cards whose bucket start doesn't match the active market's config.
+// When the config is null (market not found / not yet posted) all cards are shown.
+function applyBucketFilter() {
+  const cfg = loadedData.shared?.marketConfig;
+  const todayStart   = cfg?.today?.[activeMarket]   ?? null;
+  const tomorrowStart = cfg?.tomorrow?.[activeMarket] ?? null;
+
+  document.querySelectorAll(".card[data-bucket]").forEach(card => {
+    const bucket = card.getAttribute("data-bucket");  // "even" | "odd"
+    const day    = card.getAttribute("data-day");     // "today" | "tomorrow"
+    const activeStart = day === "today" ? todayStart : tomorrowStart;
+    // If config is unknown, show everything; otherwise hide non-matching bucket.
+    const visible = activeStart === null || bucket === activeStart;
+    card.style.display = visible ? "" : "none";
+  });
+}
+
 // ── Main load ─────────────────────────────────────────────────
 async function loadAll() {
   const today = new Date();
@@ -1277,6 +1296,7 @@ async function loadAll() {
 
 // ── Re-render charts with current filter ─────────────────────
 function rerender() {
+  applyBucketFilter();
   const d = loadedData[activeMarket] || {};
   if (d.valueToday)          renderValue(d.valueToday,    el("value-section-stats-today"));
   if (d.valueTomorrow)       renderValue(d.valueTomorrow, el("value-section-stats-tomorrow"));
