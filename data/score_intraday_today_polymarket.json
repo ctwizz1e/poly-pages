@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-05-27T17:31:05",
+  "generated_at": "2026-05-27T17:45:47",
   "date": "2026-05-27",
   "market": "polymarket",
   "even": {
-    "daily_tier": 1,
+    "daily_tier": 4,
     "daily_top": {
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "prob": 0.3813
+      "prob": 0.1427
     },
     "daily_signals": {
-      "max_prob": 0.3813,
-      "gap": 0.3157,
-      "entropy": 1.6131
+      "max_prob": 0.1427,
+      "gap": 0.036,
+      "entropy": 1.9404
     },
     "hours": [
       {
         "hour": 7,
         "time_label": "07:00",
-        "top_bucket": "84-85F",
-        "top_lo": 84,
+        "top_bucket": "86-87F",
+        "top_lo": 86,
         "top_prob": 0.225,
         "matches_daily": false
       },
@@ -49,24 +49,24 @@
         "matches_daily": false
       }
     ],
-    "abort_signal": "4hr",
-    "abort_precision": 0.66,
-    "recommendation": "exit_if_above_34pct",
+    "abort_signal": "no_trade",
+    "abort_precision": null,
+    "recommendation": "skip",
     "hours_available": 4,
     "hours_disagree": 4
   },
   "odd": {
     "daily_tier": 1,
     "daily_top": {
-      "label": "81-82F",
-      "lo": 81,
-      "hi": 83,
-      "prob": 0.3426
+      "label": "83-84F",
+      "lo": 83,
+      "hi": 85,
+      "prob": 0.4045
     },
     "daily_signals": {
-      "max_prob": 0.3426,
-      "gap": 0.1054,
-      "entropy": 1.6078
+      "max_prob": 0.4045,
+      "gap": 0.3119,
+      "entropy": 1.5924
     },
     "hours": [
       {
@@ -91,7 +91,7 @@
         "top_bucket": "83-84F",
         "top_lo": 83,
         "top_prob": 0.375,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 13,
@@ -99,13 +99,13 @@
         "top_bucket": "83-84F",
         "top_lo": 83,
         "top_prob": 0.4625,
-        "matches_daily": false
+        "matches_daily": true
       }
     ],
-    "abort_signal": "4hr",
-    "abort_precision": 0.66,
-    "recommendation": "exit_if_above_34pct",
+    "abort_signal": "none",
+    "abort_precision": null,
+    "recommendation": "hold",
     "hours_available": 4,
-    "hours_disagree": 4
+    "hours_disagree": 2
   }
 }
