@@ -1322,6 +1322,7 @@ function rerender() {
     renderScoreIntraday(d.scoreIntradayTomorrow, "even", el("body-score-tomorrow-intra-even"), el("meta-score-tomorrow-intra-even"));
     renderScoreIntraday(d.scoreIntradayTomorrow, "odd",  el("body-score-tomorrow-intra-odd"),  el("meta-score-tomorrow-intra-odd"));
   }
+  applyBucketFilter();
 }
 
 // ── Countdown + auto-refresh ──────────────────────────────────
