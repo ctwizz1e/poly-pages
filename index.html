@@ -411,6 +411,20 @@
     .abort-abort { background: #fff5f5; border: 1px solid #fecdca; }
     .abort-skip  { background: #f8f9fa; border: 1px solid var(--border); }
 
+    /* ── Signal accuracy hints ──────────────────────────────── */
+    .signal-hint {
+      margin-top: 10px;
+      padding: 7px 11px;
+      border-radius: 5px;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    .signal-hint-green  { background: #f0fff4; border: 1px solid #9be9a8; color: #1a7f37; }
+    .signal-hint-orange { background: #fff8e1; border: 1px solid #ffd54f; color: #856404; }
+    .signal-hint-red    { background: #fff5f5; border: 1px solid #fecdca; color: #b91c1c; }
+    .signal-hint-muted  { background: #f8f9fa; border: 1px solid var(--border); color: var(--text-muted); }
+    .signal-hint strong { font-weight: 700; }
+
     /* ── Responsive ─────────────────────────────────────────── */
     @media (max-width: 600px) {
       .cards { grid-template-columns: 1fr; }
@@ -1151,8 +1165,72 @@ function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
     <span>Max <strong>${Math.round(d.signals.max_prob * 100)}%</strong></span>`;
   frag.appendChild(sigDiv);
 
+  const TIER_HINTS = {
+    1: "Tier 1 base accuracy ~56%. If 7am confirms: ~63%. If 7/9/11 all agree: ~74% (odd) / ~69% (even).",
+    2: "Tier 2 base accuracy ~40%. Intraday confirmation matters — wait for 7am before adding size.",
+    3: "Tier 3 base accuracy ~48%. Consider waiting for 7am + 9am both confirming before entering.",
+    4: "Tier 4: Model is uncertain. Historical accuracy below baseline — skip this day.",
+  };
+  const hintDiv = document.createElement("div");
+  hintDiv.className = "signal-hint signal-hint-muted";
+  hintDiv.textContent = TIER_HINTS[d.tier] || "";
+  frag.appendChild(hintDiv);
+
   bodyEl.innerHTML = "";
   bodyEl.appendChild(frag);
+}
+
+// ── Intraday accuracy hint ────────────────────────────────
+function intradayAccuracyHint(d, bucketStart) {
+  const hours = d.hours || [];
+  const isOdd = bucketStart === "odd";
+  const h7  = hours.find(h => h.hour === 7);
+  const h9  = hours.find(h => h.hour === 9);
+  const h11 = hours.find(h => h.hour === 11);
+
+  if (!h7) return null;
+
+  if (h11) {
+    const h7b = h7.top_bucket, h9b = h9 && h9.top_bucket, h11b = h11.top_bucket;
+    const allSame = h7b === h9b && h9b === h11b;
+    if (allSame && h7.matches_daily && h9.matches_daily && h11.matches_daily) {
+      const acc = isOdd ? 74 : 69;
+      return { cls: "signal-hint-green", text: `7/9/11am all agree with daily → <strong>~${acc}% historical accuracy</strong>` };
+    }
+    if (allSame && !h7.matches_daily) {
+      return { cls: "signal-hint-red", text: `7/9/11am all agree on <strong>${h11b}</strong>, diverging from daily → strong abort signal (~60-66% precision)` };
+    }
+    if (h9 && h7b === h9b && h11b !== h9b) {
+      if (h11.matches_daily) {
+        return { cls: "signal-hint-orange", text: `11am updated back toward daily after 7+9 diverged — monitoring continues` };
+      }
+      return { cls: "signal-hint-red", text: `11am shifted away from 7+9 consensus → follow 11am (<strong>~31% accuracy</strong> for early pick)` };
+    }
+    if (h9 && h7b !== h9b) {
+      if (h11b === h7b)  return { cls: "signal-hint-orange", text: `11am sides with 7am → <strong>~52.5% accuracy</strong>` };
+      if (h11b === h9b)  return { cls: "signal-hint-orange", text: `11am sides with 9am → <strong>~56.8% accuracy</strong>` };
+      return { cls: "signal-hint-red", text: `All three hours pick different buckets → <strong>~27% accuracy</strong>, strong skip signal` };
+    }
+    const nMatch = [h7, h9, h11].filter(h => h && h.matches_daily).length;
+    return { cls: "signal-hint-orange", text: `${nMatch} of 3 early hours agree with daily — mixed signals` };
+  }
+
+  if (h9) {
+    if (h7.top_bucket === h9.top_bucket) {
+      if (h7.matches_daily && h9.matches_daily) {
+        return { cls: "signal-hint-green", text: `7+9am agree with daily → <strong>~58.6% accuracy</strong> · wait for 11am to confirm` };
+      }
+      return { cls: "signal-hint-orange", text: `7+9am agree on <strong>${h9.top_bucket}</strong> but diverge from daily · 11am will decide` };
+    }
+    return { cls: "signal-hint-orange", text: `7am and 9am disagree → <strong>~44.7% accuracy</strong> · 11am breaks the tie` };
+  }
+
+  // Only 7am
+  if (h7.matches_daily) {
+    const acc = isOdd ? 63 : 62;
+    return { cls: "signal-hint-green", text: `7am confirms daily → <strong>~${acc}% historical accuracy</strong> · wait for 9am` };
+  }
+  return { cls: "signal-hint-orange", text: `7am diverges from daily → <strong>~35% accuracy</strong> if pattern persists · wait for 9am` };
 }
 
 // ── Render: score intraday (abort signal) ─────────────────
@@ -1214,6 +1292,14 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
       <div class="abort-rec-sub">${sig.sub}</div>
     </div>`;
   frag.appendChild(recDiv);
+
+  const hint = intradayAccuracyHint(d, bucketStart);
+  if (hint) {
+    const hintDiv = document.createElement("div");
+    hintDiv.className = `signal-hint ${hint.cls}`;
+    hintDiv.innerHTML = hint.text;
+    frag.appendChild(hintDiv);
+  }
 
   bodyEl.innerHTML = "";
   bodyEl.appendChild(frag);
