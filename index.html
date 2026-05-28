@@ -1165,11 +1165,16 @@ function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
     <span>Max <strong>${Math.round(d.signals.max_prob * 100)}%</strong></span>`;
   frag.appendChild(sigDiv);
 
+  const isOdd = bucketStart === "odd";
+  const dailyProb = d.top1 && d.top1.prob || 0;
+  const confirmAcc = _acc7amConfirm(dailyProb, isOdd);
+  const tripleAcc  = isOdd ? (dailyProb >= 0.25 ? 83 : dailyProb >= 0.20 ? 76 : 74)
+                           : (dailyProb >= 0.35 ? 92 : dailyProb >= 0.30 ? 71 : 69);
   const TIER_HINTS = {
-    1: "Tier 1 base accuracy ~56%. If 7am confirms: ~63%. If 7/9/11 all agree: ~74% (odd) / ~69% (even).",
-    2: "Tier 2 base accuracy ~40%. Intraday confirmation matters — wait for 7am before adding size.",
-    3: "Tier 3 base accuracy ~48%. Consider waiting for 7am + 9am both confirming before entering.",
-    4: "Tier 4: Model is uncertain. Historical accuracy below baseline — skip this day.",
+    1: `Tier 1 base ~56%. If 7am confirms: ~${confirmAcc}%. If 7/9/11 all agree: ~${tripleAcc}%. (Daily conf: ${Math.round(dailyProb*100)}%)`,
+    2: `Tier 2 base ~40%. If 7am confirms: ~${confirmAcc}%. Consider waiting for confirmation before entering. (Daily conf: ${Math.round(dailyProb*100)}%)`,
+    3: `Tier 3 base ~48%. If 7am confirms: ~${confirmAcc}%. Wait for 7+9am both confirming before entering. (Daily conf: ${Math.round(dailyProb*100)}%)`,
+    4: "Tier 4: Model uncertain. Historical accuracy below baseline — skip this day.",
   };
   const hintDiv = document.createElement("div");
   hintDiv.className = "signal-hint signal-hint-muted";
@@ -1181,12 +1186,40 @@ function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
 }
 
 // ── Intraday accuracy hint ────────────────────────────────
+// Prob-adjusted accuracy estimates from backtests
+// 7am confirms daily (keyed on daily model prob)
+function _acc7amConfirm(dailyProb, isOdd) {
+  if (isOdd) {
+    if (dailyProb >= 0.25) return 93;
+    if (dailyProb >= 0.20) return 80;
+    if (dailyProb >= 0.15) return 70;
+    return 63;
+  } else {
+    if (dailyProb >= 0.20) return 83;
+    if (dailyProb >= 0.15) return 69;
+    return 62;
+  }
+}
+// 7/9/11 all agree with daily (keyed on h11 intraday prob)
+function _acc711Agree(h11Prob, isOdd) {
+  if (isOdd) {
+    if (h11Prob >= 0.25) return 83;
+    if (h11Prob >= 0.20) return 76;
+    return 74;
+  } else {
+    if (h11Prob >= 0.35) return 92;
+    if (h11Prob >= 0.30) return 71;
+    return 69;
+  }
+}
+
 function intradayAccuracyHint(d, bucketStart) {
   const hours = d.hours || [];
   const isOdd = bucketStart === "odd";
   const h7  = hours.find(h => h.hour === 7);
   const h9  = hours.find(h => h.hour === 9);
   const h11 = hours.find(h => h.hour === 11);
+  const dailyProb = d.daily_top && d.daily_top.prob || 0;
 
   if (!h7) return null;
 
@@ -1194,8 +1227,8 @@ function intradayAccuracyHint(d, bucketStart) {
     const h7b = h7.top_bucket, h9b = h9 && h9.top_bucket, h11b = h11.top_bucket;
     const allSame = h7b === h9b && h9b === h11b;
     if (allSame && h7.matches_daily && h9.matches_daily && h11.matches_daily) {
-      const acc = isOdd ? 74 : 69;
-      return { cls: "signal-hint-green", text: `7/9/11am all agree with daily → <strong>~${acc}% historical accuracy</strong>` };
+      const acc = _acc711Agree(h11.top_prob, isOdd);
+      return { cls: "signal-hint-green", text: `7/9/11am all agree with daily → <strong>~${acc}% historical accuracy</strong> <span style="font-weight:normal;opacity:.75">(h11 ${Math.round(h11.top_prob*100)}% conf)</span>` };
     }
     if (allSame && !h7.matches_daily) {
       return { cls: "signal-hint-red", text: `7/9/11am all agree on <strong>${h11b}</strong>, diverging from daily → strong abort signal (~60-66% precision)` };
@@ -1218,7 +1251,8 @@ function intradayAccuracyHint(d, bucketStart) {
   if (h9) {
     if (h7.top_bucket === h9.top_bucket) {
       if (h7.matches_daily && h9.matches_daily) {
-        return { cls: "signal-hint-green", text: `7+9am agree with daily → <strong>~58.6% accuracy</strong> · wait for 11am to confirm` };
+        const acc = _acc7amConfirm(dailyProb, isOdd);
+        return { cls: "signal-hint-green", text: `7+9am agree with daily → <strong>~${acc}% accuracy</strong> <span style="font-weight:normal;opacity:.75">(daily ${Math.round(dailyProb*100)}% conf)</span> · wait for 11am` };
       }
       return { cls: "signal-hint-orange", text: `7+9am agree on <strong>${h9.top_bucket}</strong> but diverge from daily · 11am will decide` };
     }
@@ -1227,8 +1261,8 @@ function intradayAccuracyHint(d, bucketStart) {
 
   // Only 7am
   if (h7.matches_daily) {
-    const acc = isOdd ? 63 : 62;
-    return { cls: "signal-hint-green", text: `7am confirms daily → <strong>~${acc}% historical accuracy</strong> · wait for 9am` };
+    const acc = _acc7amConfirm(dailyProb, isOdd);
+    return { cls: "signal-hint-green", text: `7am confirms daily → <strong>~${acc}% historical accuracy</strong> <span style="font-weight:normal;opacity:.75">(daily ${Math.round(dailyProb*100)}% conf)</span> · wait for 9am` };
   }
   return { cls: "signal-hint-orange", text: `7am diverges from daily → <strong>~35% accuracy</strong> if pattern persists · wait for 9am` };
 }
