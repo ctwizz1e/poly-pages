@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T16:15:37",
+  "generated_at": "2026-05-28T16:30:55",
   "date": "2026-05-28",
   "market": "kalshi",
   "even": {
@@ -8,28 +8,28 @@
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "prob": 0.0751
+      "prob": 0.0728
     },
     "daily_signals": {
-      "max_prob": 0.0751,
-      "gap": 0.0328,
-      "entropy": 2.127
+      "max_prob": 0.0728,
+      "gap": 0.0189,
+      "entropy": 2.1752
     },
     "hours": [
       {
         "hour": 7,
         "time_label": "07:00",
-        "top_bucket": "84-85F",
-        "top_lo": 84,
-        "top_prob": 0.3438,
+        "top_bucket": "88-89F",
+        "top_lo": 88,
+        "top_prob": 0.2203,
         "matches_daily": false
       },
       {
         "hour": 9,
         "time_label": "09:00",
-        "top_bucket": "84-85F",
-        "top_lo": 84,
-        "top_prob": 0.3333,
+        "top_bucket": "88-89F",
+        "top_lo": 88,
+        "top_prob": 0.1953,
         "matches_daily": false
       },
       {
@@ -37,15 +37,15 @@
         "time_label": "11:00",
         "top_bucket": "88-89F",
         "top_lo": 88,
-        "top_prob": 0.2574,
+        "top_prob": 0.3333,
         "matches_daily": false
       },
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "84-85F",
-        "top_lo": 84,
-        "top_prob": 0.274,
+        "top_bucket": "88-89F",
+        "top_lo": 88,
+        "top_prob": 0.275,
         "matches_daily": false
       }
     ],
@@ -56,17 +56,17 @@
     "hours_disagree": 4
   },
   "odd": {
-    "daily_tier": 1,
+    "daily_tier": 2,
     "daily_top": {
       "label": "85-86F",
       "lo": 85,
       "hi": 87,
-      "prob": 0.3687
+      "prob": 0.282
     },
     "daily_signals": {
-      "max_prob": 0.3687,
-      "gap": 0.1423,
-      "entropy": 1.503
+      "max_prob": 0.282,
+      "gap": 0.0286,
+      "entropy": 1.5136
     },
     "hours": [
       {
@@ -74,7 +74,7 @@
         "time_label": "07:00",
         "top_bucket": "85-86F",
         "top_lo": 85,
-        "top_prob": 0.2093,
+        "top_prob": 0.2195,
         "matches_daily": true
       },
       {
@@ -98,7 +98,7 @@
         "time_label": "13:00",
         "top_bucket": "85-86F",
         "top_lo": 85,
-        "top_prob": 0.381,
+        "top_prob": 0.383,
         "matches_daily": true
       }
     ],
