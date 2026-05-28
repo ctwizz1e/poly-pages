@@ -433,6 +433,8 @@
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1/dist/chartjs-adapter-luxon.umd.min.js"></script>
 </head>
 <body>
 
@@ -1042,31 +1044,79 @@ function tsLabel(timeStr) {
 
 function renderObsTimeseries(data, _bodyEl, metaEl) {
   metaEl.textContent = fmtDate(data.generated_at);
-  const obs = data.observations || [];
-  if (!obs.length) return;
+  const obs    = data.observations || [];
+  const obs1m  = data.obs_1m  || [];
+  const obs52m = data.obs_52m || [];
+  const obsOmo = data.obs_omo || [];
+  if (!obs.length && !obs1m.length && !obs52m.length && !obsOmo.length) return;
+
+  function toPoints(arr) {
+    return arr.filter(o => o.temp != null).map(o => ({ x: new Date(o.time), y: o.temp }));
+  }
+
   new Chart(document.getElementById("chart-obs").getContext("2d"), {
     type: "line",
     data: {
-      labels: obs.map(o => tsLabel(o.time)),
-      datasets: [{
-        label: "Temp (°F)",
-        data: obs.map(o => o.temp),
-        borderColor: "#0366d6",
-        backgroundColor: "rgba(3,102,214,0.08)",
-        borderWidth: 1.5,
-        pointRadius: 2,
-        pointHoverRadius: 5,
-        tension: 0.3,
-        fill: true,
-      }],
+      datasets: [
+        {
+          label: "Synoptic (hourly)",
+          data: toPoints(obs),
+          borderColor: "#0366d6",
+          backgroundColor: "rgba(3,102,214,0.08)",
+          borderWidth: 1.5,
+          pointRadius: 2,
+          pointHoverRadius: 5,
+          tension: 0.3,
+          fill: true,
+        },
+        {
+          label: "5m (NWS 1-min)",
+          data: toPoints(obs1m),
+          borderColor: "#22863a",
+          backgroundColor: "transparent",
+          borderWidth: 1,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0,
+          hidden: true,
+        },
+        {
+          label: ":52 (Wunderground)",
+          data: toPoints(obs52m),
+          borderColor: "#e8622a",
+          backgroundColor: "transparent",
+          borderWidth: 1.5,
+          pointRadius: 2,
+          pointHoverRadius: 4,
+          tension: 0.3,
+          hidden: false,
+        },
+        {
+          label: "OMO (climatesight)",
+          data: toPoints(obsOmo),
+          borderColor: "#6f42c1",
+          backgroundColor: "transparent",
+          borderWidth: 1,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0,
+          hidden: true,
+        },
+      ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
-      plugins: { legend: { display: false } },
+      interaction: { mode: "nearest", intersect: false, axis: "x" },
+      plugins: {
+        legend: { display: true, position: "top", labels: { boxWidth: 10, font: { size: 11 } } },
+      },
       scales: {
-        x: { ticks: { maxTicksLimit: 12, maxRotation: 0, font: { size: 10 } } },
+        x: {
+          type: "time",
+          time: { displayFormats: { hour: "MMM d, h a", day: "MMM d" } },
+          ticks: { maxTicksLimit: 12, maxRotation: 0, font: { size: 10 } },
+        },
         y: { title: { display: true, text: "°F", font: { size: 11 } } },
       },
     },
@@ -1077,29 +1127,64 @@ function renderFcstTimeseries(data, _bodyEl, metaEl) {
   metaEl.textContent = fmtDate(data.generated_at);
   const fcsts = data.forecasts || [];
   const models = data.models || [];
-  if (!fcsts.length || !models.length) return;
+  const modelExpected = data.model_expected || {};
+
+  const nwpDatasets = models.map(m => ({
+    label: MODEL_LABELS[m] || m.toUpperCase(),
+    data: fcsts.filter(f => f[m] != null).map(f => ({ x: new Date(f.time), y: f[m] })),
+    borderColor: MODEL_COLORS[m] || "#888",
+    backgroundColor: "transparent",
+    borderWidth: 1.5,
+    pointRadius: 2.5,
+    pointHoverRadius: 5,
+    tension: 0.3,
+  }));
+
+  const MODEL_EXP_SERIES = [
+    { key: "even_kalshi",      label: "Model Even (Kalshi)",      color: "#0366d6", dash: [8, 4], hidden: false },
+    { key: "odd_kalshi",       label: "Model Odd (Kalshi)",       color: "#5b9bd5", dash: [4, 4], hidden: true  },
+    { key: "even_polymarket",  label: "Model Even (Polymarket)",  color: "#e8622a", dash: [8, 4], hidden: true  },
+    { key: "odd_polymarket",   label: "Model Odd (Polymarket)",   color: "#e8a87c", dash: [4, 4], hidden: true  },
+  ];
+  const modelDatasets = MODEL_EXP_SERIES.map(series => {
+    const pts = [];
+    for (const [date, vals] of Object.entries(modelExpected)) {
+      const v = vals[series.key];
+      if (v != null) {
+        pts.push({ x: new Date(date + "T06:00:00"), y: v });
+        pts.push({ x: new Date(date + "T21:00:00"), y: v });
+      }
+    }
+    return {
+      label: series.label,
+      data: pts,
+      borderColor: series.color,
+      backgroundColor: "transparent",
+      borderWidth: 2,
+      borderDash: series.dash,
+      pointRadius: 0,
+      pointHoverRadius: 4,
+      tension: 0,
+      hidden: series.hidden,
+    };
+  });
+
+  if (!fcsts.length && !Object.keys(modelExpected).length) return;
+
   new Chart(document.getElementById("chart-fcst").getContext("2d"), {
     type: "line",
-    data: {
-      labels: fcsts.map(f => tsLabel(f.time)),
-      datasets: models.map(m => ({
-        label: MODEL_LABELS[m] || m.toUpperCase(),
-        data: fcsts.map(f => f[m]),
-        borderColor: MODEL_COLORS[m] || "#888",
-        backgroundColor: "transparent",
-        borderWidth: 1.5,
-        pointRadius: 2.5,
-        pointHoverRadius: 5,
-        tension: 0.3,
-      })),
-    },
+    data: { datasets: [...nwpDatasets, ...modelDatasets] },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
-      plugins: { legend: { position: "top", labels: { boxWidth: 10, font: { size: 11 } } } },
+      interaction: { mode: "nearest", intersect: false, axis: "x" },
+      plugins: { legend: { display: true, position: "top", labels: { boxWidth: 10, font: { size: 11 } } } },
       scales: {
-        x: { ticks: { maxTicksLimit: 12, maxRotation: 0, font: { size: 10 } } },
+        x: {
+          type: "time",
+          time: { displayFormats: { hour: "MMM d, h a", day: "MMM d" } },
+          ticks: { maxTicksLimit: 12, maxRotation: 0, font: { size: 10 } },
+        },
         y: { title: { display: true, text: "°F", font: { size: 11 } } },
       },
     },
@@ -1231,7 +1316,8 @@ function intradayAccuracyHint(d, bucketStart) {
       return { cls: "signal-hint-green", text: `7/9/11am all agree with daily → <strong>~${acc}% historical accuracy</strong> <span style="font-weight:normal;opacity:.75">(h11 ${Math.round(h11.top_prob*100)}% conf)</span>` };
     }
     if (allSame && !h7.matches_daily) {
-      return { cls: "signal-hint-red", text: `7/9/11am all agree on <strong>${h11b}</strong>, diverging from daily → strong abort signal (~60-66% precision)` };
+      const switchAcc = d.abort_precision ? Math.round(d.abort_precision * 100) : "60–66";
+      return { cls: "signal-hint-red", text: `7/9/11am all agree on <strong>${h11b}</strong>, diverging from daily → strong abort signal · switching to <strong>${h11b}</strong> gives <strong>~${switchAcc}% accuracy</strong>` };
     }
     if (h9 && h7b === h9b && h11b !== h9b) {
       if (h11.matches_daily) {
