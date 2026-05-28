@@ -1224,10 +1224,8 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
 // When the config is null (market not found / not yet posted) all cards are shown.
 function applyBucketFilter() {
   const cfg = loadedData.shared?.marketConfig;
-  // Fall back to Kalshi's bucket when the active market's bucket is unknown —
-  // both markets track the same Atlanta TMAX so parity is always shared.
-  const todayStart   = cfg?.today?.[activeMarket]   ?? cfg?.today?.kalshi   ?? null;
-  const tomorrowStart = cfg?.tomorrow?.[activeMarket] ?? cfg?.tomorrow?.kalshi ?? null;
+  const todayStart   = cfg?.today?.[activeMarket]   ?? null;
+  const tomorrowStart = cfg?.tomorrow?.[activeMarket] ?? null;
 
   document.querySelectorAll(".card[data-bucket]").forEach(card => {
     const bucket = card.getAttribute("data-bucket");  // "even" | "odd"
