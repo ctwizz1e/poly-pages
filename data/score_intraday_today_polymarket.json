@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T10:31:34",
+  "generated_at": "2026-05-28T10:46:21",
   "date": "2026-05-28",
   "market": "polymarket",
   "even": {
@@ -8,12 +8,12 @@
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "prob": 0.114
+      "prob": 0.1143
     },
     "daily_signals": {
-      "max_prob": 0.114,
-      "gap": 0.0197,
-      "entropy": 2.0663
+      "max_prob": 0.1143,
+      "gap": 0.02,
+      "entropy": 2.0634
     },
     "hours": [
       {
@@ -58,15 +58,15 @@
   "odd": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "85-86F",
-      "lo": 85,
-      "hi": 87,
-      "prob": 0.1364
+      "label": "83-84F",
+      "lo": 83,
+      "hi": 85,
+      "prob": 0.1874
     },
     "daily_signals": {
-      "max_prob": 0.1364,
-      "gap": 0.0134,
-      "entropy": 2.058
+      "max_prob": 0.1874,
+      "gap": 0.0485,
+      "entropy": 1.931
     },
     "hours": [
       {
@@ -75,7 +75,7 @@
         "top_bucket": "85-86F",
         "top_lo": 85,
         "top_prob": 0.2647,
-        "matches_daily": true
+        "matches_daily": false
       },
       {
         "hour": 9,
@@ -83,29 +83,29 @@
         "top_bucket": "83-84F",
         "top_lo": 83,
         "top_prob": 0.2791,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 11,
         "time_label": "11:00",
-        "top_bucket": "85-86F",
-        "top_lo": 85,
-        "top_prob": 0.2473,
-        "matches_daily": true
+        "top_bucket": "87-88F",
+        "top_lo": 87,
+        "top_prob": 0.2676,
+        "matches_daily": false
       },
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "85-86F",
-        "top_lo": 85,
-        "top_prob": 0.2473,
-        "matches_daily": true
+        "top_bucket": "87-88F",
+        "top_lo": 87,
+        "top_prob": 0.2676,
+        "matches_daily": false
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
     "hours_available": 4,
-    "hours_disagree": 1
+    "hours_disagree": 3
   }
 }
