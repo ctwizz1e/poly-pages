@@ -1237,7 +1237,7 @@ function intradayAccuracyHint(d, bucketStart) {
       if (h11.matches_daily) {
         return { cls: "signal-hint-orange", text: `11am updated back toward daily after 7+9 diverged — monitoring continues` };
       }
-      return { cls: "signal-hint-red", text: `11am shifted away from 7+9 consensus → follow 11am (<strong>~31% accuracy</strong> for early pick)` };
+      return { cls: "signal-hint-red", text: `11am shifted away from 7+9 consensus → follow 11am (<strong>~31% accuracy</strong> for early pick) <span style="font-weight:normal;opacity:.75">(h11 ${Math.round(h11.top_prob*100)}% conf)</span>` };
     }
     if (h9 && h7b !== h9b) {
       if (h11b === h7b)  return { cls: "signal-hint-orange", text: `11am sides with 7am → <strong>~52.5% accuracy</strong>` };
