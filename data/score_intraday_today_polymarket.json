@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T18:46:08",
+  "generated_at": "2026-05-28T19:01:25",
   "date": "2026-05-28",
   "market": "polymarket",
   "even": {
@@ -8,12 +8,12 @@
       "label": "88-89F",
       "lo": 88,
       "hi": 90,
-      "prob": 0.1152
+      "prob": 0.1238
     },
     "daily_signals": {
-      "max_prob": 0.1152,
-      "gap": 0.051,
-      "entropy": 2.0771
+      "max_prob": 0.1238,
+      "gap": 0.0638,
+      "entropy": 2.0025
     },
     "hours": [
       {
@@ -56,17 +56,17 @@
     "hours_disagree": 3
   },
   "odd": {
-    "daily_tier": 4,
+    "daily_tier": 3,
     "daily_top": {
-      "label": "85-86F",
-      "lo": 85,
-      "hi": 87,
-      "prob": 0.1213
+      "label": "87-88F",
+      "lo": 87,
+      "hi": 89,
+      "prob": 0.1904
     },
     "daily_signals": {
-      "max_prob": 0.1213,
-      "gap": 0.05,
-      "entropy": 2.0715
+      "max_prob": 0.1904,
+      "gap": 0.1229,
+      "entropy": 1.8753
     },
     "hours": [
       {
@@ -75,15 +75,15 @@
         "top_bucket": "85-86F",
         "top_lo": 85,
         "top_prob": 0.2647,
-        "matches_daily": true
+        "matches_daily": false
       },
       {
         "hour": 9,
         "time_label": "09:00",
         "top_bucket": "85-86F",
         "top_lo": 85,
-        "top_prob": 0.2791,
-        "matches_daily": true
+        "top_prob": 0.2857,
+        "matches_daily": false
       },
       {
         "hour": 11,
@@ -91,7 +91,7 @@
         "top_bucket": "87-88F",
         "top_lo": 87,
         "top_prob": 0.3111,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 13,
@@ -99,13 +99,13 @@
         "top_bucket": "85-86F",
         "top_lo": 85,
         "top_prob": 0.4625,
-        "matches_daily": true
+        "matches_daily": false
       }
     ],
-    "abort_signal": "no_trade",
+    "abort_signal": "none",
     "abort_precision": null,
-    "recommendation": "skip",
+    "recommendation": "hold",
     "hours_available": 4,
-    "hours_disagree": 1
+    "hours_disagree": 3
   }
 }
