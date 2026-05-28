@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T04:00:56",
+  "generated_at": "2026-05-28T04:15:33",
   "date": "2026-05-28",
   "market": "kalshi",
   "even": {
@@ -8,65 +8,65 @@
       "label": "88-89F",
       "lo": 88,
       "hi": 90,
-      "prob": 0.0389
+      "prob": 0.0476
     },
     "daily_signals": {
-      "max_prob": 0.0389,
-      "gap": 0.0106,
-      "entropy": 2.632
+      "max_prob": 0.0476,
+      "gap": 0.0179,
+      "entropy": 2.6044
     },
     "hours": [
       {
         "hour": 7,
         "time_label": "07:00",
-        "top_bucket": "90-91F",
-        "top_lo": 90,
+        "top_bucket": "88-89F",
+        "top_lo": 88,
         "top_prob": 0.1351,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 9,
         "time_label": "09:00",
-        "top_bucket": "90-91F",
-        "top_lo": 90,
+        "top_bucket": "88-89F",
+        "top_lo": 88,
         "top_prob": 0.1351,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 11,
         "time_label": "11:00",
-        "top_bucket": "90-91F",
-        "top_lo": 90,
+        "top_bucket": "88-89F",
+        "top_lo": 88,
         "top_prob": 0.1351,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "90-91F",
-        "top_lo": 90,
+        "top_bucket": "88-89F",
+        "top_lo": 88,
         "top_prob": 0.1351,
-        "matches_daily": false
+        "matches_daily": true
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
     "hours_available": 4,
-    "hours_disagree": 4
+    "hours_disagree": 0
   },
   "odd": {
-    "daily_tier": 2,
+    "daily_tier": 4,
     "daily_top": {
       "label": "85-86F",
       "lo": 85,
       "hi": 87,
-      "prob": 0.2471
+      "prob": 0.2044
     },
     "daily_signals": {
-      "max_prob": 0.2471,
-      "gap": 0.1139,
-      "entropy": 1.9634
+      "max_prob": 0.2044,
+      "gap": 0.0022,
+      "entropy": 1.9089
     },
     "hours": [
       {
@@ -102,9 +102,9 @@
         "matches_daily": true
       }
     ],
-    "abort_signal": "none",
+    "abort_signal": "no_trade",
     "abort_precision": null,
-    "recommendation": "hold",
+    "recommendation": "skip",
     "hours_available": 4,
     "hours_disagree": 0
   }
