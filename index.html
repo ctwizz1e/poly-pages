@@ -664,6 +664,14 @@ function getTempFilter() {
 // ── Utilities ────────────────────────────────────────────────
 function fmtPct(p)  { return p == null ? "—" : (p * 100).toFixed(1) + "%"; }
 function fmtTemp(t) { return t == null ? "—" : t.toFixed(1) + "°F"; }
+function fmtHour(h) {
+  if (h == null) return "—";
+  const hr  = Math.floor(h);
+  const min = Math.round((h % 1) * 60);
+  const ampm = hr >= 12 ? "PM" : "AM";
+  const dh   = hr > 12 ? hr - 12 : hr === 0 ? 12 : hr;
+  return `${dh}:${String(min).padStart(2, "0")} ${ampm}`;
+}
 function fmtDate(iso) {
   if (!iso) return "—";
   const d = new Date(iso);
@@ -740,6 +748,9 @@ function renderIntradayHours(data, bodyEl, metaEl) {
       .map(([src, v]) => `<span class="fcst-chip">${src.toUpperCase()} ${v?.toFixed(1)}°F</span>`)
       .join("");
     chipsHtml = `<div class="fcst-chips">${chips}</div>`;
+  }
+  if (data.predicted_peak_hour != null) {
+    chipsHtml += `<div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">Peak predicted <strong style="color:var(--text)">~${fmtHour(data.predicted_peak_hour)} ET</strong></div>`;
   }
 
   const table = document.createElement("table");
@@ -832,6 +843,10 @@ function renderIntradayCompare(data, bodyEl, metaEl) {
       ${data.dewpoint != null ? `<div class="stat">
         <span class="stat-label">Dewpoint</span>
         <span class="stat-value">${fmtTemp(data.dewpoint)}</span>
+      </div>` : ""}
+      ${data.predicted_peak_hour != null ? `<div class="stat">
+        <span class="stat-label">Peak ~</span>
+        <span class="stat-value">${fmtHour(data.predicted_peak_hour)} ET</span>
       </div>` : ""}
     </div>`;
 
