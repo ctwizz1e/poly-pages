@@ -423,6 +423,7 @@
     .signal-hint-orange { background: #fff8e1; border: 1px solid #ffd54f; color: #856404; }
     .signal-hint-red    { background: #fff5f5; border: 1px solid #fecdca; color: #b91c1c; }
     .signal-hint-muted  { background: #f8f9fa; border: 1px solid var(--border); color: var(--text-muted); }
+    .signal-hint-blue   { background: #f0f7ff; border: 1px solid #93c5fd; color: #1d4ed8; }
     .signal-hint strong { font-weight: 700; }
 
     /* ── Responsive ─────────────────────────────────────────── */
@@ -1345,6 +1346,44 @@ function intradayAccuracyHint(d, bucketStart) {
   return { cls: "signal-hint-orange", text: `7am diverges from daily → <strong>~35% accuracy</strong> if pattern persists · wait for 9am` };
 }
 
+// ── Midpoint divergence hint ──────────────────────────────
+// When majority of intraday hours are >= 2 buckets ABOVE daily,
+// the actual outcome lands in the middle ~26-29% of the time (4.5x chance, p<0.001).
+// Backtest stats (intraday above daily only, 2025-01-01 to 2026-05-23):
+//   gap=2: intraday 37%, middle 29%, daily 24%
+//   gap=3: intraday 52%, middle 24%, daily  9%
+//   gap=4: intraday 68%, middle 26%, daily  0%
+const _MIDPOINT_STATS = { 2: [37,29,24], 3: [52,24,9], 4: [68,26,0] };
+
+function midpointDivergenceHint(d) {
+  if (!d.hours || d.hours.length === 0) return null;
+  const daily_lo = d.daily_top && d.daily_top.lo;
+  if (daily_lo == null) return null;
+
+  // Hours pointing >= 2 buckets (4 degrees F) above daily
+  const aboveHours = d.hours.filter(h => h.top_lo != null && (h.top_lo - daily_lo) >= 4);
+  if (aboveHours.length === 0 || aboveHours.length < Math.ceil(d.hours.length / 2)) return null;
+
+  // Most common intraday lo among above-hours
+  const freq = {};
+  aboveHours.forEach(h => { freq[h.top_lo] = (freq[h.top_lo] || 0) + 1; });
+  const intraday_lo = parseInt(Object.entries(freq).sort((a, b) => b[1] - a[1])[0][0]);
+  const gap = Math.round((intraday_lo - daily_lo) / 2);
+  if (gap < 2) return null;
+
+  const st = _MIDPOINT_STATS[Math.min(gap, 4)];
+  const mid_range = `${daily_lo + 2}-${intraday_lo - 1}F`;
+  const daily_label = d.daily_top.label;
+  const intra_label = aboveHours.length > 0 ? aboveHours.find(h => h.top_lo === intraday_lo).top_bucket : `${intraday_lo}F`;
+
+  return {
+    cls: "signal-hint-blue",
+    text: `Upward gap <strong>${gap}</strong> buckets (daily <strong>${daily_label}</strong> vs intraday <strong>${intra_label}</strong>) &mdash; ` +
+          `historical: intraday <strong>${st[0]}%</strong> &middot; middle <strong>${st[1]}%</strong> &middot; daily <strong>${st[2]}%</strong>` +
+          ` &middot; middle range: <strong>${mid_range}</strong>`
+  };
+}
+
 // ── Render: score intraday (abort signal) ─────────────────
 function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
   metaEl.textContent = fmtDate(data.generated_at);
@@ -1411,6 +1450,14 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
     hintDiv.className = `signal-hint ${hint.cls}`;
     hintDiv.innerHTML = hint.text;
     frag.appendChild(hintDiv);
+  }
+
+  const midHint = midpointDivergenceHint(d);
+  if (midHint) {
+    const midDiv = document.createElement("div");
+    midDiv.className = `signal-hint ${midHint.cls}`;
+    midDiv.innerHTML = midHint.text;
+    frag.appendChild(midDiv);
   }
 
   bodyEl.innerHTML = "";
