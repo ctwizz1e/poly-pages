@@ -1,110 +1,110 @@
 {
-  "generated_at": "2026-05-29T06:00:42",
+  "generated_at": "2026-05-29T06:15:39",
   "date": "2026-05-29",
   "market": "polymarket",
   "even": {
-    "daily_tier": 1,
+    "daily_tier": 2,
     "daily_top": {
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "prob": 0.2981
+      "prob": 0.2465
     },
     "daily_signals": {
-      "max_prob": 0.2981,
-      "gap": 0.1669,
-      "entropy": 1.9957
+      "max_prob": 0.2465,
+      "gap": 0.0755,
+      "entropy": 1.8805
     },
     "hours": [
       {
         "hour": 7,
         "time_label": "07:00",
-        "top_bucket": "84-85F",
-        "top_lo": 84,
-        "top_prob": 0.225,
+        "top_bucket": "82-83F",
+        "top_lo": 82,
+        "top_prob": 0.2759,
+        "matches_daily": true
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "82-83F",
+        "top_lo": 82,
+        "top_prob": 0.2759,
+        "matches_daily": true
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "82-83F",
+        "top_lo": 82,
+        "top_prob": 0.2759,
+        "matches_daily": true
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "82-83F",
+        "top_lo": 82,
+        "top_prob": 0.2759,
+        "matches_daily": true
+      }
+    ],
+    "abort_signal": "none",
+    "abort_precision": null,
+    "recommendation": "hold",
+    "hours_available": 4,
+    "hours_disagree": 0
+  },
+  "odd": {
+    "daily_tier": 1,
+    "daily_top": {
+      "label": "81-82F",
+      "lo": 81,
+      "hi": 83,
+      "prob": 0.3914
+    },
+    "daily_signals": {
+      "max_prob": 0.3914,
+      "gap": 0.2265,
+      "entropy": 1.5828
+    },
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "85-86F",
+        "top_lo": 85,
+        "top_prob": 0.2647,
         "matches_daily": false
       },
       {
         "hour": 9,
         "time_label": "09:00",
-        "top_bucket": "84-85F",
-        "top_lo": 84,
-        "top_prob": 0.225,
+        "top_bucket": "85-86F",
+        "top_lo": 85,
+        "top_prob": 0.2647,
         "matches_daily": false
       },
       {
         "hour": 11,
         "time_label": "11:00",
-        "top_bucket": "84-85F",
-        "top_lo": 84,
-        "top_prob": 0.225,
+        "top_bucket": "85-86F",
+        "top_lo": 85,
+        "top_prob": 0.2647,
         "matches_daily": false
       },
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "84-85F",
-        "top_lo": 84,
-        "top_prob": 0.225,
+        "top_bucket": "85-86F",
+        "top_lo": 85,
+        "top_prob": 0.2647,
         "matches_daily": false
       }
     ],
     "abort_signal": "4hr",
     "abort_precision": 0.66,
     "recommendation": "exit_if_above_34pct",
-    "hours_available": 4,
-    "hours_disagree": 4
-  },
-  "odd": {
-    "daily_tier": 4,
-    "daily_top": {
-      "label": "79-80F",
-      "lo": 79,
-      "hi": 81,
-      "prob": 0.0702
-    },
-    "daily_signals": {
-      "max_prob": 0.0702,
-      "gap": 0.0115,
-      "entropy": 2.429
-    },
-    "hours": [
-      {
-        "hour": 7,
-        "time_label": "07:00",
-        "top_bucket": "85-86F",
-        "top_lo": 85,
-        "top_prob": 0.2647,
-        "matches_daily": false
-      },
-      {
-        "hour": 9,
-        "time_label": "09:00",
-        "top_bucket": "85-86F",
-        "top_lo": 85,
-        "top_prob": 0.2647,
-        "matches_daily": false
-      },
-      {
-        "hour": 11,
-        "time_label": "11:00",
-        "top_bucket": "85-86F",
-        "top_lo": 85,
-        "top_prob": 0.2647,
-        "matches_daily": false
-      },
-      {
-        "hour": 13,
-        "time_label": "13:00",
-        "top_bucket": "85-86F",
-        "top_lo": 85,
-        "top_prob": 0.2647,
-        "matches_daily": false
-      }
-    ],
-    "abort_signal": "no_trade",
-    "abort_precision": null,
-    "recommendation": "skip",
     "hours_available": 4,
     "hours_disagree": 4
   }
