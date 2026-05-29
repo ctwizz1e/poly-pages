@@ -523,17 +523,10 @@
     <div class="cards">
       <div class="card card-full">
         <div class="card-header">
-          <h3>Hourly Observations</h3>
-          <span class="meta" id="meta-obs-timeseries"></span>
+          <h3>Observations &amp; Forecasts · Hourly</h3>
+          <span class="meta" id="meta-temp-timeseries"></span>
         </div>
-        <div class="card-body"><div class="chart-wrap"><canvas id="chart-obs"></canvas></div></div>
-      </div>
-      <div class="card card-full">
-        <div class="card-header">
-          <h3>Model Forecasts · Hourly</h3>
-          <span class="meta" id="meta-fcst-timeseries"></span>
-        </div>
-        <div class="card-body"><div class="chart-wrap"><canvas id="chart-fcst"></canvas></div></div>
+        <div class="card-body"><div class="chart-wrap" style="height:300px"><canvas id="chart-temp"></canvas></div></div>
       </div>
     </div>
   </section>
@@ -1057,68 +1050,120 @@ function tsLabel(timeStr) {
   return d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", hour12: true });
 }
 
-function renderObsTimeseries(data, _bodyEl, metaEl) {
-  metaEl.textContent = fmtDate(data.generated_at);
-  const obs    = data.observations || [];
-  const obs1m  = data.obs_1m  || [];
-  const obs52m = data.obs_52m || [];
-  const obsOmo = data.obs_omo || [];
-  if (!obs.length && !obs1m.length && !obs52m.length && !obsOmo.length) return;
+let tempChart = null;
 
-  function toPoints(arr) {
-    return arr.filter(o => o.temp != null).map(o => ({ x: new Date(o.time), y: o.temp }));
+function renderTempTimeseries(obsData, fcstData, metaEl) {
+  const ts = [obsData?.generated_at, fcstData?.generated_at].filter(Boolean).sort().pop();
+  if (metaEl) metaEl.textContent = fmtDate(ts);
+
+  const datasets = [];
+
+  if (obsData) {
+    function toPoints(arr) {
+      return (arr || []).filter(o => o.temp != null).map(o => ({ x: new Date(o.time), y: o.temp }));
+    }
+    datasets.push({
+      label: "Synoptic (hourly)",
+      data: toPoints(obsData.observations),
+      borderColor: "#0366d6",
+      backgroundColor: "rgba(3,102,214,0.08)",
+      borderWidth: 1.5,
+      pointRadius: 2,
+      pointHoverRadius: 5,
+      tension: 0.3,
+      fill: true,
+      hidden: false,
+    });
+    datasets.push({
+      label: "5m (NWS 1-min)",
+      data: toPoints(obsData.obs_1m),
+      borderColor: "#22863a",
+      backgroundColor: "transparent",
+      borderWidth: 1,
+      pointRadius: 0,
+      pointHoverRadius: 4,
+      tension: 0,
+      hidden: true,
+    });
+    datasets.push({
+      label: ":52 (Wunderground)",
+      data: toPoints(obsData.obs_52m),
+      borderColor: "#e8622a",
+      backgroundColor: "transparent",
+      borderWidth: 1.5,
+      pointRadius: 2,
+      pointHoverRadius: 4,
+      tension: 0.3,
+      hidden: true,
+    });
+    datasets.push({
+      label: "OMO (climatesight)",
+      data: toPoints(obsData.obs_omo),
+      borderColor: "#6f42c1",
+      backgroundColor: "#6f42c1",
+      borderWidth: 0,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      showLine: false,
+      hidden: true,
+    });
   }
 
-  new Chart(document.getElementById("chart-obs").getContext("2d"), {
+  if (fcstData) {
+    const fcsts = fcstData.forecasts || [];
+    const models = fcstData.models || [];
+    const modelExpected = fcstData.model_expected || {};
+
+    models.forEach(m => {
+      datasets.push({
+        label: MODEL_LABELS[m] || m.toUpperCase(),
+        data: fcsts.filter(f => f[m] != null).map(f => ({ x: new Date(f.time), y: f[m] })),
+        borderColor: MODEL_COLORS[m] || "#888",
+        backgroundColor: "transparent",
+        borderWidth: 1.5,
+        pointRadius: 2.5,
+        pointHoverRadius: 5,
+        tension: 0.3,
+        hidden: m !== "weather_com",
+      });
+    });
+
+    const MODEL_EXP_SERIES = [
+      { key: "even_kalshi",     label: "Model Even (Kalshi)",     color: "#0366d6", dash: [8, 4], hidden: false },
+      { key: "odd_kalshi",      label: "Model Odd (Kalshi)",      color: "#5b9bd5", dash: [4, 4], hidden: true  },
+      { key: "even_polymarket", label: "Model Even (Polymarket)", color: "#e8622a", dash: [8, 4], hidden: true  },
+      { key: "odd_polymarket",  label: "Model Odd (Polymarket)",  color: "#e8a87c", dash: [4, 4], hidden: true  },
+    ];
+    MODEL_EXP_SERIES.forEach(series => {
+      const pts = [];
+      for (const [date, vals] of Object.entries(modelExpected)) {
+        const v = vals[series.key];
+        if (v != null) {
+          pts.push({ x: new Date(date + "T06:00:00"), y: v });
+          pts.push({ x: new Date(date + "T21:00:00"), y: v });
+        }
+      }
+      datasets.push({
+        label: series.label,
+        data: pts,
+        borderColor: series.color,
+        backgroundColor: "transparent",
+        borderWidth: 2,
+        borderDash: series.dash,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        tension: 0,
+        hidden: series.hidden,
+      });
+    });
+  }
+
+  if (!datasets.length) return;
+
+  if (tempChart) tempChart.destroy();
+  tempChart = new Chart(document.getElementById("chart-temp").getContext("2d"), {
     type: "line",
-    data: {
-      datasets: [
-        {
-          label: "Synoptic (hourly)",
-          data: toPoints(obs),
-          borderColor: "#0366d6",
-          backgroundColor: "rgba(3,102,214,0.08)",
-          borderWidth: 1.5,
-          pointRadius: 2,
-          pointHoverRadius: 5,
-          tension: 0.3,
-          fill: true,
-        },
-        {
-          label: "5m (NWS 1-min)",
-          data: toPoints(obs1m),
-          borderColor: "#22863a",
-          backgroundColor: "transparent",
-          borderWidth: 1,
-          pointRadius: 0,
-          pointHoverRadius: 4,
-          tension: 0,
-          hidden: true,
-        },
-        {
-          label: ":52 (Wunderground)",
-          data: toPoints(obs52m),
-          borderColor: "#e8622a",
-          backgroundColor: "transparent",
-          borderWidth: 1.5,
-          pointRadius: 2,
-          pointHoverRadius: 4,
-          tension: 0.3,
-          hidden: false,
-        },
-        {
-          label: "OMO (climatesight)",
-          data: toPoints(obsOmo),
-          borderColor: "#6f42c1",
-          backgroundColor: "#6f42c1",
-          borderWidth: 0,
-          pointRadius: 5,
-          pointHoverRadius: 7,
-          showLine: false,
-          hidden: true,
-        },
-      ],
-    },
+    data: { datasets },
     options: {
       responsive: true,
       maintainAspectRatio: false,
@@ -1126,74 +1171,6 @@ function renderObsTimeseries(data, _bodyEl, metaEl) {
       plugins: {
         legend: { display: true, position: "top", labels: { boxWidth: 10, font: { size: 11 } } },
       },
-      scales: {
-        x: {
-          type: "time",
-          time: { displayFormats: { hour: "MMM d, h a", day: "MMM d" } },
-          ticks: { maxTicksLimit: 12, maxRotation: 0, font: { size: 10 } },
-        },
-        y: { title: { display: true, text: "°F", font: { size: 11 } } },
-      },
-    },
-  });
-}
-
-function renderFcstTimeseries(data, _bodyEl, metaEl) {
-  metaEl.textContent = fmtDate(data.generated_at);
-  const fcsts = data.forecasts || [];
-  const models = data.models || [];
-  const modelExpected = data.model_expected || {};
-
-  const nwpDatasets = models.map(m => ({
-    label: MODEL_LABELS[m] || m.toUpperCase(),
-    data: fcsts.filter(f => f[m] != null).map(f => ({ x: new Date(f.time), y: f[m] })),
-    borderColor: MODEL_COLORS[m] || "#888",
-    backgroundColor: "transparent",
-    borderWidth: 1.5,
-    pointRadius: 2.5,
-    pointHoverRadius: 5,
-    tension: 0.3,
-  }));
-
-  const MODEL_EXP_SERIES = [
-    { key: "even_kalshi",      label: "Model Even (Kalshi)",      color: "#0366d6", dash: [8, 4], hidden: false },
-    { key: "odd_kalshi",       label: "Model Odd (Kalshi)",       color: "#5b9bd5", dash: [4, 4], hidden: true  },
-    { key: "even_polymarket",  label: "Model Even (Polymarket)",  color: "#e8622a", dash: [8, 4], hidden: true  },
-    { key: "odd_polymarket",   label: "Model Odd (Polymarket)",   color: "#e8a87c", dash: [4, 4], hidden: true  },
-  ];
-  const modelDatasets = MODEL_EXP_SERIES.map(series => {
-    const pts = [];
-    for (const [date, vals] of Object.entries(modelExpected)) {
-      const v = vals[series.key];
-      if (v != null) {
-        pts.push({ x: new Date(date + "T06:00:00"), y: v });
-        pts.push({ x: new Date(date + "T21:00:00"), y: v });
-      }
-    }
-    return {
-      label: series.label,
-      data: pts,
-      borderColor: series.color,
-      backgroundColor: "transparent",
-      borderWidth: 2,
-      borderDash: series.dash,
-      pointRadius: 0,
-      pointHoverRadius: 4,
-      tension: 0,
-      hidden: series.hidden,
-    };
-  });
-
-  if (!fcsts.length && !Object.keys(modelExpected).length) return;
-
-  new Chart(document.getElementById("chart-fcst").getContext("2d"), {
-    type: "line",
-    data: { datasets: [...nwpDatasets, ...modelDatasets] },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: "nearest", intersect: false, axis: "x" },
-      plugins: { legend: { display: true, position: "top", labels: { boxWidth: 10, font: { size: 11 } } } },
       scales: {
         x: {
           type: "time",
@@ -1503,10 +1480,8 @@ async function loadAll() {
   if (times.length) el("last-updated").textContent = fmtDate(times[times.length - 1]);
 
   const shared = loadedData.shared;
-  if (shared.obsTimeseries)
-    renderObsTimeseries(shared.obsTimeseries,  null, el("meta-obs-timeseries"));
-  if (shared.fcstTimeseries)
-    renderFcstTimeseries(shared.fcstTimeseries, null, el("meta-fcst-timeseries"));
+  if (shared.obsTimeseries || shared.fcstTimeseries)
+    renderTempTimeseries(shared.obsTimeseries, shared.fcstTimeseries, el("meta-temp-timeseries"));
 
   rerender();
 
