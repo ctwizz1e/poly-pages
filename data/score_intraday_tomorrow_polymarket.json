@@ -1,6 +1,45 @@
 {
-  "generated_at": "2026-05-30T00:00:20",
+  "generated_at": "2026-05-30T01:00:26",
   "date": "2026-05-31",
   "market": "polymarket",
-  "error": "no obs for 2026-05-30"
+  "even": {
+    "daily_tier": 1,
+    "daily_top": {
+      "label": "72-73F",
+      "lo": 72,
+      "hi": 74,
+      "prob": 0.3631
+    },
+    "daily_signals": {
+      "max_prob": 0.3631,
+      "gap": 0.1957,
+      "entropy": 1.9282
+    },
+    "hours": [],
+    "abort_signal": "none",
+    "abort_precision": null,
+    "recommendation": "hold",
+    "hours_available": 0,
+    "hours_disagree": 0
+  },
+  "odd": {
+    "daily_tier": 4,
+    "daily_top": {
+      "label": "79-80F",
+      "lo": 79,
+      "hi": 81,
+      "prob": 0.2405
+    },
+    "daily_signals": {
+      "max_prob": 0.2405,
+      "gap": 0.0227,
+      "entropy": 1.86
+    },
+    "hours": [],
+    "abort_signal": "no_trade",
+    "abort_precision": null,
+    "recommendation": "skip",
+    "hours_available": 0,
+    "hours_disagree": 0
+  }
 }
