@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-05-30T16:15:40",
+  "generated_at": "2026-05-30T16:30:55",
   "date": "2026-05-30",
   "market": "polymarket",
   "even": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "78-79F",
-      "lo": 78,
-      "hi": 80,
-      "prob": 0.0854
+      "label": "84-85F",
+      "lo": 84,
+      "hi": 86,
+      "prob": 0.1217
     },
     "daily_signals": {
-      "max_prob": 0.0854,
-      "gap": 0.0235,
-      "entropy": 2.1794
+      "max_prob": 0.1217,
+      "gap": 0.0202,
+      "entropy": 2.0444
     },
     "hours": [
       {
@@ -22,7 +22,7 @@
         "top_bucket": "84-85F",
         "top_lo": 84,
         "top_prob": 0.225,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 9,
@@ -30,7 +30,7 @@
         "top_bucket": "84-85F",
         "top_lo": 84,
         "top_prob": 0.3019,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 11,
@@ -38,7 +38,7 @@
         "top_bucket": "84-85F",
         "top_lo": 84,
         "top_prob": 0.3382,
-        "matches_daily": false
+        "matches_daily": true
       },
       {
         "hour": 13,
@@ -46,14 +46,14 @@
         "top_bucket": "84-85F",
         "top_lo": 84,
         "top_prob": 0.3913,
-        "matches_daily": false
+        "matches_daily": true
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
     "hours_available": 4,
-    "hours_disagree": 4
+    "hours_disagree": 0
   },
   "odd": {
     "daily_tier": 1,
@@ -65,8 +65,8 @@
     },
     "daily_signals": {
       "max_prob": 0.3655,
-      "gap": 0.1583,
-      "entropy": 1.5859
+      "gap": 0.1427,
+      "entropy": 1.5239
     },
     "hours": [
       {
