@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-30T13:00:24",
+  "generated_at": "2026-05-30T13:15:26",
   "date": "2026-05-30",
   "market": "kalshi",
   "even": {
@@ -43,8 +43,8 @@
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "84-85F",
-        "top_lo": 84,
+        "top_bucket": "86-87F",
+        "top_lo": 86,
         "top_prob": 0.366,
         "matches_daily": false
       }
@@ -96,16 +96,16 @@
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "83-84F",
-        "top_lo": 83,
-        "top_prob": 0.4,
-        "matches_daily": true
+        "top_bucket": "85-86F",
+        "top_lo": 85,
+        "top_prob": 0.383,
+        "matches_daily": false
       }
     ],
-    "abort_signal": "none",
-    "abort_precision": null,
-    "recommendation": "hold",
+    "abort_signal": "4hr",
+    "abort_precision": 0.66,
+    "recommendation": "exit_if_above_34pct",
     "hours_available": 4,
-    "hours_disagree": 3
+    "hours_disagree": 4
   }
 }
