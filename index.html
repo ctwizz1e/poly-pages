@@ -426,6 +426,38 @@
     .signal-hint-blue   { background: #f0f7ff; border: 1px solid #93c5fd; color: #1d4ed8; }
     .signal-hint strong { font-weight: 700; }
 
+    /* ── Weather Summary card ───────────────────────────────── */
+    .weather-summary { display: flex; flex-direction: column; }
+    .weather-block {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .weather-block:first-child { padding-top: 0; }
+    .weather-block:last-child  { border-bottom: none; padding-bottom: 0; }
+    .weather-block-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .weather-block-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .weather-block-max {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--down);
+    }
+    .weather-block-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
     /* ── Responsive ─────────────────────────────────────────── */
     @media (max-width: 600px) {
       .cards { grid-template-columns: 1fr; }
@@ -536,6 +568,13 @@
   <section id="section-score-today">
     <h2>Score Today — <span id="score-today-date"></span></h2>
     <div class="cards">
+      <div class="card card-full" id="card-weather-summary-today">
+        <div class="card-header">
+          <h3>Weather Summary · Today</h3>
+          <span class="meta" id="meta-weather-summary-today"></span>
+        </div>
+        <div class="card-body" id="body-weather-summary-today"><div class="loading">Loading…</div></div>
+      </div>
       <div class="card" id="card-score-today-d1-even" data-bucket="even" data-day="today">
         <div class="card-header">
           <h3>Daily Prediction · Even Buckets</h3>
@@ -571,6 +610,13 @@
   <section id="section-score-tomorrow">
     <h2>Score Tomorrow — <span id="score-tomorrow-date"></span></h2>
     <div class="cards">
+      <div class="card card-full" id="card-weather-summary-tomorrow">
+        <div class="card-header">
+          <h3>Weather Summary · Tomorrow</h3>
+          <span class="meta" id="meta-weather-summary-tomorrow"></span>
+        </div>
+        <div class="card-body" id="body-weather-summary-tomorrow"><div class="loading">Loading…</div></div>
+      </div>
       <div class="card" id="card-score-tomorrow-even" data-bucket="even" data-day="tomorrow">
         <div class="card-header">
           <h3>Entry Signal · Even Buckets</h3>
@@ -636,9 +682,11 @@ const DATA_FILES = {
     scorePredictionTomorrow: "data/score_prediction_tomorrow_polymarket.json",
   },
   shared: {
-    obsTimeseries:  "data/obs_timeseries.json",
-    fcstTimeseries: "data/forecast_timeseries.json",
-    marketConfig:   "data/market_config.json",
+    obsTimeseries:        "data/obs_timeseries.json",
+    fcstTimeseries:       "data/forecast_timeseries.json",
+    marketConfig:         "data/market_config.json",
+    weatherSummaryToday:    "data/weather_summary_today.json",
+    weatherSummaryTomorrow: "data/weather_summary_tomorrow.json",
   },
 };
 const REFRESH_MS = 15 * 60 * 1000;
@@ -1464,6 +1512,56 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
   bodyEl.appendChild(frag);
 }
 
+// ── Render: weather summary ───────────────────────────────────
+function renderWeatherSummary(data, bodyEl, metaEl) {
+  metaEl.textContent = fmtDate(data.generated_at);
+  if (!data.overall && data.error) {
+    bodyEl.innerHTML = `<div class="error-note">Summary unavailable: ${data.error}</div>`;
+    return;
+  }
+  const blocks = [
+    { label: "Overview",         text: data.overall,              extra: null },
+    { label: "Forecast Notes",   text: data.forecast_obs_notes,   extra: null },
+    {
+      label: "Max Temp Outlook",
+      text: data.max_temp_prediction,
+      extra: data.predicted_max != null
+        ? `<span class="weather-block-max">${data.predicted_max.toFixed(1)}°F</span>`
+        : null,
+    },
+  ];
+
+  const wrap = document.createElement("div");
+  wrap.className = "weather-summary";
+  blocks.forEach(b => {
+    const block = document.createElement("div");
+    block.className = "weather-block";
+
+    const header = document.createElement("div");
+    header.className = "weather-block-header";
+    const lbl = document.createElement("span");
+    lbl.className = "weather-block-label";
+    lbl.textContent = b.label;
+    header.appendChild(lbl);
+    if (b.extra) {
+      const extraSpan = document.createElement("span");
+      extraSpan.innerHTML = b.extra;
+      header.appendChild(extraSpan);
+    }
+
+    const textDiv = document.createElement("div");
+    textDiv.className = "weather-block-text";
+    textDiv.textContent = b.text || "—";
+
+    block.appendChild(header);
+    block.appendChild(textDiv);
+    wrap.appendChild(block);
+  });
+
+  bodyEl.innerHTML = "";
+  bodyEl.appendChild(wrap);
+}
+
 // ── Bucket filter ─────────────────────────────────────────────
 // Hide cards whose bucket start doesn't match the active market's config.
 // When the config is null (market not found / not yet posted) all cards are shown.
@@ -1540,7 +1638,8 @@ async function loadAll() {
 // ── Re-render charts with current filter ─────────────────────
 function rerender() {
   applyBucketFilter();
-  const d = loadedData[activeMarket] || {};
+  const d      = loadedData[activeMarket] || {};
+  const shared = loadedData.shared || {};
   if (d.valueToday)          renderValue(d.valueToday,    el("value-section-stats-today"));
   if (d.valueTomorrow)       renderValue(d.valueTomorrow, el("value-section-stats-tomorrow"));
   if (d.intradayEvenHours)   renderIntradayHours(d.intradayEvenHours,   el("body-even-hours"),    el("meta-even-hours"));
@@ -1565,6 +1664,8 @@ function rerender() {
     renderScoreIntraday(d.scoreIntradayTomorrow, "even", el("body-score-tomorrow-intra-even"), el("meta-score-tomorrow-intra-even"));
     renderScoreIntraday(d.scoreIntradayTomorrow, "odd",  el("body-score-tomorrow-intra-odd"),  el("meta-score-tomorrow-intra-odd"));
   }
+  if (shared.weatherSummaryToday)    renderWeatherSummary(shared.weatherSummaryToday,    el("body-weather-summary-today"),    el("meta-weather-summary-today"));
+  if (shared.weatherSummaryTomorrow) renderWeatherSummary(shared.weatherSummaryTomorrow, el("body-weather-summary-tomorrow"), el("meta-weather-summary-tomorrow"));
   applyBucketFilter();
 }
 
