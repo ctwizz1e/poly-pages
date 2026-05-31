@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-31T11:15:49",
+  "generated_at": "2026-05-31T11:30:40",
   "date": "2026-05-31",
   "market": "polymarket",
   "even": {
@@ -43,17 +43,17 @@
       {
         "hour": 13,
         "time_label": "13:00",
-        "top_bucket": "78-79F",
-        "top_lo": 78,
+        "top_bucket": "80-81F",
+        "top_lo": 80,
         "top_prob": 0.2331,
-        "matches_daily": false
+        "matches_daily": true
       }
     ],
-    "abort_signal": "4hr",
-    "abort_precision": 0.66,
-    "recommendation": "exit_if_above_34pct",
+    "abort_signal": "none",
+    "abort_precision": null,
+    "recommendation": "hold",
     "hours_available": 4,
-    "hours_disagree": 4
+    "hours_disagree": 3
   },
   "odd": {
     "daily_tier": 1,
@@ -98,7 +98,7 @@
         "time_label": "13:00",
         "top_bucket": "77-78F",
         "top_lo": 77,
-        "top_prob": 0.5556,
+        "top_prob": 0.3111,
         "matches_daily": false
       }
     ],
