@@ -411,6 +411,29 @@
     .abort-abort { background: #fff5f5; border: 1px solid #fecdca; }
     .abort-skip  { background: #f8f9fa; border: 1px solid var(--border); }
 
+    /* ── Give-up classifier ─────────────────────────────────── */
+    .give-up-section { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
+    .give-up-label { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .give-up-rec {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 8px 11px; border-radius: 6px; font-size: 12px; margin-bottom: 8px;
+    }
+    .give-up-rec-icon  { font-size: 15px; flex-shrink: 0; line-height: 1.5; }
+    .give-up-rec-text  { font-weight: 700; margin-bottom: 1px; }
+    .give-up-rec-sub   { color: var(--text-muted); font-size: 11px; }
+    .give-up-fired     { background: #fff8e1; border: 1px solid #ffd54f; }
+    .give-up-watching  { background: #f0f7ff; border: 1px solid #90caf9; }
+    .give-up-inactive  { background: #f8f9fa; border: 1px solid var(--border); }
+    .give-up-bar-wrap  { height: 6px; border-radius: 3px; background: #e9ecef; margin: 4px 0 2px; overflow: hidden; }
+    .give-up-bar       { height: 100%; border-radius: 3px; transition: width .4s; }
+    .give-up-snaps     { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 4px; }
+    .give-up-snaps td  { padding: 2px 6px 2px 0; font-variant-numeric: tabular-nums; }
+    .give-up-snaps .gu-hour { color: var(--text-muted); width: 44px; }
+    .give-up-snaps .gu-rmax { font-weight: 600; }
+    .give-up-snaps .gu-prob { text-align: right; }
+    .give-up-snaps .gu-bar-cell { width: 70px; }
+    .gu-fired-row td   { background: #fffbea; }
+
     /* ── Signal accuracy hints ──────────────────────────────── */
     .signal-hint {
       margin-top: 10px;
@@ -1506,6 +1529,70 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
     midDiv.className = `signal-hint ${midHint.cls}`;
     midDiv.innerHTML = midHint.text;
     frag.appendChild(midDiv);
+  }
+
+  // ── Give-up classifier section ────────────────────────────
+  const gu = data.give_up;
+  if (gu && gu.status !== "no_model") {
+    const sec = document.createElement("div");
+    sec.className = "give-up-section";
+
+    const lbl = document.createElement("div");
+    lbl.className = "give-up-label";
+    lbl.textContent = "Give Up on Higher Bets?";
+    sec.appendChild(lbl);
+
+    const recDiv = document.createElement("div");
+    if (gu.status === "no_data") {
+      recDiv.className = "give-up-rec give-up-inactive";
+      recDiv.innerHTML = `<span class="give-up-rec-icon">⏳</span><div>
+        <div class="give-up-rec-text">WAITING FOR DATA</div>
+        <div class="give-up-rec-sub">Signal available once intraday readings arrive (after 10am)</div></div>`;
+    } else if (gu.status === "fired") {
+      const fireTime = `${Math.floor(gu.fire_hour)}:${String(Math.round((gu.fire_hour % 1) * 60)).padStart(2,"0")}`;
+      recDiv.className = "give-up-rec give-up-fired";
+      recDiv.innerHTML = `<span class="give-up-rec-icon">🛑</span><div>
+        <div class="give-up-rec-text">GIVE UP — MAX LIKELY IN (fired ${fireTime})</div>
+        <div class="give-up-rec-sub">Running max ${gu.fire_running_max}°F · p=${(gu.fire_prob*100).toFixed(0)}% ≥ threshold ${(gu.threshold*100).toFixed(0)}% · ~${(100 - gu.threshold*100).toFixed(0)}% false-alarm rate</div></div>`;
+    } else {
+      const pct = Math.round((gu.current_prob || 0) * 100);
+      const barColor = pct >= 75 ? "#f59e0b" : pct >= 50 ? "#60a5fa" : "#9ca3af";
+      recDiv.className = "give-up-rec give-up-watching";
+      recDiv.innerHTML = `<span class="give-up-rec-icon">👀</span><div style="flex:1">
+        <div class="give-up-rec-text">STILL WATCHING — MAX NOT YET CONFIRMED</div>
+        <div class="give-up-rec-sub">Current running max ${gu.current_running_max}°F · threshold ${(gu.threshold*100).toFixed(0)}%</div>
+        <div class="give-up-bar-wrap"><div class="give-up-bar" style="width:${pct}%;background:${barColor}"></div></div>
+        <div style="font-size:10px;color:var(--text-muted)">Confidence max is in: ${pct}%</div>
+      </div>`;
+    }
+    sec.appendChild(recDiv);
+
+    // Snapshot table (last 8 readings)
+    if (gu.snapshots && gu.snapshots.length > 0) {
+      const snaps = gu.snapshots.slice(-8);
+      const tbl = document.createElement("table");
+      tbl.className = "give-up-snaps";
+      snaps.forEach(s => {
+        const fired = gu.fire_hour != null && Math.abs(s.hour - gu.fire_hour) < 0.01;
+        const pBar  = Math.round(s.prob * 100);
+        const bClr  = pBar >= (gu.threshold * 100) ? "#f59e0b" : pBar >= 50 ? "#60a5fa" : "#d1d5db";
+        const hh    = Math.floor(s.hour);
+        const mm    = String(Math.round((s.hour % 1) * 60)).padStart(2, "0");
+        const tr    = document.createElement("tr");
+        if (fired) tr.className = "gu-fired-row";
+        tr.innerHTML = `
+          <td class="gu-hour">${hh}:${mm}</td>
+          <td class="gu-rmax">${s.running_max}°F</td>
+          <td class="gu-prob">${pBar}%</td>
+          <td class="gu-bar-cell"><div class="give-up-bar-wrap" style="margin:0">
+            <div class="give-up-bar" style="width:${pBar}%;background:${bClr}"></div></div></td>
+          ${fired ? '<td style="font-size:10px;color:#92400e;padding-left:4px">← fired</td>' : '<td></td>'}`;
+        tbl.appendChild(tr);
+      });
+      sec.appendChild(tbl);
+    }
+
+    frag.appendChild(sec);
   }
 
   bodyEl.innerHTML = "";
