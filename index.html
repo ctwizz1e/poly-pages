@@ -317,20 +317,6 @@
     .card-full { grid-column: 1 / -1; }
     .chart-wrap { position: relative; height: 220px; }
 
-    /* ── Market tabs ─────────────────────────────────────────── */
-    #market-tabs {
-      display: flex; gap: 6px; margin: 0 0 4px;
-    }
-    .market-tab {
-      padding: 6px 18px; border-radius: 6px; border: 1px solid var(--border);
-      background: var(--card); color: var(--text-muted); cursor: pointer;
-      font-size: 13px; font-weight: 600; letter-spacing: 0.02em; transition: all .15s;
-    }
-    .market-tab:hover { border-color: var(--accent); color: var(--accent); }
-    .market-tab.active {
-      background: var(--accent); border-color: var(--accent); color: #fff;
-    }
-
     /* ── Score sections ─────────────────────────────────────── */
     .score-tier {
       color: #fff;
@@ -496,10 +482,6 @@
 
 <header>
   <h1>Atlanta TMAX Predictions</h1>
-  <div id="market-tabs">
-    <button class="market-tab active" data-market="kalshi">Kalshi</button>
-    <button class="market-tab" data-market="polymarket">Polymarket</button>
-  </div>
   <div id="temp-filter">
     <span>Temp range:</span>
     <input type="number" id="filter-min" placeholder="min" step="1">
@@ -689,20 +671,6 @@ const DATA_FILES = {
     scoreIntradayTomorrow:   "data/score_intraday_tomorrow_kalshi.json",
     scorePredictionToday:    "data/score_prediction_today_kalshi.json",
     scorePredictionTomorrow: "data/score_prediction_tomorrow_kalshi.json",
-  },
-  polymarket: {
-    intradayEvenHours:   "data/intraday_even_hours_today_polymarket.json",
-    intradayOddHours:    "data/intraday_odd_hours_today_polymarket.json",
-    intradayEvenCompare: "data/intraday_even_compare_today_polymarket.json",
-    intradayOddCompare:  "data/intraday_odd_compare_today_polymarket.json",
-    valueToday:          "data/value_today_polymarket.json",
-    valueTomorrow:       "data/value_tomorrow_polymarket.json",
-    ensembleEven:        "data/ensemble_even_tomorrow_polymarket.json",
-    ensembleOdd:         "data/ensemble_odd_tomorrow_polymarket.json",
-    scoreIntradayToday:      "data/score_intraday_today_polymarket.json",
-    scoreIntradayTomorrow:   "data/score_intraday_tomorrow_polymarket.json",
-    scorePredictionToday:    "data/score_prediction_today_polymarket.json",
-    scorePredictionTomorrow: "data/score_prediction_tomorrow_polymarket.json",
   },
   shared: {
     obsTimeseries:        "data/obs_timeseries.json",
@@ -1253,8 +1221,6 @@ function renderTempTimeseries(obsData, fcstData, metaEl) {
     const MODEL_EXP_SERIES = [
       { key: "even_kalshi",     label: "Model Even (Kalshi)",     color: "#0366d6", dash: [8, 4], hidden: false },
       { key: "odd_kalshi",      label: "Model Odd (Kalshi)",      color: "#5b9bd5", dash: [4, 4], hidden: true  },
-      { key: "even_polymarket", label: "Model Even (Polymarket)", color: "#e8622a", dash: [8, 4], hidden: true  },
-      { key: "odd_polymarket",  label: "Model Odd (Polymarket)",  color: "#e8a87c", dash: [4, 4], hidden: true  },
     ];
     MODEL_EXP_SERIES.forEach(series => {
       const pts = [];
@@ -1728,7 +1694,7 @@ async function loadAll() {
   el("score-tomorrow-date").textContent  = fmt(tomorrow);
 
   const fetches = [];
-  for (const market of ["kalshi", "polymarket"]) {
+  for (const market of ["kalshi"]) {
     for (const [key, url] of Object.entries(DATA_FILES[market])) {
       fetches.push([market, key, url]);
     }
@@ -1744,7 +1710,7 @@ async function loadAll() {
     })
   );
 
-  loadedData = { kalshi: {}, polymarket: {}, shared: {} };
+  loadedData = { kalshi: {}, shared: {} };
   results.forEach(r => {
     if (r.status === "fulfilled") {
       const [market, key, data] = r.value;
@@ -1755,7 +1721,6 @@ async function loadAll() {
   // Find most recent generated_at across all loaded files
   const allData = [
     ...Object.values(loadedData.kalshi),
-    ...Object.values(loadedData.polymarket),
     ...Object.values(loadedData.shared),
   ];
   const times = allData.map(d => d.generated_at).filter(Boolean).sort();
@@ -1819,15 +1784,6 @@ function tick() {
   el("countdown").textContent = `${m}:${s}`;
 }
 setInterval(tick, 1000);
-
-// Market tab switching
-document.querySelectorAll(".market-tab").forEach(btn => {
-  btn.addEventListener("click", () => {
-    activeMarket = btn.dataset.market;
-    document.querySelectorAll(".market-tab").forEach(b => b.classList.toggle("active", b === btn));
-    rerender();
-  });
-});
 
 // Collapsible sections
 document.querySelectorAll("section > h2").forEach(h2 => {
