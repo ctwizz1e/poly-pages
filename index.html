@@ -799,7 +799,18 @@ async function fetchJSON(url) {
 function renderIntradayHours(data, bodyEl, metaEl) {
   metaEl.textContent = fmtDate(data.generated_at);
   if (!data.snapshots || data.snapshots.length === 0) {
-    bodyEl.innerHTML = '<div class="loading">No snapshot data yet — check back after 7am ET.</div>';
+    let html = "";
+    if (data.d1_forecasts && Object.keys(data.d1_forecasts).length) {
+      const chips = Object.entries(data.d1_forecasts)
+        .map(([src, v]) => `<span class="fcst-chip">${src.toUpperCase()} ${v?.toFixed(1)}°F</span>`)
+        .join("");
+      html += `<div class="fcst-chips">${chips}</div>`;
+    }
+    if (data.predicted_peak_hour != null) {
+      html += `<div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">Peak predicted <strong style="color:var(--text)">~${fmtHour(data.predicted_peak_hour)} ET</strong></div>`;
+    }
+    html += '<div class="loading">No snapshot data yet — check back after 7am ET.</div>';
+    bodyEl.innerHTML = html;
     return;
   }
 
@@ -880,7 +891,55 @@ function renderIntradayCompare(data, bodyEl, metaEl) {
   metaEl.textContent = fmtDate(data.generated_at);
 
   if (data.error) {
-    bodyEl.innerHTML = `<div class="error-note">${data.error}</div>`;
+    bodyEl.innerHTML = `<div class="loading">No snapshot data yet — check back after 7am ET.</div>`;
+    return;
+  }
+
+  // D1 forecast chips (shared by both D1-only and full intraday views)
+  let chipsHtml = "";
+  if (data.d1_forecasts && Object.keys(data.d1_forecasts).length) {
+    const chips = Object.entries(data.d1_forecasts)
+      .map(([src, v]) => `<span class="fcst-chip">${src.toUpperCase()} ${v?.toFixed(1)}°F</span>`)
+      .join("");
+    chipsHtml = `<div class="fcst-chips">${chips}</div>`;
+  }
+
+  // No intraday readings yet — show D1 baseline only
+  if (data.intraday_available === false) {
+    const hasD1  = data.has_d1_comparison && data.buckets?.some(b => b.d1_prior != null);
+    const hasNow = data.buckets?.some(b => b.d1_now != null);
+    const noteHtml = `<div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">Intraday readings not yet available — showing D1 baseline</div>`;
+    const table = document.createElement("table");
+    table.className = "prob-table";
+    const thead = table.createTHead();
+    const hrow = thead.insertRow();
+    [
+      ["Bucket", "left"],
+      ...(hasD1  ? [["D1 Prior", "left"]] : []),
+      ...(hasNow ? [["D1 Now",   "left"]] : []),
+    ].forEach(([text, align]) => {
+      const th = document.createElement("th");
+      th.textContent = text; th.style.textAlign = align;
+      hrow.appendChild(th);
+    });
+    const tbody = table.createTBody();
+    let totalD1Prior = 0, totalD1Now = 0;
+    const { min: cMin, max: cMax } = getTempFilter();
+    (data.buckets || []).filter(b => b.lo >= cMin && b.lo <= cMax).forEach(b => {
+      totalD1Prior += b.d1_prior || 0;
+      totalD1Now   += b.d1_now   || 0;
+      const tr = tbody.insertRow();
+      const tdLabel = tr.insertCell(); tdLabel.textContent = b.label;
+      tdLabel.style.color = bucketColor(b.lo); tdLabel.style.fontWeight = "600";
+      if (hasD1)  tr.appendChild(barCell(b.d1_prior, b.lo, true));
+      if (hasNow) tr.appendChild(barCell(b.d1_now,   b.lo, true));
+    });
+    const trow = tbody.insertRow(); trow.className = "total-row";
+    trow.insertCell().textContent = "TOTAL";
+    if (hasD1)  { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Prior); td.style.textAlign = "right"; }
+    if (hasNow) { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Now);   td.style.textAlign = "right"; }
+    bodyEl.innerHTML = noteHtml + chipsHtml;
+    bodyEl.appendChild(table);
     return;
   }
 
@@ -914,15 +973,6 @@ function renderIntradayCompare(data, bodyEl, metaEl) {
         <span class="stat-value">${fmtHour(data.predicted_peak_hour)} ET</span>
       </div>` : ""}
     </div>`;
-
-  // D1 forecast chips
-  let chipsHtml = "";
-  if (data.d1_forecasts && Object.keys(data.d1_forecasts).length) {
-    const chips = Object.entries(data.d1_forecasts)
-      .map(([src, v]) => `<span class="fcst-chip">${src.toUpperCase()} ${v?.toFixed(1)}°F</span>`)
-      .join("");
-    chipsHtml = `<div class="fcst-chips">${chips}</div>`;
-  }
 
   const hasD1 = data.has_d1_comparison && data.buckets?.some(b => b.d1_prior != null);
   const hasNow = data.buckets?.some(b => b.d1_now != null);
