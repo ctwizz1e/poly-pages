@@ -481,7 +481,7 @@
 <body>
 
 <header>
-  <h1>Atlanta TMAX Predictions</h1>
+  <h1 id="page-title">TMAX Predictions</h1>
   <div id="temp-filter">
     <span>Temp range:</span>
     <input type="number" id="filter-min" placeholder="min" step="1">
@@ -656,21 +656,24 @@
 </main>
 
 <script>
+// ── Location (from ?location=atl URL param) ───────────────────
+const LOCATION = (new URLSearchParams(window.location.search).get("location") || "atl").toLowerCase();
+
 // ── Config ───────────────────────────────────────────────────
 const DATA_FILES = {
   kalshi: {
-    intradayEvenHours:   "data/intraday_even_hours_today_kalshi.json",
-    intradayOddHours:    "data/intraday_odd_hours_today_kalshi.json",
-    intradayEvenCompare: "data/intraday_even_compare_today_kalshi.json",
-    intradayOddCompare:  "data/intraday_odd_compare_today_kalshi.json",
+    intradayEvenHours:   `data/intraday_even_hours_today_kalshi_${LOCATION}.json`,
+    intradayOddHours:    `data/intraday_odd_hours_today_kalshi_${LOCATION}.json`,
+    intradayEvenCompare: `data/intraday_even_compare_today_kalshi_${LOCATION}.json`,
+    intradayOddCompare:  `data/intraday_odd_compare_today_kalshi_${LOCATION}.json`,
     valueToday:          "data/value_today_kalshi.json",
     valueTomorrow:       "data/value_tomorrow_kalshi.json",
-    ensembleEven:        "data/ensemble_even_tomorrow_kalshi.json",
-    ensembleOdd:         "data/ensemble_odd_tomorrow_kalshi.json",
-    scoreIntradayToday:      "data/score_intraday_today_kalshi.json",
-    scoreIntradayTomorrow:   "data/score_intraday_tomorrow_kalshi.json",
-    scorePredictionToday:    "data/score_prediction_today_kalshi.json",
-    scorePredictionTomorrow: "data/score_prediction_tomorrow_kalshi.json",
+    ensembleEven:        `data/ensemble_even_tomorrow_kalshi_${LOCATION}.json`,
+    ensembleOdd:         `data/ensemble_odd_tomorrow_kalshi_${LOCATION}.json`,
+    scoreIntradayToday:      `data/score_intraday_today_kalshi_${LOCATION}.json`,
+    scoreIntradayTomorrow:   `data/score_intraday_tomorrow_kalshi_${LOCATION}.json`,
+    scorePredictionToday:    `data/score_prediction_today_kalshi_${LOCATION}.json`,
+    scorePredictionTomorrow: `data/score_prediction_tomorrow_kalshi_${LOCATION}.json`,
   },
   shared: {
     obsTimeseries:        "data/obs_timeseries.json",
@@ -681,6 +684,12 @@ const DATA_FILES = {
   },
 };
 const REFRESH_MS = 15 * 60 * 1000;
+
+// Set page title to reflect active location
+const LOCATION_LABELS = { atl: "Atlanta" };
+const locationLabel = LOCATION_LABELS[LOCATION] || LOCATION.toUpperCase();
+document.title = `${locationLabel} TMAX Predictions`;
+document.getElementById("page-title").textContent = `${locationLabel} TMAX Predictions`;
 
 // ── Temp filter state ─────────────────────────────────────────
 let loadedData = { kalshi: {}, polymarket: {}, shared: {} };
