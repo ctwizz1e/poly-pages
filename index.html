@@ -1292,7 +1292,7 @@ function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
     1: "✅ TIER 1 · BUY — 42% win rate (buy YES below 42¢)",
     2: "🔵 TIER 2 · WAIT FOR 7AM — 33% base (buy below 33¢ only with 7am confirm)",
     3: "❌ TIER 3 · SKIP — 19% accuracy, barely above random baseline",
-    4: "⬛ TIER 4 · SKIP — 17% accuracy, no edge",
+    4: "👁️ TIER 4 · WATCH — 17% base, but 7am confirm → 55% win rate",
   };
 
   const frag = document.createDocumentFragment();
@@ -1345,7 +1345,7 @@ function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
     1: `T1 base 42% win rate (n=26 days). If 7am confirms same bucket → win rate jumps to 79% (buy below 79¢). If 7/9/11 all agree → 89–92% (buy below 89¢). Top model prob: ${Math.round(dailyProb*100)}%.`,
     2: `T2 base 33% (n=12 days, small sample). Do NOT enter pre-market. Wait for 7am intraday: if 7am confirms → win rate ~79%, buy below 33¢. If 7am picks different bucket → skip day entirely.`,
     3: `T3 historical accuracy 19% — indistinguishable from the 17% T4 baseline. No edge. Skip.`,
-    4: "T4: 17% base rate. No edge. Skip.",
+    4: `T4 base 17% (n=442). Do NOT enter pre-market. If 7am intraday confirms same bucket → 55% win rate (n=55, buy below 54¢). If 7am+9am both confirm → 58% (n=43, buy below 57¢). If 7/9/11 all confirm → 64% (n=33, buy below 63¢). Treat like T2 but wait for 7am.`,
   };
   const hintDiv = document.createElement("div");
   hintDiv.className = "signal-hint signal-hint-muted";
@@ -1375,6 +1375,17 @@ function intradayAccuracyHint(d, bucketStart) {
   const dailyProb = d.daily_top && d.daily_top.prob || 0;
 
   if (!h7) return null;
+
+  // ── T4 recovery path (backtest Jan 2025–May 2026, n=442 T4-daily days) ────
+  if (d.daily_tier === 4) {
+    if (h11 && h7.matches_daily && h9 && h9.matches_daily && h11.matches_daily)
+      return { cls: "signal-hint-green", text: `T4 recovery: 7+9+11am all confirm daily &rarr; <strong>64% win rate</strong> (21/33). Buy YES below <strong>63&cent;</strong>.` };
+    if (h9 && h7.matches_daily && h9.matches_daily)
+      return { cls: "signal-hint-green", text: `T4 recovery: 7am+9am both confirm daily &rarr; <strong>58% win rate</strong> (25/43). Buy YES below <strong>57&cent;</strong>. Hold for 11am.` };
+    if (h7.matches_daily)
+      return { cls: "signal-hint-green", text: `T4 recovery: 7am confirms daily &rarr; <strong>55% win rate</strong> (30/55). Buy YES below <strong>54&cent;</strong>. Wait for 9am.` };
+    return { cls: "signal-hint-red", text: `T4 day + 7am picks different bucket (${h7.top_bucket}) &rarr; no entry. Win rate only 12% when 7am diverges on T4 days. Skip.` };
+  }
 
   if (h11) {
     const h7b = h7.top_bucket, h9b = h9 && h9.top_bucket, h11b = h11.top_bucket;
@@ -1512,9 +1523,13 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
     "2hr":    { cls: "abort-warn",  icon: "⚠️", text: "2 HOURS DIVERGE — WATCH",                      sub: "Hold for now. Win rate still elevated. Wait for 11am." },
     "3hr":    { cls: "abort-abort", icon: "🚨", text: "3 HOURS DIVERGE — EXIT or REDUCE 50%",          sub: `Daily wrong 85% of time when 3 hours switch (switch_7_9_11 precision). Sell YES above 18¢.` },
     "4hr":    { cls: "abort-abort", icon: "🚨", text: "ALL 4 HOURS DIVERGE — EXIT NOW",               sub: `Daily win rate ~15%. Sell YES above 15¢. Precision: ${d.abort_precision ? Math.round(d.abort_precision * 100) : 84}%.` },
-    no_trade: { cls: "abort-skip",  icon: "⬛", text: "TIER 3/4 — SKIP",                              sub: "T3 accuracy 19%, T4 accuracy 17% — no edge. Do not trade." },
+    no_trade: { cls: "abort-skip",  icon: "⬛", text: "TIER 3 — SKIP",                               sub: "T3 accuracy 19% — no edge. Do not trade." },
   };
-  const sig = REC[d.abort_signal] || REC.none;
+  let sig = REC[d.abort_signal] || REC.none;
+  if (d.abort_signal === "no_trade" && d.daily_tier === 4) {
+    sig = { cls: "abort-warn", icon: "👁️", text: "TIER 4 — WATCH FOR 7AM INTRADAY",
+            sub: "Base 17% — no pre-market entry. 7am confirm → 55% (buy below 54¢) · 7+9 agree → 58% (57¢) · 7+9+11 agree → 64% (63¢)." };
+  }
 
   const recDiv = document.createElement("div");
   recDiv.className = `abort-rec ${sig.cls}`;
