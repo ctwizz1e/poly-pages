@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-03T05:15:39",
+  "generated_at": "2026-06-03T06:15:28",
   "date": "2026-06-03",
   "market": "kalshi",
   "even": {
@@ -15,11 +15,20 @@
       "gap": 0.0385,
       "entropy": 1.8043
     },
-    "hours": [],
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "78-79F",
+        "top_lo": 78,
+        "top_prob": 0.2091,
+        "matches_daily": true
+      }
+    ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 0,
+    "hours_available": 1,
     "hours_disagree": 0
   },
   "odd": {
@@ -35,11 +44,20 @@
       "gap": 0.0107,
       "entropy": 2.1247
     },
-    "hours": [],
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "79-80F",
+        "top_lo": 79,
+        "top_prob": 0.1516,
+        "matches_daily": true
+      }
+    ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 0,
+    "hours_available": 1,
     "hours_disagree": 0
   },
   "give_up": {
