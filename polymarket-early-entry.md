@@ -41,36 +41,7 @@ The Python scheduler must be running so NWP forecast data is fresh in the DB.
 
 ## Workflow
 
-### Step 1 — Generate the model signal
-
-Run once per target date, after the overnight NWP models have ingested
-(typically after 1am ET):
-
-```bash
-python python/generate_polymarket_d2_signal.py --date 2026-06-05
-```
-
-This uses today's observations (obs_lag=2) paired with 2-day-ahead NWP
-forecasts (GFS, ECMWF, HRRR, NBM, Weather.com). Output:
-
-```
-docs/data/score_d2_polymarket_atl.json
-```
-
-The file contains all buckets ranked by ensemble probability, for both
-odd-lo and even-lo bucket alignments. The bot uses `even` (Polymarket's
-alignment).
-
-To preview the top buckets without running the full bot:
-
-```bash
-python python/generate_polymarket_d2_signal.py --date 2026-06-05
-# prints: #1  86-87F    34.1%
-#         #2  84-85F    28.7%
-#         #3  88-89F    17.2%
-```
-
-### Step 2 — Run the bot
+One command. The bot handles everything:
 
 ```bash
 # Dry run (no orders placed):
@@ -80,14 +51,31 @@ bun scripts/runPolymarketWeatherEarlyEntry.ts --date 2026-06-05 --dry-run
 bun scripts/runPolymarketWeatherEarlyEntry.ts --date 2026-06-05
 ```
 
-The bot will:
-- Print the top N target buckets with model probabilities
-- Poll `gamma-api.polymarket.com` every 10 seconds
-- **Enter each bucket immediately when its market gets a live price** — if
-  bucket #1 is priced at 5 minutes and bucket #3 at 22 minutes, each is
-  entered at the moment it appears, not batched together
-- Place GTC limit orders at `current_ask + 2¢` (capped at `--max-price`)
-- Save state to `data/polymarket-early-bot/atl/state.json`; safe to restart
+The bot runs in three phases:
+
+**Phase 1 — Wait for event.** Polls Polymarket every 10 seconds until the
+Atlanta TMAX event for the target date appears (any markets, no price needed).
+
+**Phase 2 — Generate fresh signal.** The moment the event is detected, runs
+`python/generate_polymarket_d2_signal.py` as a subprocess to get the latest
+model predictions using the current NWP forecast data. This ensures the
+signal is never stale.
+
+**Phase 3 — Watch and enter.** For each of the top N model buckets, enters
+immediately when that specific market gets a live price. Buckets that go live
+minutes apart are each entered at their own moment — no batching.
+
+Orders are GTC limits at `current_ask + 2¢` (capped at `--max-price`).
+State is saved to `data/polymarket-early-bot/atl/state.json`; safe to restart.
+
+To preview the signal without running the bot:
+
+```bash
+python python/generate_polymarket_d2_signal.py --date 2026-06-05
+# prints: #1  86-87F    34.1%
+#         #2  84-85F    28.7%
+#         #3  88-89F    17.2%
+```
 
 ### Options
 
