@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-04T00:04:52",
+  "generated_at": "2026-06-04T01:00:58",
   "date": "2026-06-05",
   "day_type": "tomorrow",
-  "overall": "No forecast data is available for Atlanta, GA on 2026-06-05. The ensemble model expected high temperature and all prediction tier information were marked as unavailable, making it impossible to characterize tomorrow's expected conditions from the provided data.",
-  "forecast_obs_notes": "Source model scores and ensemble outputs from GFS, ECMWF, HRRR, and NBM are all listed as unavailable. No inter-model agreement or divergence can be assessed.",
-  "max_temp_prediction": "A reliable max temperature prediction cannot be made because no ensemble model output, bucket probabilities, or prediction tiers were supplied in the data. Any figure provided would be speculative rather than model-derived. Confidence level is effectively zero given the complete absence of input data.",
-  "predicted_max": null
+  "overall": "Tomorrow in Atlanta looks to be a warm early-June day with the ensemble model pointing to a high near the mid-80s. Confidence in the exact peak temperature is low, with probability spread thinly across multiple buckets. Both prediction tiers are flagged as Tier 4 \u2014 poor signals \u2014 suggesting the temperature outcome is highly uncertain.",
+  "forecast_obs_notes": "There is significant model disagreement: GFS is a strong outlier, assigning 34% probability to the 88-89\u00b0F bucket, while ECMWF, HRRR, NBM, and WEATHER_COM all score that same bucket at just 3-4%. This divergence \u2014 with GFS far above the consensus \u2014 is a red flag and explains why the top bucket probability peaks at only 9% in the ensemble blend.",
+  "max_temp_prediction": "The ensemble mean TMAX of 84.6\u00b0F is the most reliable anchor given how poorly the models agree. The GFS-driven 88-89\u00b0F top bucket at just 9% reflects one outlier model skewing the upper tail rather than a true consensus signal. Confidence in any specific bucket is low, and the spread suggests the actual high could land anywhere from the low 80s to near 90\u00b0F depending on cloud cover and mixing.",
+  "predicted_max": 84.6
 }
