@@ -529,6 +529,22 @@
         </div>
         <div class="card-body" id="body-odd-compare"><div class="loading">Loading…</div></div>
       </div>
+
+      <div class="card card-full" id="card-ensemble-even-today" data-bucket="even" data-day="today">
+        <div class="card-header">
+          <h3>Daily Ensemble · Even Buckets</h3>
+          <span class="meta" id="meta-ensemble-even-today"></span>
+        </div>
+        <div class="card-body" id="body-ensemble-even-today"><div class="loading">Loading…</div></div>
+      </div>
+
+      <div class="card card-full" id="card-ensemble-odd-today" data-bucket="odd" data-day="today">
+        <div class="card-header">
+          <h3>Daily Ensemble · Odd Buckets</h3>
+          <span class="meta" id="meta-ensemble-odd-today"></span>
+        </div>
+        <div class="card-body" id="body-ensemble-odd-today"><div class="loading">Loading…</div></div>
+      </div>
     </div>
   </section>
 
@@ -670,6 +686,8 @@ const DATA_FILES = {
     valueTomorrow:       "data/value_tomorrow_kalshi.json",
     ensembleEven:        `data/ensemble_even_tomorrow_kalshi_${LOCATION}.json`,
     ensembleOdd:         `data/ensemble_odd_tomorrow_kalshi_${LOCATION}.json`,
+    ensembleEvenToday:   `data/ensemble_even_today_kalshi_${LOCATION}.json`,
+    ensembleOddToday:    `data/ensemble_odd_today_kalshi_${LOCATION}.json`,
     scoreIntradayToday:      `data/score_intraday_today_kalshi_${LOCATION}.json`,
     scoreIntradayTomorrow:   `data/score_intraday_tomorrow_kalshi_${LOCATION}.json`,
     scorePredictionToday:    `data/score_prediction_today_kalshi_${LOCATION}.json`,
@@ -1760,6 +1778,8 @@ function rerender() {
   if (d.intradayOddCompare)  renderIntradayCompare(d.intradayOddCompare,  el("body-odd-compare"),  el("meta-odd-compare"));
   if (d.ensembleEven)        renderEnsemble(d.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
   if (d.ensembleOdd)         renderEnsemble(d.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
+  if (d.ensembleEvenToday)   renderEnsemble(d.ensembleEvenToday, el("body-ensemble-even-today"), el("meta-ensemble-even-today"));
+  if (d.ensembleOddToday)    renderEnsemble(d.ensembleOddToday,  el("body-ensemble-odd-today"),  el("meta-ensemble-odd-today"));
   if (d.scorePredictionToday) {
     renderScorePrediction(d.scorePredictionToday, "even", el("body-score-today-d1-even"), el("meta-score-today-d1-even"));
     renderScorePrediction(d.scorePredictionToday, "odd",  el("body-score-today-d1-odd"),  el("meta-score-today-d1-odd"));
