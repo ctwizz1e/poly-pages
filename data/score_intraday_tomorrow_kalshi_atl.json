@@ -1,44 +1,44 @@
 {
-  "generated_at": "2026-06-08T22:45:51",
+  "generated_at": "2026-06-08T22:51:00",
   "date": "2026-06-09",
   "market": "kalshi",
   "even": {
-    "daily_tier": 4,
+    "daily_tier": 1,
     "daily_top": {
-      "label": "<40F",
-      "lo": null,
-      "hi": 40,
-      "prob": 0.0338
+      "label": "80-81F",
+      "lo": 80,
+      "hi": 82,
+      "prob": 0.3407
     },
     "daily_signals": {
-      "max_prob": 0.0338,
-      "gap": 0.001,
-      "entropy": 3.371
+      "max_prob": 0.3407,
+      "gap": 0.1632,
+      "entropy": 1.6743
     },
     "hours": [],
-    "abort_signal": "no_trade",
+    "abort_signal": "none",
     "abort_precision": null,
-    "recommendation": "skip",
+    "recommendation": "hold",
     "hours_available": 0,
     "hours_disagree": 0
   },
   "odd": {
-    "daily_tier": 4,
+    "daily_tier": 1,
     "daily_top": {
       "label": "81-82F",
       "lo": 81,
       "hi": 83,
-      "prob": 0.0513
+      "prob": 0.3579
     },
     "daily_signals": {
-      "max_prob": 0.0513,
-      "gap": 0.0085,
-      "entropy": 3.2299
+      "max_prob": 0.3579,
+      "gap": 0.1492,
+      "entropy": 1.4356
     },
     "hours": [],
-    "abort_signal": "no_trade",
+    "abort_signal": "none",
     "abort_precision": null,
-    "recommendation": "skip",
+    "recommendation": "hold",
     "hours_available": 0,
     "hours_disagree": 0
   },
