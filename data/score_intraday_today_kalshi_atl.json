@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-10T07:15:16",
+  "generated_at": "2026-06-10T08:15:16",
   "date": "2026-06-10",
   "market": "kalshi",
   "even": {
@@ -8,12 +8,12 @@
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "prob": 0.0368
+      "prob": 0.0877
     },
     "daily_signals": {
-      "max_prob": 0.0368,
-      "gap": 0.0051,
-      "entropy": 2.4099
+      "max_prob": 0.0877,
+      "gap": 0.0371,
+      "entropy": 2.1108
     },
     "hours": [
       {
@@ -21,28 +21,36 @@
         "time_label": "07:00",
         "top_bucket": "88-89F",
         "top_lo": 88,
-        "top_prob": 0.326,
+        "top_prob": 0.2091,
+        "matches_daily": false
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "88-89F",
+        "top_lo": 88,
+        "top_prob": 0.2174,
         "matches_daily": false
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 1,
-    "hours_disagree": 1
+    "hours_available": 2,
+    "hours_disagree": 2
   },
   "odd": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "87-88F",
-      "lo": 87,
-      "hi": 89,
-      "prob": 0.1203
+      "label": "83-84F",
+      "lo": 83,
+      "hi": 85,
+      "prob": 0.0583
     },
     "daily_signals": {
-      "max_prob": 0.1203,
-      "gap": 0.0346,
-      "entropy": 1.9225
+      "max_prob": 0.0583,
+      "gap": 0.008,
+      "entropy": 2.2967
     },
     "hours": [
       {
@@ -52,13 +60,21 @@
         "top_lo": 89,
         "top_prob": 0.1972,
         "matches_daily": false
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "89-90F",
+        "top_lo": 89,
+        "top_prob": 0.2196,
+        "matches_daily": false
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 1,
-    "hours_disagree": 1
+    "hours_available": 2,
+    "hours_disagree": 2
   },
   "give_up": {
     "status": "no_data",
