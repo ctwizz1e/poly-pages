@@ -1450,11 +1450,11 @@ function intradayAccuracyHint(d, bucketStart) {
 
   // Only 7am so far
   if (h7.matches_daily) {
-    // Backtest: when switch_7am doesn't fire → 11/14 = 79% accuracy
-    return { cls: "signal-hint-green", text: `7am confirms daily (${h7.top_bucket}) → <strong>79% win rate</strong>. Buy below <strong>75¢</strong>. Hold existing. Wait for 9am.` };
+    // Backtest 2020–2026: 7am agrees → 22/33 = 67% (T1-3 days)
+    return { cls: "signal-hint-green", text: `7am confirms daily (${h7.top_bucket}) → <strong>67% win rate</strong> (n=33). Buy below <strong>63¢</strong>. Hold existing. Wait for 9am.` };
   }
-  // switch_7am fired: daily win rate drops to 18% (9/50 cases correct)
-  return { cls: "signal-hint-red", text: `7am picks different bucket (${h7.top_bucket}) → <strong>EXIT</strong>. Daily win rate drops to 18% when 7am switches (82% precision). Sell YES above <strong>20¢</strong>. Wait for 9am before re-entering.` };
+  // Backtest 2020–2026: 7am switches → 30/111 = 27% (T1-3 days)
+  return { cls: "signal-hint-red", text: `7am picks different bucket (${h7.top_bucket}) → <strong>CAUTION</strong>. Daily win rate 27% when 7am switches (73% precision, n=111). Sell YES above <strong>27¢</strong>. Wait for 9am before re-entering.` };
 }
 
 // ── Midpoint divergence hint ──────────────────────────────
@@ -1537,10 +1537,10 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
   }
 
   const REC = {
-    none:     { cls: "abort-ok",    icon: "✅", text: "NO ABORT — HOLD",                               sub: "Win rate ~79% when no hours switch. Buy YES below 75¢." },
-    "2hr":    { cls: "abort-warn",  icon: "⚠️", text: "2 HOURS DIVERGE — WATCH",                      sub: "Hold for now. Win rate still elevated. Wait for 11am." },
-    "3hr":    { cls: "abort-abort", icon: "🚨", text: "3 HOURS DIVERGE — EXIT or REDUCE 50%",          sub: `Daily wrong 85% of time when 3 hours switch (switch_7_9_11 precision). Sell YES above 18¢.` },
-    "4hr":    { cls: "abort-abort", icon: "🚨", text: "ALL 4 HOURS DIVERGE — EXIT NOW",               sub: `Daily win rate ~15%. Sell YES above 15¢. Precision: ${d.abort_precision ? Math.round(d.abort_precision * 100) : 84}%.` },
+    none:     { cls: "abort-ok",    icon: "✅", text: "NO ABORT — HOLD",                               sub: "Win rate 84% when all 4 hours agree with daily (36% base). Buy YES below 80¢." },
+    "2hr":    { cls: "abort-warn",  icon: "⚠️", text: "2 HOURS DIVERGE — CAUTION",                    sub: "Daily right only 24% when 7+9 both switch (n=106). Exit if 11am also diverges." },
+    "3hr":    { cls: "abort-abort", icon: "🚨", text: "3 HOURS DIVERGE — EXIT or REDUCE 50%",          sub: `Daily right 22% when all 3 hours switch (n=95). Sell YES above 22¢. Precision: ${d.abort_precision ? Math.round(d.abort_precision * 100) : 78}%.` },
+    "4hr":    { cls: "abort-abort", icon: "🚨", text: "ALL 4 HOURS DIVERGE — EXIT NOW",               sub: `Daily right 16.5% when all 4 diverge (n=79). Sell YES above 17¢. Precision: ${d.abort_precision ? Math.round(d.abort_precision * 100) : 84}%.` },
     no_trade: { cls: "abort-skip",  icon: "⬛", text: "TIER 3 — SKIP",                               sub: "T3 accuracy 19% — no edge. Do not trade." },
   };
   let sig = REC[d.abort_signal] || REC.none;
