@@ -381,6 +381,7 @@
     .abort-prob  { padding: 3px 0 3px 8px; text-align: right; color: var(--text-muted); font-variant-numeric: tabular-nums; }
     .abort-match    { color: var(--up);   font-weight: 600; padding: 3px 8px; font-size: 11px; }
     .abort-disagree { color: var(--down); font-weight: 600; padding: 3px 8px; font-size: 11px; }
+    .abort-meta     { padding: 3px 8px; font-size: 11px; font-variant-numeric: tabular-nums; }
     .abort-rec {
       display: flex;
       align-items: flex-start;
@@ -969,35 +970,41 @@ function renderIntradayCompare(data, bodyEl, metaEl) {
       </div>` : ""}
     </div>`;
 
-  const hasD1 = data.has_d1_comparison && data.buckets?.some(b => b.d1_prior != null);
-  const hasNow = data.buckets?.some(b => b.d1_now != null);
+  const hasD1   = data.has_d1_comparison && data.buckets?.some(b => b.d1_prior != null);
+  const hasNow  = data.buckets?.some(b => b.d1_now != null);
+  const hasMeta = data.has_meta && data.buckets?.some(b => b.meta != null);
 
   const table = document.createElement("table");
   table.className = "prob-table";
   const thead = table.createTHead();
   const hrow = thead.insertRow();
   [
-    ["Bucket", "left"],
+    ["Bucket",   "left"],
     ["Intraday", "left"],
-    ...(hasD1  ? [["D1 Prior", "left"]] : []),
-    ...(hasNow ? [["D1 Now", "left"]] : []),
-    ...(hasD1  ? [["Δ Prior", "right"]] : []),
-    ...(hasNow ? [["Δ Now", "right"]] : []),
+    ...(hasMeta ? [["Meta ★", "left"]] : []),
+    ...(hasD1   ? [["D1 Prior", "left"]] : []),
+    ...(hasNow  ? [["D1 Now",   "left"]] : []),
+    ...(hasMeta ? [["Δ Meta",  "right"]] : []),
+    ...(hasD1   ? [["Δ Prior", "right"]] : []),
+    ...(hasNow  ? [["Δ Now",   "right"]] : []),
   ].forEach(([text, align]) => {
     const th = document.createElement("th");
     th.textContent = text;
     th.style.textAlign = align;
+    if (text === "Meta ★") th.style.color = "var(--accent)";
     hrow.appendChild(th);
   });
 
   const tbody = table.createTBody();
-  let totalIntraday = 0, totalD1Prior = 0, totalD1Now = 0;
+  let totalIntraday = 0, totalMeta = 0, totalD1Prior = 0, totalD1Now = 0;
   const { min: cMin, max: cMax } = getTempFilter();
   (data.buckets || []).filter(b => b.lo >= cMin && b.lo <= cMax).forEach(b => {
     const tr = tbody.insertRow();
+    const deltaMeta  = (b.meta   != null && b.d1_prior != null) ? b.meta   - b.d1_prior : null;
     const deltaPrior = (b.intraday != null && b.d1_prior != null) ? b.intraday - b.d1_prior : null;
     const deltaNow   = (b.intraday != null && b.d1_now   != null) ? b.intraday - b.d1_now   : null;
     totalIntraday += b.intraday || 0;
+    totalMeta     += b.meta     || 0;
     totalD1Prior  += b.d1_prior || 0;
     totalD1Now    += b.d1_now   || 0;
 
@@ -1005,20 +1012,24 @@ function renderIntradayCompare(data, bodyEl, metaEl) {
     tdLabel.style.color = bucketColor(b.lo); tdLabel.style.fontWeight = "600";
 
     tr.appendChild(barCell(b.intraday, b.lo, true));
-    if (hasD1)  tr.appendChild(barCell(b.d1_prior, b.lo, true));
-    if (hasNow) tr.appendChild(barCell(b.d1_now,   b.lo, true));
-    if (hasD1)  { const td = tr.insertCell(); td.className = deltaClass(deltaPrior); td.textContent = fmtDelta(deltaPrior); td.style.textAlign = "right"; }
-    if (hasNow) { const td = tr.insertCell(); td.className = deltaClass(deltaNow);   td.textContent = fmtDelta(deltaNow);   td.style.textAlign = "right"; }
+    if (hasMeta) tr.appendChild(barCell(b.meta,    b.lo, true));
+    if (hasD1)   tr.appendChild(barCell(b.d1_prior, b.lo, true));
+    if (hasNow)  tr.appendChild(barCell(b.d1_now,   b.lo, true));
+    if (hasMeta) { const td = tr.insertCell(); td.className = deltaClass(deltaMeta);  td.textContent = fmtDelta(deltaMeta);  td.style.textAlign = "right"; }
+    if (hasD1)   { const td = tr.insertCell(); td.className = deltaClass(deltaPrior); td.textContent = fmtDelta(deltaPrior); td.style.textAlign = "right"; }
+    if (hasNow)  { const td = tr.insertCell(); td.className = deltaClass(deltaNow);   td.textContent = fmtDelta(deltaNow);   td.style.textAlign = "right"; }
   });
 
   // Total row
   const trow = tbody.insertRow(); trow.className = "total-row";
   const ttd = trow.insertCell(); ttd.textContent = "TOTAL";
   const tiCell = trow.insertCell(); tiCell.textContent = fmtPct(totalIntraday); tiCell.style.textAlign = "right";
-  if (hasD1)  { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Prior); td.style.textAlign = "right"; }
-  if (hasNow) { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Now);   td.style.textAlign = "right"; }
-  if (hasD1)  trow.insertCell();
-  if (hasNow) trow.insertCell();
+  if (hasMeta) { const td = trow.insertCell(); td.textContent = fmtPct(totalMeta);   td.style.textAlign = "right"; td.style.color = "var(--accent)"; }
+  if (hasD1)   { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Prior); td.style.textAlign = "right"; }
+  if (hasNow)  { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Now);   td.style.textAlign = "right"; }
+  if (hasMeta) trow.insertCell();
+  if (hasD1)   trow.insertCell();
+  if (hasNow)  trow.insertCell();
 
   bodyEl.innerHTML = stateHtml + chipsHtml;
   bodyEl.appendChild(table);
@@ -1562,7 +1573,8 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
         <td class="abort-time">${hr.time_label}</td>
         <td class="abort-bucket" style="color:${bucketColor(hr.top_lo)}">${hr.top_bucket}</td>
         <td class="${matchCls}">${matchTxt}</td>
-        <td class="abort-prob">${fmtPct(hr.top_prob)}</td>`;
+        <td class="abort-prob">${fmtPct(hr.top_prob)}</td>
+        ${hr.meta_top_bucket ? `<td class="abort-bucket" style="color:${bucketColor(hr.meta_top_lo)};opacity:.8" title="Meta model">★ ${hr.meta_top_bucket} ${fmtPct(hr.meta_top_prob)}</td>` : ''}`;
     });
     frag.appendChild(tbl);
   } else {
