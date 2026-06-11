@@ -1495,6 +1495,42 @@ function midpointDivergenceHint(d) {
   };
 }
 
+// ── Intraday consensus hint ────────────────────────────────
+// When hours diverge from daily, do they all point to the same alt bucket?
+// Backtest (2020-2026, odd buckets):
+//   4hr unified consensus:  9.7% daily win rate (3/31)
+//   4hr scattered:         20.8% daily win rate (10/48)
+//   3hr unified consensus: 17.3% daily win rate
+//   3hr scattered:         27.9% daily win rate
+function consensusHint(d) {
+  const nd = d.hours_disagree || 0;
+  if (nd < 2) return null;
+  if (d.abort_signal === "none" || d.abort_signal === "no_trade") return null;
+
+  const STATS = {
+    4: { consensus: 9.7,  consensusN: 31, scattered: 20.8, scatteredN: 48 },
+    3: { consensus: 17.3, consensusN: "~", scattered: 27.9, scatteredN: "~" },
+    2: { consensus: null, scattered: null },
+  };
+  const st = STATS[Math.min(nd, 4)] || STATS[4];
+
+  if (d.consensus_bucket) {
+    if (!st.consensus) return null;
+    return {
+      cls: "signal-hint-red",
+      text: `All ${nd} disagreeing hours converge on <strong>${d.consensus_bucket}</strong> — unified exit signal. Daily right only <strong>${st.consensus}%</strong> in this case (n=${st.consensusN}). Sell YES above <strong>${st.consensus}¢</strong>.`,
+    };
+  }
+  // scattered disagreement — only show if n>=3 (enough signal to comment on)
+  if (nd >= 3 && st.scattered) {
+    return {
+      cls: "signal-hint-orange",
+      text: `Hours disagree with daily but point to different buckets — scattered signal. Daily right ~<strong>${st.scattered}%</strong> in this case (weaker exit than unified consensus).`,
+    };
+  }
+  return null;
+}
+
 // ── Render: score intraday (abort signal) ─────────────────
 function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
   metaEl.textContent = fmtDate(data.generated_at);
@@ -1558,6 +1594,14 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
       <div class="abort-rec-sub">${sig.sub}</div>
     </div>`;
   frag.appendChild(recDiv);
+
+  const consHint = consensusHint(d);
+  if (consHint) {
+    const consDiv = document.createElement("div");
+    consDiv.className = `signal-hint ${consHint.cls}`;
+    consDiv.innerHTML = consHint.text;
+    frag.appendChild(consDiv);
+  }
 
   const hint = intradayAccuracyHint(d, bucketStart);
   if (hint) {
