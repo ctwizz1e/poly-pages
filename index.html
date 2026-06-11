@@ -1468,6 +1468,46 @@ function intradayAccuracyHint(d, bucketStart) {
   return { cls: "signal-hint-red", text: `7am picks different bucket (${h7.top_bucket}) → <strong>CAUTION</strong>. Daily win rate 27% when 7am switches (73% precision, n=111). Sell YES above <strong>27¢</strong>. Wait for 9am before re-entering.` };
 }
 
+// ── Meta model calibration hint ──────────────────────────
+// Calibration table from ATL/Kalshi holdout (Dec 2025–Jun 2026, 728 day×hour pairs).
+// Meta model stated top-bucket prob → actual win rate:
+//   < 25% stated → ~33% actual  (model under-confident ~10pp in this range)
+//   25–38% stated → ~31% actual  (slight under-confidence ~4pp)
+//   38–50% stated → ~40% actual  (well-calibrated)
+//   > 50% stated  → stated ≈ actual  (well-calibrated)
+// Overall top-bucket accuracy: 38%, ECE=0.044.
+function metaCalibrationHint(d) {
+  const hours = (d.hours || []).filter(h => h.meta_top_bucket && h.meta_top_prob != null);
+  if (!hours.length) return null;
+  const latest = hours[hours.length - 1];
+  const p = latest.meta_top_prob;
+  const statedPct = Math.round(p * 100);
+
+  let actualPct, note, cls;
+  if (p >= 0.50) {
+    actualPct = statedPct;
+    note = "well-calibrated";
+    cls  = "signal-hint-green";
+  } else if (p >= 0.38) {
+    actualPct = 40;
+    note = "well-calibrated";
+    cls  = "signal-hint-green";
+  } else if (p >= 0.25) {
+    actualPct = 31;
+    note = "slightly under-confident";
+    cls  = "signal-hint-orange";
+  } else {
+    actualPct = 33;
+    note = "under-confident at low range";
+    cls  = "signal-hint-orange";
+  }
+
+  return {
+    cls,
+    text: `★ Meta (${latest.time_label}): <strong>${latest.meta_top_bucket}</strong> stated ${statedPct}% &rarr; calibrated ~<strong>${actualPct}%</strong> actual (${note}) &middot; fair-value entry below <strong>${actualPct}&cent;</strong>`,
+  };
+}
+
 // ── Midpoint divergence hint ──────────────────────────────
 // When majority of intraday hours are >= 2 buckets ABOVE daily,
 // the actual outcome lands in the middle ~26-29% of the time (4.5x chance, p<0.001).
@@ -1629,6 +1669,14 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
     midDiv.className = `signal-hint ${midHint.cls}`;
     midDiv.innerHTML = midHint.text;
     frag.appendChild(midDiv);
+  }
+
+  const metaHint = metaCalibrationHint(d);
+  if (metaHint) {
+    const metaHintDiv = document.createElement("div");
+    metaHintDiv.className = `signal-hint ${metaHint.cls}`;
+    metaHintDiv.innerHTML = metaHint.text;
+    frag.appendChild(metaHintDiv);
   }
 
   // ── Give-up classifier section ────────────────────────────
