@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-11T23:45:22",
-  "date": "2026-06-11",
+  "generated_at": "2026-06-12T00:29:17",
+  "date": "2026-06-12",
   "market": "kalshi",
   "even": {
     "daily_tier": 4,
@@ -8,427 +8,44 @@
       "label": "90-91F",
       "lo": 90,
       "hi": 92,
-      "prob": 0.0362
+      "prob": 0.0469
     },
     "daily_signals": {
-      "max_prob": 0.0362,
-      "gap": 0.0027,
-      "entropy": 2.5303
+      "max_prob": 0.0469,
+      "gap": 0.0188,
+      "entropy": 2.4343
     },
-    "hours": [
-      {
-        "hour": 7,
-        "time_label": "07:00",
-        "top_bucket": "90-91F",
-        "top_lo": 90,
-        "top_prob": 0.3929,
-        "matches_daily": true,
-        "meta_top_bucket": "90-91F",
-        "meta_top_lo": 90,
-        "meta_top_prob": 0.6045
-      },
-      {
-        "hour": 9,
-        "time_label": "09:00",
-        "top_bucket": "92-93F",
-        "top_lo": 92,
-        "top_prob": 0.2091,
-        "matches_daily": false,
-        "meta_top_bucket": "90-91F",
-        "meta_top_lo": 90,
-        "meta_top_prob": 0.5564
-      },
-      {
-        "hour": 11,
-        "time_label": "11:00",
-        "top_bucket": "92-93F",
-        "top_lo": 92,
-        "top_prob": 0.2873,
-        "matches_daily": false,
-        "meta_top_bucket": "90-91F",
-        "meta_top_lo": 90,
-        "meta_top_prob": 0.4536
-      },
-      {
-        "hour": 13,
-        "time_label": "13:00",
-        "top_bucket": "92-93F",
-        "top_lo": 92,
-        "top_prob": 0.2771,
-        "matches_daily": false,
-        "meta_top_bucket": "90-91F",
-        "meta_top_lo": 90,
-        "meta_top_prob": 0.3717
-      }
-    ],
+    "hours": [],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 4,
-    "hours_disagree": 3,
-    "consensus_bucket": "92-93F"
+    "hours_available": 0,
+    "hours_disagree": 0,
+    "consensus_bucket": null
   },
   "odd": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "87-88F",
-      "lo": 87,
-      "hi": 89,
-      "prob": 0.0855
+      "label": "91-92F",
+      "lo": 91,
+      "hi": 93,
+      "prob": 0.0438
     },
     "daily_signals": {
-      "max_prob": 0.0855,
-      "gap": 0.0281,
-      "entropy": 2.2914
+      "max_prob": 0.0438,
+      "gap": 0.0013,
+      "entropy": 2.2691
     },
-    "hours": [
-      {
-        "hour": 7,
-        "time_label": "07:00",
-        "top_bucket": "91-92F",
-        "top_lo": 91,
-        "top_prob": 0.4286,
-        "matches_daily": false,
-        "meta_top_bucket": "91-92F",
-        "meta_top_lo": 91,
-        "meta_top_prob": 0.2955
-      },
-      {
-        "hour": 9,
-        "time_label": "09:00",
-        "top_bucket": "95-96F",
-        "top_lo": 95,
-        "top_prob": 0.1516,
-        "matches_daily": false,
-        "meta_top_bucket": "91-92F",
-        "meta_top_lo": 91,
-        "meta_top_prob": 0.2874
-      },
-      {
-        "hour": 11,
-        "time_label": "11:00",
-        "top_bucket": "93-94F",
-        "top_lo": 93,
-        "top_prob": 0.2414,
-        "matches_daily": false,
-        "meta_top_bucket": "93-94F",
-        "meta_top_lo": 93,
-        "meta_top_prob": 0.2989
-      },
-      {
-        "hour": 13,
-        "time_label": "13:00",
-        "top_bucket": "91-92F",
-        "top_lo": 91,
-        "top_prob": 0.3115,
-        "matches_daily": false,
-        "meta_top_bucket": "93-94F",
-        "meta_top_lo": 93,
-        "meta_top_prob": 0.3085
-      }
-    ],
+    "hours": [],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 4,
-    "hours_disagree": 4,
+    "hours_available": 0,
+    "hours_disagree": 0,
     "consensus_bucket": null
   },
   "give_up": {
-    "status": "fired",
-    "threshold": 0.86,
-    "fire_hour": 16.87,
-    "fire_prob": 0.976,
-    "fire_running_max": 91.9,
-    "current_hour": 20.87,
-    "current_prob": 0.999,
-    "current_running_max": 91.9,
-    "snapshots": [
-      {
-        "hour": 10.0,
-        "prob": 0.001,
-        "running_max": 84.9
-      },
-      {
-        "hour": 10.08,
-        "prob": 0.001,
-        "running_max": 84.9
-      },
-      {
-        "hour": 10.17,
-        "prob": 0.001,
-        "running_max": 84.9
-      },
-      {
-        "hour": 10.25,
-        "prob": 0.001,
-        "running_max": 84.9
-      },
-      {
-        "hour": 10.33,
-        "prob": 0.001,
-        "running_max": 86.0
-      },
-      {
-        "hour": 10.42,
-        "prob": 0.001,
-        "running_max": 86.0
-      },
-      {
-        "hour": 10.5,
-        "prob": 0.001,
-        "running_max": 86.0
-      },
-      {
-        "hour": 10.58,
-        "prob": 0.001,
-        "running_max": 86.0
-      },
-      {
-        "hour": 10.67,
-        "prob": 0.001,
-        "running_max": 86.0
-      },
-      {
-        "hour": 10.75,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 10.83,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 10.87,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 10.92,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.0,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.08,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.17,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.25,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.33,
-        "prob": 0.002,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.42,
-        "prob": 0.002,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.58,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.67,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.75,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.83,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.87,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 11.92,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 12.0,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 12.08,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 12.25,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 12.33,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 12.42,
-        "prob": 0.001,
-        "running_max": 87.8
-      },
-      {
-        "hour": 12.5,
-        "prob": 0.002,
-        "running_max": 87.8
-      },
-      {
-        "hour": 12.58,
-        "prob": 0.002,
-        "running_max": 87.8
-      },
-      {
-        "hour": 12.67,
-        "prob": 0.016,
-        "running_max": 89.6
-      },
-      {
-        "hour": 12.75,
-        "prob": 0.012,
-        "running_max": 89.6
-      },
-      {
-        "hour": 12.83,
-        "prob": 0.012,
-        "running_max": 89.6
-      },
-      {
-        "hour": 12.87,
-        "prob": 0.017,
-        "running_max": 89.6
-      },
-      {
-        "hour": 12.92,
-        "prob": 0.011,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.0,
-        "prob": 0.012,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.08,
-        "prob": 0.013,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.17,
-        "prob": 0.028,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.25,
-        "prob": 0.028,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.42,
-        "prob": 0.012,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.5,
-        "prob": 0.032,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.67,
-        "prob": 0.015,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.75,
-        "prob": 0.017,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.83,
-        "prob": 0.017,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.87,
-        "prob": 0.072,
-        "running_max": 90.0
-      },
-      {
-        "hour": 13.92,
-        "prob": 0.174,
-        "running_max": 90.0
-      },
-      {
-        "hour": 14.87,
-        "prob": 0.157,
-        "running_max": 90.0
-      },
-      {
-        "hour": 15.87,
-        "prob": 0.724,
-        "running_max": 91.0
-      },
-      {
-        "hour": 16.87,
-        "prob": 0.976,
-        "running_max": 91.9
-      },
-      {
-        "hour": 17.87,
-        "prob": 0.987,
-        "running_max": 91.9
-      },
-      {
-        "hour": 17.92,
-        "prob": 0.998,
-        "running_max": 91.9
-      },
-      {
-        "hour": 18.17,
-        "prob": 0.998,
-        "running_max": 91.9
-      },
-      {
-        "hour": 18.87,
-        "prob": 0.999,
-        "running_max": 91.9
-      },
-      {
-        "hour": 19.87,
-        "prob": 0.999,
-        "running_max": 91.9
-      },
-      {
-        "hour": 20.87,
-        "prob": 0.999,
-        "running_max": 91.9
-      }
-    ]
+    "status": "no_data",
+    "threshold": 0.86
   }
 }
