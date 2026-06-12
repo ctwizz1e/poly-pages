@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-06-12T16:45:17",
+  "generated_at": "2026-06-12T17:00:21",
   "date": "2026-06-12",
   "market": "kalshi",
   "even": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "88-89F",
-      "lo": 88,
-      "hi": 90,
-      "prob": 0.1729
+      "label": "90-91F",
+      "lo": 90,
+      "hi": 92,
+      "prob": 0.1142
     },
     "daily_signals": {
-      "max_prob": 0.1729,
-      "gap": 0.0103,
-      "entropy": 2.0825
+      "max_prob": 0.1142,
+      "gap": 0.0434,
+      "entropy": 2.4065
     },
     "hours": [
       {
@@ -71,15 +71,15 @@
   "odd": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "95-96F",
-      "lo": 95,
-      "hi": 97,
-      "prob": 0.1067
+      "label": "93-94F",
+      "lo": 93,
+      "hi": 95,
+      "prob": 0.1442
     },
     "daily_signals": {
-      "max_prob": 0.1067,
-      "gap": 0.0742,
-      "entropy": 2.639
+      "max_prob": 0.1442,
+      "gap": 0.0472,
+      "entropy": 2.3386
     },
     "hours": [
       {
@@ -138,10 +138,10 @@
     "status": "fired",
     "threshold": 0.86,
     "fire_hour": 15.5,
-    "fire_prob": 0.928,
+    "fire_prob": 0.869,
     "fire_running_max": 91.4,
-    "current_hour": 16.58,
-    "current_prob": 0.898,
+    "current_hour": 16.83,
+    "current_prob": 0.926,
     "current_running_max": 91.4,
     "snapshots": [
       {
@@ -156,152 +156,167 @@
       },
       {
         "hour": 12.87,
-        "prob": 0.042,
+        "prob": 0.022,
         "running_max": 90.0
       },
       {
         "hour": 13.87,
-        "prob": 0.08,
+        "prob": 0.073,
         "running_max": 90.0
       },
       {
         "hour": 14.17,
-        "prob": 0.16,
+        "prob": 0.163,
         "running_max": 90.0
       },
       {
         "hour": 14.25,
-        "prob": 0.482,
+        "prob": 0.238,
         "running_max": 91.4
       },
       {
         "hour": 14.33,
-        "prob": 0.563,
+        "prob": 0.303,
         "running_max": 91.4
       },
       {
         "hour": 14.42,
-        "prob": 0.417,
+        "prob": 0.213,
         "running_max": 91.4
       },
       {
         "hour": 14.5,
-        "prob": 0.63,
+        "prob": 0.363,
         "running_max": 91.4
       },
       {
         "hour": 14.67,
-        "prob": 0.716,
+        "prob": 0.468,
         "running_max": 91.4
       },
       {
         "hour": 14.75,
-        "prob": 0.525,
+        "prob": 0.278,
         "running_max": 91.4
       },
       {
         "hour": 14.83,
-        "prob": 0.543,
+        "prob": 0.338,
         "running_max": 91.4
       },
       {
         "hour": 14.87,
-        "prob": 0.81,
+        "prob": 0.624,
         "running_max": 91.4
       },
       {
         "hour": 14.92,
-        "prob": 0.555,
+        "prob": 0.339,
         "running_max": 91.4
       },
       {
         "hour": 15.0,
-        "prob": 0.596,
+        "prob": 0.351,
         "running_max": 91.4
       },
       {
         "hour": 15.08,
-        "prob": 0.6,
+        "prob": 0.357,
         "running_max": 91.4
       },
       {
         "hour": 15.17,
-        "prob": 0.603,
+        "prob": 0.345,
         "running_max": 91.4
       },
       {
         "hour": 15.33,
-        "prob": 0.652,
+        "prob": 0.444,
         "running_max": 91.4
       },
       {
         "hour": 15.42,
-        "prob": 0.708,
+        "prob": 0.482,
         "running_max": 91.4
       },
       {
         "hour": 15.5,
-        "prob": 0.928,
-        "running_max": 91.4
-      },
-      {
-        "hour": 15.67,
-        "prob": 0.936,
-        "running_max": 91.4
-      },
-      {
-        "hour": 15.75,
-        "prob": 0.738,
-        "running_max": 91.4
-      },
-      {
-        "hour": 15.83,
-        "prob": 0.753,
-        "running_max": 91.4
-      },
-      {
-        "hour": 15.87,
-        "prob": 0.96,
-        "running_max": 91.4
-      },
-      {
-        "hour": 15.92,
-        "prob": 0.76,
-        "running_max": 91.4
-      },
-      {
-        "hour": 16.08,
-        "prob": 0.965,
-        "running_max": 91.4
-      },
-      {
-        "hour": 16.17,
-        "prob": 0.828,
-        "running_max": 91.4
-      },
-      {
-        "hour": 16.25,
-        "prob": 0.836,
-        "running_max": 91.4
-      },
-      {
-        "hour": 16.33,
-        "prob": 0.847,
-        "running_max": 91.4
-      },
-      {
-        "hour": 16.42,
         "prob": 0.869,
         "running_max": 91.4
       },
       {
+        "hour": 15.67,
+        "prob": 0.908,
+        "running_max": 91.4
+      },
+      {
+        "hour": 15.75,
+        "prob": 0.629,
+        "running_max": 91.4
+      },
+      {
+        "hour": 15.83,
+        "prob": 0.661,
+        "running_max": 91.4
+      },
+      {
+        "hour": 15.87,
+        "prob": 0.947,
+        "running_max": 91.4
+      },
+      {
+        "hour": 15.92,
+        "prob": 0.681,
+        "running_max": 91.4
+      },
+      {
+        "hour": 16.08,
+        "prob": 0.959,
+        "running_max": 91.4
+      },
+      {
+        "hour": 16.17,
+        "prob": 0.806,
+        "running_max": 91.4
+      },
+      {
+        "hour": 16.25,
+        "prob": 0.824,
+        "running_max": 91.4
+      },
+      {
+        "hour": 16.33,
+        "prob": 0.842,
+        "running_max": 91.4
+      },
+      {
+        "hour": 16.42,
+        "prob": 0.872,
+        "running_max": 91.4
+      },
+      {
         "hour": 16.5,
-        "prob": 0.876,
+        "prob": 0.885,
         "running_max": 91.4
       },
       {
         "hour": 16.58,
-        "prob": 0.898,
+        "prob": 0.907,
+        "running_max": 91.4
+      },
+      {
+        "hour": 16.67,
+        "prob": 0.913,
+        "running_max": 91.4
+      },
+      {
+        "hour": 16.75,
+        "prob": 0.924,
+        "running_max": 91.4
+      },
+      {
+        "hour": 16.83,
+        "prob": 0.926,
         "running_max": 91.4
       }
     ]
