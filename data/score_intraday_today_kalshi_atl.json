@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T08:45:12",
+  "generated_at": "2026-06-13T09:00:16",
   "date": "2026-06-13",
   "market": "kalshi",
   "even": {
@@ -8,12 +8,12 @@
       "label": "90-91F",
       "lo": 90,
       "hi": 92,
-      "prob": 0.1561
+      "prob": 0.1739
     },
     "daily_signals": {
-      "max_prob": 0.1561,
-      "gap": 0.0545,
-      "entropy": 2.2689
+      "max_prob": 0.1739,
+      "gap": 0.0708,
+      "entropy": 2.1809
     },
     "hours": [
       {
@@ -26,14 +26,25 @@
         "meta_top_bucket": "96-97F",
         "meta_top_lo": 96,
         "meta_top_prob": 0.2365
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "92-93F",
+        "top_lo": 92,
+        "top_prob": 0.2857,
+        "matches_daily": false,
+        "meta_top_bucket": "96-97F",
+        "meta_top_lo": 96,
+        "meta_top_prob": 0.2488
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 1,
-    "hours_disagree": 1,
-    "consensus_bucket": null
+    "hours_available": 2,
+    "hours_disagree": 2,
+    "consensus_bucket": "92-93F"
   },
   "odd": {
     "daily_tier": 1,
@@ -41,12 +52,12 @@
       "label": "93-94F",
       "lo": 93,
       "hi": 95,
-      "prob": 0.2572
+      "prob": 0.2729
     },
     "daily_signals": {
-      "max_prob": 0.2572,
-      "gap": 0.1204,
-      "entropy": 1.7823
+      "max_prob": 0.2729,
+      "gap": 0.1356,
+      "entropy": 1.7821
     },
     "hours": [
       {
@@ -59,14 +70,25 @@
         "meta_top_bucket": "95-96F",
         "meta_top_lo": 95,
         "meta_top_prob": 0.3722
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "95-96F",
+        "top_lo": 95,
+        "top_prob": 0.5,
+        "matches_daily": false,
+        "meta_top_bucket": "95-96F",
+        "meta_top_lo": 95,
+        "meta_top_prob": 0.3509
       }
     ],
-    "abort_signal": "none",
-    "abort_precision": null,
-    "recommendation": "hold",
-    "hours_available": 1,
-    "hours_disagree": 1,
-    "consensus_bucket": null
+    "abort_signal": "2hr",
+    "abort_precision": 0.755,
+    "recommendation": "watch",
+    "hours_available": 2,
+    "hours_disagree": 2,
+    "consensus_bucket": "95-96F"
   },
   "give_up": {
     "status": "no_data",
