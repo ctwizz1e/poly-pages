@@ -1,312 +1,239 @@
 {
-  "generated_at": "2026-06-13T23:45:10",
-  "date": "2026-06-13",
+  "generated_at": "2026-06-14T00:00:17",
+  "date": "2026-06-14",
   "market": "kalshi",
   "bucket_start": "even",
-  "intraday_available": true,
-  "has_meta": true,
-  "time_label": "23:30",
-  "running_max": 93.2,
-  "current_temp": 82.4,
-  "velocity": -1.8,
-  "obs_count": 259,
-  "dewpoint": 68.0,
-  "wind_speed": 8.1,
-  "predicted_peak_hour": 14.83,
+  "intraday_available": false,
   "d1_forecasts": {
-    "gfs": 92.6,
-    "ecmwf": 92.3,
-    "hrrr": 92.6,
-    "nbm": 92.2
+    "gfs": 89.9,
+    "ecmwf": 89.4,
+    "hrrr": 89.9,
+    "nbm": 88.2
   },
   "buckets": [
     {
       "label": ">=100F",
       "lo": 100,
       "hi": null,
-      "intraday": 0.0,
       "d1_prior": 0.0097,
-      "d1_now": 0.0015,
-      "meta": 0.1418
+      "d1_now": 0.0015
     },
     {
       "label": "98-99F",
       "lo": 98,
       "hi": 100,
-      "intraday": 0.0,
-      "d1_prior": 0.0089,
-      "d1_now": 0.0051,
-      "meta": 0.2146
+      "d1_prior": 0.006,
+      "d1_now": 0.0018
     },
     {
       "label": "96-97F",
       "lo": 96,
       "hi": 98,
-      "intraday": 0.0,
-      "d1_prior": 0.0076,
-      "d1_now": 0.0057,
-      "meta": 0.2146
+      "d1_prior": 0.0083,
+      "d1_now": 0.0026
     },
     {
       "label": "94-95F",
       "lo": 94,
       "hi": 96,
-      "intraday": 0.0,
-      "d1_prior": 0.0095,
-      "d1_now": 0.0072,
-      "meta": 0.2146
+      "d1_prior": 0.0083,
+      "d1_now": 0.0026
     },
     {
       "label": "92-93F",
       "lo": 92,
       "hi": 94,
-      "intraday": 0.92,
-      "d1_prior": 0.0198,
-      "d1_now": 0.0307,
-      "meta": 0.2146
+      "d1_prior": 0.0366,
+      "d1_now": 0.0076
     },
     {
       "label": "90-91F",
       "lo": 90,
       "hi": 92,
-      "intraday": 0.0,
-      "d1_prior": 0.1869,
-      "d1_now": 0.1758,
-      "meta": 0.0
+      "d1_prior": 0.2493,
+      "d1_now": 0.2012
     },
     {
       "label": "88-89F",
       "lo": 88,
       "hi": 90,
-      "intraday": 0.0,
-      "d1_prior": 0.1475,
-      "d1_now": 0.1277,
-      "meta": 0.0
+      "d1_prior": 0.1191,
+      "d1_now": 0.1292
     },
     {
       "label": "86-87F",
       "lo": 86,
       "hi": 88,
-      "intraday": 0.0,
-      "d1_prior": 0.0183,
-      "d1_now": 0.0103,
-      "meta": 0.0
+      "d1_prior": 0.0188,
+      "d1_now": 0.012
     },
     {
       "label": "84-85F",
       "lo": 84,
       "hi": 86,
-      "intraday": 0.0,
-      "d1_prior": 0.0221,
-      "d1_now": 0.01,
-      "meta": 0.0
+      "d1_prior": 0.0209,
+      "d1_now": 0.0208
     },
     {
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "intraday": 0.0,
-      "d1_prior": 0.0089,
-      "d1_now": 0.0043,
-      "meta": 0.0
+      "d1_prior": 0.012,
+      "d1_now": 0.0071
     },
     {
       "label": "80-81F",
       "lo": 80,
       "hi": 82,
-      "intraday": 0.0,
-      "d1_prior": 0.0086,
-      "d1_now": 0.0039,
-      "meta": 0.0
+      "d1_prior": 0.0155,
+      "d1_now": 0.0047
     },
     {
       "label": "78-79F",
       "lo": 78,
       "hi": 80,
-      "intraday": 0.0,
-      "d1_prior": 0.0092,
-      "d1_now": 0.0039,
-      "meta": 0.0
+      "d1_prior": 0.0148,
+      "d1_now": 0.0038
     },
     {
       "label": "76-77F",
       "lo": 76,
       "hi": 78,
-      "intraday": 0.0,
-      "d1_prior": 0.0092,
-      "d1_now": 0.0093,
-      "meta": 0.0
+      "d1_prior": 0.0089,
+      "d1_now": 0.0087
     },
     {
       "label": "74-75F",
       "lo": 74,
       "hi": 76,
-      "intraday": 0.0,
-      "d1_prior": 0.0141,
-      "d1_now": 0.0041,
-      "meta": 0.0
+      "d1_prior": 0.0143,
+      "d1_now": 0.0049
     },
     {
       "label": "72-73F",
       "lo": 72,
       "hi": 74,
-      "intraday": 0.0,
-      "d1_prior": 0.0074,
-      "d1_now": 0.0101,
-      "meta": 0.0
+      "d1_prior": 0.0075,
+      "d1_now": 0.0078
     },
     {
       "label": "70-71F",
       "lo": 70,
       "hi": 72,
-      "intraday": 0.0,
-      "d1_prior": 0.0102,
-      "d1_now": 0.0103,
-      "meta": 0.0
+      "d1_prior": 0.0104,
+      "d1_now": 0.0103
     },
     {
       "label": "68-69F",
       "lo": 68,
       "hi": 70,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0145,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0145
     },
     {
       "label": "66-67F",
       "lo": 66,
       "hi": 68,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0145,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0145
     },
     {
       "label": "64-65F",
       "lo": 64,
       "hi": 66,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0145,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0145
     },
     {
       "label": "62-63F",
       "lo": 62,
       "hi": 64,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "60-61F",
       "lo": 60,
       "hi": 62,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "58-59F",
       "lo": 58,
       "hi": 60,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "56-57F",
       "lo": 56,
       "hi": 58,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "54-55F",
       "lo": 54,
       "hi": 56,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "52-53F",
       "lo": 52,
       "hi": 54,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "50-51F",
       "lo": 50,
       "hi": 52,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "48-49F",
       "lo": 48,
       "hi": 50,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "46-47F",
       "lo": 46,
       "hi": 48,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "44-45F",
       "lo": 44,
       "hi": 46,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "42-43F",
       "lo": 42,
       "hi": 44,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "40-41F",
       "lo": 40,
       "hi": 42,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     },
     {
       "label": "<40F",
       "lo": null,
       "hi": 40,
-      "intraday": 0.0,
-      "d1_prior": 0.012,
-      "d1_now": 0.0015,
-      "meta": 0.0
+      "d1_prior": 0.0121,
+      "d1_now": 0.0015
     }
   ],
   "has_d1_comparison": true
