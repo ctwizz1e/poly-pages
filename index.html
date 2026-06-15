@@ -468,6 +468,32 @@
       color: var(--text);
     }
 
+    /* ── Tabs ───────────────────────────────────────────────── */
+    #tab-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+    .tab-btn {
+      padding: 7px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .tab-btn:hover { background: #f6f8fa; color: var(--text); }
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .tab-pane { display: none; flex-direction: column; gap: 32px; }
+    .tab-pane.active { display: flex; }
+
     /* ── Responsive ─────────────────────────────────────────── */
     @media (max-width: 600px) {
       .cards { grid-template-columns: 1fr; }
@@ -494,6 +520,15 @@
 </header>
 
 <main>
+  <!-- Tab navigation -->
+  <div id="tab-bar">
+    <button class="tab-btn active" data-tab="today">Today</button>
+    <button class="tab-btn" data-tab="tomorrow">Tomorrow</button>
+  </div>
+
+  <!-- TODAY TAB ──────────────────────────────────────────────── -->
+  <div id="tab-today" class="tab-pane active">
+
   <!-- TODAY ─────────────────────────────────────────────────── -->
   <section id="section-today">
     <h2>Today — <span id="today-label"></span></h2>
@@ -549,39 +584,37 @@
     </div>
   </section>
 
-  <!-- TOMORROW ──────────────────────────────────────────────── -->
-  <section id="section-tomorrow">
-    <h2>Tomorrow — <span id="tomorrow-label"></span></h2>
-    <div id="value-section-stats-tomorrow" class="section-stats"></div>
-    <div class="cards">
-      <div class="card card-full" id="card-ensemble-even" data-bucket="even" data-day="tomorrow">
-        <div class="card-header">
-          <h3>Daily Ensemble · Even Buckets</h3>
-          <span class="meta" id="meta-ensemble-even"></span>
-        </div>
-        <div class="card-body" id="body-ensemble-even"><div class="loading">Loading…</div></div>
-      </div>
-
-      <div class="card card-full" id="card-ensemble-odd" data-bucket="odd" data-day="tomorrow">
-        <div class="card-header">
-          <h3>Daily Ensemble · Odd Buckets</h3>
-          <span class="meta" id="meta-ensemble-odd"></span>
-        </div>
-        <div class="card-body" id="body-ensemble-odd"><div class="loading">Loading…</div></div>
-      </div>
-    </div>
-  </section>
-
   <!-- 2-DAY HISTORY ──────────────────────────────────────────── -->
   <section id="section-timeseries">
-    <h2>2-Day Temperature History</h2>
+    <h2>2-Day Weather History</h2>
     <div class="cards">
       <div class="card card-full">
         <div class="card-header">
-          <h3>Observations &amp; Forecasts · Hourly</h3>
+          <h3>Temperature · Observations &amp; Forecasts</h3>
           <span class="meta" id="meta-temp-timeseries"></span>
         </div>
-        <div class="card-body"><div class="chart-wrap" style="height:300px"><canvas id="chart-temp"></canvas></div></div>
+        <div class="card-body"><div class="chart-wrap" style="height:280px"><canvas id="chart-temp"></canvas></div></div>
+      </div>
+      <div class="card card-full">
+        <div class="card-header">
+          <h3>Wind Speed · Observed (mph)</h3>
+          <span class="meta" id="meta-wind-timeseries"></span>
+        </div>
+        <div class="card-body"><div class="chart-wrap" style="height:200px"><canvas id="chart-wind"></canvas></div></div>
+      </div>
+      <div class="card card-full">
+        <div class="card-header">
+          <h3>Cloud Cover · Observed (fraction)</h3>
+          <span class="meta" id="meta-cloud-timeseries"></span>
+        </div>
+        <div class="card-body"><div class="chart-wrap" style="height:200px"><canvas id="chart-cloud"></canvas></div></div>
+      </div>
+      <div class="card card-full">
+        <div class="card-header">
+          <h3>Precipitation Since Midnight · Observed (in)</h3>
+          <span class="meta" id="meta-precip-timeseries"></span>
+        </div>
+        <div class="card-body"><div class="chart-wrap" style="height:200px"><canvas id="chart-precip"></canvas></div></div>
       </div>
     </div>
   </section>
@@ -628,6 +661,34 @@
     </div>
   </section>
 
+  </div><!-- /tab-today -->
+
+  <!-- TOMORROW TAB ───────────────────────────────────────────── -->
+  <div id="tab-tomorrow" class="tab-pane">
+
+  <!-- TOMORROW ──────────────────────────────────────────────── -->
+  <section id="section-tomorrow">
+    <h2>Tomorrow — <span id="tomorrow-label"></span></h2>
+    <div id="value-section-stats-tomorrow" class="section-stats"></div>
+    <div class="cards">
+      <div class="card card-full" id="card-ensemble-even" data-bucket="even" data-day="tomorrow">
+        <div class="card-header">
+          <h3>Daily Ensemble · Even Buckets</h3>
+          <span class="meta" id="meta-ensemble-even"></span>
+        </div>
+        <div class="card-body" id="body-ensemble-even"><div class="loading">Loading…</div></div>
+      </div>
+
+      <div class="card card-full" id="card-ensemble-odd" data-bucket="odd" data-day="tomorrow">
+        <div class="card-header">
+          <h3>Daily Ensemble · Odd Buckets</h3>
+          <span class="meta" id="meta-ensemble-odd"></span>
+        </div>
+        <div class="card-body" id="body-ensemble-odd"><div class="loading">Loading…</div></div>
+      </div>
+    </div>
+  </section>
+
   <!-- SCORE TOMORROW ─────────────────────────────────────── -->
   <section id="section-score-tomorrow">
     <h2>Score Tomorrow — <span id="score-tomorrow-date"></span></h2>
@@ -669,6 +730,8 @@
       </div>
     </div>
   </section>
+
+  </div><!-- /tab-tomorrow -->
 
 </main>
 
@@ -1309,6 +1372,44 @@ function renderTempTimeseries(obsData, fcstData, metaEl) {
   });
 }
 
+// ── Simple single-series weather chart ────────────────────────
+const _wxCharts = {};
+function renderWxChart(id, obsData, field, yLabel, color, fillColor) {
+  const obs = obsData?.observations || [];
+  const pts = obs.filter(o => o[field] != null).map(o => ({ x: new Date(o.time), y: o[field] }));
+  if (!pts.length) return;
+
+  if (_wxCharts[id]) _wxCharts[id].destroy();
+  _wxCharts[id] = new Chart(document.getElementById(id).getContext("2d"), {
+    type: "line",
+    data: { datasets: [{
+      label: yLabel,
+      data: pts,
+      borderColor: color,
+      backgroundColor: fillColor || "transparent",
+      borderWidth: 1.5,
+      pointRadius: 1.5,
+      pointHoverRadius: 4,
+      tension: 0.3,
+      fill: !!fillColor,
+    }] },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: "nearest", intersect: false, axis: "x" },
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          type: "time",
+          time: { displayFormats: { hour: "MMM d, h a", day: "MMM d" } },
+          ticks: { maxTicksLimit: 12, maxRotation: 0, font: { size: 10 } },
+        },
+        y: { title: { display: true, text: yLabel, font: { size: 11 } }, beginAtZero: true },
+      },
+    },
+  });
+}
+
 // ── Render: score prediction (entry signal) ───────────────
 function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
   metaEl.textContent = fmtDate(data.generated_at);
@@ -1861,6 +1962,14 @@ async function loadAll() {
   const shared = loadedData.shared;
   if (shared.obsTimeseries || shared.fcstTimeseries)
     renderTempTimeseries(shared.obsTimeseries, shared.fcstTimeseries, el("meta-temp-timeseries"));
+  if (shared.obsTimeseries) {
+    renderWxChart("chart-wind",   shared.obsTimeseries, "wind",   "mph",  "#0366d6", "rgba(3,102,214,0.08)");
+    renderWxChart("chart-cloud",  shared.obsTimeseries, "cloud",  "0–1",  "#6f42c1", "rgba(111,66,193,0.08)");
+    renderWxChart("chart-precip", shared.obsTimeseries, "precip", "in",   "#22863a", "rgba(34,134,58,0.10)");
+    const ts = shared.obsTimeseries.generated_at;
+    ["meta-wind-timeseries", "meta-cloud-timeseries", "meta-precip-timeseries"]
+      .forEach(id => { const e = el(id); if (e) e.textContent = fmtDate(ts); });
+  }
 
   rerender();
 
@@ -1922,6 +2031,16 @@ setInterval(tick, 1000);
 // Collapsible sections
 document.querySelectorAll("section > h2").forEach(h2 => {
   h2.addEventListener("click", () => h2.closest("section").classList.toggle("collapsed"));
+});
+
+// Tab switching
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+  });
 });
 
 // Filter inputs re-render without re-fetching
