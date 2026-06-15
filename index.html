@@ -1372,32 +1372,57 @@ function renderTempTimeseries(obsData, fcstData, metaEl) {
   });
 }
 
-// ── Simple single-series weather chart ────────────────────────
+// ── Simple weather chart (obs + optional forecast fallback) ───
 const _wxCharts = {};
-function renderWxChart(id, obsData, field, yLabel, color, fillColor) {
-  const obs = obsData?.observations || [];
-  const pts = obs.filter(o => o[field] != null).map(o => ({ x: new Date(o.time), y: o[field] }));
-  if (!pts.length) return;
+function renderWxChart(id, obsData, obsField, fcstData, fcstField, yLabel, obsColor, fcstColor) {
+  const datasets = [];
 
-  if (_wxCharts[id]) _wxCharts[id].destroy();
-  _wxCharts[id] = new Chart(document.getElementById(id).getContext("2d"), {
-    type: "line",
-    data: { datasets: [{
-      label: yLabel,
-      data: pts,
-      borderColor: color,
-      backgroundColor: fillColor || "transparent",
+  const obsPts = (obsData?.observations || [])
+    .filter(o => o[obsField] != null)
+    .map(o => ({ x: new Date(o.time), y: o[obsField] }));
+  if (obsPts.length) {
+    datasets.push({
+      label: "Observed",
+      data: obsPts,
+      borderColor: obsColor,
+      backgroundColor: obsColor.replace(")", ", 0.08)").replace("rgb", "rgba"),
       borderWidth: 1.5,
       pointRadius: 1.5,
       pointHoverRadius: 4,
       tension: 0.3,
-      fill: !!fillColor,
-    }] },
+      fill: true,
+    });
+  }
+
+  const fcstPts = (fcstData?.forecasts || [])
+    .filter(f => f[fcstField] != null)
+    .map(f => ({ x: new Date(f.time), y: f[fcstField] }));
+  if (fcstPts.length) {
+    datasets.push({
+      label: "Forecast (model avg)",
+      data: fcstPts,
+      borderColor: fcstColor,
+      backgroundColor: "transparent",
+      borderWidth: 1.5,
+      borderDash: [5, 3],
+      pointRadius: 0,
+      pointHoverRadius: 4,
+      tension: 0.3,
+      fill: false,
+    });
+  }
+
+  if (!datasets.length) return;
+
+  if (_wxCharts[id]) _wxCharts[id].destroy();
+  _wxCharts[id] = new Chart(document.getElementById(id).getContext("2d"), {
+    type: "line",
+    data: { datasets },
     options: {
       responsive: true,
       maintainAspectRatio: false,
       interaction: { mode: "nearest", intersect: false, axis: "x" },
-      plugins: { legend: { display: false } },
+      plugins: { legend: { display: datasets.length > 1, position: "top", labels: { boxWidth: 10, font: { size: 11 } } } },
       scales: {
         x: {
           type: "time",
@@ -1962,11 +1987,13 @@ async function loadAll() {
   const shared = loadedData.shared;
   if (shared.obsTimeseries || shared.fcstTimeseries)
     renderTempTimeseries(shared.obsTimeseries, shared.fcstTimeseries, el("meta-temp-timeseries"));
-  if (shared.obsTimeseries) {
-    renderWxChart("chart-wind",   shared.obsTimeseries, "wind",   "mph",  "#0366d6", "rgba(3,102,214,0.08)");
-    renderWxChart("chart-cloud",  shared.obsTimeseries, "cloud",  "0–1",  "#6f42c1", "rgba(111,66,193,0.08)");
-    renderWxChart("chart-precip", shared.obsTimeseries, "precip", "in",   "#22863a", "rgba(34,134,58,0.10)");
-    const ts = shared.obsTimeseries.generated_at;
+  if (shared.obsTimeseries || shared.fcstTimeseries) {
+    const obs  = shared.obsTimeseries  || null;
+    const fcst = shared.fcstTimeseries || null;
+    renderWxChart("chart-wind",   obs, "wind",   null,        null,          "mph",   "#0366d6", "#888");
+    renderWxChart("chart-cloud",  obs, "cloud",  fcst, "cloud_mean",  "fraction",  "#6f42c1", "#b08ee0");
+    renderWxChart("chart-precip", obs, "precip", fcst, "precip_mean", "in/hr",     "#22863a", "#5bba6f");
+    const ts = (obs || fcst)?.generated_at;
     ["meta-wind-timeseries", "meta-cloud-timeseries", "meta-precip-timeseries"]
       .forEach(id => { const e = el(id); if (e) e.textContent = fmtDate(ts); });
   }
