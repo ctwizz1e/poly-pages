@@ -1444,10 +1444,10 @@ function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
 
   const TIER_COLOR = { 1: "#22863a", 2: "#0366d6", 3: "#cb2431", 4: "#6b7280" };
   const TIER_LABEL = {
-    1: "✅ TIER 1 · BUY — 23% win rate (buy YES below 23¢)",
-    2: "🔵 TIER 2 · WAIT FOR 7AM — 19% base (buy below 34¢ only with 7am confirm)",
+    1: "✅ TIER 1 · BUY — 17% win rate (buy YES below 17¢)",
+    2: "🔵 TIER 2 · WAIT FOR 7AM — 16% base (buy below 57¢ only with 7am confirm)",
     3: "❌ TIER 3 · SKIP — rare signal, no meaningful edge above T4 baseline",
-    4: "👁️ TIER 4 · WATCH — 17% base, but 7am confirm → 50% win rate",
+    4: "👁️ TIER 4 · WATCH — 11% base, but 7am confirm → 60% win rate",
   };
 
   const frag = document.createDocumentFragment();
@@ -1497,10 +1497,10 @@ function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
   const isOdd = bucketStart === "odd";
   const dailyProb = d.top1 && d.top1.prob || 0;
   const TIER_HINTS = {
-    1: `T1 base 23% win rate (n=155 days). Do NOT enter pre-market. If 7am confirms same bucket → ~34% (buy below 34¢). If 7/9/11 all agree → 74% (buy below 74¢, or 93% when h11≥40%). Top model prob: ${Math.round(dailyProb*100)}%.`,
-    2: `T2 base 19% (n=249 days). Do NOT enter pre-market. Wait for 7am intraday: if 7am confirms → ~34%, buy below 34¢. If 7am picks different bucket → skip day entirely.`,
+    1: `T1 base 17% win rate (n=108 days). Do NOT enter pre-market. If 7am confirms same bucket → ~57% (buy below 57¢). If 7/9/11 all agree → 88% (buy below 88¢, or 96% when h11≥40%). Top model prob: ${Math.round(dailyProb*100)}%.`,
+    2: `T2 base 16% (n=157 days). Do NOT enter pre-market. Wait for 7am intraday: if 7am confirms → ~57%, buy below 57¢. If 7am picks different bucket → skip day entirely.`,
     3: `T3 rarely triggers — 0 signals in Jan 2025–Jun 2026 backtest. Treat as T4 if it appears.`,
-    4: `T4 base 17% (n=110). Do NOT enter pre-market. If 7am intraday confirms same bucket → 50% win rate (n=14, buy below 50¢). If 7am+9am both confirm → 54% (n=13, buy below 54¢). If 7/9/11 all confirm → 50% (n=8, buy below 50¢). Treat like T2 but wait for 7am.`,
+    4: `T4 base 11% (n=221). Do NOT enter pre-market. If 7am intraday confirms same bucket → 60% win rate (n=20, buy below 60¢). If 7am+9am both confirm → 63% (n=16, buy below 63¢). If 7/9/11 all confirm → 67% (n=9, buy below 67¢). Treat like T2 but wait for 7am.`,
   };
   const hintDiv = document.createElement("div");
   hintDiv.className = "signal-hint signal-hint-muted";
@@ -1511,16 +1511,16 @@ function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
   bodyEl.appendChild(frag);
 }
 
-// ── Intraday accuracy estimates from backtests (Jan 2025–Jun 2026) ───────
-// 7am confirms daily: 25/73 = 34.2% (analyze_7am_vs_daily, Jan 2025–Jun 2026)
+// ── Intraday accuracy estimates from backtests (2023–2026 May-Sep) ───────
+// 7am confirms daily: 31/54 = 57.4% (analyze_7am_vs_daily, 2023–2026 May-Sep)
 function _acc7amConfirm(dailyProb, isOdd) {
-  return 34;
+  return 57;
 }
-// 7/9/11 all agree: 95/128 = 74.2%; h11≥35%: 91/114 = 79.8%; h11≥40%: 66/71 = 93.0%
+// 7/9/11 all agree: 296/337 = 87.8%; h11≥35%: 292/323 = 90.4%; h11≥40%: 237/247 = 96.0%
 function _acc711Agree(h11Prob, isOdd) {
-  if (h11Prob >= 0.40) return 93;
-  if (h11Prob >= 0.35) return 80;
-  return 74;
+  if (h11Prob >= 0.40) return 96;
+  if (h11Prob >= 0.35) return 90;
+  return 88;
 }
 
 function intradayAccuracyHint(d, bucketStart) {
@@ -1533,15 +1533,15 @@ function intradayAccuracyHint(d, bucketStart) {
 
   if (!h7) return null;
 
-  // ── T4 recovery path (backtest Jan 2025–Jun 2026, n=110 T4-daily days) ────
+  // ── T4 recovery path (backtest 2023–2026 May-Sep, n=221 T4-daily days) ────
   if (d.daily_tier === 4) {
     if (h11 && h7.matches_daily && h9 && h9.matches_daily && h11.matches_daily)
-      return { cls: "signal-hint-green", text: `T4 recovery: 7+9+11am all confirm daily &rarr; <strong>50% win rate</strong> (4/8). Buy YES below <strong>50&cent;</strong>.` };
+      return { cls: "signal-hint-green", text: `T4 recovery: 7+9+11am all confirm daily &rarr; <strong>67% win rate</strong> (6/9). Buy YES below <strong>67&cent;</strong>.` };
     if (h9 && h7.matches_daily && h9.matches_daily)
-      return { cls: "signal-hint-green", text: `T4 recovery: 7am+9am both confirm daily &rarr; <strong>54% win rate</strong> (7/13). Buy YES below <strong>54&cent;</strong>. Hold for 11am.` };
+      return { cls: "signal-hint-green", text: `T4 recovery: 7am+9am both confirm daily &rarr; <strong>63% win rate</strong> (10/16). Buy YES below <strong>63&cent;</strong>. Hold for 11am.` };
     if (h7.matches_daily)
-      return { cls: "signal-hint-green", text: `T4 recovery: 7am confirms daily &rarr; <strong>50% win rate</strong> (7/14). Buy YES below <strong>50&cent;</strong>. Wait for 9am.` };
-    return { cls: "signal-hint-red", text: `T4 day + 7am picks different bucket (${h7.top_bucket}) &rarr; no entry. Win rate only 13% when 7am diverges on T4 days. Skip.` };
+      return { cls: "signal-hint-green", text: `T4 recovery: 7am confirms daily &rarr; <strong>60% win rate</strong> (12/20). Buy YES below <strong>60&cent;</strong>. Wait for 9am.` };
+    return { cls: "signal-hint-red", text: `T4 day + 7am picks different bucket (${h7.top_bucket}) &rarr; no entry. Win rate only 6% when 7am diverges on T4 days. Skip.` };
   }
 
   if (h11) {
@@ -1565,10 +1565,10 @@ function intradayAccuracyHint(d, bucketStart) {
       return { cls: "signal-hint-red", text: `7+9am agreed on daily's bucket, but 11am shifted away → <strong>EXIT or reduce 50%</strong>. When 11am breaks a 7+9 consensus, the original pick wins only <strong>37%</strong> of the time. Sell YES above <strong>40¢</strong>.` };
     }
     if (h9 && h7b !== h9b) {
-      // Backtest: 11 sides with 7am = 73.3% (15 days); 11 sides with 9am = 60.0% (20 days); all different = 16.7% (6 days)
-      if (h11b === h7b)  return { cls: "signal-hint-orange", text: `11am sides with 7am → <strong>73% win rate</strong> for ${h11b}. Buy below <strong>70¢</strong>. (9am was the outlier)` };
-      if (h11b === h9b)  return { cls: "signal-hint-orange", text: `11am sides with 9am → <strong>60% win rate</strong> for ${h11b}. Buy below <strong>57¢</strong>. (7am was the outlier)` };
-      return { cls: "signal-hint-red", text: `All three hours pick different buckets → <strong>17% win rate</strong>, chaotic signal. Do not add. Consider exiting.` };
+      // Backtest 2023-2026 May-Sep: 11 sides with 7am = 79.6% (49 days); 11 sides with 9am = 63.6% (44 days); all different = 22.2% (9 days)
+      if (h11b === h7b)  return { cls: "signal-hint-orange", text: `11am sides with 7am → <strong>80% win rate</strong> for ${h11b}. Buy below <strong>80¢</strong>. (9am was the outlier)` };
+      if (h11b === h9b)  return { cls: "signal-hint-orange", text: `11am sides with 9am → <strong>64% win rate</strong> for ${h11b}. Buy below <strong>64¢</strong>. (7am was the outlier)` };
+      return { cls: "signal-hint-red", text: `All three hours pick different buckets → <strong>22% win rate</strong>, chaotic signal. Do not add. Consider exiting.` };
     }
     const nMatch = [h7, h9, h11].filter(h => h && h.matches_daily).length;
     return { cls: "signal-hint-orange", text: `${nMatch}/3 early hours agree with daily — mixed. Hold, monitor.` };
@@ -1578,7 +1578,7 @@ function intradayAccuracyHint(d, bucketStart) {
     if (h7.top_bucket === h9.top_bucket) {
       if (h7.matches_daily && h9.matches_daily) {
         // 7+9 agree with daily, waiting for 11am
-        return { cls: "signal-hint-green", text: `7+9am agree with daily → <strong>~69% win rate</strong>. Buy remaining below <strong>66¢</strong>. Wait for 11am to confirm 74%+.` };
+        return { cls: "signal-hint-green", text: `7+9am agree with daily → <strong>~81% win rate</strong>. Buy remaining below <strong>78¢</strong>. Wait for 11am to confirm 88%+.` };
       }
       // 7+9 agree but on a different bucket than daily
       return { cls: "signal-hint-red", text: `7+9am both pick <strong>${h9.top_bucket}</strong>, diverging from daily → <strong>EXIT</strong> (82% precision this is wrong day). Sell YES above <strong>20¢</strong>. 11am will confirm.` };
@@ -1589,11 +1589,11 @@ function intradayAccuracyHint(d, bucketStart) {
 
   // Only 7am so far
   if (h7.matches_daily) {
-    // Backtest Jan 2025–Jun 2026: 7am agrees → 25/73 = 34% (all days)
-    return { cls: "signal-hint-green", text: `7am confirms daily (${h7.top_bucket}) → <strong>34% win rate</strong> (n=73). Buy below <strong>34¢</strong>. Hold existing. Wait for 9am.` };
+    // Backtest 2023-2026 May-Sep: 7am agrees → 31/54 = 57% (all days)
+    return { cls: "signal-hint-green", text: `7am confirms daily (${h7.top_bucket}) → <strong>57% win rate</strong> (n=54). Buy below <strong>57¢</strong>. Hold existing. Wait for 9am.` };
   }
-  // Backtest Jan 2025–Jun 2026: 7am disagrees → 80/424 = 19% (all days)
-  return { cls: "signal-hint-red", text: `7am picks different bucket (${h7.top_bucket}) → <strong>CAUTION</strong>. Daily win rate only 19% when 7am switches. Sell YES above <strong>19¢</strong>. Wait for 9am before re-entering.` };
+  // Backtest 2023-2026 May-Sep: 7am disagrees → 27/414 = 6.5% (all days)
+  return { cls: "signal-hint-red", text: `7am picks different bucket (${h7.top_bucket}) → <strong>CAUTION</strong>. Daily win rate only 7% when 7am switches. Sell YES above <strong>7¢</strong>. Wait for 9am before re-entering.` };
 }
 
 // ── Meta model calibration hint ──────────────────────────
@@ -1762,7 +1762,7 @@ function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
   let sig = REC[d.abort_signal] || REC.none;
   if (d.abort_signal === "no_trade" && d.daily_tier === 4) {
     sig = { cls: "abort-warn", icon: "👁️", text: "TIER 4 — WATCH FOR 7AM INTRADAY",
-            sub: "Base 17% — no pre-market entry. 7am confirm → 55% (buy below 54¢) · 7+9 agree → 58% (57¢) · 7+9+11 agree → 64% (63¢)." };
+            sub: "Base 11% — no pre-market entry. 7am confirm → 60% (buy below 60¢) · 7+9 agree → 63% (62¢) · 7+9+11 agree → 67% (67¢)." };
   }
 
   const recDiv = document.createElement("div");
