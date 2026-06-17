@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-06-17T12:45:15",
+  "generated_at": "2026-06-17T13:00:23",
   "date": "2026-06-17",
   "market": "kalshi",
   "even": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "82-83F",
-      "lo": 82,
-      "hi": 84,
-      "prob": 0.0293
+      "label": "84-85F",
+      "lo": 84,
+      "hi": 86,
+      "prob": 0.0743
     },
     "daily_signals": {
-      "max_prob": 0.0293,
-      "gap": 0.0021,
-      "entropy": 2.6567
+      "max_prob": 0.0743,
+      "gap": 0.0213,
+      "entropy": 2.4604
     },
     "hours": [
       {
@@ -48,27 +48,38 @@
         "meta_top_bucket": "86-87F",
         "meta_top_lo": 86,
         "meta_top_prob": 0.4957
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "86-87F",
+        "top_lo": 86,
+        "top_prob": 0.5,
+        "matches_daily": false,
+        "meta_top_bucket": "86-87F",
+        "meta_top_lo": 86,
+        "meta_top_prob": 0.4519
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 3,
-    "hours_disagree": 2,
-    "consensus_bucket": "88-89F"
+    "hours_available": 4,
+    "hours_disagree": 3,
+    "consensus_bucket": null
   },
   "odd": {
-    "daily_tier": 1,
+    "daily_tier": 4,
     "daily_top": {
-      "label": "87-88F",
-      "lo": 87,
-      "hi": 89,
-      "prob": 0.2789
+      "label": "83-84F",
+      "lo": 83,
+      "hi": 85,
+      "prob": 0.169
     },
     "daily_signals": {
-      "max_prob": 0.2789,
-      "gap": 0.105,
-      "entropy": 1.6905
+      "max_prob": 0.169,
+      "gap": 0.0,
+      "entropy": 1.8001
     },
     "hours": [
       {
@@ -103,13 +114,24 @@
         "meta_top_bucket": "87-88F",
         "meta_top_lo": 87,
         "meta_top_prob": 0.3642
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "87-88F",
+        "top_lo": 87,
+        "top_prob": 0.3333,
+        "matches_daily": false,
+        "meta_top_bucket": "85-86F",
+        "meta_top_lo": 85,
+        "meta_top_prob": 0.3527
       }
     ],
-    "abort_signal": "none",
+    "abort_signal": "no_trade",
     "abort_precision": null,
-    "recommendation": "hold",
-    "hours_available": 3,
-    "hours_disagree": 2,
+    "recommendation": "skip",
+    "hours_available": 4,
+    "hours_disagree": 3,
     "consensus_bucket": null
   },
   "give_up": {
@@ -118,9 +140,9 @@
     "fire_hour": null,
     "fire_prob": null,
     "fire_running_max": null,
-    "current_hour": 12.5,
-    "current_prob": 0.004,
-    "current_running_max": 80.6,
+    "current_hour": 12.83,
+    "current_prob": 0.009,
+    "current_running_max": 82.4,
     "snapshots": [
       {
         "hour": 10.0,
@@ -179,7 +201,7 @@
       },
       {
         "hour": 10.87,
-        "prob": 0.001,
+        "prob": 0.002,
         "running_max": 77.0
       },
       {
@@ -194,12 +216,12 @@
       },
       {
         "hour": 11.08,
-        "prob": 0.001,
+        "prob": 0.002,
         "running_max": 77.0
       },
       {
         "hour": 11.17,
-        "prob": 0.001,
+        "prob": 0.002,
         "running_max": 77.0
       },
       {
@@ -234,7 +256,7 @@
       },
       {
         "hour": 11.75,
-        "prob": 0.002,
+        "prob": 0.003,
         "running_max": 78.8
       },
       {
@@ -249,7 +271,7 @@
       },
       {
         "hour": 11.92,
-        "prob": 0.002,
+        "prob": 0.003,
         "running_max": 80.6
       },
       {
@@ -276,6 +298,16 @@
         "hour": 12.5,
         "prob": 0.004,
         "running_max": 80.6
+      },
+      {
+        "hour": 12.67,
+        "prob": 0.011,
+        "running_max": 82.4
+      },
+      {
+        "hour": 12.83,
+        "prob": 0.009,
+        "running_max": 82.4
       }
     ]
   }
