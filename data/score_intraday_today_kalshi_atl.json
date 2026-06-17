@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-06-17T13:45:16",
+  "generated_at": "2026-06-17T14:00:23",
   "date": "2026-06-17",
   "market": "kalshi",
   "even": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "84-85F",
-      "lo": 84,
-      "hi": 86,
-      "prob": 0.0743
+      "label": "82-83F",
+      "lo": 82,
+      "hi": 84,
+      "prob": 0.0355
     },
     "daily_signals": {
-      "max_prob": 0.0743,
-      "gap": 0.0213,
-      "entropy": 2.4604
+      "max_prob": 0.0355,
+      "gap": 0.0035,
+      "entropy": 2.6192
     },
     "hours": [
       {
@@ -69,17 +69,17 @@
     "consensus_bucket": null
   },
   "odd": {
-    "daily_tier": 4,
+    "daily_tier": 1,
     "daily_top": {
-      "label": "83-84F",
-      "lo": 83,
-      "hi": 85,
-      "prob": 0.169
+      "label": "87-88F",
+      "lo": 87,
+      "hi": 89,
+      "prob": 0.2789
     },
     "daily_signals": {
-      "max_prob": 0.169,
-      "gap": 0.0,
-      "entropy": 1.8001
+      "max_prob": 0.2789,
+      "gap": 0.105,
+      "entropy": 1.6905
     },
     "hours": [
       {
@@ -127,9 +127,9 @@
         "meta_top_prob": 0.3527
       }
     ],
-    "abort_signal": "no_trade",
+    "abort_signal": "none",
     "abort_precision": null,
-    "recommendation": "skip",
+    "recommendation": "hold",
     "hours_available": 4,
     "hours_disagree": 3,
     "consensus_bucket": null
@@ -140,9 +140,9 @@
     "fire_hour": null,
     "fire_prob": null,
     "fire_running_max": null,
-    "current_hour": 13.58,
-    "current_prob": 0.021,
-    "current_running_max": 82.4,
+    "current_hour": 13.83,
+    "current_prob": 0.135,
+    "current_running_max": 84.2,
     "snapshots": [
       {
         "hour": 10.0,
@@ -201,7 +201,7 @@
       },
       {
         "hour": 10.87,
-        "prob": 0.002,
+        "prob": 0.001,
         "running_max": 77.0
       },
       {
@@ -216,7 +216,7 @@
       },
       {
         "hour": 11.08,
-        "prob": 0.002,
+        "prob": 0.001,
         "running_max": 77.0
       },
       {
@@ -256,7 +256,7 @@
       },
       {
         "hour": 11.75,
-        "prob": 0.003,
+        "prob": 0.002,
         "running_max": 78.8
       },
       {
@@ -286,7 +286,7 @@
       },
       {
         "hour": 12.33,
-        "prob": 0.003,
+        "prob": 0.004,
         "running_max": 80.6
       },
       {
@@ -296,68 +296,78 @@
       },
       {
         "hour": 12.5,
-        "prob": 0.004,
+        "prob": 0.005,
         "running_max": 80.6
       },
       {
         "hour": 12.67,
-        "prob": 0.011,
+        "prob": 0.008,
         "running_max": 82.4
       },
       {
         "hour": 12.83,
-        "prob": 0.009,
+        "prob": 0.006,
         "running_max": 82.4
       },
       {
         "hour": 12.87,
-        "prob": 0.013,
+        "prob": 0.009,
         "running_max": 82.4
       },
       {
         "hour": 12.92,
-        "prob": 0.013,
+        "prob": 0.009,
         "running_max": 82.4
       },
       {
         "hour": 13.0,
-        "prob": 0.014,
+        "prob": 0.012,
         "running_max": 82.4
       },
       {
         "hour": 13.08,
-        "prob": 0.018,
+        "prob": 0.014,
         "running_max": 82.4
       },
       {
         "hour": 13.17,
-        "prob": 0.015,
+        "prob": 0.011,
         "running_max": 82.4
       },
       {
         "hour": 13.25,
-        "prob": 0.015,
+        "prob": 0.011,
         "running_max": 82.4
       },
       {
         "hour": 13.33,
-        "prob": 0.024,
-        "running_max": 82.4
-      },
-      {
-        "hour": 13.42,
-        "prob": 0.016,
-        "running_max": 82.4
-      },
-      {
-        "hour": 13.5,
         "prob": 0.018,
         "running_max": 82.4
       },
       {
-        "hour": 13.58,
-        "prob": 0.021,
+        "hour": 13.42,
+        "prob": 0.012,
         "running_max": 82.4
+      },
+      {
+        "hour": 13.5,
+        "prob": 0.013,
+        "running_max": 82.4
+      },
+      {
+        "hour": 13.58,
+        "prob": 0.016,
+        "running_max": 82.4
+      },
+      {
+        "hour": 13.67,
+        "prob": 0.017,
+        "running_max": 82.4
+      },
+      {
+        "hour": 13.83,
+        "prob": 0.135,
+        "running_max": 84.2
       }
     ]
   }
