@@ -317,6 +317,10 @@
     .card-full { grid-column: 1 / -1; }
     .chart-wrap { position: relative; height: 220px; }
 
+    /* ── Scrollable chart container ──────────────────────────── */
+    .chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .chart-scroll .chart-wrap { min-width: 1400px; }
+
     /* ── Score sections ─────────────────────────────────────── */
     .score-tier {
       color: #fff;
@@ -593,28 +597,35 @@
           <h3>Temperature · Observations &amp; Forecasts</h3>
           <span class="meta" id="meta-temp-timeseries"></span>
         </div>
-        <div class="card-body"><div class="chart-wrap" style="height:280px"><canvas id="chart-temp"></canvas></div></div>
+        <div class="card-body"><div class="chart-scroll"><div class="chart-wrap" style="height:280px"><canvas id="chart-temp"></canvas></div></div></div>
+      </div>
+      <div class="card card-full">
+        <div class="card-header">
+          <h3>Dewpoint · Observed (°F)</h3>
+          <span class="meta" id="meta-dewpoint-timeseries"></span>
+        </div>
+        <div class="card-body"><div class="chart-scroll"><div class="chart-wrap" style="height:200px"><canvas id="chart-dewpoint"></canvas></div></div></div>
       </div>
       <div class="card card-full">
         <div class="card-header">
           <h3>Wind Speed · Observed (mph)</h3>
           <span class="meta" id="meta-wind-timeseries"></span>
         </div>
-        <div class="card-body"><div class="chart-wrap" style="height:200px"><canvas id="chart-wind"></canvas></div></div>
+        <div class="card-body"><div class="chart-scroll"><div class="chart-wrap" style="height:200px"><canvas id="chart-wind"></canvas></div></div></div>
       </div>
       <div class="card card-full">
         <div class="card-header">
           <h3>Cloud Cover · Observed (fraction)</h3>
           <span class="meta" id="meta-cloud-timeseries"></span>
         </div>
-        <div class="card-body"><div class="chart-wrap" style="height:200px"><canvas id="chart-cloud"></canvas></div></div>
+        <div class="card-body"><div class="chart-scroll"><div class="chart-wrap" style="height:200px"><canvas id="chart-cloud"></canvas></div></div></div>
       </div>
       <div class="card card-full">
         <div class="card-header">
           <h3>Precipitation Since Midnight · Observed (in)</h3>
           <span class="meta" id="meta-precip-timeseries"></span>
         </div>
-        <div class="card-body"><div class="chart-wrap" style="height:200px"><canvas id="chart-precip"></canvas></div></div>
+        <div class="card-body"><div class="chart-scroll"><div class="chart-wrap" style="height:200px"><canvas id="chart-precip"></canvas></div></div></div>
       </div>
     </div>
   </section>
@@ -1224,6 +1235,15 @@ function hexToRgb(hex) {
   const g = parseInt(hex.slice(3,5),16);
   const b = parseInt(hex.slice(5,7),16);
   return `${r},${g},${b}`;
+}
+
+// ── Shared x-axis range for all timeseries charts ────────────
+// 7 days back → 2 days ahead, recomputed on each render call
+function chartXBounds() {
+  return {
+    min: new Date(Date.now() - 7 * 24 * 3600 * 1000).toISOString(),
+    max: new Date(Date.now() + 2 * 24 * 3600 * 1000).toISOString(),
+  };
 }
 
 // ── Timeseries charts ─────────────────────────────────────────
