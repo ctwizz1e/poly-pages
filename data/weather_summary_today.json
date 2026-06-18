@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-17T23:45:57",
-  "date": "2026-06-17",
+  "generated_at": "2026-06-18T00:01:23",
+  "date": "2026-06-18",
   "day_type": "today",
-  "overall": "The day is essentially over at 23:34 ET with the temperature having peaked around 17:00 ET and now sitting at 77.0\u00b0F, well into its evening cooldown. The daily maximum of 86.0\u00b0F was established earlier this afternoon, running warmer than all three NWP model forecasts. Clouds were a feature throughout the day (BKN/OVC overnight, transitioning to SCT/FEW during peak heating hours), but did not suppress the high as much as models anticipated.",
-  "forecast_obs_notes": "All three NWP models underforecast today's high \u2014 ECMWF (83.8\u00b0F), HRRR (84.5\u00b0F), and NBM (84.6\u00b0F) were each 1.1\u20132.2\u00b0F below the observed running max of 86.0\u00b0F. The INTRADAY model correctly captured this, assigning 96.8% probability to the 86\u201387\u00b0F bucket, which is highly consistent with the observed outcome.",
-  "max_temp_prediction": "With the current temperature at 77.0\u00b0F and falling, a zero velocity trend, and the time well past midnight, the running max of 86.0\u00b0F is almost certainly the final TMAX for the day. The give-up classifier fired at hour 15.87 with running_max=84.9\u00b0F, and the max subsequently nudged up to 86.0\u00b0F \u2014 there is essentially zero chance of any further rise at this hour. Confidence is very high (>97%) that 86.0\u00b0F is the final daily high.",
-  "predicted_max": 86.0
+  "overall": "No current observations are available yet for Atlanta on June 18, 2026, so the day's trajectory cannot be confirmed from intraday data. The NWP model suite shows a modest spread, with ECMWF and HRRR clustering near 85\u00b0F while NBM comes in cooler near 81\u00b0F, suggesting some uncertainty around cloud cover, moisture, or timing of any capping that could limit afternoon heating.",
+  "forecast_obs_notes": "ECMWF (85.0\u00b0F) and HRRR (85.8\u00b0F) are in close agreement with each other but diverge meaningfully from NBM (80.8\u00b0F), a ~5\u00b0F spread that typically signals uncertainty in boundary layer mixing or convective inhibition. The D1_NOW bucket distribution peaks in the 80\u201383\u00b0F range, aligning more closely with the NBM solution than the ECMWF/HRRR consensus.",
+  "max_temp_prediction": "The strongest signal comes from the odd-bucket ensemble, which places 81\u201382\u00b0F at 35.9% probability with a 16.5-percentage-point gap over the next bucket \u2014 a Tier 1 high-confidence call. The D1_NOW distribution corroborates this, with its probability mass concentrated in the 78\u201385\u00b0F window and a mode near 80\u201382\u00b0F. Confidence is moderate-to-high for a high near 81\u201382\u00b0F, though the ECMWF/HRRR cluster around 85\u00b0F represents a meaningful upside tail if mixing is more vigorous than NBM anticipates.",
+  "predicted_max": 81.5
 }
