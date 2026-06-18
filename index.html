@@ -1455,7 +1455,7 @@ function renderWxChart(id, obsData, obsField, fcstData, fcstField, yLabel, obsCo
           time: { displayFormats: { hour: "MMM d, h a", day: "MMM d" } },
           ticks: { maxTicksLimit: 20, maxRotation: 0, font: { size: 10 } },
         },
-        y: { title: { display: true, text: yLabel, font: { size: 11 } }, beginAtZero: true },
+        y: { title: { display: true, text: yLabel, font: { size: 11 } }, beginAtZero },
       },
     },
   });
@@ -2018,7 +2018,7 @@ async function loadAll() {
   if (shared.obsTimeseries || shared.fcstTimeseries) {
     const obs  = shared.obsTimeseries  || null;
     const fcst = shared.fcstTimeseries || null;
-    renderWxChart("chart-dewpoint", obs, "dewpoint", null, null, "°F",   "#e8622a", "#888");
+    renderWxChart("chart-dewpoint", obs, "dewpoint", null, null, "°F",   "#e8622a", "#888", false);
     renderWxChart("chart-wind",   obs, "wind",   null,        null,          "mph",   "#0366d6", "#888");
     renderWxChart("chart-cloud",  obs, "cloud",  fcst, "cloud_mean",  "fraction",  "#6f42c1", "#b08ee0");
     renderWxChart("chart-precip", obs, "precip", fcst, "precip_mean", "in/hr",     "#22863a", "#5bba6f");
