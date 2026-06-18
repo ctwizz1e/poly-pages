@@ -1370,6 +1370,7 @@ function renderTempTimeseries(obsData, fcstData, metaEl) {
   if (!datasets.length) return;
 
   if (tempChart) tempChart.destroy();
+  const _xb = chartXBounds();
   tempChart = new Chart(document.getElementById("chart-temp").getContext("2d"), {
     type: "line",
     data: { datasets },
@@ -1383,8 +1384,10 @@ function renderTempTimeseries(obsData, fcstData, metaEl) {
       scales: {
         x: {
           type: "time",
+          min: _xb.min,
+          max: _xb.max,
           time: { displayFormats: { hour: "MMM d, h a", day: "MMM d" } },
-          ticks: { maxTicksLimit: 12, maxRotation: 0, font: { size: 10 } },
+          ticks: { maxTicksLimit: 20, maxRotation: 0, font: { size: 10 } },
         },
         y: { title: { display: true, text: "°F", font: { size: 11 } } },
       },
@@ -1394,7 +1397,7 @@ function renderTempTimeseries(obsData, fcstData, metaEl) {
 
 // ── Simple weather chart (obs + optional forecast fallback) ───
 const _wxCharts = {};
-function renderWxChart(id, obsData, obsField, fcstData, fcstField, yLabel, obsColor, fcstColor) {
+function renderWxChart(id, obsData, obsField, fcstData, fcstField, yLabel, obsColor, fcstColor, beginAtZero = true) {
   const datasets = [];
 
   const obsPts = (obsData?.observations || [])
@@ -1435,6 +1438,7 @@ function renderWxChart(id, obsData, obsField, fcstData, fcstField, yLabel, obsCo
   if (!datasets.length) return;
 
   if (_wxCharts[id]) _wxCharts[id].destroy();
+  const _wxb = chartXBounds();
   _wxCharts[id] = new Chart(document.getElementById(id).getContext("2d"), {
     type: "line",
     data: { datasets },
@@ -1446,8 +1450,10 @@ function renderWxChart(id, obsData, obsField, fcstData, fcstField, yLabel, obsCo
       scales: {
         x: {
           type: "time",
+          min: _wxb.min,
+          max: _wxb.max,
           time: { displayFormats: { hour: "MMM d, h a", day: "MMM d" } },
-          ticks: { maxTicksLimit: 12, maxRotation: 0, font: { size: 10 } },
+          ticks: { maxTicksLimit: 20, maxRotation: 0, font: { size: 10 } },
         },
         y: { title: { display: true, text: yLabel, font: { size: 11 } }, beginAtZero: true },
       },
@@ -2012,11 +2018,12 @@ async function loadAll() {
   if (shared.obsTimeseries || shared.fcstTimeseries) {
     const obs  = shared.obsTimeseries  || null;
     const fcst = shared.fcstTimeseries || null;
+    renderWxChart("chart-dewpoint", obs, "dewpoint", null, null, "°F",   "#e8622a", "#888");
     renderWxChart("chart-wind",   obs, "wind",   null,        null,          "mph",   "#0366d6", "#888");
     renderWxChart("chart-cloud",  obs, "cloud",  fcst, "cloud_mean",  "fraction",  "#6f42c1", "#b08ee0");
     renderWxChart("chart-precip", obs, "precip", fcst, "precip_mean", "in/hr",     "#22863a", "#5bba6f");
     const ts = (obs || fcst)?.generated_at;
-    ["meta-wind-timeseries", "meta-cloud-timeseries", "meta-precip-timeseries"]
+    ["meta-dewpoint-timeseries", "meta-wind-timeseries", "meta-cloud-timeseries", "meta-precip-timeseries"]
       .forEach(id => { const e = el(id); if (e) e.textContent = fmtDate(ts); });
   }
 
