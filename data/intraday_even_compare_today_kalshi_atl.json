@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-19T10:00:19",
+  "generated_at": "2026-06-19T10:15:17",
   "date": "2026-06-19",
   "market": "kalshi",
   "bucket_start": "even",
   "intraday_available": true,
   "has_meta": false,
-  "time_label": "09:50",
+  "time_label": "10:00",
   "running_max": 78.8,
   "current_temp": 78.8,
-  "velocity": 3.6,
+  "velocity": 1.8,
   "velocity_30m": 3.6,
   "velocity_2h": 2.7,
   "acceleration": 0.9,
-  "trend_slope": 0.55,
+  "trend_slope": 0.587,
   "hour_of_max": 9.75,
-  "hours_since_max": 0.08,
+  "hours_since_max": 0.25,
   "precip_today": 0.0,
-  "sky_cover_encoded": 3.0,
+  "sky_cover_encoded": 2.0,
   "cloud_fraction": 0.62,
-  "cloud_ceiling_m": 305.0,
+  "cloud_ceiling_m": 427.0,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 111,
+  "obs_count": 114,
   "dewpoint": 71.6,
-  "wind_speed": 12.7,
+  "wind_speed": 9.2,
   "predicted_peak_hour": 14.56,
   "nwp_peak_hours": {
     "ecmwf": 15.0,
@@ -72,7 +72,7 @@
       "label": "90-91F",
       "lo": 90,
       "hi": 92,
-      "intraday": 0.0943
+      "intraday": 0.16
     },
     {
       "label": "88-89F",
@@ -96,13 +96,13 @@
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "intraday": 0.0109
+      "intraday": 0.0246
     },
     {
       "label": "80-81F",
       "lo": 80,
       "hi": 82,
-      "intraday": 0.0019
+      "intraday": 0.0102
     },
     {
       "label": "78-79F",
@@ -477,7 +477,27 @@
       "time": "09:52",
       "temp": 78.8,
       "dewpoint": 71.6,
-      "wind": 12.7,
+      "wind": null,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "09:52",
+      "temp": 78.1,
+      "dewpoint": 71.1,
+      "wind": 12.8,
+      "sky": "SCT",
+      "cloud_frac": 0.62,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "09:52",
+      "temp": 78.8,
+      "dewpoint": 71.6,
+      "wind": 10.4,
       "sky": null,
       "cloud_frac": null,
       "precip_cum": null,
