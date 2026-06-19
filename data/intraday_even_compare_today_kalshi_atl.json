@@ -1,40 +1,40 @@
 {
-  "generated_at": "2026-06-19T11:45:18",
+  "generated_at": "2026-06-19T12:00:17",
   "date": "2026-06-19",
   "market": "kalshi",
   "bucket_start": "even",
   "intraday_available": true,
   "has_meta": false,
-  "time_label": "11:30",
-  "running_max": 80.6,
+  "time_label": "11:50",
+  "running_max": 82.4,
   "current_temp": 80.6,
   "velocity": 1.8,
   "velocity_30m": 3.6,
-  "velocity_2h": 1.8,
-  "acceleration": 1.8,
-  "trend_slope": 0.709,
-  "hour_of_max": 11.17,
-  "hours_since_max": 0.33,
+  "velocity_2h": 0.9,
+  "acceleration": 2.7,
+  "trend_slope": 0.743,
+  "hour_of_max": 11.67,
+  "hours_since_max": 0.17,
   "precip_today": 0.0,
   "sky_cover_encoded": 2.0,
   "cloud_fraction": 0.62,
   "cloud_ceiling_m": 457.0,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 128,
+  "obs_count": 131,
   "dewpoint": 71.6,
-  "wind_speed": 6.9,
-  "predicted_peak_hour": 14.63,
+  "wind_speed": 9.2,
+  "predicted_peak_hour": 14.55,
   "nwp_peak_hours": {
     "ecmwf": 15.0,
-    "hrrr": 18.0,
+    "hrrr": 17.0,
     "nbm": 16.0,
-    "mean": 16.3,
-    "spread": 1.2
+    "mean": 16.0,
+    "spread": 0.8
   },
   "d1_forecasts": {
     "ecmwf": 84.9,
-    "hrrr": 84.2,
+    "hrrr": 84.5,
     "nbm": 84.8
   },
   "buckets": [
@@ -84,25 +84,25 @@
       "label": "86-87F",
       "lo": 86,
       "hi": 88,
-      "intraday": 0.5
+      "intraday": 0.5556
     },
     {
       "label": "84-85F",
       "lo": 84,
       "hi": 86,
-      "intraday": 0.2703
+      "intraday": 0.0246
     },
     {
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "intraday": 0.0234
+      "intraday": 0.0022
     },
     {
       "label": "80-81F",
       "lo": 80,
       "hi": 82,
-      "intraday": 0.0022
+      "intraday": 0.0
     },
     {
       "label": "78-79F",
@@ -520,6 +520,16 @@
       "wind": 4.7,
       "sky": "SCT",
       "cloud_frac": 0.62,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "11:52",
+      "temp": 80.6,
+      "dewpoint": 71.6,
+      "wind": 9.2,
+      "sky": null,
+      "cloud_frac": null,
       "precip_cum": null,
       "slp_hpa": null
     }
