@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-19T23:51:07",
-  "date": "2026-06-19",
+  "generated_at": "2026-06-20T00:01:09",
+  "date": "2026-06-20",
   "day_type": "today",
-  "overall": "Atlanta reached a daily high of 89.6\u00b0F at approximately 16:52 ET, well above NWP model guidance, and has been steadily cooling since. As of 23:40 ET, the temperature stands at 78.8\u00b0F and falling at roughly -1.8\u00b0F/hr, with the peak now nearly 7 hours in the past. The day featured a gradual morning warm-up under partly cloudy skies that gave way to a stronger-than-modeled afternoon peak before cooling resumed.",
-  "forecast_obs_notes": "All three NWP models (ECMWF 86.6\u00b0F, HRRR 84.9\u00b0F, NBM 85.1\u00b0F) meaningfully underestimated today's actual high by roughly 3\u20135\u00b0F, likely due to less cloud shading and stronger afternoon mixing than anticipated. The INTRADAY obs-driven model proved far more accurate, placing 96.8% probability in the 88\u201389\u00b0F bucket \u2014 consistent with the confirmed running maximum of 89.6\u00b0F.",
-  "max_temp_prediction": "With the time now 23:40 ET and the temperature at 78.8\u00b0F and still falling, today's TMAX is effectively locked in at 89.6\u00b0F \u2014 the reading observed at 16:52 ET. There is essentially zero chance of temperatures rebounding to challenge that peak overnight. Confidence is extremely high (>99%) that 89.6\u00b0F is the final daily maximum.",
-  "predicted_max": 89.6
+  "overall": "Atlanta is entering June 20th with residual moisture from overnight convective activity, as evidenced by active flood warnings across central and southeastern Georgia. The NWS official forecast calls for a mostly sunny Saturday with a high near 86\u00b0F and only a slight 20% chance of afternoon storms, suggesting afternoon drying and sunshine-driven heating \u2014 but lingering cloud cover and elevated low-level moisture from recent flooding may suppress the afternoon peak somewhat.",
+  "forecast_obs_notes": "The three NWP models show notable spread below the NWS official forecast: ECMWF at 83.8\u00b0F and HRRR at 84.2\u00b0F cluster tightly near 84\u00b0F, while NBM is notably cooler at 81.7\u00b0F. The D1_NOW probability distribution reflects this cooler model consensus, with peak mass in the 78\u201383\u00b0F buckets \u2014 a meaningful downward shift from the D1_PRIOR, which was centered 6\u20138\u00b0F higher. No intraday observational data or hourly obs are yet available to ground-truth the models.",
+  "max_temp_prediction": "Given the tight ECMWF/HRRR consensus near 83.8\u201384.2\u00b0F, the NBM's cooler 81.7\u00b0F signal (likely capturing residual cloud/moisture effects), and the NWS official near 86\u00b0F, the most defensible central estimate is approximately 83\u201384\u00b0F. The predominantly sunny afternoon skies support some heating, but the ongoing moisture regime and lower-than-typical NBM suggest the official 86\u00b0F forecast may be optimistic. Confidence is moderate-low given the absence of any intraday observations and the flat, high-entropy ensemble signal (both bucket sets flagged as Tier 4 / skip).",
+  "predicted_max": 83.5
 }
