@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-06-21T00:20:36",
+  "generated_at": "2026-06-21T00:27:22",
   "date": "2026-06-21",
   "day_type": "today",
-  "error": "claude exited 1: "
+  "overall": "Atlanta is tracking through what appears to be the evening of June 21, with no live observational data available (running_max and current_temp both null). The NWS forecast for tonight indicates mostly cloudy skies with a 30% chance of thunderstorms before 8pm, suggesting afternoon cloud cover and convective activity may have modestly suppressed the daytime high. No active alerts or tropical context to flag.",
+  "forecast_obs_notes": "NWP model consensus is tight and reliable here: ECMWF at 86.3\u00b0F, NBM at 86.4\u00b0F, and HRRR slightly lower at 85.3\u00b0F \u2014 a spread of only about 1\u00b0F across all three models, pointing squarely to the mid-80s. The D1_NOW distribution peaks at 86-87\u00b0F (14.4%) but is broadly dispersed with high entropy (~2.58), reflecting data-limited conditions and typical late-day uncertainty. The D1_PRIOR was considerably hotter (spread across 84\u201395\u00b0F range), indicating the latest NWP runs have significantly cooled the forecast.",
+  "max_temp_prediction": "Best estimate for today's TMAX is approximately 86\u00b0F, anchored by tight NWP model agreement (ECMWF/NBM ~86.3\u201386.4, HRRR ~85.3). Any afternoon cloud cover or early convection associated with tonight's storm chances could have nudged the high slightly lower, toward 85\u00b0F, but the model cluster is convincing. Confidence is moderate-low due to complete absence of observational data; the ensemble signals flag a no-trade condition given the flat, high-entropy probability distribution.",
+  "predicted_max": 86.0
 }
