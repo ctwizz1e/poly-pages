@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-21T10:50:21",
+  "generated_at": "2026-06-21T11:00:26",
   "date": "2026-06-21",
   "market": "kalshi",
   "even": {
@@ -12,8 +12,8 @@
     },
     "daily_signals": {
       "max_prob": 0.1488,
-      "gap": 0.0045,
-      "entropy": 2.5263
+      "gap": 0.0011,
+      "entropy": 2.5356
     },
     "hours": [
       {
@@ -37,14 +37,25 @@
         "meta_top_bucket": "88-89F",
         "meta_top_lo": 88,
         "meta_top_prob": 0.3491
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "86-87F",
+        "top_lo": 86,
+        "top_prob": 0.2703,
+        "matches_daily": false,
+        "meta_top_bucket": "86-87F",
+        "meta_top_lo": 86,
+        "meta_top_prob": 0.32
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 2,
-    "hours_disagree": 1,
-    "consensus_bucket": null
+    "hours_available": 3,
+    "hours_disagree": 2,
+    "consensus_bucket": "86-87F"
   },
   "odd": {
     "daily_tier": 4,
@@ -52,12 +63,12 @@
       "label": "83-84F",
       "lo": 83,
       "hi": 85,
-      "prob": 0.1321
+      "prob": 0.1523
     },
     "daily_signals": {
-      "max_prob": 0.1321,
-      "gap": 0.0016,
-      "entropy": 2.3821
+      "max_prob": 0.1523,
+      "gap": 0.0678,
+      "entropy": 2.3996
     },
     "hours": [
       {
@@ -81,14 +92,25 @@
         "meta_top_bucket": "87-88F",
         "meta_top_lo": 87,
         "meta_top_prob": 0.3694
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "87-88F",
+        "top_lo": 87,
+        "top_prob": 0.2553,
+        "matches_daily": false,
+        "meta_top_bucket": "83-84F",
+        "meta_top_lo": 83,
+        "meta_top_prob": 0.2651
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 2,
-    "hours_disagree": 2,
-    "consensus_bucket": "89-90F"
+    "hours_available": 3,
+    "hours_disagree": 3,
+    "consensus_bucket": null
   },
   "give_up": {
     "status": "not_fired",
@@ -96,7 +118,7 @@
     "fire_hour": null,
     "fire_prob": null,
     "fire_running_max": null,
-    "current_hour": 10.67,
+    "current_hour": 10.83,
     "current_prob": 0.001,
     "current_running_max": 75.0,
     "snapshots": [
@@ -132,6 +154,16 @@
       },
       {
         "hour": 10.67,
+        "prob": 0.001,
+        "running_max": 75.0
+      },
+      {
+        "hour": 10.75,
+        "prob": 0.001,
+        "running_max": 75.0
+      },
+      {
+        "hour": 10.83,
         "prob": 0.001,
         "running_max": 75.0
       }
