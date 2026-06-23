@@ -50,6 +50,13 @@
       font-weight: 600;
       letter-spacing: -.3px;
     }
+    #location-nav { display: flex; gap: 8px; }
+    #location-nav .loc-link {
+      font-size: 13px; padding: 3px 10px; border-radius: 12px;
+      text-decoration: none; color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    #location-nav .loc-link.active { background: var(--accent, #3b82f6); color: #fff; border-color: transparent; }
     #status-bar {
       font-size: 12px;
       color: var(--text-muted);
@@ -513,6 +520,10 @@
 
 <header>
   <h1 id="page-title">TMAX Predictions</h1>
+  <nav id="location-nav">
+    <a href="?location=atl" class="loc-link">Atlanta</a>
+    <a href="?location=dc" class="loc-link">Washington DC</a>
+  </nav>
   <div id="temp-filter">
     <span>Temp range:</span>
     <input type="number" id="filter-min" placeholder="min" step="1">
@@ -769,20 +780,24 @@ const DATA_FILES = {
     scorePredictionTomorrow: `data/score_prediction_tomorrow_kalshi_${LOCATION}.json`,
   },
   shared: {
-    obsTimeseries:        "data/obs_timeseries.json",
-    fcstTimeseries:       "data/forecast_timeseries.json",
+    obsTimeseries:        `data/obs_timeseries_${LOCATION}.json`,
+    fcstTimeseries:       `data/forecast_timeseries_${LOCATION}.json`,
     marketConfig:         "data/market_config.json",
-    weatherSummaryToday:    "data/weather_summary_today.json",
-    weatherSummaryTomorrow: "data/weather_summary_tomorrow.json",
+    weatherSummaryToday:    `data/weather_summary_today_${LOCATION}.json`,
+    weatherSummaryTomorrow: `data/weather_summary_tomorrow_${LOCATION}.json`,
   },
 };
 const REFRESH_MS = 15 * 60 * 1000;
 
 // Set page title to reflect active location
-const LOCATION_LABELS = { atl: "Atlanta" };
+const LOCATION_LABELS = { atl: "Atlanta", dc: "Washington DC" };
 const locationLabel = LOCATION_LABELS[LOCATION] || LOCATION.toUpperCase();
 document.title = `${locationLabel} TMAX Predictions`;
 document.getElementById("page-title").textContent = `${locationLabel} TMAX Predictions`;
+document.querySelectorAll("#location-nav .loc-link").forEach(a => {
+  const p = new URLSearchParams(new URL(a.href, location.href).search).get("location") || "atl";
+  if (p === LOCATION) a.classList.add("active");
+});
 
 // ── Temp filter state ─────────────────────────────────────────
 let loadedData = { kalshi: {}, polymarket: {}, shared: {} };
