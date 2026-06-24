@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-06-24T18:02:05",
+  "generated_at": "2026-06-24T19:02:31",
   "date": "2026-06-25",
   "day_type": "tomorrow",
-  "error": "claude exited 1: "
+  "overall": "Tomorrow (Thursday, June 25) is expected to be mostly sunny and warm in Atlanta, with no precipitation risk and calm winds out of the southeast at 0-5 mph. Conditions will be typical early-summer Atlanta weather with heat building ahead of a Friday storm chance. Active flood warnings are confined to the Satilla River basin in far southeastern Georgia (Ware, Pierce, Brantley counties) and have no bearing on Atlanta temperatures.",
+  "forecast_obs_notes": "There is notable model divergence: ECMWF, GFS, and Weather.com cluster tightly in the 84.7\u201385.0\u00b0F range, HRRR comes in slightly cooler at ~83.6\u00b0F, while NBM is a significant outlier at ~88.3\u00b0F and the NWS narrative targets a high near 89\u00b0F. The full ensemble expected TMAX of 80.9\u00b0F is dragged down by a long, fat low-temperature tail (many buckets each carrying 0.5% probability), whereas the forecast-only model at 86.8\u00b0F and the ECMWF/GFS/WEATHER_COM cluster better reflect the probable outcome.",
+  "max_temp_prediction": "The active even-bucket Kalshi market has its top bucket at 84\u201385\u00b0F (15.1%), and the next highest is 86\u201387\u00b0F (8.3%), consistent with the ECMWF/GFS/WEATHER_COM model cluster centering on ~84.7\u201385.0\u00b0F. Confidence is low \u2014 both even and odd bucket sets are rated Tier 4 (Poor signals, AVOID) with high entropy and a weak top-bucket signal \u2014 reflecting broad model disagreement between the lower-end consensus (~84\u201385\u00b0F) and the NBM/NWS outliers (~88\u201389\u00b0F). The best single estimate for tomorrow's TMAX is approximately 85\u00b0F, though the market is not favorable for trading given poor signal clarity.",
+  "predicted_max": 85.0
 }
