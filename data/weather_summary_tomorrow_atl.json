@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-06-24T13:02:06",
+  "generated_at": "2026-06-24T14:02:22",
   "date": "2026-06-25",
   "day_type": "tomorrow",
-  "error": "claude exited 1: "
+  "overall": "Tomorrow (Thursday, June 25) is expected to be mostly sunny with low winds out of the southeast at 0-5 mph, consistent with a typical warm Atlanta summer day. No precipitation is expected. Active flood warnings are confined to river systems in southern Georgia (Satilla River near Waycross/Atkinson), well removed from Atlanta, and pose no direct influence on tomorrow's Atlanta temperature.",
+  "forecast_obs_notes": "There is notable divergence across source models: NBM is the high-end outlier at ~88.7\u00b0F and aligns with the NWS official call of 89\u00b0F, while GFS is the low-end anchor at ~83.3\u00b0F; HRRR (~85.7\u00b0F), ECMWF (~86.2\u00b0F), and Weather.com (~84.7\u00b0F) cluster in the mid-80s, producing a spread of roughly 5-6\u00b0F that undermines confidence in a precise target.",
+  "max_temp_prediction": "The full ensemble expected TMAX of 82.0\u00b0F is heavily influenced by today's observed high of only 82.4\u00b0F, while the forecast-only model (no obs features) points to 88.5\u00b0F, closely matching the NWS forecast of 89\u00b0F. The bucket distribution is bimodal with co-equal peaks at 86-87\u00b0F (16.7%) and 80-81\u00b0F (16.2%), signaling genuine model uncertainty rather than a clean consensus; both prediction tier sets are rated Tier 4 (Poor Signals\u2014AVOID) with high entropy (~2.5 bits) and near-zero gaps, indicating a wide, flat distribution. Best estimate is approximately 86\u00b0F, splitting the difference between the obs-anchored ensemble and the NWS/NBM guidance, but confidence is low.",
+  "predicted_max": 86.0
 }
