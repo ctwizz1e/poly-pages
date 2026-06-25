@@ -1,6 +1,74 @@
 {
-  "generated_at": "2026-06-25T08:45:51",
+  "generated_at": "2026-06-25T08:57:01",
   "date": "2026-06-25",
   "market": "kalshi",
-  "error": "no obs for 2026-06-24"
+  "even": {
+    "daily_tier": 1,
+    "daily_top": {
+      "label": "90-91F",
+      "lo": 90,
+      "hi": 92,
+      "prob": 0.7997
+    },
+    "daily_signals": {
+      "max_prob": 0.7997,
+      "gap": 0.546,
+      "entropy": 1.4118
+    },
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "86-87F",
+        "top_lo": 86,
+        "top_prob": 0.2063,
+        "matches_daily": false,
+        "meta_top_bucket": "84-85F",
+        "meta_top_lo": 84,
+        "meta_top_prob": 0.4287
+      }
+    ],
+    "abort_signal": "none",
+    "abort_precision": null,
+    "recommendation": "hold",
+    "hours_available": 1,
+    "hours_disagree": 1,
+    "consensus_bucket": null
+  },
+  "odd": {
+    "daily_tier": 2,
+    "daily_top": {
+      "label": "89-90F",
+      "lo": 89,
+      "hi": 91,
+      "prob": 0.3119
+    },
+    "daily_signals": {
+      "max_prob": 0.3119,
+      "gap": 0.0045,
+      "entropy": 2.1059
+    },
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "87-88F",
+        "top_lo": 87,
+        "top_prob": 0.1071,
+        "matches_daily": false,
+        "meta_top_bucket": "87-88F",
+        "meta_top_lo": 87,
+        "meta_top_prob": 0.2902
+      }
+    ],
+    "abort_signal": "none",
+    "abort_precision": null,
+    "recommendation": "hold",
+    "hours_available": 1,
+    "hours_disagree": 1,
+    "consensus_bucket": null
+  },
+  "give_up": {
+    "status": "no_model"
+  }
 }
