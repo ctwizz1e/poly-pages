@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-06-24T23:13:49",
+  "generated_at": "2026-06-24T23:24:47",
   "date": "2026-06-24",
   "day_type": "today",
-  "error": "claude exited 1: "
+  "overall": "The day is effectively over \u2014 it is 23:04 ET and temperatures have been falling since the peak near 15:52\u201317:52 ET, now sitting at 75.2\u00b0F and dropping at -3.6\u00b0F/hr. The running maximum has been locked at 84.2\u00b0F since 17:00 ET with no challenge from late-day heating. Today's high came in meaningfully cooler than the NWS-forecast 88\u00b0F, with clear skies and low dewpoints enabling typical diurnal heating but an earlier-than-modeled peak cutoff.",
+  "forecast_obs_notes": "Model performance was divergent: HRRR (84.4\u00b0F) was nearly perfect, while ECMWF (81.1\u00b0F) and NBM (81.0\u00b0F) both undershot by roughly 3\u00b0F. The NWS text forecast of 88\u00b0F was the largest miss at about -3.8\u00b0F. The intraday obs-driven model correctly converged to the 84\u201385\u00b0F even bucket at 96.4% confidence, far outperforming the daily prior models at this late hour.",
+  "max_temp_prediction": "With a confirmed running maximum of 84.2\u00b0F, current temperature at 75.2\u00b0F and rapidly cooling, and no additional heating possible at 23:04 ET, the TMAX is locked in at 84.2\u00b0F with near-certainty (>98% confidence). For the active ODD bucket market, 84.2\u00b0F sits just above the 84\u00b0F upper boundary of the '83\u201384F' bucket, meaning it likely falls in the next odd bucket up (84\u201385F range), not the top-listed odd bucket at 83\u201384F \u2014 a critical distinction for bet placement. Confidence in the 84.2\u00b0F TMAX itself is extremely high.",
+  "predicted_max": 84.2
 }
