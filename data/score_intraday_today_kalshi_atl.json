@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25T12:46:21",
+  "generated_at": "2026-06-25T13:02:15",
   "date": "2026-06-25",
   "market": "kalshi",
   "even": {
@@ -13,7 +13,7 @@
     "daily_signals": {
       "max_prob": 0.2383,
       "gap": 0.0993,
-      "entropy": 2.5056
+      "entropy": 2.5062
     },
     "hours": [
       {
@@ -48,14 +48,25 @@
         "meta_top_bucket": "86-87F",
         "meta_top_lo": 86,
         "meta_top_prob": 0.3149
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "90-91F",
+        "top_lo": 90,
+        "top_prob": 0.0673,
+        "matches_daily": false,
+        "meta_top_bucket": "86-87F",
+        "meta_top_lo": 86,
+        "meta_top_prob": 0.2204
       }
     ],
-    "abort_signal": "3hr",
-    "abort_precision": 0.779,
-    "recommendation": "reduce_50pct",
-    "hours_available": 3,
-    "hours_disagree": 3,
-    "consensus_bucket": "88-89F"
+    "abort_signal": "4hr",
+    "abort_precision": 0.835,
+    "recommendation": "exit_if_above_17pct",
+    "hours_available": 4,
+    "hours_disagree": 4,
+    "consensus_bucket": null
   },
   "odd": {
     "daily_tier": 2,
@@ -63,12 +74,12 @@
       "label": "87-88F",
       "lo": 87,
       "hi": 89,
-      "prob": 0.5087
+      "prob": 0.5122
     },
     "daily_signals": {
-      "max_prob": 0.5087,
-      "gap": 0.0547,
-      "entropy": 2.0466
+      "max_prob": 0.5122,
+      "gap": 0.0606,
+      "entropy": 2.0664
     },
     "hours": [
       {
@@ -103,14 +114,25 @@
         "meta_top_bucket": "85-86F",
         "meta_top_lo": 85,
         "meta_top_prob": 0.3039
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "91-92F",
+        "top_lo": 91,
+        "top_prob": 0.0278,
+        "matches_daily": false,
+        "meta_top_bucket": "89-90F",
+        "meta_top_lo": 89,
+        "meta_top_prob": 0.165
       }
     ],
-    "abort_signal": "3hr",
-    "abort_precision": 0.779,
-    "recommendation": "reduce_50pct",
-    "hours_available": 3,
-    "hours_disagree": 3,
-    "consensus_bucket": "89-90F"
+    "abort_signal": "4hr",
+    "abort_precision": 0.835,
+    "recommendation": "exit_if_above_17pct",
+    "hours_available": 4,
+    "hours_disagree": 4,
+    "consensus_bucket": null
   },
   "give_up": {
     "status": "not_fired",
@@ -118,7 +140,7 @@
     "fire_hour": null,
     "fire_prob": null,
     "fire_running_max": null,
-    "current_hour": 12.58,
+    "current_hour": 12.83,
     "current_prob": 0.005,
     "current_running_max": 78.8,
     "snapshots": [
@@ -134,7 +156,7 @@
       },
       {
         "hour": 10.25,
-        "prob": 0.002,
+        "prob": 0.001,
         "running_max": 78.8
       },
       {
@@ -144,37 +166,37 @@
       },
       {
         "hour": 10.42,
-        "prob": 0.002,
+        "prob": 0.001,
         "running_max": 78.8
       },
       {
         "hour": 10.5,
-        "prob": 0.002,
+        "prob": 0.001,
         "running_max": 78.8
       },
       {
         "hour": 10.58,
-        "prob": 0.002,
+        "prob": 0.001,
         "running_max": 78.8
       },
       {
         "hour": 10.67,
-        "prob": 0.002,
+        "prob": 0.001,
         "running_max": 78.8
       },
       {
         "hour": 10.75,
-        "prob": 0.002,
+        "prob": 0.001,
         "running_max": 78.8
       },
       {
         "hour": 10.83,
-        "prob": 0.002,
+        "prob": 0.001,
         "running_max": 78.8
       },
       {
         "hour": 10.87,
-        "prob": 0.003,
+        "prob": 0.002,
         "running_max": 78.8
       },
       {
@@ -184,86 +206,101 @@
       },
       {
         "hour": 11.08,
-        "prob": 0.003,
+        "prob": 0.002,
         "running_max": 78.8
       },
       {
         "hour": 11.17,
-        "prob": 0.003,
+        "prob": 0.002,
         "running_max": 78.8
       },
       {
         "hour": 11.25,
-        "prob": 0.003,
+        "prob": 0.002,
         "running_max": 78.8
       },
       {
         "hour": 11.33,
-        "prob": 0.004,
+        "prob": 0.003,
         "running_max": 78.8
       },
       {
         "hour": 11.42,
-        "prob": 0.004,
+        "prob": 0.003,
         "running_max": 78.8
       },
       {
         "hour": 11.5,
-        "prob": 0.004,
+        "prob": 0.003,
         "running_max": 78.8
       },
       {
         "hour": 11.58,
-        "prob": 0.004,
+        "prob": 0.003,
         "running_max": 78.8
       },
       {
         "hour": 11.67,
-        "prob": 0.005,
+        "prob": 0.004,
         "running_max": 78.8
       },
       {
         "hour": 11.75,
-        "prob": 0.003,
+        "prob": 0.002,
         "running_max": 78.8
       },
       {
         "hour": 11.83,
-        "prob": 0.005,
+        "prob": 0.004,
         "running_max": 78.8
       },
       {
         "hour": 11.87,
-        "prob": 0.005,
-        "running_max": 78.8
-      },
-      {
-        "hour": 12.0,
-        "prob": 0.005,
-        "running_max": 78.8
-      },
-      {
-        "hour": 12.08,
-        "prob": 0.005,
-        "running_max": 78.8
-      },
-      {
-        "hour": 12.17,
         "prob": 0.003,
         "running_max": 78.8
       },
       {
-        "hour": 12.33,
+        "hour": 12.0,
+        "prob": 0.003,
+        "running_max": 78.8
+      },
+      {
+        "hour": 12.08,
         "prob": 0.004,
+        "running_max": 78.8
+      },
+      {
+        "hour": 12.17,
+        "prob": 0.002,
+        "running_max": 78.8
+      },
+      {
+        "hour": 12.33,
+        "prob": 0.002,
         "running_max": 78.8
       },
       {
         "hour": 12.5,
-        "prob": 0.004,
+        "prob": 0.003,
         "running_max": 78.8
       },
       {
         "hour": 12.58,
+        "prob": 0.003,
+        "running_max": 78.8
+      },
+      {
+        "hour": 12.67,
+        "prob": 0.004,
+        "running_max": 78.8
+      },
+      {
+        "hour": 12.75,
+        "prob": 0.005,
+        "running_max": 78.8
+      },
+      {
+        "hour": 12.83,
         "prob": 0.005,
         "running_max": 78.8
       }
