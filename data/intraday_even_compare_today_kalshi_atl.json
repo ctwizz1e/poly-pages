@@ -1,40 +1,40 @@
 {
-  "generated_at": "2026-06-25T18:45:43",
+  "generated_at": "2026-06-25T19:01:09",
   "date": "2026-06-25",
   "market": "kalshi",
   "bucket_start": "even",
   "intraday_available": true,
   "has_meta": true,
-  "time_label": "18:34",
+  "time_label": "18:49",
   "running_max": 84.2,
   "current_temp": 82.4,
-  "velocity": 0.0,
+  "velocity": -1.8,
   "velocity_30m": 0.0,
   "velocity_2h": 0.0,
   "acceleration": 0.0,
-  "trend_slope": 0.669,
+  "trend_slope": 0.663,
   "hour_of_max": 15.42,
-  "hours_since_max": 3.17,
+  "hours_since_max": 3.42,
   "precip_today": 0.0,
   "sky_cover_encoded": 1.0,
   "cloud_fraction": 0.62,
   "cloud_ceiling_m": 1158.0,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 190,
-  "dewpoint": 64.4,
+  "obs_count": 193,
+  "dewpoint": 66.2,
   "wind_speed": 6.9,
-  "predicted_peak_hour": 14.76,
+  "predicted_peak_hour": 14.66,
   "nwp_peak_hours": {
     "ecmwf": 16.0,
-    "hrrr": 18.0,
-    "nbm": 15.0,
-    "mean": 16.3,
-    "spread": 1.2
+    "hrrr": 16.0,
+    "nbm": 16.0,
+    "mean": 16.0,
+    "spread": 0.0
   },
   "d1_forecasts": {
     "ecmwf": 84.3,
-    "hrrr": 83.0,
+    "hrrr": 82.8,
     "nbm": 83.0
   },
   "buckets": [
@@ -105,9 +105,9 @@
       "label": "86-87F",
       "lo": 86,
       "hi": 88,
-      "intraday": 0.0357,
+      "intraday": 0.0,
       "d1_prior": 0.2262,
-      "d1_now": 0.2363,
+      "d1_now": 0.2262,
       "meta": 0.2545
     },
     {
@@ -116,7 +116,7 @@
       "hi": 86,
       "intraday": 1.0,
       "d1_prior": 0.1323,
-      "d1_now": 0.1435,
+      "d1_now": 0.0112,
       "meta": 0.4571
     },
     {
@@ -125,7 +125,7 @@
       "hi": 84,
       "intraday": 0.0,
       "d1_prior": 0.109,
-      "d1_now": 0.1096,
+      "d1_now": 0.009,
       "meta": 0.0
     },
     {
@@ -794,6 +794,16 @@
       "temp": 82.4,
       "dewpoint": 66.2,
       "wind": 8.1,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "18:52",
+      "temp": 82.4,
+      "dewpoint": 66.2,
+      "wind": 6.9,
       "sky": null,
       "cloud_frac": null,
       "precip_cum": null,
