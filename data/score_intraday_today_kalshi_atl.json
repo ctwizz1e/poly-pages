@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25T15:48:59",
+  "generated_at": "2026-06-25T16:17:36",
   "date": "2026-06-25",
   "market": "kalshi",
   "even": {
@@ -135,13 +135,13 @@
     "consensus_bucket": null
   },
   "give_up": {
-    "status": "not_fired",
+    "status": "fired",
     "threshold": 0.86,
-    "fire_hour": null,
-    "fire_prob": null,
-    "fire_running_max": null,
-    "current_hour": 15.58,
-    "current_prob": 0.824,
+    "fire_hour": 15.92,
+    "fire_prob": 0.891,
+    "fire_running_max": 84.2,
+    "current_hour": 16.0,
+    "current_prob": 0.902,
     "current_running_max": 84.2,
     "snapshots": [
       {
@@ -397,6 +397,21 @@
       {
         "hour": 15.58,
         "prob": 0.824,
+        "running_max": 84.2
+      },
+      {
+        "hour": 15.87,
+        "prob": 0.857,
+        "running_max": 84.2
+      },
+      {
+        "hour": 15.92,
+        "prob": 0.891,
+        "running_max": 84.2
+      },
+      {
+        "hour": 16.0,
+        "prob": 0.902,
         "running_max": 84.2
       }
     ]
