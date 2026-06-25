@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-06-24T23:13:58",
+  "generated_at": "2026-06-24T23:23:56",
   "date": "2026-06-24",
   "day_type": "today",
-  "error": "claude exited 1: "
+  "overall": "Atlanta reached a daily high of 86.0\u00b0F at approximately 16:49 ET, and temperatures have been steadily falling since, now sitting at 77.0\u00b0F at 23:04 ET with a cooling velocity of -1.8\u00b0F/hr. The day trended cooler than the NWS-forecasted 89\u00b0F high, with partly cloudy skies (BKN ceiling) likely suppressing afternoon heating. At this late hour, the TMAX is effectively locked in.",
+  "forecast_obs_notes": "NWP models (ECMWF=83.4\u00b0F, HRRR=84.7\u00b0F, NBM=84.6\u00b0F) all undershot the observed 86.0\u00b0F peak by roughly 1-3\u00b0F, while the NWS narrative forecast of 89\u00b0F overshot by ~3\u00b0F. The give-up classifier fired at hour 16.08 with 89% confidence that the peak had already occurred, which proved accurate \u2014 the running max has been frozen at 86.0\u00b0F since 16:52 ET.",
+  "max_temp_prediction": "Today's TMAX is almost certainly 86.0\u00b0F \u2014 it is 23:04 ET, temperatures are 77\u00b0F and falling, and the peak was recorded 6+ hours ago with no subsequent challenge to the running max. The INTRADAY model assigns 96.8% probability to the 86-87\u00b0F even bucket, strongly corroborating this reading. For the active odd-bucket Kalshi market, 86.0\u00b0F falls on or near the 85-86\u00b0F odd bucket boundary, making that the primary target; confidence is very high given observed data.",
+  "predicted_max": 86.0
 }
