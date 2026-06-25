@@ -1972,8 +1972,8 @@ function renderWeatherSummary(data, bodyEl, metaEl) {
 // When the config is null (market not found / not yet posted) all cards are shown.
 function applyBucketFilter() {
   const cfg = loadedData.shared?.marketConfig;
-  const todayStart   = cfg?.today?.[activeMarket]   ?? null;
-  const tomorrowStart = cfg?.tomorrow?.[activeMarket] ?? null;
+  const todayStart   = cfg?.locations?.[LOCATION]?.today?.[activeMarket]   ?? cfg?.today?.[activeMarket]   ?? null;
+  const tomorrowStart = cfg?.locations?.[LOCATION]?.tomorrow?.[activeMarket] ?? cfg?.tomorrow?.[activeMarket] ?? null;
 
   document.querySelectorAll(".card[data-bucket]").forEach(card => {
     const bucket = card.getAttribute("data-bucket");  // "even" | "odd"
