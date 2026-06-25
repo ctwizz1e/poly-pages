@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-06-25T10:46:14",
+  "generated_at": "2026-06-25T11:01:58",
   "date": "2026-06-25",
   "market": "kalshi",
   "even": {
-    "daily_tier": 2,
+    "daily_tier": 4,
     "daily_top": {
-      "label": "72-73F",
-      "lo": 72,
-      "hi": 74,
-      "prob": 0.2431
+      "label": "84-85F",
+      "lo": 84,
+      "hi": 86,
+      "prob": 0.0112
     },
     "daily_signals": {
-      "max_prob": 0.2431,
-      "gap": 0.11,
-      "entropy": 2.5125
+      "max_prob": 0.0112,
+      "gap": 0.0,
+      "entropy": 3.461
     },
     "hours": [
       {
@@ -37,27 +37,38 @@
         "meta_top_bucket": "74-75F",
         "meta_top_lo": 74,
         "meta_top_prob": 0.1191
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "68-69F",
+        "top_lo": 68,
+        "top_prob": 0.2667,
+        "matches_daily": false,
+        "meta_top_bucket": "64-65F",
+        "meta_top_lo": 64,
+        "meta_top_prob": 0.1641
       }
     ],
-    "abort_signal": "none",
+    "abort_signal": "no_trade",
     "abort_precision": null,
-    "recommendation": "hold",
-    "hours_available": 2,
-    "hours_disagree": 1,
+    "recommendation": "skip",
+    "hours_available": 3,
+    "hours_disagree": 2,
     "consensus_bucket": null
   },
   "odd": {
-    "daily_tier": 2,
+    "daily_tier": 4,
     "daily_top": {
-      "label": "75-76F",
-      "lo": 75,
-      "hi": 77,
-      "prob": 0.412
+      "label": "89-90F",
+      "lo": 89,
+      "hi": 91,
+      "prob": 0.0898
     },
     "daily_signals": {
-      "max_prob": 0.412,
-      "gap": 0.0049,
-      "entropy": 2.4815
+      "max_prob": 0.0898,
+      "gap": 0.0066,
+      "entropy": 2.9959
     },
     "hours": [
       {
@@ -81,14 +92,25 @@
         "meta_top_bucket": "75-76F",
         "meta_top_lo": 75,
         "meta_top_prob": 0.4124
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "75-76F",
+        "top_lo": 75,
+        "top_prob": 0.2308,
+        "matches_daily": false,
+        "meta_top_bucket": "75-76F",
+        "meta_top_lo": 75,
+        "meta_top_prob": 0.1294
       }
     ],
-    "abort_signal": "none",
+    "abort_signal": "no_trade",
     "abort_precision": null,
-    "recommendation": "hold",
-    "hours_available": 2,
-    "hours_disagree": 1,
-    "consensus_bucket": null
+    "recommendation": "skip",
+    "hours_available": 3,
+    "hours_disagree": 2,
+    "consensus_bucket": "75-76F"
   },
   "give_up": {
     "status": "no_model"
