@@ -1,40 +1,40 @@
 {
-  "generated_at": "2026-06-25T01:45:52",
+  "generated_at": "2026-06-25T02:01:25",
   "date": "2026-06-25",
   "market": "kalshi",
   "bucket_start": "even",
   "intraday_available": true,
   "has_meta": false,
-  "time_label": "01:30",
+  "time_label": "01:50",
   "running_max": 75.2,
   "current_temp": 73.4,
   "velocity": -1.8,
   "velocity_30m": 0.0,
   "velocity_2h": -1.8,
   "acceleration": 1.8,
-  "trend_slope": -1.377,
+  "trend_slope": -0.743,
   "hour_of_max": 0.0,
-  "hours_since_max": 1.5,
+  "hours_since_max": 1.83,
   "precip_today": 0.0,
   "sky_cover_encoded": 1.0,
   "cloud_fraction": 0.38,
   "cloud_ceiling_m": 1463.0,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 14,
+  "obs_count": 17,
   "dewpoint": 62.6,
   "wind_speed": 0.0,
-  "predicted_peak_hour": 14.56,
+  "predicted_peak_hour": 14.51,
   "nwp_peak_hours": {
-    "ecmwf": 16.0,
-    "hrrr": 20.0,
-    "nbm": 18.0,
-    "mean": 18.0,
-    "spread": 1.6
+    "ecmwf": 17.0,
+    "hrrr": 17.0,
+    "nbm": 16.0,
+    "mean": 16.7,
+    "spread": 0.5
   },
   "d1_forecasts": {
     "ecmwf": 84.1,
-    "hrrr": 84.5,
+    "hrrr": 86.1,
     "nbm": 85.9
   },
   "buckets": [
@@ -42,13 +42,13 @@
       "label": ">=100F",
       "lo": 100,
       "hi": null,
-      "intraday": 0.0
+      "intraday": 0.0017
     },
     {
       "label": "98-99F",
       "lo": 98,
       "hi": 100,
-      "intraday": 0.0
+      "intraday": 0.0017
     },
     {
       "label": "96-97F",
@@ -66,19 +66,19 @@
       "label": "92-93F",
       "lo": 92,
       "hi": 94,
-      "intraday": 0.0017
+      "intraday": 0.0547
     },
     {
       "label": "90-91F",
       "lo": 90,
       "hi": 92,
-      "intraday": 0.0547
+      "intraday": 0.1395
     },
     {
       "label": "88-89F",
       "lo": 88,
       "hi": 90,
-      "intraday": 0.1333
+      "intraday": 0.225
     },
     {
       "label": "86-87F",
@@ -90,19 +90,19 @@
       "label": "84-85F",
       "lo": 84,
       "hi": 86,
-      "intraday": 0.1333
+      "intraday": 0.0606
     },
     {
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "intraday": 0.0547
+      "intraday": 0.0017
     },
     {
       "label": "80-81F",
       "lo": 80,
       "hi": 82,
-      "intraday": 0.0547
+      "intraday": 0.0017
     },
     {
       "label": "78-79F",
@@ -114,13 +114,13 @@
       "label": "76-77F",
       "lo": 76,
       "hi": 78,
-      "intraday": 0.0017
+      "intraday": 0.0
     },
     {
       "label": "74-75F",
       "lo": 74,
       "hi": 76,
-      "intraday": 0.0017
+      "intraday": 0.0
     },
     {
       "label": "72-73F",
@@ -258,6 +258,16 @@
       "temp": 75.2,
       "dewpoint": 62.6,
       "wind": 3.5,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "01:52",
+      "temp": 73.4,
+      "dewpoint": 62.6,
+      "wind": 0.0,
       "sky": null,
       "cloud_frac": null,
       "precip_cum": null,
