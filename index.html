@@ -523,6 +523,7 @@
   <nav id="location-nav">
     <a href="?location=atl" class="loc-link">Atlanta</a>
     <a href="?location=dc" class="loc-link">Washington DC</a>
+    <a href="?location=lax" class="loc-link">Los Angeles</a>
   </nav>
   <div id="temp-filter">
     <span>Temp range:</span>
@@ -790,7 +791,7 @@ const DATA_FILES = {
 const REFRESH_MS = 15 * 60 * 1000;
 
 // Set page title to reflect active location
-const LOCATION_LABELS = { atl: "Atlanta", dc: "Washington DC" };
+const LOCATION_LABELS = { atl: "Atlanta", dc: "Washington DC", lax: "Los Angeles" };
 const locationLabel = LOCATION_LABELS[LOCATION] || LOCATION.toUpperCase();
 document.title = `${locationLabel} TMAX Predictions`;
 document.getElementById("page-title").textContent = `${locationLabel} TMAX Predictions`;
