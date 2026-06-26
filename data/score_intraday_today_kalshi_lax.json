@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-26T08:46:15",
+  "generated_at": "2026-06-26T09:01:58",
   "date": "2026-06-26",
   "market": "kalshi",
   "even": {
@@ -13,7 +13,7 @@
     "daily_signals": {
       "max_prob": 0.2082,
       "gap": 0.0073,
-      "entropy": 2.0349
+      "entropy": 2.1276
     },
     "hours": [
       {
@@ -26,27 +26,38 @@
         "meta_top_bucket": "74-75F",
         "meta_top_lo": 74,
         "meta_top_prob": 0.1763
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "76-77F",
+        "top_lo": 76,
+        "top_prob": 0.1089,
+        "matches_daily": false,
+        "meta_top_bucket": "72-73F",
+        "meta_top_lo": 72,
+        "meta_top_prob": 0.1925
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 1,
-    "hours_disagree": 0,
+    "hours_available": 2,
+    "hours_disagree": 1,
     "consensus_bucket": null
   },
   "odd": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "89-90F",
-      "lo": 89,
-      "hi": 91,
-      "prob": 0.0284
+      "label": "91-92F",
+      "lo": 91,
+      "hi": 93,
+      "prob": 0.0229
     },
     "daily_signals": {
-      "max_prob": 0.0284,
-      "gap": 0.0056,
-      "entropy": 2.5811
+      "max_prob": 0.0229,
+      "gap": 0.0127,
+      "entropy": 2.7142
     },
     "hours": [
       {
@@ -59,14 +70,25 @@
         "meta_top_bucket": ">=101F",
         "meta_top_lo": 101,
         "meta_top_prob": 0.0312
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "79-80F",
+        "top_lo": 79,
+        "top_prob": 0.2169,
+        "matches_daily": false,
+        "meta_top_bucket": "75-76F",
+        "meta_top_lo": 75,
+        "meta_top_prob": 0.3525
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 1,
-    "hours_disagree": 1,
-    "consensus_bucket": null
+    "hours_available": 2,
+    "hours_disagree": 2,
+    "consensus_bucket": "79-80F"
   },
   "give_up": {
     "status": "no_model"
