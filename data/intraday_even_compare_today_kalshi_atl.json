@@ -1,41 +1,41 @@
 {
-  "generated_at": "2026-06-26T16:34:34",
+  "generated_at": "2026-06-26T17:02:29",
   "date": "2026-06-26",
   "market": "kalshi",
   "bucket_start": "even",
   "intraday_available": true,
   "has_meta": true,
-  "time_label": "16:25",
+  "time_label": "16:49",
   "running_max": 91.4,
-  "current_temp": 91.4,
-  "velocity": 3.6,
-  "velocity_30m": 6.22,
-  "velocity_2h": 2.49,
-  "acceleration": 3.726,
-  "trend_slope": 1.228,
+  "current_temp": 89.6,
+  "velocity": 0.0,
+  "velocity_30m": 0.0,
+  "velocity_2h": 0.83,
+  "acceleration": -0.831,
+  "trend_slope": 1.23,
   "hour_of_max": 16.42,
-  "hours_since_max": 0.0,
+  "hours_since_max": 0.42,
   "precip_today": 0.0,
   "sky_cover_encoded": 2.0,
   "cloud_fraction": 0.38,
   "cloud_ceiling_m": 1372.0,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 49,
-  "dewpoint": 66.2,
+  "obs_count": 52,
+  "dewpoint": 64.4,
   "wind_speed": 9.2,
-  "predicted_peak_hour": 14.43,
+  "predicted_peak_hour": 14.31,
   "nwp_peak_hours": {
     "ecmwf": 15.0,
-    "hrrr": 16.0,
+    "hrrr": 15.0,
     "nbm": 18.0,
-    "mean": 16.3,
-    "spread": 1.2
+    "mean": 16.0,
+    "spread": 1.4
   },
   "d1_forecasts": {
-    "ecmwf": 87.9,
-    "hrrr": 89.4,
-    "nbm": 89.1
+    "ecmwf": 88.5,
+    "hrrr": 89.5,
+    "nbm": 89.6
   },
   "buckets": [
     {
@@ -63,7 +63,7 @@
       "intraday": 0.0,
       "d1_prior": 0.0112,
       "d1_now": 0.009,
-      "meta": 0.0209
+      "meta": 0.0
     },
     {
       "label": "94-95F",
@@ -72,7 +72,7 @@
       "intraday": 0.0,
       "d1_prior": 0.1096,
       "d1_now": 0.009,
-      "meta": 0.0612
+      "meta": 0.0386
     },
     {
       "label": "92-93F",
@@ -81,16 +81,16 @@
       "intraday": 0.0357,
       "d1_prior": 0.1331,
       "d1_now": 0.1331,
-      "meta": 0.459
+      "meta": 0.113
     },
     {
       "label": "90-91F",
       "lo": 90,
       "hi": 92,
-      "intraday": 0.973,
-      "d1_prior": 0.2316,
+      "intraday": 1.0,
+      "d1_prior": 0.2262,
       "d1_now": 0.2316,
-      "meta": 0.459
+      "meta": 0.8484
     },
     {
       "label": "88-89F",
@@ -496,6 +496,16 @@
       "wind": 9.2,
       "sky": "SCT",
       "cloud_frac": 0.38,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "16:52",
+      "temp": 89.6,
+      "dewpoint": 64.4,
+      "wind": 9.2,
+      "sky": null,
+      "cloud_frac": null,
       "precip_cum": null,
       "slp_hpa": null
     }
