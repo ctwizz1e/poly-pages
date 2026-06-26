@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-26T11:46:17",
+  "generated_at": "2026-06-26T12:02:28",
   "date": "2026-06-26",
   "market": "kalshi",
   "even": {
@@ -8,12 +8,12 @@
       "label": "90-91F",
       "lo": 90,
       "hi": 92,
-      "prob": 0.2431
+      "prob": 0.2383
     },
     "daily_signals": {
-      "max_prob": 0.2431,
-      "gap": 0.1108,
-      "entropy": 2.5125
+      "max_prob": 0.2383,
+      "gap": 0.1008,
+      "entropy": 2.5598
     },
     "hours": [
       {
@@ -58,17 +58,17 @@
     "consensus_bucket": "90-91F"
   },
   "odd": {
-    "daily_tier": 2,
+    "daily_tier": 1,
     "daily_top": {
-      "label": "89-90F",
-      "lo": 89,
-      "hi": 91,
-      "prob": 0.6334
+      "label": "85-86F",
+      "lo": 85,
+      "hi": 87,
+      "prob": 0.7455
     },
     "daily_signals": {
-      "max_prob": 0.6334,
-      "gap": 0.0003,
-      "entropy": 1.8661
+      "max_prob": 0.7455,
+      "gap": 0.1056,
+      "entropy": 2.0541
     },
     "hours": [
       {
@@ -118,8 +118,8 @@
     "fire_hour": null,
     "fire_prob": null,
     "fire_running_max": null,
-    "current_hour": 11.58,
-    "current_prob": 0.001,
+    "current_hour": 11.83,
+    "current_prob": 0.002,
     "current_running_max": 84.2,
     "snapshots": [
       {
@@ -174,7 +174,7 @@
       },
       {
         "hour": 10.87,
-        "prob": 0.001,
+        "prob": 0.002,
         "running_max": 82.4
       },
       {
@@ -210,6 +210,16 @@
       {
         "hour": 11.58,
         "prob": 0.001,
+        "running_max": 84.2
+      },
+      {
+        "hour": 11.67,
+        "prob": 0.002,
+        "running_max": 84.2
+      },
+      {
+        "hour": 11.83,
+        "prob": 0.002,
         "running_max": 84.2
       }
     ]
