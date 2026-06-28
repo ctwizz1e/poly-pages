@@ -1,47 +1,71 @@
 {
-  "generated_at": "2026-06-28T06:46:34",
+  "generated_at": "2026-06-28T07:03:20",
   "date": "2026-06-28",
   "market": "kalshi",
   "even": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "90-91F",
-      "lo": 90,
-      "hi": 92,
-      "prob": 0.1366
+      "label": "96-97F",
+      "lo": 96,
+      "hi": 98,
+      "prob": 0.1374
     },
     "daily_signals": {
-      "max_prob": 0.1366,
-      "gap": 0.0035,
-      "entropy": 2.6801
+      "max_prob": 0.1374,
+      "gap": 0.0008,
+      "entropy": 2.6718
     },
-    "hours": [],
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "92-93F",
+        "top_lo": 92,
+        "top_prob": 0.1395,
+        "matches_daily": false,
+        "meta_top_bucket": "92-93F",
+        "meta_top_lo": 92,
+        "meta_top_prob": 0.2993
+      }
+    ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 0,
-    "hours_disagree": 0,
+    "hours_available": 1,
+    "hours_disagree": 1,
     "consensus_bucket": null
   },
   "odd": {
-    "daily_tier": 1,
+    "daily_tier": 4,
     "daily_top": {
       "label": "91-92F",
       "lo": 91,
       "hi": 93,
-      "prob": 0.2552
+      "prob": 0.2288
     },
     "daily_signals": {
-      "max_prob": 0.2552,
-      "gap": 0.1298,
-      "entropy": 2.4471
+      "max_prob": 0.2288,
+      "gap": 0.0262,
+      "entropy": 2.1966
     },
-    "hours": [],
-    "abort_signal": "none",
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "93-94F",
+        "top_lo": 93,
+        "top_prob": 0.2927,
+        "matches_daily": false,
+        "meta_top_bucket": "93-94F",
+        "meta_top_lo": 93,
+        "meta_top_prob": 0.2334
+      }
+    ],
+    "abort_signal": "no_trade",
     "abort_precision": null,
-    "recommendation": "hold",
-    "hours_available": 0,
-    "hours_disagree": 0,
+    "recommendation": "skip",
+    "hours_available": 1,
+    "hours_disagree": 1,
     "consensus_bucket": null
   },
   "give_up": {
