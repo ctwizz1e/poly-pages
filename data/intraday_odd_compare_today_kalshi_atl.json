@@ -1,41 +1,41 @@
 {
-  "generated_at": "2026-06-29T16:46:10",
+  "generated_at": "2026-06-29T17:01:49",
   "date": "2026-06-29",
   "market": "kalshi",
   "bucket_start": "odd",
   "intraday_available": true,
   "has_meta": true,
-  "time_label": "16:34",
+  "time_label": "16:49",
   "running_max": 95.0,
-  "current_temp": 95.0,
-  "velocity": 1.66,
-  "velocity_30m": 0.0,
-  "velocity_2h": 1.73,
-  "acceleration": -1.728,
+  "current_temp": 93.2,
+  "velocity": 0.0,
+  "velocity_30m": -3.6,
+  "velocity_2h": 0.0,
+  "acceleration": -3.6,
   "trend_slope": 1.168,
   "hour_of_max": 15.25,
-  "hours_since_max": 1.33,
+  "hours_since_max": 1.58,
   "precip_today": 0.0,
   "sky_cover_encoded": 1.0,
   "cloud_fraction": 0.38,
   "cloud_ceiling_m": 1524.0,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 177,
+  "obs_count": 180,
   "dewpoint": 69.8,
-  "wind_speed": 8.1,
-  "predicted_peak_hour": 14.57,
+  "wind_speed": 10.4,
+  "predicted_peak_hour": 14.69,
   "nwp_peak_hours": {
-    "ecmwf": 16.0,
-    "hrrr": 16.0,
+    "ecmwf": 17.0,
+    "hrrr": 17.0,
     "nbm": 16.0,
-    "mean": 16.0,
-    "spread": 0.0
+    "mean": 16.7,
+    "spread": 0.5
   },
   "d1_forecasts": {
     "ecmwf": 95.6,
-    "hrrr": 95.9,
-    "nbm": 95.8
+    "hrrr": 95.4,
+    "nbm": 95.9
   },
   "buckets": [
     {
@@ -44,8 +44,8 @@
       "hi": null,
       "intraday": 0.0,
       "d1_prior": 0.0078,
-      "d1_now": 0.0066,
-      "meta": 0.0038
+      "d1_now": 0.0109,
+      "meta": 0.0045
     },
     {
       "label": "99-100F",
@@ -53,8 +53,8 @@
       "hi": 101,
       "intraday": 0.0,
       "d1_prior": 0.0863,
-      "d1_now": 0.1717,
-      "meta": 0.1157
+      "d1_now": 0.1466,
+      "meta": 0.1347
     },
     {
       "label": "97-98F",
@@ -62,8 +62,8 @@
       "hi": 99,
       "intraday": 0.0,
       "d1_prior": 0.0561,
-      "d1_now": 0.6734,
-      "meta": 0.301
+      "d1_now": 0.7724,
+      "meta": 0.1864
     },
     {
       "label": "95-96F",
@@ -71,17 +71,17 @@
       "hi": 97,
       "intraday": 1.0,
       "d1_prior": 0.0543,
-      "d1_now": 0.209,
-      "meta": 0.5564
+      "d1_now": 0.1944,
+      "meta": 0.6476
     },
     {
       "label": "93-94F",
       "lo": 93,
       "hi": 95,
       "intraday": 0.0,
-      "d1_prior": 0.0863,
-      "d1_now": 0.1511,
-      "meta": 0.0038
+      "d1_prior": 0.0877,
+      "d1_now": 0.0379,
+      "meta": 0.0045
     },
     {
       "label": "91-92F",
@@ -89,26 +89,26 @@
       "hi": 93,
       "intraday": 0.0,
       "d1_prior": 0.1188,
-      "d1_now": 0.4903,
-      "meta": 0.0038
+      "d1_now": 0.2323,
+      "meta": 0.0045
     },
     {
       "label": "89-90F",
       "lo": 89,
       "hi": 91,
       "intraday": 0.0,
-      "d1_prior": 0.0206,
-      "d1_now": 0.1123,
-      "meta": 0.0038
+      "d1_prior": 0.0216,
+      "d1_now": 0.0076,
+      "meta": 0.0045
     },
     {
       "label": "87-88F",
       "lo": 87,
       "hi": 89,
       "intraday": 0.0,
-      "d1_prior": 0.0211,
-      "d1_now": 0.0334,
-      "meta": 0.0038
+      "d1_prior": 0.0204,
+      "d1_now": 0.0056,
+      "meta": 0.0045
     },
     {
       "label": "85-86F",
@@ -116,8 +116,8 @@
       "hi": 87,
       "intraday": 0.0,
       "d1_prior": 0.0158,
-      "d1_now": 0.0092,
-      "meta": 0.0038
+      "d1_now": 0.0081,
+      "meta": 0.0045
     },
     {
       "label": "83-84F",
@@ -135,7 +135,7 @@
       "intraday": 0.0,
       "d1_prior": 0.0295,
       "d1_now": 0.0077,
-      "meta": 0.0038
+      "meta": 0.0045
     },
     {
       "label": "79-80F",
@@ -160,7 +160,7 @@
       "lo": 75,
       "hi": 77,
       "intraday": 0.0,
-      "d1_prior": 0.0066,
+      "d1_prior": 0.0077,
       "d1_now": 0.0041,
       "meta": 0.0
     },
@@ -721,6 +721,16 @@
     },
     {
       "time": "15:52",
+      "temp": 93.2,
+      "dewpoint": 69.8,
+      "wind": 10.4,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "16:52",
       "temp": 93.2,
       "dewpoint": 69.8,
       "wind": 10.4,
