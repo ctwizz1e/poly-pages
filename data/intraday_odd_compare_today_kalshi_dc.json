@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-29T02:02:15",
+  "generated_at": "2026-06-29T02:16:19",
   "date": "2026-06-29",
   "market": "kalshi",
   "bucket_start": "odd",
   "intraday_available": true,
   "has_meta": true,
-  "time_label": "01:50",
+  "time_label": "02:05",
   "running_max": 73.4,
-  "current_temp": 73.4,
-  "velocity": 0.0,
-  "velocity_30m": 0.0,
-  "velocity_2h": 0.0,
-  "acceleration": 0.0,
-  "trend_slope": 0.004,
+  "current_temp": 71.6,
+  "velocity": -1.8,
+  "velocity_30m": -3.6,
+  "velocity_2h": -0.9,
+  "acceleration": -2.7,
+  "trend_slope": -0.197,
   "hour_of_max": 0.0,
-  "hours_since_max": 1.83,
+  "hours_since_max": 2.08,
   "precip_today": 0.0,
-  "sky_cover_encoded": 4.0,
-  "cloud_fraction": 1.0,
-  "cloud_ceiling_m": 1463.0,
+  "sky_cover_encoded": 3.0,
+  "cloud_fraction": 0.62,
+  "cloud_ceiling_m": 1524.0,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 22,
-  "dewpoint": 71.6,
-  "wind_speed": 5.8,
+  "obs_count": 26,
+  "dewpoint": 69.8,
+  "wind_speed": 4.6,
   "predicted_peak_hour": 14.58,
   "nwp_peak_hours": {
     "ecmwf": 15.0,
@@ -45,7 +45,7 @@
       "intraday": 0.0,
       "d1_prior": 0.0026,
       "d1_now": 0.0027,
-      "meta": 0.0148
+      "meta": 0.0142
     },
     {
       "label": "99-100F",
@@ -54,7 +54,7 @@
       "intraday": 0.0,
       "d1_prior": 0.0026,
       "d1_now": 0.0027,
-      "meta": 0.0148
+      "meta": 0.0142
     },
     {
       "label": "97-98F",
@@ -63,7 +63,7 @@
       "intraday": 0.0,
       "d1_prior": 0.0026,
       "d1_now": 0.0027,
-      "meta": 0.0148
+      "meta": 0.0142
     },
     {
       "label": "95-96F",
@@ -72,7 +72,7 @@
       "intraday": 0.0,
       "d1_prior": 0.0026,
       "d1_now": 0.0027,
-      "meta": 0.0148
+      "meta": 0.0142
     },
     {
       "label": "93-94F",
@@ -81,7 +81,7 @@
       "intraday": 0.0135,
       "d1_prior": 0.057,
       "d1_now": 0.0804,
-      "meta": 0.0148
+      "meta": 0.0142
     },
     {
       "label": "91-92F",
@@ -90,16 +90,16 @@
       "intraday": 0.0443,
       "d1_prior": 0.0668,
       "d1_now": 0.0929,
-      "meta": 0.0148
+      "meta": 0.0142
     },
     {
       "label": "89-90F",
       "lo": 89,
       "hi": 91,
-      "intraday": 0.0561,
+      "intraday": 0.0443,
       "d1_prior": 0.0668,
       "d1_now": 0.0929,
-      "meta": 0.0148
+      "meta": 0.0142
     },
     {
       "label": "87-88F",
@@ -108,7 +108,7 @@
       "intraday": 0.1071,
       "d1_prior": 0.1814,
       "d1_now": 0.2408,
-      "meta": 0.0148
+      "meta": 0.0142
     },
     {
       "label": "85-86F",
@@ -117,7 +117,7 @@
       "intraday": 0.1071,
       "d1_prior": 0.185,
       "d1_now": 0.2454,
-      "meta": 0.0143
+      "meta": 0.0142
     },
     {
       "label": "83-84F",
@@ -126,22 +126,22 @@
       "intraday": 0.1071,
       "d1_prior": 0.1907,
       "d1_now": 0.2523,
-      "meta": 0.6682
+      "meta": 0.6735
     },
     {
       "label": "81-82F",
       "lo": 81,
       "hi": 83,
-      "intraday": 0.1071,
+      "intraday": 0.094,
       "d1_prior": 0.187,
       "d1_now": 0.2091,
-      "meta": 0.1973
+      "meta": 0.1967
     },
     {
       "label": "79-80F",
       "lo": 79,
       "hi": 81,
-      "intraday": 0.1071,
+      "intraday": 0.094,
       "d1_prior": 0.0691,
       "d1_now": 0.2091,
       "meta": 0.0001
@@ -150,7 +150,7 @@
       "label": "77-78F",
       "lo": 77,
       "hi": 79,
-      "intraday": 0.0561,
+      "intraday": 0.0443,
       "d1_prior": 0.0591,
       "d1_now": 0.0037,
       "meta": 0.0001
@@ -363,6 +363,26 @@
       "time": "01:52",
       "temp": 73.4,
       "dewpoint": 71.6,
+      "wind": 5.8,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "01:52",
+      "temp": 73.0,
+      "dewpoint": 70.0,
+      "wind": 5.8,
+      "sky": "BKN",
+      "cloud_frac": 0.62,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "01:52",
+      "temp": 73.4,
+      "dewpoint": 69.8,
       "wind": 5.8,
       "sky": null,
       "cloud_frac": null,
