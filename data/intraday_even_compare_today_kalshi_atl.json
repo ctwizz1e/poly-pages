@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-29T01:01:29",
+  "generated_at": "2026-06-29T01:15:48",
   "date": "2026-06-29",
   "market": "kalshi",
   "bucket_start": "even",
   "intraday_available": true,
   "has_meta": true,
-  "time_label": "00:50",
+  "time_label": "01:00",
   "running_max": 82.4,
   "current_temp": 80.6,
-  "velocity": 0.0,
+  "velocity": -1.8,
   "velocity_30m": 0.0,
-  "velocity_2h": 0.0,
-  "acceleration": 0.0,
-  "trend_slope": -1.569,
+  "velocity_2h": -1.8,
+  "acceleration": 1.8,
+  "trend_slope": -1.011,
   "hour_of_max": 0.0,
-  "hours_since_max": 0.83,
+  "hours_since_max": 1.0,
   "precip_today": 0.0,
-  "sky_cover_encoded": null,
-  "cloud_fraction": null,
-  "cloud_ceiling_m": null,
+  "sky_cover_encoded": 1.0,
+  "cloud_fraction": 0.12,
+  "cloud_ceiling_m": 1372.0,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 9,
+  "obs_count": 11,
   "dewpoint": 71.6,
-  "wind_speed": 3.5,
+  "wind_speed": 4.6,
   "predicted_peak_hour": 14.49,
   "nwp_peak_hours": {
     "ecmwf": 16.0,
@@ -51,28 +51,28 @@
       "label": "98-99F",
       "lo": 98,
       "hi": 100,
-      "intraday": 0.0606,
+      "intraday": 0.0547,
       "d1_prior": 0.1331,
       "d1_now": 0.1331,
-      "meta": 0.0167
+      "meta": 0.0159
     },
     {
       "label": "96-97F",
       "lo": 96,
       "hi": 98,
-      "intraday": 0.1395,
+      "intraday": 0.0547,
       "d1_prior": 0.1096,
       "d1_now": 0.1331,
-      "meta": 0.0167
+      "meta": 0.0159
     },
     {
       "label": "94-95F",
       "lo": 94,
       "hi": 96,
-      "intraday": 0.1395,
+      "intraday": 0.0606,
       "d1_prior": 0.1096,
       "d1_now": 0.1331,
-      "meta": 0.0437
+      "meta": 0.0416
     },
     {
       "label": "92-93F",
@@ -81,7 +81,7 @@
       "intraday": 0.0606,
       "d1_prior": 0.1103,
       "d1_now": 0.1331,
-      "meta": 0.3137
+      "meta": 0.2987
     },
     {
       "label": "90-91F",
@@ -90,7 +90,7 @@
       "intraday": 0.0547,
       "d1_prior": 0.1323,
       "d1_now": 0.1323,
-      "meta": 0.2633
+      "meta": 0.2987
     },
     {
       "label": "88-89F",
@@ -99,7 +99,7 @@
       "intraday": 0.0547,
       "d1_prior": 0.1323,
       "d1_now": 0.1323,
-      "meta": 0.2633
+      "meta": 0.2507
     },
     {
       "label": "86-87F",
@@ -108,7 +108,7 @@
       "intraday": 0.0017,
       "d1_prior": 0.0089,
       "d1_now": 0.009,
-      "meta": 0.0437
+      "meta": 0.0416
     },
     {
       "label": "84-85F",
@@ -117,7 +117,7 @@
       "intraday": 0.0017,
       "d1_prior": 0.0089,
       "d1_now": 0.0089,
-      "meta": 0.022
+      "meta": 0.021
     },
     {
       "label": "82-83F",
@@ -126,7 +126,7 @@
       "intraday": 0.0,
       "d1_prior": 0.0089,
       "d1_now": 0.0089,
-      "meta": 0.0167
+      "meta": 0.0159
     },
     {
       "label": "80-81F",
@@ -336,6 +336,16 @@
       "wind": 3.5,
       "sky": null,
       "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "00:52",
+      "temp": 81.0,
+      "dewpoint": 72.0,
+      "wind": 4.7,
+      "sky": "FEW",
+      "cloud_frac": 0.12,
       "precip_cum": null,
       "slp_hpa": null
     }
