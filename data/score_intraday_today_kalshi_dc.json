@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T12:46:37",
+  "generated_at": "2026-06-29T13:02:58",
   "date": "2026-06-29",
   "market": "kalshi",
   "even": {
@@ -8,12 +8,12 @@
       "label": "90-91F",
       "lo": 90,
       "hi": 92,
-      "prob": 0.6824
+      "prob": 0.5131
     },
     "daily_signals": {
-      "max_prob": 0.6824,
-      "gap": 0.4721,
-      "entropy": 1.2353
+      "max_prob": 0.5131,
+      "gap": 0.3318,
+      "entropy": 1.3719
     },
     "hours": [
       {
@@ -48,12 +48,23 @@
         "meta_top_bucket": "86-87F",
         "meta_top_lo": 86,
         "meta_top_prob": 0.4183
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "86-87F",
+        "top_lo": 86,
+        "top_prob": 0.6429,
+        "matches_daily": true,
+        "meta_top_bucket": "90-91F",
+        "meta_top_lo": 90,
+        "meta_top_prob": 0.2806
       }
     ],
-    "abort_signal": "3hr",
-    "abort_precision": 0.779,
-    "recommendation": "reduce_50pct",
-    "hours_available": 3,
+    "abort_signal": "none",
+    "abort_precision": null,
+    "recommendation": "hold",
+    "hours_available": 4,
     "hours_disagree": 3,
     "consensus_bucket": null
   },
@@ -68,7 +79,7 @@
     "daily_signals": {
       "max_prob": 0.3608,
       "gap": 0.0534,
-      "entropy": 2.0058
+      "entropy": 1.9977
     },
     "hours": [
       {
@@ -103,13 +114,24 @@
         "meta_top_bucket": "87-88F",
         "meta_top_lo": 87,
         "meta_top_prob": 0.3258
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "87-88F",
+        "top_lo": 87,
+        "top_prob": 0.3261,
+        "matches_daily": false,
+        "meta_top_bucket": "89-90F",
+        "meta_top_lo": 89,
+        "meta_top_prob": 0.314
       }
     ],
     "abort_signal": "none",
     "abort_precision": null,
     "recommendation": "hold",
-    "hours_available": 3,
-    "hours_disagree": 0,
+    "hours_available": 4,
+    "hours_disagree": 1,
     "consensus_bucket": null
   },
   "give_up": {
