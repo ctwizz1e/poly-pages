@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T16:01:11",
+  "generated_at": "2026-06-30T17:00:49",
   "date": "2026-06-30",
   "market": "kalshi",
   "bucket_start": "even",
@@ -12,7 +12,7 @@
       "tmax_obs": 95.0,
       "tmin_obs": 75.0,
       "expected_temp": 87.1,
-      "fo_expected_temp": 91.7,
+      "fo_expected_temp": 91.2,
       "buckets": [
         {
           "label": ">=100F",
@@ -33,13 +33,13 @@
           "label": "98-99F",
           "lo": 98,
           "hi": 100,
-          "prob": 0.139,
-          "fo_prob": 0.2496,
+          "prob": 0.1354,
+          "fo_prob": 0.1544,
           "source_scores": {
             "gfs": 0.1231,
             "ecmwf": 0.0976,
             "hrrr": 0.4615,
-            "nbm": 0.4006,
+            "nbm": 0.2326,
             "weather_com": 0.0136,
             "gem": null
           }
@@ -49,12 +49,12 @@
           "lo": 96,
           "hi": 98,
           "prob": 0.139,
-          "fo_prob": 0.1544,
+          "fo_prob": 0.268,
           "source_scores": {
-            "gfs": 0.2,
+            "gfs": 0.1667,
             "ecmwf": 0.0976,
             "hrrr": 1.0,
-            "nbm": 0.3125,
+            "nbm": 0.2326,
             "weather_com": 0.0299,
             "gem": null
           }
@@ -66,10 +66,10 @@
           "prob": 0.1354,
           "fo_prob": 0.1544,
           "source_scores": {
-            "gfs": 0.1231,
+            "gfs": 0.1318,
             "ecmwf": 0.0976,
-            "hrrr": 0.2805,
-            "nbm": 0.1892,
+            "hrrr": 0.25,
+            "nbm": 0.2326,
             "weather_com": 0.0641,
             "gem": null
           }
@@ -109,10 +109,10 @@
           "lo": 88,
           "hi": 90,
           "prob": 0.009,
-          "fo_prob": 0.0046,
+          "fo_prob": 0.167,
           "source_scores": {
             "gfs": 0.0005,
-            "ecmwf": 0.0,
+            "ecmwf": 0.0976,
             "hrrr": 0.0,
             "nbm": 0.0426,
             "weather_com": 0.0268,
@@ -231,7 +231,7 @@
           "prob": 0.009,
           "fo_prob": 0.0046,
           "source_scores": {
-            "gfs": 0.0,
+            "gfs": 0.0005,
             "ecmwf": 0.0,
             "hrrr": 0.0,
             "nbm": 0.0,
