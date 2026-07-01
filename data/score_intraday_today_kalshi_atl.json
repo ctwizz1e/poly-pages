@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-07-01T17:00:31",
+  "generated_at": "2026-07-01T18:41:42",
   "date": "2026-07-01",
   "market": "kalshi",
   "even": {
-    "daily_tier": 4,
+    "daily_tier": 2,
     "daily_top": {
-      "label": "96-97F",
-      "lo": 96,
-      "hi": 98,
-      "prob": 0.139
+      "label": "94-95F",
+      "lo": 94,
+      "hi": 96,
+      "prob": 0.2363
     },
     "daily_signals": {
-      "max_prob": 0.139,
-      "gap": 0.0,
-      "entropy": 2.6303
+      "max_prob": 0.2363,
+      "gap": 0.0974,
+      "entropy": 2.543
     },
     "hours": [
       {
@@ -61,9 +61,9 @@
         "meta_top_prob": 0.2
       }
     ],
-    "abort_signal": "no_trade",
-    "abort_precision": null,
-    "recommendation": "skip",
+    "abort_signal": "4hr",
+    "abort_precision": 0.835,
+    "recommendation": "exit_if_above_17pct",
     "hours_available": 4,
     "hours_disagree": 4,
     "consensus_bucket": "92-93F"
@@ -71,15 +71,15 @@
   "odd": {
     "daily_tier": 1,
     "daily_top": {
-      "label": "93-94F",
-      "lo": 93,
-      "hi": 95,
-      "prob": 0.3292
+      "label": "95-96F",
+      "lo": 95,
+      "hi": 97,
+      "prob": 0.6234
     },
     "daily_signals": {
-      "max_prob": 0.3292,
-      "gap": 0.1057,
-      "entropy": 2.1641
+      "max_prob": 0.6234,
+      "gap": 0.3041,
+      "entropy": 1.8998
     },
     "hours": [
       {
@@ -138,10 +138,10 @@
     "status": "fired",
     "threshold": 0.86,
     "fire_hour": 15.62,
-    "fire_prob": 0.92,
+    "fire_prob": 0.948,
     "fire_running_max": 93.9,
-    "current_hour": 16.83,
-    "current_prob": 0.997,
+    "current_hour": 18.42,
+    "current_prob": 1.0,
     "current_running_max": 95.0,
     "snapshots": [
       {
@@ -181,47 +181,67 @@
       },
       {
         "hour": 14.75,
-        "prob": 0.58,
+        "prob": 0.682,
         "running_max": 93.2
       },
       {
         "hour": 15.62,
-        "prob": 0.92,
+        "prob": 0.948,
         "running_max": 93.9
       },
       {
         "hour": 15.75,
-        "prob": 0.981,
+        "prob": 0.986,
         "running_max": 93.9
       },
       {
         "hour": 15.87,
-        "prob": 0.946,
+        "prob": 0.951,
         "running_max": 95.0
       },
       {
         "hour": 16.25,
-        "prob": 0.985,
+        "prob": 0.987,
         "running_max": 95.0
       },
       {
         "hour": 16.42,
-        "prob": 0.985,
+        "prob": 0.987,
         "running_max": 95.0
       },
       {
         "hour": 16.67,
-        "prob": 0.991,
+        "prob": 0.992,
         "running_max": 95.0
       },
       {
         "hour": 16.75,
-        "prob": 0.993,
+        "prob": 0.994,
         "running_max": 95.0
       },
       {
         "hour": 16.83,
-        "prob": 0.997,
+        "prob": 0.998,
+        "running_max": 95.0
+      },
+      {
+        "hour": 17.72,
+        "prob": 1.0,
+        "running_max": 95.0
+      },
+      {
+        "hour": 17.75,
+        "prob": 1.0,
+        "running_max": 95.0
+      },
+      {
+        "hour": 17.87,
+        "prob": 1.0,
+        "running_max": 95.0
+      },
+      {
+        "hour": 18.42,
+        "prob": 1.0,
         "running_max": 95.0
       }
     ]
