@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-07-01T12:45:32",
+  "generated_at": "2026-07-01T13:00:48",
   "date": "2026-07-01",
   "market": "kalshi",
   "even": {
-    "daily_tier": 2,
+    "daily_tier": 1,
     "daily_top": {
       "label": "96-97F",
       "lo": 96,
       "hi": 98,
-      "prob": 0.2137
+      "prob": 0.3297
     },
     "daily_signals": {
-      "max_prob": 0.2137,
-      "gap": 0.1191,
-      "entropy": 1.7025
+      "max_prob": 0.3297,
+      "gap": 0.2089,
+      "entropy": 1.5417
     },
     "hours": [
       {
@@ -48,13 +48,24 @@
         "meta_top_bucket": "92-93F",
         "meta_top_lo": 92,
         "meta_top_prob": 0.3063
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "94-95F",
+        "top_lo": 94,
+        "top_prob": 0.3444,
+        "matches_daily": false,
+        "meta_top_bucket": "92-93F",
+        "meta_top_lo": 92,
+        "meta_top_prob": 0.4323
       }
     ],
     "abort_signal": "none",
     "abort_precision": null,
     "recommendation": "hold",
-    "hours_available": 3,
-    "hours_disagree": 1,
+    "hours_available": 4,
+    "hours_disagree": 2,
     "consensus_bucket": null
   },
   "odd": {
@@ -68,7 +79,7 @@
     "daily_signals": {
       "max_prob": 0.2728,
       "gap": 0.032,
-      "entropy": 1.9053
+      "entropy": 1.9984
     },
     "hours": [
       {
@@ -103,13 +114,24 @@
         "meta_top_bucket": "93-94F",
         "meta_top_lo": 93,
         "meta_top_prob": 0.2464
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "93-94F",
+        "top_lo": 93,
+        "top_prob": 0.406,
+        "matches_daily": false,
+        "meta_top_bucket": "93-94F",
+        "meta_top_lo": 93,
+        "meta_top_prob": 0.4598
       }
     ],
-    "abort_signal": "3hr",
-    "abort_precision": 0.779,
-    "recommendation": "reduce_50pct",
-    "hours_available": 3,
-    "hours_disagree": 3,
+    "abort_signal": "4hr",
+    "abort_precision": 0.835,
+    "recommendation": "exit_if_above_17pct",
+    "hours_available": 4,
+    "hours_disagree": 4,
     "consensus_bucket": null
   },
   "give_up": {

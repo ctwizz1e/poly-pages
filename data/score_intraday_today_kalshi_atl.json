@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-07-01T12:45:34",
+  "generated_at": "2026-07-01T13:00:51",
   "date": "2026-07-01",
   "market": "kalshi",
   "even": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "90-91F",
-      "lo": 90,
-      "hi": 92,
-      "prob": 0.1374
+      "label": "92-93F",
+      "lo": 92,
+      "hi": 94,
+      "prob": 0.1398
     },
     "daily_signals": {
-      "max_prob": 0.1374,
+      "max_prob": 0.1398,
       "gap": 0.0008,
-      "entropy": 2.6343
+      "entropy": 2.6334
     },
     "hours": [
       {
@@ -48,13 +48,24 @@
         "meta_top_bucket": "92-93F",
         "meta_top_lo": 92,
         "meta_top_prob": 0.4545
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "92-93F",
+        "top_lo": 92,
+        "top_prob": 0.4286,
+        "matches_daily": false,
+        "meta_top_bucket": "98-99F",
+        "meta_top_lo": 98,
+        "meta_top_prob": 0.25
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 3,
-    "hours_disagree": 3,
+    "hours_available": 4,
+    "hours_disagree": 4,
     "consensus_bucket": "92-93F"
   },
   "odd": {
@@ -68,7 +79,7 @@
     "daily_signals": {
       "max_prob": 0.4692,
       "gap": 0.0659,
-      "entropy": 1.8406
+      "entropy": 1.8415
     },
     "hours": [
       {
@@ -103,12 +114,23 @@
         "meta_top_bucket": "97-98F",
         "meta_top_lo": 97,
         "meta_top_prob": 0.2203
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "91-92F",
+        "top_lo": 91,
+        "top_prob": 0.3333,
+        "matches_daily": true,
+        "meta_top_bucket": "97-98F",
+        "meta_top_lo": 97,
+        "meta_top_prob": 0.2188
       }
     ],
     "abort_signal": "none",
     "abort_precision": null,
     "recommendation": "hold",
-    "hours_available": 3,
+    "hours_available": 4,
     "hours_disagree": 2,
     "consensus_bucket": "93-94F"
   },
@@ -118,7 +140,7 @@
     "fire_hour": null,
     "fire_prob": null,
     "fire_running_max": null,
-    "current_hour": 12.5,
+    "current_hour": 12.83,
     "current_prob": 0.004,
     "current_running_max": 91.4,
     "snapshots": [
@@ -129,12 +151,12 @@
       },
       {
         "hour": 10.17,
-        "prob": 0.001,
+        "prob": 0.0,
         "running_max": 87.8
       },
       {
         "hour": 10.33,
-        "prob": 0.001,
+        "prob": 0.0,
         "running_max": 87.8
       },
       {
@@ -209,12 +231,12 @@
       },
       {
         "hour": 11.83,
-        "prob": 0.002,
+        "prob": 0.001,
         "running_max": 91.4
       },
       {
         "hour": 11.87,
-        "prob": 0.003,
+        "prob": 0.002,
         "running_max": 91.4
       },
       {
@@ -234,16 +256,31 @@
       },
       {
         "hour": 12.33,
-        "prob": 0.003,
+        "prob": 0.002,
         "running_max": 91.4
       },
       {
         "hour": 12.42,
-        "prob": 0.003,
+        "prob": 0.002,
         "running_max": 91.4
       },
       {
         "hour": 12.5,
+        "prob": 0.003,
+        "running_max": 91.4
+      },
+      {
+        "hour": 12.67,
+        "prob": 0.003,
+        "running_max": 91.4
+      },
+      {
+        "hour": 12.75,
+        "prob": 0.004,
+        "running_max": 91.4
+      },
+      {
+        "hour": 12.83,
         "prob": 0.004,
         "running_max": 91.4
       }
