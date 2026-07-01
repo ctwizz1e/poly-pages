@@ -1,6 +1,229 @@
 {
-  "generated_at": "2026-07-01T16:40:37",
+  "generated_at": "2026-07-01T17:00:31",
   "date": "2026-07-01",
   "market": "kalshi",
-  "error": "no obs for 2026-06-30"
+  "even": {
+    "daily_tier": 4,
+    "daily_top": {
+      "label": "96-97F",
+      "lo": 96,
+      "hi": 98,
+      "prob": 0.139
+    },
+    "daily_signals": {
+      "max_prob": 0.139,
+      "gap": 0.0,
+      "entropy": 2.6303
+    },
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "92-93F",
+        "top_lo": 92,
+        "top_prob": 0.25,
+        "matches_daily": false,
+        "meta_top_bucket": "98-99F",
+        "meta_top_lo": 98,
+        "meta_top_prob": 0.2
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "92-93F",
+        "top_lo": 92,
+        "top_prob": 0.2,
+        "matches_daily": false,
+        "meta_top_bucket": "98-99F",
+        "meta_top_lo": 98,
+        "meta_top_prob": 0.2
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "92-93F",
+        "top_lo": 92,
+        "top_prob": 0.1667,
+        "matches_daily": false,
+        "meta_top_bucket": "98-99F",
+        "meta_top_lo": 98,
+        "meta_top_prob": 0.2
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "92-93F",
+        "top_lo": 92,
+        "top_prob": 0.4286,
+        "matches_daily": false,
+        "meta_top_bucket": "98-99F",
+        "meta_top_lo": 98,
+        "meta_top_prob": 0.2
+      }
+    ],
+    "abort_signal": "no_trade",
+    "abort_precision": null,
+    "recommendation": "skip",
+    "hours_available": 4,
+    "hours_disagree": 4,
+    "consensus_bucket": "92-93F"
+  },
+  "odd": {
+    "daily_tier": 1,
+    "daily_top": {
+      "label": "93-94F",
+      "lo": 93,
+      "hi": 95,
+      "prob": 0.3292
+    },
+    "daily_signals": {
+      "max_prob": 0.3292,
+      "gap": 0.1057,
+      "entropy": 2.1641
+    },
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "93-94F",
+        "top_lo": 93,
+        "top_prob": 0.15,
+        "matches_daily": false,
+        "meta_top_bucket": "99-100F",
+        "meta_top_lo": 99,
+        "meta_top_prob": 0.169
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "91-92F",
+        "top_lo": 91,
+        "top_prob": 0.1875,
+        "matches_daily": false,
+        "meta_top_bucket": "99-100F",
+        "meta_top_lo": 99,
+        "meta_top_prob": 0.1875
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "87-88F",
+        "top_lo": 87,
+        "top_prob": 0.25,
+        "matches_daily": false,
+        "meta_top_bucket": "99-100F",
+        "meta_top_lo": 99,
+        "meta_top_prob": 0.1875
+      },
+      {
+        "hour": 13,
+        "time_label": "13:00",
+        "top_bucket": "91-92F",
+        "top_lo": 91,
+        "top_prob": 0.3333,
+        "matches_daily": false,
+        "meta_top_bucket": "97-98F",
+        "meta_top_lo": 97,
+        "meta_top_prob": 0.2188
+      }
+    ],
+    "abort_signal": "4hr",
+    "abort_precision": 0.835,
+    "recommendation": "exit_if_above_17pct",
+    "hours_available": 4,
+    "hours_disagree": 4,
+    "consensus_bucket": null
+  },
+  "give_up": {
+    "status": "fired",
+    "threshold": 0.86,
+    "fire_hour": 15.62,
+    "fire_prob": 0.92,
+    "fire_running_max": 93.9,
+    "current_hour": 16.83,
+    "current_prob": 0.997,
+    "current_running_max": 95.0,
+    "snapshots": [
+      {
+        "hour": 10.75,
+        "prob": 0.001,
+        "running_max": 87.8
+      },
+      {
+        "hour": 10.87,
+        "prob": 0.001,
+        "running_max": 88.0
+      },
+      {
+        "hour": 11.75,
+        "prob": 0.001,
+        "running_max": 89.6
+      },
+      {
+        "hour": 11.87,
+        "prob": 0.002,
+        "running_max": 91.0
+      },
+      {
+        "hour": 12.75,
+        "prob": 0.005,
+        "running_max": 91.4
+      },
+      {
+        "hour": 12.87,
+        "prob": 0.006,
+        "running_max": 91.4
+      },
+      {
+        "hour": 13.75,
+        "prob": 0.008,
+        "running_max": 91.4
+      },
+      {
+        "hour": 14.75,
+        "prob": 0.58,
+        "running_max": 93.2
+      },
+      {
+        "hour": 15.62,
+        "prob": 0.92,
+        "running_max": 93.9
+      },
+      {
+        "hour": 15.75,
+        "prob": 0.981,
+        "running_max": 93.9
+      },
+      {
+        "hour": 15.87,
+        "prob": 0.946,
+        "running_max": 95.0
+      },
+      {
+        "hour": 16.25,
+        "prob": 0.985,
+        "running_max": 95.0
+      },
+      {
+        "hour": 16.42,
+        "prob": 0.985,
+        "running_max": 95.0
+      },
+      {
+        "hour": 16.67,
+        "prob": 0.991,
+        "running_max": 95.0
+      },
+      {
+        "hour": 16.75,
+        "prob": 0.993,
+        "running_max": 95.0
+      },
+      {
+        "hour": 16.83,
+        "prob": 0.997,
+        "running_max": 95.0
+      }
+    ]
+  }
 }
