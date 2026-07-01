@@ -1291,7 +1291,7 @@ function renderTempTimeseries(obsData, fcstData, metaEl) {
       return (arr || []).filter(o => o.temp != null).map(o => ({ x: new Date(o.time), y: o.temp }));
     }
     datasets.push({
-      label: "Synoptic (hourly)",
+      label: "MADIS (hourly)",
       data: toPoints(obsData.observations),
       borderColor: "#0366d6",
       backgroundColor: "rgba(3,102,214,0.08)",
@@ -1301,28 +1301,6 @@ function renderTempTimeseries(obsData, fcstData, metaEl) {
       tension: 0.3,
       fill: true,
       hidden: false,
-    });
-    datasets.push({
-      label: "5m (NWS 1-min)",
-      data: toPoints(obsData.obs_1m),
-      borderColor: "#22863a",
-      backgroundColor: "transparent",
-      borderWidth: 1,
-      pointRadius: 0,
-      pointHoverRadius: 4,
-      tension: 0,
-      hidden: true,
-    });
-    datasets.push({
-      label: ":52 (Wunderground)",
-      data: toPoints(obsData.obs_52m),
-      borderColor: "#e8622a",
-      backgroundColor: "transparent",
-      borderWidth: 1.5,
-      pointRadius: 2,
-      pointHoverRadius: 4,
-      tension: 0.3,
-      hidden: true,
     });
     datasets.push({
       label: "OMO (climatesight)",
