@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T16:45:39",
+  "generated_at": "2026-07-01T17:00:39",
   "date": "2026-07-01",
   "market": "kalshi",
   "bucket_start": "even",
@@ -11,14 +11,14 @@
       "obs_date": "2026-06-30",
       "tmax_obs": 89.6,
       "tmin_obs": 71.1,
-      "expected_temp": 95.7,
-      "fo_expected_temp": 82.2,
+      "expected_temp": 96.1,
+      "fo_expected_temp": 85.9,
       "buckets": [
         {
           "label": ">=100F",
           "lo": 100,
           "hi": null,
-          "prob": 0.0252,
+          "prob": 0.0752,
           "fo_prob": 0.0199,
           "source_scores": {
             "gfs": 0.0806,
@@ -48,12 +48,12 @@
           "label": "96-97F",
           "lo": 96,
           "hi": 98,
-          "prob": 0.1859,
-          "fo_prob": 0.0199,
+          "prob": 0.1114,
+          "fo_prob": 0.1704,
           "source_scores": {
-            "gfs": 0.1111,
+            "gfs": 0.1,
             "ecmwf": 0.1176,
-            "hrrr": 0.383,
+            "hrrr": 0.4419,
             "nbm": 0.234,
             "weather_com": 0.1391,
             "gem": null
@@ -63,12 +63,12 @@
           "label": "94-95F",
           "lo": 94,
           "hi": 96,
-          "prob": 0.0891,
+          "prob": 0.066,
           "fo_prob": 0.0199,
           "source_scores": {
             "gfs": 0.0985,
             "ecmwf": 0.1176,
-            "hrrr": 0.0294,
+            "hrrr": 0.1667,
             "nbm": 0.234,
             "weather_com": 0.1391,
             "gem": null
@@ -83,7 +83,7 @@
           "source_scores": {
             "gfs": 0.0117,
             "ecmwf": 0.0,
-            "hrrr": 0.0294,
+            "hrrr": 0.0146,
             "nbm": 0.0662,
             "weather_com": 0.06,
             "gem": null
@@ -98,7 +98,7 @@
           "source_scores": {
             "gfs": 0.0117,
             "ecmwf": 0.0,
-            "hrrr": 0.0146,
+            "hrrr": 0.0294,
             "nbm": 0.0662,
             "weather_com": 0.06,
             "gem": null
