@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T04:00:54",
+  "generated_at": "2026-07-01T05:00:53",
   "date": "2026-07-01",
   "market": "kalshi",
   "bucket_start": "even",
@@ -11,19 +11,19 @@
       "obs_date": "2026-06-30",
       "tmax_obs": 89.6,
       "tmin_obs": 71.6,
-      "expected_temp": 95.3,
+      "expected_temp": 95.2,
       "fo_expected_temp": 85.8,
       "buckets": [
         {
           "label": ">=100F",
           "lo": 100,
           "hi": null,
-          "prob": 0.0021,
+          "prob": 0.0027,
           "fo_prob": 0.0199,
           "source_scores": {
             "gfs": 0.0117,
             "ecmwf": 0.0,
-            "hrrr": 0.0383,
+            "hrrr": 0.0294,
             "nbm": 0.0196,
             "weather_com": 0.0429,
             "gem": null
@@ -33,7 +33,7 @@
           "label": "98-99F",
           "lo": 98,
           "hi": 100,
-          "prob": 0.2221,
+          "prob": 0.2236,
           "fo_prob": 0.1378,
           "source_scores": {
             "gfs": 0.0117,
@@ -48,12 +48,12 @@
           "label": "96-97F",
           "lo": 96,
           "hi": 98,
-          "prob": 0.3245,
+          "prob": 0.2961,
           "fo_prob": 0.0199,
           "source_scores": {
             "gfs": 0.0117,
             "ecmwf": 0.1176,
-            "hrrr": 0.1143,
+            "hrrr": 0.1667,
             "nbm": 0.1765,
             "weather_com": 0.1391,
             "gem": null
@@ -63,7 +63,7 @@
           "label": "94-95F",
           "lo": 94,
           "hi": 96,
-          "prob": 0.0843,
+          "prob": 0.085,
           "fo_prob": 0.2338,
           "source_scores": {
             "gfs": 0.0117,
@@ -108,12 +108,12 @@
           "label": "88-89F",
           "lo": 88,
           "hi": 90,
-          "prob": 0.0037,
+          "prob": 0.0036,
           "fo_prob": 0.0083,
           "source_scores": {
             "gfs": 0.037,
             "ecmwf": 0.0,
-            "hrrr": 0.0146,
+            "hrrr": 0.0093,
             "nbm": 0.0662,
             "weather_com": 0.0706,
             "gem": null
