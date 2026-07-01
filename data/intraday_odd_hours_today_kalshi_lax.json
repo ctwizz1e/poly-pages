@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-01T17:00:06",
+  "generated_at": "2026-07-01T18:44:11",
   "date": "2026-07-01",
   "market": "kalshi",
   "bucket_start": "odd",
-  "predicted_peak_hour": 13.8,
+  "predicted_peak_hour": 13.9,
   "d1_forecasts": {
     "gfs": 67.8,
-    "ecmwf": 66.7,
-    "hrrr": 68.7,
-    "nbm": 65.9
+    "ecmwf": 67.0,
+    "hrrr": 69.2,
+    "nbm": 66.1
   },
   "snapshots": [
     {
@@ -1037,15 +1037,221 @@
       ]
     },
     {
-      "hour": 16.75,
-      "time_label": "16:45",
+      "hour": 16.88,
+      "time_label": "16:52",
       "running_max": 69.8,
-      "current_temp": 69.8,
-      "velocity": 1.14,
+      "current_temp": 69.1,
+      "velocity": 1.08,
       "dewpoint": 59.0,
-      "wind": 11.5,
+      "wind": 15.0,
       "precip_cum": 0.0,
-      "obs_count": 193,
+      "obs_count": 195,
+      "buckets": [
+        {
+          "label": ">=101F",
+          "lo": 101,
+          "hi": null,
+          "prob": 0.233
+        },
+        {
+          "label": "99-100F",
+          "lo": 99,
+          "hi": 101,
+          "prob": 0.233
+        },
+        {
+          "label": "97-98F",
+          "lo": 97,
+          "hi": 99,
+          "prob": 0.233
+        },
+        {
+          "label": "95-96F",
+          "lo": 95,
+          "hi": 97,
+          "prob": 0.342
+        },
+        {
+          "label": "93-94F",
+          "lo": 93,
+          "hi": 95,
+          "prob": 0.3444
+        },
+        {
+          "label": "91-92F",
+          "lo": 91,
+          "hi": 93,
+          "prob": 0.0201
+        },
+        {
+          "label": "89-90F",
+          "lo": 89,
+          "hi": 91,
+          "prob": 0.0201
+        },
+        {
+          "label": "87-88F",
+          "lo": 87,
+          "hi": 89,
+          "prob": 0.0201
+        },
+        {
+          "label": "85-86F",
+          "lo": 85,
+          "hi": 87,
+          "prob": 0.0201
+        },
+        {
+          "label": "83-84F",
+          "lo": 83,
+          "hi": 85,
+          "prob": 0.0201
+        },
+        {
+          "label": "81-82F",
+          "lo": 81,
+          "hi": 83,
+          "prob": 0.0201
+        },
+        {
+          "label": "79-80F",
+          "lo": 79,
+          "hi": 81,
+          "prob": 0.0201
+        },
+        {
+          "label": "77-78F",
+          "lo": 77,
+          "hi": 79,
+          "prob": 0.0201
+        },
+        {
+          "label": "75-76F",
+          "lo": 75,
+          "hi": 77,
+          "prob": 0.0201
+        },
+        {
+          "label": "73-74F",
+          "lo": 73,
+          "hi": 75,
+          "prob": 0.0201
+        },
+        {
+          "label": "71-72F",
+          "lo": 71,
+          "hi": 73,
+          "prob": 0.0201
+        },
+        {
+          "label": "69-70F",
+          "lo": 69,
+          "hi": 71,
+          "prob": 0.0201
+        },
+        {
+          "label": "67-68F",
+          "lo": 67,
+          "hi": 69,
+          "prob": 0.0201
+        },
+        {
+          "label": "65-66F",
+          "lo": 65,
+          "hi": 67,
+          "prob": 0.0201
+        },
+        {
+          "label": "63-64F",
+          "lo": 63,
+          "hi": 65,
+          "prob": 0.0201
+        },
+        {
+          "label": "61-62F",
+          "lo": 61,
+          "hi": 63,
+          "prob": 0.0201
+        },
+        {
+          "label": "59-60F",
+          "lo": 59,
+          "hi": 61,
+          "prob": 0.0201
+        },
+        {
+          "label": "57-58F",
+          "lo": 57,
+          "hi": 59,
+          "prob": 0.0201
+        },
+        {
+          "label": "55-56F",
+          "lo": 55,
+          "hi": 57,
+          "prob": 0.0201
+        },
+        {
+          "label": "53-54F",
+          "lo": 53,
+          "hi": 55,
+          "prob": 0.0201
+        },
+        {
+          "label": "51-52F",
+          "lo": 51,
+          "hi": 53,
+          "prob": 0.0201
+        },
+        {
+          "label": "49-50F",
+          "lo": 49,
+          "hi": 51,
+          "prob": 0.0201
+        },
+        {
+          "label": "47-48F",
+          "lo": 47,
+          "hi": 49,
+          "prob": 0.0201
+        },
+        {
+          "label": "45-46F",
+          "lo": 45,
+          "hi": 47,
+          "prob": 0.0201
+        },
+        {
+          "label": "43-44F",
+          "lo": 43,
+          "hi": 45,
+          "prob": 0.0201
+        },
+        {
+          "label": "41-42F",
+          "lo": 41,
+          "hi": 43,
+          "prob": 0.0201
+        },
+        {
+          "label": "<41F",
+          "lo": null,
+          "hi": 41,
+          "prob": 0.0201
+        }
+      ]
+    },
+    {
+      "hour": 18.5,
+      "time_label": "18:30",
+      "running_max": 71.6,
+      "current_temp": 69.8,
+      "velocity": 0.45,
+      "dewpoint": 59.0,
+      "wind": 12.7,
+      "precip_cum": 0.0,
+      "obs_count": 198,
+      "is_current": true,
       "buckets": [
         {
           "label": ">=101F",
