@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-07-01T10:45:31",
+  "generated_at": "2026-07-01T11:00:51",
   "date": "2026-07-01",
   "market": "kalshi",
   "even": {
-    "daily_tier": 2,
+    "daily_tier": 1,
     "daily_top": {
       "label": "96-97F",
       "lo": 96,
       "hi": 98,
-      "prob": 0.2137
+      "prob": 0.3263
     },
     "daily_signals": {
-      "max_prob": 0.2137,
-      "gap": 0.1191,
-      "entropy": 1.7124
+      "max_prob": 0.3263,
+      "gap": 0.1906,
+      "entropy": 1.5369
     },
     "hours": [
       {
@@ -37,27 +37,38 @@
         "meta_top_bucket": "96-97F",
         "meta_top_lo": 96,
         "meta_top_prob": 0.2629
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "92-93F",
+        "top_lo": 92,
+        "top_prob": 0.2794,
+        "matches_daily": false,
+        "meta_top_bucket": "92-93F",
+        "meta_top_lo": 92,
+        "meta_top_prob": 0.3063
       }
     ],
     "abort_signal": "none",
     "abort_precision": null,
     "recommendation": "hold",
-    "hours_available": 2,
-    "hours_disagree": 0,
+    "hours_available": 3,
+    "hours_disagree": 1,
     "consensus_bucket": null
   },
   "odd": {
     "daily_tier": 2,
     "daily_top": {
-      "label": "97-98F",
-      "lo": 97,
-      "hi": 99,
-      "prob": 0.3074
+      "label": "99-100F",
+      "lo": 99,
+      "hi": 101,
+      "prob": 0.2728
     },
     "daily_signals": {
-      "max_prob": 0.3074,
-      "gap": 0.0346,
-      "entropy": 1.8696
+      "max_prob": 0.2728,
+      "gap": 0.032,
+      "entropy": 1.9053
     },
     "hours": [
       {
@@ -81,13 +92,24 @@
         "meta_top_bucket": "93-94F",
         "meta_top_lo": 93,
         "meta_top_prob": 0.2337
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "93-94F",
+        "top_lo": 93,
+        "top_prob": 0.3296,
+        "matches_daily": false,
+        "meta_top_bucket": "93-94F",
+        "meta_top_lo": 93,
+        "meta_top_prob": 0.2464
       }
     ],
-    "abort_signal": "2hr",
-    "abort_precision": 0.755,
-    "recommendation": "watch",
-    "hours_available": 2,
-    "hours_disagree": 2,
+    "abort_signal": "3hr",
+    "abort_precision": 0.779,
+    "recommendation": "reduce_50pct",
+    "hours_available": 3,
+    "hours_disagree": 3,
     "consensus_bucket": null
   },
   "give_up": {
