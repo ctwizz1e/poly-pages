@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-07-02T01:00:11",
+  "generated_at": "2026-07-02T01:15:10",
   "date": "2026-07-02",
   "market": "kalshi",
   "bucket_start": "even",
   "intraday_available": true,
   "has_meta": true,
-  "time_label": "00:45",
-  "running_max": 80.6,
+  "time_label": "01:00",
+  "running_max": 81.0,
   "current_temp": 80.6,
   "velocity": 0.0,
   "velocity_30m": 0.0,
   "velocity_2h": 0.0,
   "acceleration": 0.0,
-  "trend_slope": 0.0,
-  "hour_of_max": 0.0,
-  "hours_since_max": 0.75,
+  "trend_slope": 0.11,
+  "hour_of_max": 0.87,
+  "hours_since_max": 0.13,
   "precip_today": 0.0,
-  "sky_cover_encoded": null,
-  "cloud_fraction": null,
-  "cloud_ceiling_m": null,
+  "sky_cover_encoded": 3.0,
+  "cloud_fraction": 0.62,
+  "cloud_ceiling_m": 1280.0,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 8,
-  "dewpoint": 73.4,
+  "obs_count": 11,
+  "dewpoint": 71.6,
   "wind_speed": 4.6,
-  "predicted_peak_hour": 14.44,
+  "predicted_peak_hour": 14.46,
   "nwp_peak_hours": {
     "gfs": 16.0,
     "ecmwf": 16.0,
-    "hrrr": 17.0,
+    "hrrr": 18.0,
     "nbm": 16.0,
-    "mean": 16.2,
-    "spread": 0.4
+    "mean": 16.5,
+    "spread": 0.9
   },
   "d1_forecasts": {
     "gfs": 101.0,
     "ecmwf": 97.5,
-    "hrrr": 99.3,
+    "hrrr": 98.9,
     "nbm": 95.6
   },
   "buckets": [
@@ -55,7 +55,7 @@
       "hi": 100,
       "intraday": 0.0,
       "d1_prior": 0.1331,
-      "d1_now": 0.1331,
+      "d1_now": 0.1362,
       "meta": 0.2
     },
     {
@@ -330,5 +330,26 @@
     }
   ],
   "has_d1_comparison": true,
-  "raw_obs": []
+  "raw_obs": [
+    {
+      "time": "00:52",
+      "temp": 80.6,
+      "dewpoint": 73.4,
+      "wind": 3.5,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "00:52",
+      "temp": 81.0,
+      "dewpoint": 73.0,
+      "wind": 0.0,
+      "sky": "BKN",
+      "cloud_frac": 0.62,
+      "precip_cum": null,
+      "slp_hpa": null
+    }
+  ]
 }
