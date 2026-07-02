@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-07-02T16:21:49",
+  "generated_at": "2026-07-02T19:17:26",
   "date": "2026-07-03",
   "day_type": "tomorrow",
-  "error": "claude exited 1: You've hit your session limit \u00b7 resets 4:30pm (America/New_York)"
+  "overall": "Tomorrow (Friday, July 3) is expected to be another dangerously hot day in New York City, with the NWS forecasting a high near 100\u00b0F under mostly sunny skies with a slight chance of afternoon/evening thunderstorms. An Extreme Heat Warning remains in effect through July 4 at 9 PM EDT, with heat index values potentially reaching 107\u00b0F. Air quality concerns are also active, compounding heat stress conditions.",
+  "forecast_obs_notes": "Model agreement is notably poor and spread wide: ECMWF (~86.6\u00b0F) and Weather.com (~87.3\u00b0F) are significantly cooler outliers, while GEM (~95.4\u00b0F), HRRR (~95.8\u00b0F), and NBM (~93.0\u00b0F) cluster in the mid-90s, and GFS sits at ~92\u00b0F; this divergence largely explains the low ensemble expected TMAX of 89.7\u00b0F versus the NWS text forecast of 100\u00b0F and today's observed high of 100\u00b0F.",
+  "max_temp_prediction": "Given the active Extreme Heat Warning (through July 4), today's observed high of 100\u00b0F, and the NWS official text forecast of 100\u00b0F for Friday, the true TMAX likely sits in the upper-90s range, with the mid-90s being a reasonable probability-weighted estimate. The full ensemble expected TMAX of 89.7\u00b0F appears depressed by the ECMWF/Weather.com cool outliers and is likely too low given observed conditions and NWS guidance. The active even-bucket market's top bucket is 96-97F at just 7.0% with Tier 4 (Poor) signals and high entropy (2.349), indicating a highly uncertain, flat distribution \u2014 confidence in any single bucket is low and this market should be approached with caution or avoided per the AVOID signal.",
+  "predicted_max": 96.0
 }
