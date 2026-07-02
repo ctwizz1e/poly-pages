@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T09:00:33",
+  "generated_at": "2026-07-02T11:45:22",
   "date": "2026-07-02",
   "market": "kalshi",
   "bucket_start": "odd",
@@ -9,23 +9,68 @@
       "horizon": "d1",
       "target_date": "2026-07-02",
       "obs_date": "2026-07-01",
-      "tmax_obs": 96.8,
-      "tmin_obs": 75.0,
-      "expected_temp": 75.5,
-      "fo_expected_temp": 75.6,
+      "tmax_obs": 98.6,
+      "tmin_obs": 75.2,
+      "expected_temp": 81.3,
+      "fo_expected_temp": 80.9,
       "buckets": [
         {
-          "label": ">=101F",
-          "lo": 101,
+          "label": ">=107F",
+          "lo": 107,
           "hi": null,
           "prob": 0.0216,
-          "fo_prob": 0.0867,
+          "fo_prob": 0.0233,
           "source_scores": {
-            "gfs": 0.0162,
-            "ecmwf": 0.0265,
+            "gfs": 0.0372,
+            "ecmwf": 0.0067,
             "hrrr": 0.0256,
             "nbm": 0.0728,
             "weather_com": 0.0,
+            "gem": null
+          }
+        },
+        {
+          "label": "105-106F",
+          "lo": 105,
+          "hi": 107,
+          "prob": 0.0881,
+          "fo_prob": 0.0867,
+          "source_scores": {
+            "gfs": 0.0606,
+            "ecmwf": 0.06,
+            "hrrr": 0.041,
+            "nbm": 0.2375,
+            "weather_com": 0.3333,
+            "gem": null
+          }
+        },
+        {
+          "label": "103-104F",
+          "lo": 103,
+          "hi": 105,
+          "prob": 0.0881,
+          "fo_prob": 0.0867,
+          "source_scores": {
+            "gfs": 0.0372,
+            "ecmwf": 0.0847,
+            "hrrr": 0.0491,
+            "nbm": 0.283,
+            "weather_com": 0.3333,
+            "gem": null
+          }
+        },
+        {
+          "label": "101-102F",
+          "lo": 101,
+          "hi": 103,
+          "prob": 0.0263,
+          "fo_prob": 0.0867,
+          "source_scores": {
+            "gfs": 0.0162,
+            "ecmwf": 0.0267,
+            "hrrr": 0.0256,
+            "nbm": 0.2375,
+            "weather_com": 0.3333,
             "gem": null
           }
         },
@@ -36,9 +81,9 @@
           "prob": 0.0881,
           "fo_prob": 0.0867,
           "source_scores": {
-            "gfs": 0.0372,
+            "gfs": 0.0606,
             "ecmwf": 0.0847,
-            "hrrr": 0.1053,
+            "hrrr": 0.087,
             "nbm": 0.283,
             "weather_com": 0.3333,
             "gem": null
@@ -67,7 +112,7 @@
           "fo_prob": 0.0233,
           "source_scores": {
             "gfs": 0.012,
-            "ecmwf": 0.0067,
+            "ecmwf": 0.0023,
             "hrrr": 0.0138,
             "nbm": 0.0045,
             "weather_com": 0.0,
@@ -81,9 +126,9 @@
           "prob": 0.0216,
           "fo_prob": 0.0271,
           "source_scores": {
-            "gfs": 0.0119,
-            "ecmwf": 0.0101,
-            "hrrr": 0.0256,
+            "gfs": 0.002,
+            "ecmwf": 0.0067,
+            "hrrr": 0.0138,
             "nbm": 0.0129,
             "weather_com": 0.0,
             "gem": null
@@ -97,7 +142,7 @@
           "fo_prob": 0.0271,
           "source_scores": {
             "gfs": 0.002,
-            "ecmwf": 0.0101,
+            "ecmwf": 0.0067,
             "hrrr": 0.0026,
             "nbm": 0.0129,
             "weather_com": 0.0,
@@ -127,7 +172,7 @@
           "fo_prob": 0.0271,
           "source_scores": {
             "gfs": 0.002,
-            "ecmwf": 0.0067,
+            "ecmwf": 0.0023,
             "hrrr": 0.0007,
             "nbm": 0.0045,
             "weather_com": 0.0,
@@ -156,7 +201,7 @@
           "prob": 0.0216,
           "fo_prob": 0.0233,
           "source_scores": {
-            "gfs": 0.002,
+            "gfs": 0.0,
             "ecmwf": 0.0023,
             "hrrr": 0.0007,
             "nbm": 0.0045,
@@ -294,7 +339,7 @@
             "gfs": 0.0,
             "ecmwf": 0.0,
             "hrrr": 0.0,
-            "nbm": 0.0045,
+            "nbm": 0.0,
             "weather_com": 0.0,
             "gem": null
           }
