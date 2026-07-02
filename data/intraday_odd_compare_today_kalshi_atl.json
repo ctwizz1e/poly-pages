@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-02T00:45:19",
+  "generated_at": "2026-07-02T01:00:18",
   "date": "2026-07-02",
   "market": "kalshi",
   "bucket_start": "odd",
   "intraday_available": true,
   "has_meta": true,
-  "time_label": "00:30",
+  "time_label": "00:50",
   "running_max": 80.6,
   "current_temp": 80.6,
   "velocity": 0.0,
@@ -14,24 +14,24 @@
   "acceleration": 0.0,
   "trend_slope": 0.0,
   "hour_of_max": 0.0,
-  "hours_since_max": 0.5,
+  "hours_since_max": 0.83,
   "precip_today": 0.0,
   "sky_cover_encoded": null,
   "cloud_fraction": null,
   "cloud_ceiling_m": null,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 5,
+  "obs_count": 9,
   "dewpoint": 73.4,
-  "wind_speed": 5.8,
-  "predicted_peak_hour": 14.44,
+  "wind_speed": 3.5,
+  "predicted_peak_hour": 14.46,
   "nwp_peak_hours": {
     "gfs": 16.0,
     "ecmwf": 16.0,
-    "hrrr": 17.0,
+    "hrrr": 18.0,
     "nbm": 16.0,
-    "mean": 16.2,
-    "spread": 0.4
+    "mean": 16.5,
+    "spread": 0.9
   },
   "d1_forecasts": {
     "gfs": 101.0,
@@ -46,7 +46,7 @@
       "hi": null,
       "intraday": 0.0,
       "d1_prior": 0.0046,
-      "d1_now": 0.0056,
+      "d1_now": 0.0053,
       "meta": 0.0
     },
     {
@@ -64,7 +64,7 @@
       "hi": 99,
       "intraday": 0.0,
       "d1_prior": 0.0509,
-      "d1_now": 0.1085,
+      "d1_now": 0.1106,
       "meta": 0.1667
     },
     {
@@ -100,7 +100,7 @@
       "hi": 91,
       "intraday": 0.15,
       "d1_prior": 0.0184,
-      "d1_now": 0.0235,
+      "d1_now": 0.0275,
       "meta": 0.1667
     },
     {
@@ -145,7 +145,7 @@
       "hi": 81,
       "intraday": 0.15,
       "d1_prior": 0.0079,
-      "d1_now": 0.0056,
+      "d1_now": 0.0063,
       "meta": 0.0
     },
     {
@@ -330,5 +330,16 @@
     }
   ],
   "has_d1_comparison": true,
-  "raw_obs": []
+  "raw_obs": [
+    {
+      "time": "00:52",
+      "temp": 80.6,
+      "dewpoint": 73.4,
+      "wind": 3.5,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    }
+  ]
 }
