@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T09:00:22",
+  "generated_at": "2026-07-02T11:43:56",
   "date": "2026-07-03",
   "market": "kalshi",
   "bucket_start": "even",
@@ -9,23 +9,68 @@
       "horizon": "d1",
       "target_date": "2026-07-03",
       "obs_date": "2026-07-02",
-      "tmax_obs": 84.2,
+      "tmax_obs": 87.8,
       "tmin_obs": 78.8,
-      "expected_temp": 85.2,
-      "fo_expected_temp": 90.8,
+      "expected_temp": 90.2,
+      "fo_expected_temp": 97.1,
       "buckets": [
         {
-          "label": ">=100F",
-          "lo": 100,
+          "label": ">=106F",
+          "lo": 106,
           "hi": null,
           "prob": 0.009,
           "fo_prob": 0.0046,
           "source_scores": {
             "gfs": 0.0005,
             "ecmwf": 0.0,
-            "hrrr": 0.0152,
+            "hrrr": 0.0,
             "nbm": 0.0859,
-            "weather_com": 0.0136,
+            "weather_com": 0.0016,
+            "gem": null
+          }
+        },
+        {
+          "label": "104-105F",
+          "lo": 104,
+          "hi": 106,
+          "prob": 0.009,
+          "fo_prob": 0.167,
+          "source_scores": {
+            "gfs": 0.0069,
+            "ecmwf": 0.0976,
+            "hrrr": 0.0227,
+            "nbm": 0.0426,
+            "weather_com": 0.0016,
+            "gem": null
+          }
+        },
+        {
+          "label": "102-103F",
+          "lo": 102,
+          "hi": 104,
+          "prob": 0.1331,
+          "fo_prob": 0.2675,
+          "source_scores": {
+            "gfs": 0.0254,
+            "ecmwf": 0.1084,
+            "hrrr": 0.1667,
+            "nbm": 0.1892,
+            "weather_com": 0.0268,
+            "gem": null
+          }
+        },
+        {
+          "label": "100-101F",
+          "lo": 100,
+          "hi": 102,
+          "prob": 0.1331,
+          "fo_prob": 0.268,
+          "source_scores": {
+            "gfs": 0.0254,
+            "ecmwf": 0.0976,
+            "hrrr": 0.1765,
+            "nbm": 0.1892,
+            "weather_com": 0.0299,
             "gem": null
           }
         },
@@ -55,7 +100,7 @@
             "ecmwf": 0.0976,
             "hrrr": 0.1667,
             "nbm": 0.2326,
-            "weather_com": 0.1515,
+            "weather_com": 0.129,
             "gem": null
           }
         },
