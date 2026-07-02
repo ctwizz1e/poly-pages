@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-07-02T16:24:27",
+  "generated_at": "2026-07-02T18:01:44",
   "date": "2026-07-02",
   "day_type": "today",
-  "error": "claude exited 1: You've hit your session limit \u00b7 resets 4:30pm (America/New_York)"
+  "overall": "Atlanta has reached a running max of 98.6\u00b0F as of 17:45 ET, with the peak recorded at 16:52 ET. Temperatures are now actively cooling at -3.6\u00b0F/hr over the past 30 minutes, with velocity at -1.8\u00b0F/hr and the current reading at 96.8\u00b0F. The day ran modestly above the NWS forecast high of 97\u00b0F but well below the upper-end NWP model projections.",
+  "forecast_obs_notes": "NWP models were meaningfully dispersed \u2014 GFS at 101.9\u00b0F and ECMWF at 99.2\u00b0F on the high end versus HRRR at 98.4\u00b0F and NBM at 96.8\u00b0F on the low end. The observed max of 98.6\u00b0F tracked almost exactly with HRRR, suggesting the cooler-side models captured today's evolution correctly. Skies remained partly cloudy (FEW/SCT, ~38% cloud fraction) through the afternoon, likely capping the peak below GFS expectations.",
+  "max_temp_prediction": "The give-up classifier fired at hour 16.33 with 97% confidence that 98.6\u00b0F is the daily peak, and ongoing cooling corroborates this \u2014 the window for a new high is effectively closed. The META and INTRADAY models both assign near-certainty (100% and 98.7%, respectively) to the 98-99\u00b0F bucket. The active even-bucket market ensemble flags 104-105\u00b0F as the nominal top bucket at only 6.9% (Tier 4, skip recommendation), which is strongly contradicted by observed conditions; the real outcome sits in the 98-99\u00b0F even bucket with very high confidence.",
+  "predicted_max": 98.6
 }

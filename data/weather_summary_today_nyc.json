@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-07-02T16:25:45",
+  "generated_at": "2026-07-02T18:01:44",
   "date": "2026-07-02",
   "day_type": "today",
-  "error": "claude exited 1: You've hit your session limit \u00b7 resets 4:30pm (America/New_York)"
+  "overall": "New York City hit a peak of 100.0\u00b0F at approximately 13:50 ET \u2014 roughly 3 hours ago \u2014 and has been cooling steadily since, now sitting at 96.1\u00b0F with a velocity of -2.0\u00b0F/hr. Skies remain clear and winds are light, consistent with the oppressive heat wave pattern, but the diurnal curve has clearly crested. The NWS forecast of 'high near 100\u00b0F' proved accurate, and no tropical or severe weather is impacting the city.",
+  "forecast_obs_notes": "The dynamical NWP models (GFS and ECMWF both at 104.4\u00b0F, HRRR at 102.6\u00b0F) significantly overshot the observed peak, with only NBM (100.4\u00b0F) landing close to reality. A key driver of the model overshoot is timing: NWP models predicted peak around 16:00\u201317:00 ET, but the actual maximum arrived ~2.5 hours earlier at 13:50 ET, limiting the amount of surface heating that could accumulate.",
+  "max_temp_prediction": "The daily TMAX is effectively locked in at 100.0\u00b0F. With temperatures cooling at ~2\u00b0F/hr for the past three hours and no mechanism (convective outflow, sea breeze, or second heating pulse) likely to recover to the prior peak before sunset, the running max of 100.0\u00b0F will stand as the final daily high. In the active odd-bucket market structure, 100\u00b0F falls squarely in the 99\u2013100\u00b0F bucket; confidence is very high (>95%) given the elapsed time past peak, the sustained cooling trend, and the alignment between the observed high and the NWS 'near 100\u00b0F' forecast.",
+  "predicted_max": 100.0
 }
