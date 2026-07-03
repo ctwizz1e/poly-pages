@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-03T04:00:43",
+  "generated_at": "2026-07-03T05:00:41",
   "date": "2026-07-03",
   "market": "kalshi",
   "bucket_start": "even",
@@ -11,8 +11,8 @@
       "obs_date": "2026-07-02",
       "tmax_obs": 102.2,
       "tmin_obs": 80.1,
-      "expected_temp": 94.3,
-      "fo_expected_temp": 98.3,
+      "expected_temp": 94.8,
+      "fo_expected_temp": 98.1,
       "buckets": [
         {
           "label": ">=106F",
@@ -34,7 +34,7 @@
           "lo": 104,
           "hi": 106,
           "prob": 0.037,
-          "fo_prob": 0.1243,
+          "fo_prob": 0.1114,
           "source_scores": {
             "gfs": 0.0566,
             "ecmwf": 0.0447,
@@ -48,12 +48,12 @@
           "label": "102-103F",
           "lo": 102,
           "hi": 104,
-          "prob": 0.0914,
-          "fo_prob": 0.1516,
+          "prob": 0.094,
+          "fo_prob": 0.1363,
           "source_scores": {
             "gfs": 0.0566,
-            "ecmwf": 0.0447,
-            "hrrr": 0.0308,
+            "ecmwf": 0.069,
+            "hrrr": 0.0396,
             "nbm": 0.0519,
             "weather_com": 0.0952,
             "gem": 0.0
@@ -63,15 +63,15 @@
           "label": "100-101F",
           "lo": 100,
           "hi": 102,
-          "prob": 0.0697,
+          "prob": 0.092,
           "fo_prob": 0.1575,
           "source_scores": {
-            "gfs": 0.0577,
+            "gfs": 0.0685,
             "ecmwf": 0.0447,
-            "hrrr": 0.0084,
+            "hrrr": 0.0308,
             "nbm": 0.0519,
             "weather_com": 0.0952,
-            "gem": 0.0063
+            "gem": 0.0199
           }
         },
         {
@@ -94,7 +94,7 @@
           "lo": 96,
           "hi": 98,
           "prob": 0.0223,
-          "fo_prob": 0.0187,
+          "fo_prob": 0.0166,
           "source_scores": {
             "gfs": 0.0577,
             "ecmwf": 0.0081,
