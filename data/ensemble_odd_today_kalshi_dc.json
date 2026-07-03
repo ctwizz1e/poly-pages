@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-03T16:00:48",
+  "generated_at": "2026-07-03T17:00:43",
   "date": "2026-07-03",
   "market": "kalshi",
   "bucket_start": "odd",
@@ -11,18 +11,18 @@
       "obs_date": "2026-07-02",
       "tmax_obs": 102.2,
       "tmin_obs": 80.1,
-      "expected_temp": 85.4,
+      "expected_temp": 89.1,
       "fo_expected_temp": 101.2,
       "buckets": [
         {
           "label": ">=107F",
           "lo": 107,
           "hi": null,
-          "prob": 0.005,
-          "fo_prob": 0.0011,
+          "prob": 0.0049,
+          "fo_prob": 0.0012,
           "source_scores": {
             "gfs": 0.0381,
-            "ecmwf": 0.0284,
+            "ecmwf": 0.0602,
             "hrrr": 0.0205,
             "nbm": 0.0307,
             "weather_com": 0.0012,
@@ -63,30 +63,30 @@
           "label": "101-102F",
           "lo": 101,
           "hi": 103,
-          "prob": 0.0137,
-          "fo_prob": 0.1664,
+          "prob": 0.017,
+          "fo_prob": 0.1596,
           "source_scores": {
-            "gfs": 0.0298,
-            "ecmwf": 0.0284,
+            "gfs": 0.0214,
+            "ecmwf": 0.0602,
             "hrrr": 0.0909,
             "nbm": 0.0489,
             "weather_com": 0.0981,
-            "gem": 0.0047
+            "gem": 0.0374
           }
         },
         {
           "label": "99-100F",
           "lo": 99,
           "hi": 101,
-          "prob": 0.0194,
-          "fo_prob": 0.3361,
+          "prob": 0.0769,
+          "fo_prob": 0.3216,
           "source_scores": {
-            "gfs": 0.0048,
+            "gfs": 0.0298,
             "ecmwf": 0.0284,
-            "hrrr": 0.0404,
+            "hrrr": 0.1708,
             "nbm": 0.0489,
             "weather_com": 0.0981,
-            "gem": 0.0556
+            "gem": 0.0796
           }
         },
         {
@@ -109,7 +109,7 @@
           "lo": 95,
           "hi": 97,
           "prob": 0.0039,
-          "fo_prob": 0.0706,
+          "fo_prob": 0.0722,
           "source_scores": {
             "gfs": 0.0048,
             "ecmwf": 0.0094,
