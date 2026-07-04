@@ -1,146 +1,48 @@
 {
-  "generated_at": "2026-07-03T23:50:23",
-  "date": "2026-07-03",
+  "generated_at": "2026-07-04T00:00:19",
+  "date": "2026-07-04",
   "market": "kalshi",
   "even": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "98-99F",
-      "lo": 98,
-      "hi": 100,
-      "prob": 0.2205
+      "label": "92-93F",
+      "lo": 92,
+      "hi": 94,
+      "prob": 0.1236
     },
     "daily_signals": {
-      "max_prob": 0.2205,
-      "gap": 0.0169,
-      "entropy": 1.8551
+      "max_prob": 0.1236,
+      "gap": 0.0665,
+      "entropy": 2.4575
     },
-    "hours": [
-      {
-        "hour": 7,
-        "time_label": "07:00",
-        "top_bucket": "98-99F",
-        "top_lo": 98,
-        "top_hi": 100,
-        "top_prob": 0.2609,
-        "matches_daily": false,
-        "meta_top_bucket": "94-95F",
-        "meta_top_lo": 94,
-        "meta_top_prob": 0.3215
-      },
-      {
-        "hour": 9,
-        "time_label": "09:00",
-        "top_bucket": "98-99F",
-        "top_lo": 98,
-        "top_hi": 100,
-        "top_prob": 0.2063,
-        "matches_daily": false,
-        "meta_top_bucket": "102-103F",
-        "meta_top_lo": 102,
-        "meta_top_prob": 0.2384
-      },
-      {
-        "hour": 11,
-        "time_label": "11:00",
-        "top_bucket": "98-99F",
-        "top_lo": 98,
-        "top_hi": 100,
-        "top_prob": 0.2637,
-        "matches_daily": true,
-        "meta_top_bucket": "98-99F",
-        "meta_top_lo": 98,
-        "meta_top_prob": 0.2084
-      },
-      {
-        "hour": 13,
-        "time_label": "13:00",
-        "top_bucket": "96-97F",
-        "top_lo": 96,
-        "top_hi": 98,
-        "top_prob": 0.2093,
-        "matches_daily": false,
-        "meta_top_bucket": "98-99F",
-        "meta_top_lo": 98,
-        "meta_top_prob": 0.371
-      }
-    ],
+    "hours": [],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 4,
-    "hours_disagree": 3,
+    "hours_available": 0,
+    "hours_disagree": 0,
     "consensus_bucket": null
   },
   "odd": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "97-98F",
-      "lo": 97,
-      "hi": 99,
-      "prob": 0.1795
+      "label": "91-92F",
+      "lo": 91,
+      "hi": 93,
+      "prob": 0.1486
     },
     "daily_signals": {
-      "max_prob": 0.1795,
-      "gap": 0.0069,
-      "entropy": 2.0998
+      "max_prob": 0.1486,
+      "gap": 0.066,
+      "entropy": 2.0881
     },
-    "hours": [
-      {
-        "hour": 7,
-        "time_label": "07:00",
-        "top_bucket": "97-98F",
-        "top_lo": 97,
-        "top_hi": 99,
-        "top_prob": 0.2,
-        "matches_daily": true,
-        "meta_top_bucket": "97-98F",
-        "meta_top_lo": 97,
-        "meta_top_prob": 0.4168
-      },
-      {
-        "hour": 9,
-        "time_label": "09:00",
-        "top_bucket": "97-98F",
-        "top_lo": 97,
-        "top_hi": 99,
-        "top_prob": 0.1778,
-        "matches_daily": true,
-        "meta_top_bucket": "97-98F",
-        "meta_top_lo": 97,
-        "meta_top_prob": 0.3946
-      },
-      {
-        "hour": 11,
-        "time_label": "11:00",
-        "top_bucket": "97-98F",
-        "top_lo": 97,
-        "top_hi": 99,
-        "top_prob": 0.3548,
-        "matches_daily": false,
-        "meta_top_bucket": "95-96F",
-        "meta_top_lo": 95,
-        "meta_top_prob": 0.5663
-      },
-      {
-        "hour": 13,
-        "time_label": "13:00",
-        "top_bucket": "97-98F",
-        "top_lo": 97,
-        "top_hi": 99,
-        "top_prob": 0.3433,
-        "matches_daily": false,
-        "meta_top_bucket": "101-102F",
-        "meta_top_lo": 101,
-        "meta_top_prob": 0.3389
-      }
-    ],
+    "hours": [],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 4,
-    "hours_disagree": 2,
-    "consensus_bucket": "97-98F"
+    "hours_available": 0,
+    "hours_disagree": 0,
+    "consensus_bucket": null
   },
   "give_up": {
     "status": "no_model"
