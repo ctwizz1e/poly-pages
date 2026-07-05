@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-05T01:10:27",
+  "generated_at": "2026-07-05T01:20:31",
   "date": "2026-07-05",
   "market": "kalshi",
   "bucket_start": "odd",
   "intraday_available": true,
   "has_meta": true,
-  "time_label": "00:55",
+  "time_label": "01:00",
   "running_max": 66.2,
   "current_temp": 66.2,
   "velocity": 0.0,
   "velocity_30m": 0.0,
   "velocity_2h": 0.0,
   "acceleration": 0.0,
-  "trend_slope": -0.0,
+  "trend_slope": -0.052,
   "hour_of_max": 0.0,
-  "hours_since_max": 0.92,
+  "hours_since_max": 1.0,
   "precip_today": 0.0,
   "sky_cover_encoded": null,
   "cloud_fraction": null,
   "cloud_ceiling_m": null,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 10,
+  "obs_count": 12,
   "dewpoint": 60.8,
   "wind_speed": 12.7,
   "predicted_peak_hour": 14.36,
@@ -191,7 +191,7 @@
       "intraday": 0.381,
       "d1_prior": 0.1303,
       "d1_now": 0.2538,
-      "meta": 0.007
+      "meta": 0.0085
     },
     {
       "label": "73-74F",
@@ -200,7 +200,7 @@
       "intraday": 0.381,
       "d1_prior": 0.3442,
       "d1_now": 0.3393,
-      "meta": 0.6253
+      "meta": 0.7629
     },
     {
       "label": "71-72F",
@@ -209,13 +209,13 @@
       "intraday": 0.1607,
       "d1_prior": 0.3182,
       "d1_now": 0.3287,
-      "meta": 0.3607
+      "meta": 0.2201
     },
     {
       "label": "69-70F",
       "lo": 69,
       "hi": 71,
-      "intraday": 0.1053,
+      "intraday": 0.0561,
       "d1_prior": 0.0724,
       "d1_now": 0.195,
       "meta": 0.0
@@ -227,7 +227,7 @@
       "intraday": 0.0056,
       "d1_prior": 0.0093,
       "d1_now": 0.0108,
-      "meta": 0.007
+      "meta": 0.0085
     },
     {
       "label": "65-66F",
@@ -358,6 +358,16 @@
   ],
   "has_d1_comparison": true,
   "raw_obs": [
+    {
+      "time": "00:52",
+      "temp": 66.0,
+      "dewpoint": 61.0,
+      "wind": 13.9,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
     {
       "time": "00:52",
       "temp": 66.2,
