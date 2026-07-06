@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-07-06T00:50:28",
+  "generated_at": "2026-07-06T01:01:08",
   "date": "2026-07-06",
   "market": "kalshi",
   "bucket_start": "even",
   "intraday_available": true,
   "has_meta": true,
-  "time_label": "00:25",
+  "time_label": "00:50",
   "running_max": 75.2,
-  "current_temp": 75.2,
+  "current_temp": 73.4,
   "velocity": 0.0,
-  "velocity_30m": 0.0,
+  "velocity_30m": -3.6,
   "velocity_2h": 0.0,
-  "acceleration": 0.0,
-  "trend_slope": 6.48,
+  "acceleration": -3.6,
+  "trend_slope": -1.019,
   "hour_of_max": 0.25,
-  "hours_since_max": 0.17,
+  "hours_since_max": 0.58,
   "precip_today": 0.0,
   "sky_cover_encoded": null,
   "cloud_fraction": null,
   "cloud_ceiling_m": null,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 5,
-  "dewpoint": 71.6,
-  "wind_speed": 3.5,
+  "obs_count": 8,
+  "dewpoint": 69.8,
+  "wind_speed": 10.4,
   "predicted_peak_hour": 14.36,
   "nwp_peak_hours": {
     "gfs": 15.0,
@@ -98,7 +98,7 @@
       "label": "94-95F",
       "lo": 94,
       "hi": 96,
-      "intraday": 0.0973,
+      "intraday": 0.0794,
       "d1_prior": 0.0039,
       "d1_now": 0.005,
       "meta": 0.0076
@@ -107,7 +107,7 @@
       "label": "92-93F",
       "lo": 92,
       "hi": 94,
-      "intraday": 0.4544,
+      "intraday": 0.4,
       "d1_prior": 0.1709,
       "d1_now": 0.1288,
       "meta": 0.188
@@ -134,7 +134,7 @@
       "label": "86-87F",
       "lo": 86,
       "hi": 88,
-      "intraday": 0.0,
+      "intraday": 0.0119,
       "d1_prior": 0.0116,
       "d1_now": 0.0276,
       "meta": 0.0076
@@ -161,7 +161,7 @@
       "label": "80-81F",
       "lo": 80,
       "hi": 82,
-      "intraday": 0.0119,
+      "intraday": 0.0,
       "d1_prior": 0.0031,
       "d1_now": 0.0022,
       "meta": 0.0
@@ -357,5 +357,16 @@
     }
   ],
   "has_d1_comparison": true,
-  "raw_obs": []
+  "raw_obs": [
+    {
+      "time": "00:52",
+      "temp": 73.4,
+      "dewpoint": 69.8,
+      "wind": 10.4,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    }
+  ]
 }
