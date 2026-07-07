@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-07-07T18:04:08",
+  "generated_at": "2026-07-07T18:22:46",
   "date": "2026-07-07",
   "day_type": "today",
-  "error": "claude timed out"
+  "overall": "Atlanta has seen temperatures peak at 91.9\u00b0F around 15:52 ET, with the running max flat for the past two hours and a slight cooling trend underway (2h velocity: -0.3\u00b0F/hr). The day has trended notably cooler than warmer NWP guidance (GFS: 96.7\u00b0F) but is closely aligned with the cooler HRRR (91.5\u00b0F) and NBM (91.4\u00b0F) models. Isolated storm activity is present to the south (Valdosta/SW Georgia) but has not impacted Atlanta temperatures.",
+  "forecast_obs_notes": "There is significant NWP model disagreement spanning more than 5\u00b0F: GFS at 96.7\u00b0F is a major warm outlier, while ECMWF (92.8\u00b0F), HRRR (91.5\u00b0F), and NBM (91.4\u00b0F) cluster near observed values. Actual observations strongly validate the cooler HRRR/NBM solutions, with the running max of 91.9\u00b0F already exceeding or matching HRRR and NBM predictions, making the GFS warm bias appear unrepresentative today.",
+  "max_temp_prediction": "The give-up classifier fired at hour 16.33 ET with 98% confidence, suggesting 91.9\u00b0F is the day's peak \u2014 a conclusion supported by flat/declining velocity over the past two hours and the hour-of-max already 2+ hours in the past. The intraday model places 96% probability in the 92\u201393\u00b0F even bucket, and for the active ODD bucket market, the top bucket of 93\u201394\u00b0F (35% probability) appears unlikely given observed conditions; the true max is more consistent with a sub-93\u00b0F outcome. Confidence is high that today's TMAX lands near 92.0\u00b0F, with minimal upside risk unless an unexpected convective spike occurs before sunset.",
+  "predicted_max": 92.0
 }
