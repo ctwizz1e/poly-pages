@@ -1,26 +1,39 @@
 {
-  "generated_at": "2026-07-07T07:10:24",
+  "generated_at": "2026-07-07T07:20:23",
   "date": "2026-07-07",
   "market": "kalshi",
   "even": {
     "daily_tier": 4,
     "daily_top": {
-      "label": "66-67F",
-      "lo": 66,
-      "hi": 68,
-      "prob": 0.2142
+      "label": "60-61F",
+      "lo": 60,
+      "hi": 62,
+      "prob": 0.2273
     },
     "daily_signals": {
-      "max_prob": 0.2142,
-      "gap": 0.0476,
-      "entropy": 2.3513
+      "max_prob": 0.2273,
+      "gap": 0.0039,
+      "entropy": 2.2245
     },
-    "hours": [],
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "72-73F",
+        "top_lo": 72,
+        "top_hi": 74,
+        "top_prob": 0.0972,
+        "matches_daily": false,
+        "meta_top_bucket": "70-71F",
+        "meta_top_lo": 70,
+        "meta_top_prob": 0.2745
+      }
+    ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 0,
-    "hours_disagree": 0,
+    "hours_available": 1,
+    "hours_disagree": 1,
     "consensus_bucket": null
   },
   "odd": {
@@ -29,19 +42,32 @@
       "label": "69-70F",
       "lo": 69,
       "hi": 71,
-      "prob": 0.212
+      "prob": 0.21
     },
     "daily_signals": {
-      "max_prob": 0.212,
-      "gap": 0.018,
-      "entropy": 2.1311
+      "max_prob": 0.21,
+      "gap": 0.0294,
+      "entropy": 2.0205
     },
-    "hours": [],
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "73-74F",
+        "top_lo": 73,
+        "top_hi": 75,
+        "top_prob": 0.1232,
+        "matches_daily": false,
+        "meta_top_bucket": "71-72F",
+        "meta_top_lo": 71,
+        "meta_top_prob": 0.2832
+      }
+    ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 0,
-    "hours_disagree": 0,
+    "hours_available": 1,
+    "hours_disagree": 1,
     "consensus_bucket": null
   },
   "give_up": {
