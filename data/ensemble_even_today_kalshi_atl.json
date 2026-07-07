@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07T18:00:29",
+  "generated_at": "2026-07-07T18:08:17",
   "date": "2026-07-07",
   "market": "kalshi",
   "bucket_start": "even",
@@ -11,8 +11,8 @@
       "obs_date": "2026-07-06",
       "tmax_obs": 91.4,
       "tmin_obs": 73.0,
-      "expected_temp": 95.1,
-      "fo_expected_temp": 91.2,
+      "expected_temp": 95.0,
+      "fo_expected_temp": 91.1,
       "buckets": [
         {
           "label": ">=106F",
@@ -93,14 +93,14 @@
           "label": "96-97F",
           "lo": 96,
           "hi": 98,
-          "prob": 0.2417,
-          "fo_prob": 0.0288,
+          "prob": 0.2404,
+          "fo_prob": 0.0059,
           "source_scores": {
             "gfs": 0.0628,
             "ecmwf": 0.12,
-            "hrrr": 0.0189,
+            "hrrr": 0.0027,
             "nbm": 0.125,
-            "weather_com": 0.0265,
+            "weather_com": 0.0214,
             "gem": 0.0231
           }
         },
@@ -108,14 +108,14 @@
           "label": "94-95F",
           "lo": 94,
           "hi": 96,
-          "prob": 0.2417,
+          "prob": 0.2404,
           "fo_prob": 0.2801,
           "source_scores": {
             "gfs": 0.0435,
             "ecmwf": 0.12,
             "hrrr": 0.0656,
             "nbm": 0.125,
-            "weather_com": 0.0595,
+            "weather_com": 0.046,
             "gem": 0.0337
           }
         },
@@ -123,15 +123,15 @@
           "label": "92-93F",
           "lo": 92,
           "hi": 94,
-          "prob": 0.0202,
+          "prob": 0.0334,
           "fo_prob": 0.3669,
           "source_scores": {
-            "gfs": 0.0121,
+            "gfs": 0.0628,
             "ecmwf": 0.0,
-            "hrrr": 0.1109,
-            "nbm": 0.1429,
-            "weather_com": 0.1983,
-            "gem": 0.1045
+            "hrrr": 0.3143,
+            "nbm": 0.3889,
+            "weather_com": 0.2727,
+            "gem": 0.2261
           }
         },
         {
@@ -143,7 +143,7 @@
           "source_scores": {
             "gfs": 0.0628,
             "ecmwf": 0.0,
-            "hrrr": 0.0656,
+            "hrrr": 0.1,
             "nbm": 0.125,
             "weather_com": 0.1322,
             "gem": 0.2955
