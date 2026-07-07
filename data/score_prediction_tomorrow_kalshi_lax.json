@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-07T13:00:41",
+  "generated_at": "2026-07-07T14:00:41",
   "date": "2026-07-08",
   "market": "kalshi",
   "even": {
-    "tier": 1,
-    "expected_accuracy": 0.55,
-    "reason": "High confidence + large gap",
+    "tier": 2,
+    "expected_accuracy": 0.52,
+    "reason": "Good confidence",
     "signals": {
       "max_prob": 0.4528,
-      "gap": 0.1544,
-      "entropy": 1.5272
+      "gap": 0.0096,
+      "entropy": 1.5149
     },
     "top1": {
       "label": "72-73F",
@@ -21,7 +21,7 @@
       "label": "74-75F",
       "lo": 74,
       "hi": 76,
-      "prob": 0.2983
+      "prob": 0.4431
     }
   },
   "odd": {
@@ -29,21 +29,21 @@
     "expected_accuracy": 0.52,
     "reason": "Good confidence",
     "signals": {
-      "max_prob": 0.3914,
-      "gap": 0.003,
-      "entropy": 1.6633
+      "max_prob": 0.3883,
+      "gap": 0.0112,
+      "entropy": 1.6815
     },
     "top1": {
-      "label": "73-74F",
-      "lo": 73,
-      "hi": 75,
-      "prob": 0.3914
-    },
-    "top2": {
       "label": "75-76F",
       "lo": 75,
       "hi": 77,
       "prob": 0.3883
+    },
+    "top2": {
+      "label": "71-72F",
+      "lo": 71,
+      "hi": 73,
+      "prob": 0.3771
     }
   }
 }
