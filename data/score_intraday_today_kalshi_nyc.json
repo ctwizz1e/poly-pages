@@ -1,145 +1,47 @@
 {
-  "generated_at": "2026-07-06T23:50:32",
-  "date": "2026-07-06",
+  "generated_at": "2026-07-07T00:00:40",
+  "date": "2026-07-07",
   "market": "kalshi",
   "even": {
-    "daily_tier": 2,
+    "daily_tier": 4,
     "daily_top": {
-      "label": "74-75F",
-      "lo": 74,
-      "hi": 76,
-      "prob": 0.262
+      "label": "56-57F",
+      "lo": 56,
+      "hi": 58,
+      "prob": 0.2383
     },
     "daily_signals": {
-      "max_prob": 0.262,
-      "gap": 0.0169,
-      "entropy": 2.1098
+      "max_prob": 0.2383,
+      "gap": 0.0374,
+      "entropy": 2.351
     },
-    "hours": [
-      {
-        "hour": 7,
-        "time_label": "07:00",
-        "top_bucket": "78-79F",
-        "top_lo": 78,
-        "top_hi": 80,
-        "top_prob": 0.25,
-        "matches_daily": true,
-        "meta_top_bucket": "74-75F",
-        "meta_top_lo": 74,
-        "meta_top_prob": 0.2917
-      },
-      {
-        "hour": 9,
-        "time_label": "09:00",
-        "top_bucket": "78-79F",
-        "top_lo": 78,
-        "top_hi": 80,
-        "top_prob": 0.1236,
-        "matches_daily": false,
-        "meta_top_bucket": "72-73F",
-        "meta_top_lo": 72,
-        "meta_top_prob": 0.3253
-      },
-      {
-        "hour": 11,
-        "time_label": "11:00",
-        "top_bucket": "78-79F",
-        "top_lo": 78,
-        "top_hi": 80,
-        "top_prob": 0.1546,
-        "matches_daily": true,
-        "meta_top_bucket": "74-75F",
-        "meta_top_lo": 74,
-        "meta_top_prob": 0.3627
-      },
-      {
-        "hour": 13,
-        "time_label": "13:00",
-        "top_bucket": "70-71F",
-        "top_lo": 70,
-        "top_hi": 72,
-        "top_prob": 0.2727,
-        "matches_daily": false,
-        "meta_top_bucket": "72-73F",
-        "meta_top_lo": 72,
-        "meta_top_prob": 0.499
-      }
-    ],
-    "abort_signal": "none",
+    "hours": [],
+    "abort_signal": "no_trade",
     "abort_precision": null,
-    "recommendation": "hold",
-    "hours_available": 4,
-    "hours_disagree": 2,
+    "recommendation": "skip",
+    "hours_available": 0,
+    "hours_disagree": 0,
     "consensus_bucket": null
   },
   "odd": {
-    "daily_tier": 2,
+    "daily_tier": 1,
     "daily_top": {
-      "label": "75-76F",
-      "lo": 75,
-      "hi": 77,
-      "prob": 0.2518
+      "label": "69-70F",
+      "lo": 69,
+      "hi": 71,
+      "prob": 0.2878
     },
     "daily_signals": {
-      "max_prob": 0.2518,
-      "gap": 0.035,
-      "entropy": 1.9448
+      "max_prob": 0.2878,
+      "gap": 0.0914,
+      "entropy": 2.0397
     },
-    "hours": [
-      {
-        "hour": 7,
-        "time_label": "07:00",
-        "top_bucket": "75-76F",
-        "top_lo": 75,
-        "top_hi": 77,
-        "top_prob": 0.1509,
-        "matches_daily": true,
-        "meta_top_bucket": "75-76F",
-        "meta_top_lo": 75,
-        "meta_top_prob": 0.3492
-      },
-      {
-        "hour": 9,
-        "time_label": "09:00",
-        "top_bucket": "75-76F",
-        "top_lo": 75,
-        "top_hi": 77,
-        "top_prob": 0.1681,
-        "matches_daily": true,
-        "meta_top_bucket": "75-76F",
-        "meta_top_lo": 75,
-        "meta_top_prob": 0.3404
-      },
-      {
-        "hour": 11,
-        "time_label": "11:00",
-        "top_bucket": "77-78F",
-        "top_lo": 77,
-        "top_hi": 79,
-        "top_prob": 0.0983,
-        "matches_daily": true,
-        "meta_top_bucket": "75-76F",
-        "meta_top_lo": 75,
-        "meta_top_prob": 0.2782
-      },
-      {
-        "hour": 13,
-        "time_label": "13:00",
-        "top_bucket": "71-72F",
-        "top_lo": 71,
-        "top_hi": 73,
-        "top_prob": 0.5625,
-        "matches_daily": false,
-        "meta_top_bucket": "71-72F",
-        "meta_top_lo": 71,
-        "meta_top_prob": 0.4053
-      }
-    ],
+    "hours": [],
     "abort_signal": "none",
     "abort_precision": null,
     "recommendation": "hold",
-    "hours_available": 4,
-    "hours_disagree": 1,
+    "hours_available": 0,
+    "hours_disagree": 0,
     "consensus_bucket": null
   },
   "give_up": {
