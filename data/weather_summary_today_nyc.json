@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-07-08T12:04:26",
+  "generated_at": "2026-07-08T16:20:16",
   "date": "2026-07-08",
   "day_type": "today",
-  "error": "claude timed out"
+  "overall": "New York City peaked at 84.9\u00b0F at 13:52 ET \u2014 already 2\u00b0F above the NWS afternoon high forecast of 83\u00b0F \u2014 and has since cooled to 82.9\u00b0F by 15:52 ET. The 2-hour velocity of -1.0\u00b0F/hr confirms the afternoon cooling trend is underway, though a minor 30-minute uptick of +0.9\u00b0F/hr suggests a slight wobble rather than a second peak. Conditions are sunny with light westerly winds, consistent with a clean post-peak diurnal cooling pattern.",
+  "forecast_obs_notes": "Models are widely split: GFS (89.4\u00b0F) and HRRR (87.1\u00b0F) ran far too hot relative to observations, while ECMWF (83.9\u00b0F) and NBM (82.9\u00b0F) were closer to the NWS narrative but still slightly missed the actual observed peak of 84.9\u00b0F. Critically, the D1_NOW model's top even bucket of 82-83\u00b0F is already physically impossible \u2014 the running max has locked in at 84.9\u00b0F, making the INTRADAY model's 84-85\u00b0F signal (83.9% probability) the operationally relevant distribution.",
+  "max_temp_prediction": "The daily high is almost certainly already set at 84.9\u00b0F, recorded at 13:52 ET. With temperatures cooling for 2 hours, peak timing models already satisfied (predicted 14.5h, actual ~14.0h), and no convective or dynamic forcing expected until Thursday, a meaningful second-peak exceedance above 85\u00b0F is very unlikely. For the active even-bucket Kalshi market, the 84-85\u00b0F bucket is the clear target \u2014 the top D1_NOW bucket of 82-83\u00b0F is invalidated by real-time observations, and confidence in the 84-85\u00b0F outcome is high.",
+  "predicted_max": 84.9
 }
