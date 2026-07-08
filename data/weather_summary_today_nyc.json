@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-07-08T00:01:14",
+  "generated_at": "2026-07-08T02:01:16",
   "date": "2026-07-08",
   "day_type": "today",
-  "error": "claude exited 1: API Error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()"
+  "overall": "No current observations are available for July 8, 2026 in New York City, making intraday tracking impossible at this time. The NWS official forecast calls for a high near 80\u00b0F under mostly sunny skies with light east winds, suggesting a relatively benign summer day without tropical or severe weather influences. No NWS alerts are in effect.",
+  "forecast_obs_notes": "There is notable spread among NWP models: HRRR (81.1\u00b0F) and ECMWF (82.3\u00b0F) cluster in the low 80s and align reasonably with the NWS narrative of ~80\u00b0F, while NBM (83.1\u00b0F) sits slightly higher. GFS (88.7\u00b0F) is a significant outlier on the warm side and should be treated with skepticism given the disagreement with higher-resolution and often more skillful models like HRRR and ECMWF at this range.",
+  "max_temp_prediction": "The weight of evidence \u2014 NWS official forecast (~80\u00b0F), HRRR (81.1\u00b0F), ECMWF (82.3\u00b0F), and NBM (83.1\u00b0F) \u2014 points to a daily high in the low-to-mid 80s, most likely around 82\u00b0F. The displayed bucket distribution covers only the lower tail (up to 83\u00b0F), with all shown buckets having low individual probabilities, indicating the bulk of the probability mass sits in higher temperature buckets above 83\u00b0F not shown here. For the active even-bucket Kalshi market, the ensemble signals are Tier 4 (Avoid) with a no_trade abort signal across both bucket sets; no confident bucket trade is warranted given the model spread and lack of observations.",
+  "predicted_max": 82.0
 }
