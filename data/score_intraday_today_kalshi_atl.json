@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-07-08T17:50:31",
+  "generated_at": "2026-07-08T18:00:46",
   "date": "2026-07-08",
   "market": "kalshi",
   "even": {
-    "daily_tier": 4,
+    "daily_tier": 1,
     "daily_top": {
       "label": "92-93F",
       "lo": 92,
       "hi": 94,
-      "prob": 0.0794
+      "prob": 0.3865
     },
     "daily_signals": {
-      "max_prob": 0.0794,
-      "gap": 0.0062,
-      "entropy": 2.1335
+      "max_prob": 0.3865,
+      "gap": 0.2839,
+      "entropy": 1.4697
     },
     "hours": [
       {
@@ -65,9 +65,9 @@
         "meta_top_prob": 0.3965
       }
     ],
-    "abort_signal": "no_trade",
-    "abort_precision": null,
-    "recommendation": "skip",
+    "abort_signal": "4hr",
+    "abort_precision": 0.835,
+    "recommendation": "exit_if_above_17pct",
     "hours_available": 4,
     "hours_disagree": 4,
     "consensus_bucket": null
@@ -82,8 +82,8 @@
     },
     "daily_signals": {
       "max_prob": 0.4287,
-      "gap": 0.0665,
-      "entropy": 1.258
+      "gap": 0.0758,
+      "entropy": 1.2598
     },
     "hours": [
       {
@@ -145,21 +145,21 @@
   "give_up": {
     "status": "fired",
     "threshold": 0.86,
-    "fire_hour": 14.87,
-    "fire_prob": 0.896,
+    "fire_hour": 15.42,
+    "fire_prob": 0.937,
     "fire_running_max": 93.0,
-    "current_hour": 17.67,
-    "current_prob": 0.998,
+    "current_hour": 17.83,
+    "current_prob": 0.997,
     "current_running_max": 93.2,
     "snapshots": [
       {
         "hour": 10.0,
-        "prob": 0.001,
+        "prob": 0.0,
         "running_max": 82.9
       },
       {
         "hour": 10.08,
-        "prob": 0.001,
+        "prob": 0.0,
         "running_max": 82.9
       },
       {
@@ -199,7 +199,7 @@
       },
       {
         "hour": 10.87,
-        "prob": 0.001,
+        "prob": 0.0,
         "running_max": 84.9
       },
       {
@@ -244,132 +244,142 @@
       },
       {
         "hour": 12.42,
-        "prob": 0.004,
+        "prob": 0.003,
         "running_max": 89.6
       },
       {
         "hour": 12.87,
-        "prob": 0.006,
-        "running_max": 89.6
-      },
-      {
-        "hour": 13.42,
         "prob": 0.005,
         "running_max": 89.6
       },
       {
+        "hour": 13.42,
+        "prob": 0.003,
+        "running_max": 89.6
+      },
+      {
         "hour": 14.87,
-        "prob": 0.896,
+        "prob": 0.799,
         "running_max": 93.0
       },
       {
         "hour": 15.42,
-        "prob": 0.971,
+        "prob": 0.937,
         "running_max": 93.0
       },
       {
         "hour": 15.83,
-        "prob": 0.982,
+        "prob": 0.957,
         "running_max": 93.0
       },
       {
         "hour": 15.87,
-        "prob": 0.978,
+        "prob": 0.948,
         "running_max": 93.0
       },
       {
         "hour": 16.25,
-        "prob": 0.942,
+        "prob": 0.908,
         "running_max": 93.2
       },
       {
         "hour": 16.33,
-        "prob": 0.991,
+        "prob": 0.982,
         "running_max": 93.2
       },
       {
         "hour": 16.42,
-        "prob": 0.922,
+        "prob": 0.872,
         "running_max": 93.2
       },
       {
         "hour": 16.5,
-        "prob": 0.926,
+        "prob": 0.878,
         "running_max": 93.2
       },
       {
         "hour": 16.58,
-        "prob": 0.991,
+        "prob": 0.982,
         "running_max": 93.2
       },
       {
         "hour": 16.67,
-        "prob": 0.991,
+        "prob": 0.981,
         "running_max": 93.2
       },
       {
         "hour": 16.75,
-        "prob": 0.991,
+        "prob": 0.981,
         "running_max": 93.2
       },
       {
         "hour": 16.83,
-        "prob": 0.991,
+        "prob": 0.982,
         "running_max": 93.2
       },
       {
         "hour": 16.87,
-        "prob": 0.991,
+        "prob": 0.982,
         "running_max": 93.2
       },
       {
         "hour": 16.92,
-        "prob": 0.992,
+        "prob": 0.984,
         "running_max": 93.2
       },
       {
         "hour": 17.0,
-        "prob": 0.951,
+        "prob": 0.92,
         "running_max": 93.2
       },
       {
         "hour": 17.08,
-        "prob": 0.994,
+        "prob": 0.988,
         "running_max": 93.2
       },
       {
         "hour": 17.17,
-        "prob": 0.995,
+        "prob": 0.99,
         "running_max": 93.2
       },
       {
         "hour": 17.25,
-        "prob": 0.996,
+        "prob": 0.992,
         "running_max": 93.2
       },
       {
         "hour": 17.33,
-        "prob": 0.997,
+        "prob": 0.993,
         "running_max": 93.2
       },
       {
         "hour": 17.42,
-        "prob": 0.998,
+        "prob": 0.995,
         "running_max": 93.2
       },
       {
         "hour": 17.5,
-        "prob": 0.998,
+        "prob": 0.996,
         "running_max": 93.2
       },
       {
         "hour": 17.58,
-        "prob": 0.998,
+        "prob": 0.996,
         "running_max": 93.2
       },
       {
         "hour": 17.67,
-        "prob": 0.998,
+        "prob": 0.997,
+        "running_max": 93.2
+      },
+      {
+        "hour": 17.75,
+        "prob": 0.997,
+        "running_max": 93.2
+      },
+      {
+        "hour": 17.83,
+        "prob": 0.997,
         "running_max": 93.2
       }
     ]
