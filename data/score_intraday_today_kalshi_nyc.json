@@ -1,46 +1,66 @@
 {
-  "generated_at": "2026-07-08T07:10:25",
+  "generated_at": "2026-07-08T07:20:26",
   "date": "2026-07-08",
   "market": "kalshi",
   "even": {
-    "daily_tier": 4,
+    "daily_tier": 1,
     "daily_top": {
-      "label": "68-69F",
-      "lo": 68,
-      "hi": 70,
-      "prob": 0.1119
+      "label": "82-83F",
+      "lo": 82,
+      "hi": 84,
+      "prob": 0.3427
     },
     "daily_signals": {
-      "max_prob": 0.1119,
-      "gap": 0.0265,
-      "entropy": 2.3119
+      "max_prob": 0.3427,
+      "gap": 0.0987,
+      "entropy": 1.8649
     },
-    "hours": [],
-    "abort_signal": "no_trade",
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "78-79F",
+        "top_lo": 78,
+        "top_hi": 80,
+        "top_prob": 0.157,
+        "matches_daily": false
+      }
+    ],
+    "abort_signal": "none",
     "abort_precision": null,
-    "recommendation": "skip",
-    "hours_available": 0,
-    "hours_disagree": 0,
+    "recommendation": "hold",
+    "hours_available": 1,
+    "hours_disagree": 1,
     "consensus_bucket": null
   },
   "odd": {
-    "daily_tier": 4,
+    "daily_tier": 1,
     "daily_top": {
-      "label": "71-72F",
-      "lo": 71,
-      "hi": 73,
-      "prob": 0.1478
+      "label": "79-80F",
+      "lo": 79,
+      "hi": 81,
+      "prob": 0.4732
     },
     "daily_signals": {
-      "max_prob": 0.1478,
-      "gap": 0.0428,
-      "entropy": 1.8932
+      "max_prob": 0.4732,
+      "gap": 0.1585,
+      "entropy": 1.6055
     },
-    "hours": [],
-    "abort_signal": "no_trade",
+    "hours": [
+      {
+        "hour": 7,
+        "time_label": "07:00",
+        "top_bucket": "79-80F",
+        "top_lo": 79,
+        "top_hi": 81,
+        "top_prob": 0.1457,
+        "matches_daily": true
+      }
+    ],
+    "abort_signal": "none",
     "abort_precision": null,
-    "recommendation": "skip",
-    "hours_available": 0,
+    "recommendation": "hold",
+    "hours_available": 1,
     "hours_disagree": 0,
     "consensus_bucket": null
   },
