@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T10:50:21",
+  "generated_at": "2026-07-10T11:00:31",
   "date": "2026-07-10",
   "market": "kalshi",
   "even": {
@@ -13,7 +13,7 @@
     "daily_signals": {
       "max_prob": 0.4294,
       "gap": 0.1111,
-      "entropy": 1.3279
+      "entropy": 1.3282
     },
     "hours": [
       {
@@ -39,13 +39,25 @@
         "meta_top_bucket": "92-93F",
         "meta_top_lo": 92,
         "meta_top_prob": 0.4605
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "92-93F",
+        "top_lo": 92,
+        "top_hi": 94,
+        "top_prob": 0.2453,
+        "matches_daily": false,
+        "meta_top_bucket": "96-97F",
+        "meta_top_lo": 96,
+        "meta_top_prob": 0.3826
       }
     ],
     "abort_signal": "none",
     "abort_precision": null,
     "recommendation": "hold",
-    "hours_available": 2,
-    "hours_disagree": 0,
+    "hours_available": 3,
+    "hours_disagree": 1,
     "consensus_bucket": null
   },
   "odd": {
@@ -85,13 +97,25 @@
         "meta_top_bucket": "91-92F",
         "meta_top_lo": 91,
         "meta_top_prob": 0.6379
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "91-92F",
+        "top_lo": 91,
+        "top_hi": 93,
+        "top_prob": 0.3372,
+        "matches_daily": false,
+        "meta_top_bucket": "91-92F",
+        "meta_top_lo": 91,
+        "meta_top_prob": 0.4792
       }
     ],
-    "abort_signal": "2hr",
-    "abort_precision": 0.755,
-    "recommendation": "watch",
-    "hours_available": 2,
-    "hours_disagree": 2,
+    "abort_signal": "3hr",
+    "abort_precision": 0.779,
+    "recommendation": "reduce_50pct",
+    "hours_available": 3,
+    "hours_disagree": 3,
     "consensus_bucket": null
   },
   "give_up": {
@@ -100,7 +124,7 @@
     "fire_hour": null,
     "fire_prob": null,
     "fire_running_max": null,
-    "current_hour": 10.58,
+    "current_hour": 10.83,
     "current_prob": 0.0,
     "current_running_max": 87.8,
     "snapshots": [
@@ -141,6 +165,16 @@
       },
       {
         "hour": 10.58,
+        "prob": 0.0,
+        "running_max": 87.8
+      },
+      {
+        "hour": 10.75,
+        "prob": 0.0,
+        "running_max": 87.8
+      },
+      {
+        "hour": 10.83,
         "prob": 0.0,
         "running_max": 87.8
       }
