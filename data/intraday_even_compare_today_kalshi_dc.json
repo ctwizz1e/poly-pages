@@ -1,987 +1,261 @@
 {
-  "generated_at": "2026-07-09T23:50:15",
-  "date": "2026-07-09",
+  "generated_at": "2026-07-10T00:00:14",
+  "date": "2026-07-10",
   "market": "kalshi",
   "bucket_start": "even",
-  "intraday_available": true,
-  "has_meta": false,
-  "time_label": "23:34",
-  "running_max": 89.6,
-  "current_temp": 75.2,
-  "velocity": 0.0,
-  "velocity_30m": 0.0,
-  "velocity_2h": 0.0,
-  "acceleration": 0.0,
-  "trend_slope": -0.005,
-  "hour_of_max": 13.75,
-  "hours_since_max": 9.83,
-  "precip_today": 0.0,
-  "sky_cover_encoded": 1.0,
-  "cloud_fraction": 0.62,
-  "cloud_ceiling_m": 457.0,
-  "slp_hpa": null,
-  "pressure_tendency_3h": null,
-  "obs_count": 278,
-  "dewpoint": 73.4,
-  "wind_speed": 0.0,
-  "predicted_peak_hour": 15.5,
-  "nwp_peak_hours": {
-    "gfs": 16.0,
-    "ecmwf": 15.0,
-    "hrrr": 15.0,
-    "nbm": 16.0,
-    "mean": 15.5,
-    "spread": 0.5
-  },
+  "intraday_available": false,
   "d1_forecasts": {
-    "gfs": 88.7,
-    "ecmwf": 87.4,
-    "hrrr": 88.3,
-    "nbm": 83.8
+    "gfs": 90.3,
+    "ecmwf": 88.5,
+    "hrrr": 90.7,
+    "nbm": 87.1
   },
   "buckets": [
     {
       "label": ">=106F",
       "lo": 106,
       "hi": null,
-      "intraday": 0.0,
-      "d1_prior": 0.0034,
+      "d1_prior": 0.0109,
       "d1_now": 0.0019
     },
     {
       "label": "104-105F",
       "lo": 104,
       "hi": 106,
-      "intraday": 0.0,
-      "d1_prior": 0.0034,
+      "d1_prior": 0.0109,
       "d1_now": 0.0019
     },
     {
       "label": "102-103F",
       "lo": 102,
       "hi": 104,
-      "intraday": 0.0,
-      "d1_prior": 0.0046,
+      "d1_prior": 0.0134,
       "d1_now": 0.0019
     },
     {
       "label": "100-101F",
       "lo": 100,
       "hi": 102,
-      "intraday": 0.0,
-      "d1_prior": 0.0046,
+      "d1_prior": 0.0134,
       "d1_now": 0.0019
     },
     {
       "label": "98-99F",
       "lo": 98,
       "hi": 100,
-      "intraday": 0.0,
-      "d1_prior": 0.0034,
+      "d1_prior": 0.0099,
       "d1_now": 0.0019
     },
     {
       "label": "96-97F",
       "lo": 96,
       "hi": 98,
-      "intraday": 0.0,
-      "d1_prior": 0.0028,
-      "d1_now": 0.0019
+      "d1_prior": 0.0083,
+      "d1_now": 0.0032
     },
     {
       "label": "94-95F",
       "lo": 94,
       "hi": 96,
-      "intraday": 0.0,
-      "d1_prior": 0.0038,
-      "d1_now": 0.0019
+      "d1_prior": 0.0112,
+      "d1_now": 0.0102
     },
     {
       "label": "92-93F",
       "lo": 92,
       "hi": 94,
-      "intraday": 0.0,
-      "d1_prior": 0.0035,
-      "d1_now": 0.0253
+      "d1_prior": 0.0253,
+      "d1_now": 0.0095
     },
     {
       "label": "90-91F",
       "lo": 90,
       "hi": 92,
-      "intraday": 0.9663,
-      "d1_prior": 0.0099,
-      "d1_now": 0.3906
+      "d1_prior": 0.0272,
+      "d1_now": 0.0613
     },
     {
       "label": "88-89F",
       "lo": 88,
       "hi": 90,
-      "intraday": 0.0,
-      "d1_prior": 0.0195,
-      "d1_now": 0.3423
+      "d1_prior": 0.031,
+      "d1_now": 0.0374
     },
     {
       "label": "86-87F",
       "lo": 86,
       "hi": 88,
-      "intraday": 0.0,
-      "d1_prior": 0.0091,
-      "d1_now": 0.0625
+      "d1_prior": 0.0259,
+      "d1_now": 0.0108
     },
     {
       "label": "84-85F",
       "lo": 84,
       "hi": 86,
-      "intraday": 0.0,
-      "d1_prior": 0.1187,
-      "d1_now": 0.0081
+      "d1_prior": 0.0236,
+      "d1_now": 0.0096
     },
     {
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "intraday": 0.0,
-      "d1_prior": 0.0396,
-      "d1_now": 0.0066
+      "d1_prior": 0.0191,
+      "d1_now": 0.0082
     },
     {
       "label": "80-81F",
       "lo": 80,
       "hi": 82,
-      "intraday": 0.0,
-      "d1_prior": 0.1495,
-      "d1_now": 0.006
+      "d1_prior": 0.03,
+      "d1_now": 0.0124
     },
     {
       "label": "78-79F",
       "lo": 78,
       "hi": 80,
-      "intraday": 0.0,
-      "d1_prior": 0.0435,
-      "d1_now": 0.0019
+      "d1_prior": 0.0432,
+      "d1_now": 0.0092
     },
     {
       "label": "76-77F",
       "lo": 76,
       "hi": 78,
-      "intraday": 0.0,
-      "d1_prior": 0.0983,
-      "d1_now": 0.0019
+      "d1_prior": 0.0164,
+      "d1_now": 0.0079
     },
     {
       "label": "74-75F",
       "lo": 74,
       "hi": 76,
-      "intraday": 0.0,
-      "d1_prior": 0.0306,
-      "d1_now": 0.0019
+      "d1_prior": 0.0365,
+      "d1_now": 0.0054
     },
     {
       "label": "72-73F",
       "lo": 72,
       "hi": 74,
-      "intraday": 0.0,
-      "d1_prior": 0.1945,
-      "d1_now": 0.0019
+      "d1_prior": 0.1275,
+      "d1_now": 0.0052
     },
     {
       "label": "70-71F",
       "lo": 70,
       "hi": 72,
-      "intraday": 0.0,
-      "d1_prior": 0.1945,
+      "d1_prior": 0.0385,
       "d1_now": 0.0019
     },
     {
       "label": "68-69F",
       "lo": 68,
       "hi": 70,
-      "intraday": 0.0,
-      "d1_prior": 0.1548,
+      "d1_prior": 0.0372,
       "d1_now": 0.0019
     },
     {
       "label": "66-67F",
       "lo": 66,
       "hi": 68,
-      "intraday": 0.0,
-      "d1_prior": 0.0501,
+      "d1_prior": 0.0292,
       "d1_now": 0.0019
     },
     {
       "label": "64-65F",
       "lo": 64,
       "hi": 66,
-      "intraday": 0.0,
-      "d1_prior": 0.0258,
+      "d1_prior": 0.0195,
       "d1_now": 0.0019
     },
     {
       "label": "62-63F",
       "lo": 62,
       "hi": 64,
-      "intraday": 0.0,
-      "d1_prior": 0.0066,
+      "d1_prior": 0.0148,
       "d1_now": 0.0019
     },
     {
       "label": "60-61F",
       "lo": 60,
       "hi": 62,
-      "intraday": 0.0,
-      "d1_prior": 0.0066,
+      "d1_prior": 0.0124,
       "d1_now": 0.0019
     },
     {
       "label": "58-59F",
       "lo": 58,
       "hi": 60,
-      "intraday": 0.0,
-      "d1_prior": 0.0066,
+      "d1_prior": 0.0124,
       "d1_now": 0.0019
     },
     {
       "label": "56-57F",
       "lo": 56,
       "hi": 58,
-      "intraday": 0.0,
-      "d1_prior": 0.0066,
+      "d1_prior": 0.0124,
       "d1_now": 0.0019
     },
     {
       "label": "54-55F",
       "lo": 54,
       "hi": 56,
-      "intraday": 0.0,
-      "d1_prior": 0.0066,
+      "d1_prior": 0.0124,
       "d1_now": 0.0019
     },
     {
       "label": "52-53F",
       "lo": 52,
       "hi": 54,
-      "intraday": 0.0,
-      "d1_prior": 0.004,
+      "d1_prior": 0.0109,
       "d1_now": 0.0019
     },
     {
       "label": "50-51F",
       "lo": 50,
       "hi": 52,
-      "intraday": 0.0,
-      "d1_prior": 0.004,
+      "d1_prior": 0.0109,
       "d1_now": 0.0019
     },
     {
       "label": "48-49F",
       "lo": 48,
       "hi": 50,
-      "intraday": 0.0,
-      "d1_prior": 0.004,
+      "d1_prior": 0.0109,
       "d1_now": 0.0019
     },
     {
       "label": "46-47F",
       "lo": 46,
       "hi": 48,
-      "intraday": 0.0,
-      "d1_prior": 0.004,
+      "d1_prior": 0.0109,
       "d1_now": 0.0019
     },
     {
       "label": "44-45F",
       "lo": 44,
       "hi": 46,
-      "intraday": 0.0,
-      "d1_prior": 0.004,
+      "d1_prior": 0.0109,
       "d1_now": 0.0019
     },
     {
       "label": "42-43F",
       "lo": 42,
       "hi": 44,
-      "intraday": 0.0,
-      "d1_prior": 0.004,
+      "d1_prior": 0.0109,
       "d1_now": 0.0019
     },
     {
       "label": "40-41F",
       "lo": 40,
       "hi": 42,
-      "intraday": 0.0,
-      "d1_prior": 0.004,
+      "d1_prior": 0.0109,
       "d1_now": 0.0019
     },
     {
       "label": "<40F",
       "lo": null,
       "hi": 40,
-      "intraday": 0.0,
-      "d1_prior": 0.004,
+      "d1_prior": 0.0109,
       "d1_now": 0.0019
     }
   ],
-  "has_d1_comparison": true,
-  "raw_obs": [
-    {
-      "time": "00:52",
-      "temp": 77.0,
-      "dewpoint": 71.6,
-      "wind": 10.4,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "00:52",
-      "temp": 77.0,
-      "dewpoint": 72.0,
-      "wind": 11.4,
-      "sky": "FEW",
-      "cloud_frac": 0.62,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "00:52",
-      "temp": 77.0,
-      "dewpoint": 71.6,
-      "wind": 11.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "01:52",
-      "temp": 75.2,
-      "dewpoint": 71.6,
-      "wind": 6.9,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "01:52",
-      "temp": 75.9,
-      "dewpoint": 72.0,
-      "wind": 8.1,
-      "sky": "FEW",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "01:52",
-      "temp": 75.2,
-      "dewpoint": 71.6,
-      "wind": 8.1,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "02:52",
-      "temp": 77.0,
-      "dewpoint": 71.6,
-      "wind": 6.9,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "02:52",
-      "temp": 77.0,
-      "dewpoint": 72.0,
-      "wind": 5.8,
-      "sky": "FEW",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "02:52",
-      "temp": 77.0,
-      "dewpoint": 73.4,
-      "wind": 6.9,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "03:52",
-      "temp": 77.0,
-      "dewpoint": 71.6,
-      "wind": 9.2,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "03:52",
-      "temp": 77.0,
-      "dewpoint": 72.0,
-      "wind": 9.2,
-      "sky": "SCT",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "04:52",
-      "temp": 75.2,
-      "dewpoint": 71.6,
-      "wind": 13.8,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "04:52",
-      "temp": 75.9,
-      "dewpoint": 71.1,
-      "wind": null,
-      "sky": "SCT",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "04:52",
-      "temp": 77.0,
-      "dewpoint": 71.6,
-      "wind": null,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "05:52",
-      "temp": 77.0,
-      "dewpoint": 71.6,
-      "wind": 13.8,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "05:52",
-      "temp": 77.0,
-      "dewpoint": 72.0,
-      "wind": 10.3,
-      "sky": "OVC",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "05:52",
-      "temp": 75.2,
-      "dewpoint": 71.6,
-      "wind": 11.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "06:52",
-      "temp": 77.0,
-      "dewpoint": 71.6,
-      "wind": 11.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "06:52",
-      "temp": 77.0,
-      "dewpoint": 72.0,
-      "wind": 12.8,
-      "sky": "OVC",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "06:52",
-      "temp": 77.0,
-      "dewpoint": 71.6,
-      "wind": 10.4,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "07:52",
-      "temp": 77.0,
-      "dewpoint": 73.4,
-      "wind": 9.2,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "07:52",
-      "temp": 77.0,
-      "dewpoint": 73.0,
-      "wind": 9.2,
-      "sky": "OVC",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "07:52",
-      "temp": 78.8,
-      "dewpoint": 73.4,
-      "wind": 10.4,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "08:52",
-      "temp": 78.8,
-      "dewpoint": 73.4,
-      "wind": 9.2,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "08:52",
-      "temp": 79.0,
-      "dewpoint": 73.0,
-      "wind": 10.3,
-      "sky": "OVC",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "08:52",
-      "temp": 78.8,
-      "dewpoint": 73.4,
-      "wind": 10.4,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "09:52",
-      "temp": 78.8,
-      "dewpoint": 73.4,
-      "wind": 11.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "09:52",
-      "temp": 79.0,
-      "dewpoint": 73.0,
-      "wind": 12.8,
-      "sky": "OVC",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "09:52",
-      "temp": 78.8,
-      "dewpoint": 73.4,
-      "wind": 11.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "10:52",
-      "temp": 80.6,
-      "dewpoint": 73.4,
-      "wind": 11.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "10:52",
-      "temp": 80.1,
-      "dewpoint": 73.0,
-      "wind": 12.8,
-      "sky": "OVC",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "10:52",
-      "temp": 80.6,
-      "dewpoint": 73.4,
-      "wind": 13.8,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "11:52",
-      "temp": 82.4,
-      "dewpoint": 73.4,
-      "wind": 12.7,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "11:52",
-      "temp": 84.0,
-      "dewpoint": 73.9,
-      "wind": 9.2,
-      "sky": "SCT",
-      "cloud_frac": 0.62,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "11:52",
-      "temp": 84.2,
-      "dewpoint": 73.4,
-      "wind": 10.4,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "12:52",
-      "temp": 86.0,
-      "dewpoint": 73.9,
-      "wind": 9.2,
-      "sky": "BKN",
-      "cloud_frac": 0.62,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "13:52",
-      "temp": 87.8,
-      "dewpoint": 75.2,
-      "wind": 11.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "13:52",
-      "temp": 88.0,
-      "dewpoint": 75.0,
-      "wind": 10.3,
-      "sky": "BKN",
-      "cloud_frac": 0.62,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "13:52",
-      "temp": 87.8,
-      "dewpoint": 75.2,
-      "wind": 11.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "14:52",
-      "temp": 87.8,
-      "dewpoint": 75.2,
-      "wind": 11.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "14:52",
-      "temp": 88.0,
-      "dewpoint": 75.0,
-      "wind": 11.4,
-      "sky": "BKN",
-      "cloud_frac": 0.62,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "14:52",
-      "temp": 87.8,
-      "dewpoint": 75.2,
-      "wind": 10.4,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "15:52",
-      "temp": 87.8,
-      "dewpoint": 73.4,
-      "wind": 6.9,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "15:52",
-      "temp": 86.0,
-      "dewpoint": 73.9,
-      "wind": 15.0,
-      "sky": "BKN",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "15:52",
-      "temp": 82.4,
-      "dewpoint": 71.6,
-      "wind": null,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "16:52",
-      "temp": 75.2,
-      "dewpoint": 71.6,
-      "wind": 10.4,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "16:52",
-      "temp": 75.9,
-      "dewpoint": 72.0,
-      "wind": 10.3,
-      "sky": "BKN",
-      "cloud_frac": 1.0,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "16:52",
-      "temp": 75.2,
-      "dewpoint": 71.6,
-      "wind": 10.4,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "17:52",
-      "temp": 73.4,
-      "dewpoint": 71.6,
-      "wind": 4.6,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "17:52",
-      "temp": 75.0,
-      "dewpoint": 71.1,
-      "wind": 4.7,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "17:52",
-      "temp": 75.2,
-      "dewpoint": 71.6,
-      "wind": 4.6,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "18:52",
-      "temp": 75.2,
-      "dewpoint": 71.6,
-      "wind": 0.0,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "18:52",
-      "temp": 75.9,
-      "dewpoint": 72.0,
-      "wind": 0.0,
-      "sky": "FEW",
-      "cloud_frac": 0.62,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "18:52",
-      "temp": 75.2,
-      "dewpoint": 71.6,
-      "wind": 3.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "19:52",
-      "temp": 75.2,
-      "dewpoint": 73.4,
-      "wind": 4.6,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "19:52",
-      "temp": 75.9,
-      "dewpoint": 72.0,
-      "wind": 4.7,
-      "sky": "FEW",
-      "cloud_frac": 0.62,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "19:52",
-      "temp": 75.2,
-      "dewpoint": 71.6,
-      "wind": 3.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "20:52",
-      "temp": 75.2,
-      "dewpoint": 73.4,
-      "wind": 6.9,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "20:52",
-      "temp": 75.9,
-      "dewpoint": 73.0,
-      "wind": 6.9,
-      "sky": "FEW",
-      "cloud_frac": 0.62,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "20:52",
-      "temp": 75.2,
-      "dewpoint": 73.4,
-      "wind": 5.8,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "21:52",
-      "temp": 75.2,
-      "dewpoint": 73.4,
-      "wind": 5.8,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "21:52",
-      "temp": 75.0,
-      "dewpoint": 73.0,
-      "wind": 5.8,
-      "sky": "FEW",
-      "cloud_frac": 0.62,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "21:52",
-      "temp": 75.2,
-      "dewpoint": 73.4,
-      "wind": 5.8,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "22:52",
-      "temp": 75.2,
-      "dewpoint": 73.4,
-      "wind": 3.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "22:52",
-      "temp": 75.0,
-      "dewpoint": 73.0,
-      "wind": 3.4,
-      "sky": "FEW",
-      "cloud_frac": 0.62,
-      "precip_cum": null,
-      "slp_hpa": null
-    },
-    {
-      "time": "22:52",
-      "temp": 75.2,
-      "dewpoint": 73.4,
-      "wind": 3.5,
-      "sky": null,
-      "cloud_frac": null,
-      "precip_cum": null,
-      "slp_hpa": null
-    }
-  ]
+  "has_d1_comparison": true
 }
