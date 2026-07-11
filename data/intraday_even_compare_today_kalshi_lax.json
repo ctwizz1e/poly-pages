@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-07-11T01:10:12",
+  "generated_at": "2026-07-11T01:20:12",
   "date": "2026-07-11",
   "market": "kalshi",
   "bucket_start": "even",
   "intraday_available": true,
   "has_meta": false,
-  "time_label": "00:31",
-  "running_max": 66.2,
-  "current_temp": 66.0,
+  "time_label": "01:04",
+  "running_max": 66.9,
+  "current_temp": 66.2,
   "velocity": 0.0,
-  "velocity_30m": -0.35,
+  "velocity_30m": 0.32,
   "velocity_2h": 0.0,
-  "acceleration": -0.348,
-  "trend_slope": -0.161,
-  "hour_of_max": 0.0,
-  "hours_since_max": 0.52,
+  "acceleration": 0.318,
+  "trend_slope": 0.21,
+  "hour_of_max": 0.88,
+  "hours_since_max": 0.2,
   "precip_today": 0.0,
   "sky_cover_encoded": null,
   "cloud_fraction": null,
   "cloud_ceiling_m": null,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 7,
-  "dewpoint": 62.1,
-  "wind_speed": 9.2,
+  "obs_count": 10,
+  "dewpoint": 62.6,
+  "wind_speed": 5.8,
   "predicted_peak_hour": 15.5,
   "nwp_peak_hours": {
     "gfs": 17.0,
@@ -148,7 +148,7 @@
       "label": "80-81F",
       "lo": 80,
       "hi": 82,
-      "intraday": 0.0058,
+      "intraday": 0.0581,
       "d1_prior": 0.0012,
       "d1_now": 0.0013
     },
@@ -156,7 +156,7 @@
       "label": "78-79F",
       "lo": 78,
       "hi": 80,
-      "intraday": 0.0581,
+      "intraday": 0.0189,
       "d1_prior": 0.0009,
       "d1_now": 0.001
     },
@@ -172,7 +172,7 @@
       "label": "74-75F",
       "lo": 74,
       "hi": 76,
-      "intraday": 0.2941,
+      "intraday": 0.5172,
       "d1_prior": 0.4994,
       "d1_now": 0.4302
     },
@@ -180,7 +180,7 @@
       "label": "72-73F",
       "lo": 72,
       "hi": 74,
-      "intraday": 0.2941,
+      "intraday": 0.1,
       "d1_prior": 0.4961,
       "d1_now": 0.584
     },
@@ -196,7 +196,7 @@
       "label": "68-69F",
       "lo": 68,
       "hi": 70,
-      "intraday": 0.0,
+      "intraday": 0.0058,
       "d1_prior": 0.0024,
       "d1_now": 0.0022
     },
@@ -322,5 +322,16 @@
     }
   ],
   "has_d1_comparison": true,
-  "raw_obs": []
+  "raw_obs": [
+    {
+      "time": "00:52",
+      "temp": 66.9,
+      "dewpoint": 63.0,
+      "wind": 6.9,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    }
+  ]
 }
