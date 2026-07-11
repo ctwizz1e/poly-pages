@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-11T11:10:19",
+  "generated_at": "2026-07-11T11:20:19",
   "date": "2026-07-11",
   "market": "kalshi",
   "even": {
@@ -8,12 +8,12 @@
       "label": "82-83F",
       "lo": 82,
       "hi": 84,
-      "prob": 0.3208
+      "prob": 0.3254
     },
     "daily_signals": {
-      "max_prob": 0.3208,
-      "gap": 0.0988,
-      "entropy": 1.4253
+      "max_prob": 0.3254,
+      "gap": 0.1103,
+      "entropy": 1.5774
     },
     "hours": [
       {
@@ -33,13 +33,22 @@
         "top_hi": 84,
         "top_prob": 0.1294,
         "matches_daily": true
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "76-77F",
+        "top_lo": 76,
+        "top_hi": 78,
+        "top_prob": 0.2278,
+        "matches_daily": false
       }
     ],
     "abort_signal": "none",
     "abort_precision": null,
     "recommendation": "hold",
-    "hours_available": 2,
-    "hours_disagree": 0,
+    "hours_available": 3,
+    "hours_disagree": 1,
     "consensus_bucket": null
   },
   "odd": {
@@ -48,12 +57,12 @@
       "label": "81-82F",
       "lo": 81,
       "hi": 83,
-      "prob": 0.4805
+      "prob": 0.4983
     },
     "daily_signals": {
-      "max_prob": 0.4805,
-      "gap": 0.0513,
-      "entropy": 1.3448
+      "max_prob": 0.4983,
+      "gap": 0.0401,
+      "entropy": 1.3226
     },
     "hours": [
       {
@@ -73,13 +82,22 @@
         "top_hi": 85,
         "top_prob": 0.2,
         "matches_daily": false
+      },
+      {
+        "hour": 11,
+        "time_label": "11:00",
+        "top_bucket": "77-78F",
+        "top_lo": 77,
+        "top_hi": 79,
+        "top_prob": 0.7273,
+        "matches_daily": false
       }
     ],
-    "abort_signal": "2hr",
-    "abort_precision": 0.755,
-    "recommendation": "watch",
-    "hours_available": 2,
-    "hours_disagree": 2,
+    "abort_signal": "3hr",
+    "abort_precision": 0.779,
+    "recommendation": "reduce_50pct",
+    "hours_available": 3,
+    "hours_disagree": 3,
     "consensus_bucket": null
   },
   "give_up": {
