@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-07-11T06:10:17",
+  "generated_at": "2026-07-11T06:20:17",
   "date": "2026-07-11",
   "market": "kalshi",
   "bucket_start": "odd",
   "intraday_available": true,
   "has_meta": true,
-  "time_label": "05:49",
+  "time_label": "06:04",
   "running_max": 79.0,
   "current_temp": 75.2,
   "velocity": 0.0,
   "velocity_30m": 0.0,
-  "velocity_2h": -0.86,
-  "acceleration": 0.864,
-  "trend_slope": -0.827,
+  "velocity_2h": -0.9,
+  "acceleration": 0.9,
+  "trend_slope": -0.819,
   "hour_of_max": 0.87,
-  "hours_since_max": 4.97,
+  "hours_since_max": 5.22,
   "precip_today": 0.0,
   "sky_cover_encoded": 1.0,
-  "cloud_fraction": 0.62,
-  "cloud_ceiling_m": 1189.0,
+  "cloud_fraction": 0.38,
+  "cloud_ceiling_m": 3353.0,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 69,
+  "obs_count": 72,
   "dewpoint": 69.8,
-  "wind_speed": 8.1,
+  "wind_speed": 6.9,
   "predicted_peak_hour": 15.5,
   "nwp_peak_hours": {
     "gfs": 14.0,
@@ -80,9 +80,9 @@
       "label": "99-100F",
       "lo": 99,
       "hi": 101,
-      "intraday": 0.0189,
+      "intraday": 0.0123,
       "d1_prior": 0.0007,
-      "d1_now": 0.0013,
+      "d1_now": 0.0031,
       "meta": 0.0045
     },
     {
@@ -91,17 +91,17 @@
       "hi": 99,
       "intraday": 0.0557,
       "d1_prior": 0.0588,
-      "d1_now": 0.0486,
-      "meta": 0.0425
+      "d1_now": 0.0569,
+      "meta": 0.043
     },
     {
       "label": "95-96F",
       "lo": 95,
       "hi": 97,
-      "intraday": 0.0845,
+      "intraday": 0.1158,
       "d1_prior": 0.0831,
-      "d1_now": 0.0799,
-      "meta": 0.2389
+      "d1_now": 0.0907,
+      "meta": 0.2415
     },
     {
       "label": "93-94F",
@@ -109,8 +109,8 @@
       "hi": 95,
       "intraday": 0.1707,
       "d1_prior": 0.0804,
-      "d1_now": 0.1405,
-      "meta": 0.2389
+      "d1_now": 0.4629,
+      "meta": 0.2415
     },
     {
       "label": "91-92F",
@@ -118,8 +118,8 @@
       "hi": 93,
       "intraday": 0.1867,
       "d1_prior": 0.0698,
-      "d1_now": 0.1393,
-      "meta": 0.3034
+      "d1_now": 0.32,
+      "meta": 0.3067
     },
     {
       "label": "89-90F",
@@ -127,17 +127,17 @@
       "hi": 91,
       "intraday": 0.1707,
       "d1_prior": 0.0796,
-      "d1_now": 0.1211,
-      "meta": 0.0425
+      "d1_now": 0.0254,
+      "meta": 0.043
     },
     {
       "label": "87-88F",
       "lo": 87,
       "hi": 89,
-      "intraday": 0.1707,
+      "intraday": 0.1189,
       "d1_prior": 0.0694,
-      "d1_now": 0.0945,
-      "meta": 0.0425
+      "d1_now": 0.0026,
+      "meta": 0.043
     },
     {
       "label": "85-86F",
@@ -145,8 +145,8 @@
       "hi": 87,
       "intraday": 0.0238,
       "d1_prior": 0.0121,
-      "d1_now": 0.0092,
-      "meta": 0.0246
+      "d1_now": 0.001,
+      "meta": 0.014
     },
     {
       "label": "83-84F",
@@ -154,8 +154,8 @@
       "hi": 85,
       "intraday": 0.0123,
       "d1_prior": 0.0333,
-      "d1_now": 0.0232,
-      "meta": 0.0246
+      "d1_now": 0.0018,
+      "meta": 0.0249
     },
     {
       "label": "81-82F",
@@ -163,8 +163,8 @@
       "hi": 83,
       "intraday": 0.0087,
       "d1_prior": 0.0731,
-      "d1_now": 0.0079,
-      "meta": 0.0246
+      "d1_now": 0.001,
+      "meta": 0.0249
     },
     {
       "label": "79-80F",
@@ -172,8 +172,8 @@
       "hi": 81,
       "intraday": 0.0087,
       "d1_prior": 0.0073,
-      "d1_now": 0.0006,
-      "meta": 0.0129
+      "d1_now": 0.0005,
+      "meta": 0.013
     },
     {
       "label": "77-78F",
@@ -463,6 +463,26 @@
       "temp": 75.2,
       "dewpoint": 69.8,
       "wind": 8.1,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "05:52",
+      "temp": 75.0,
+      "dewpoint": 70.0,
+      "wind": 8.1,
+      "sky": "FEW",
+      "cloud_frac": 0.38,
+      "precip_cum": null,
+      "slp_hpa": null
+    },
+    {
+      "time": "05:52",
+      "temp": 75.2,
+      "dewpoint": 69.8,
+      "wind": 9.2,
       "sky": null,
       "cloud_frac": null,
       "precip_cum": null,
