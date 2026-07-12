@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-12T00:50:16",
+  "generated_at": "2026-07-12T01:00:23",
   "date": "2026-07-12",
   "market": "kalshi",
   "bucket_start": "odd",
   "intraday_available": true,
   "has_meta": false,
-  "time_label": "00:40",
+  "time_label": "00:50",
   "running_max": 77.0,
   "current_temp": 77.0,
   "velocity": 0.0,
@@ -14,16 +14,16 @@
   "acceleration": 0.0,
   "trend_slope": -0.0,
   "hour_of_max": 0.0,
-  "hours_since_max": 0.67,
+  "hours_since_max": 0.83,
   "precip_today": 0.0,
   "sky_cover_encoded": null,
   "cloud_fraction": null,
   "cloud_ceiling_m": null,
   "slp_hpa": null,
   "pressure_tendency_3h": null,
-  "obs_count": 8,
-  "dewpoint": 71.6,
-  "wind_speed": 10.4,
+  "obs_count": 10,
+  "dewpoint": 69.8,
+  "wind_speed": 8.1,
   "predicted_peak_hour": 15.5,
   "nwp_peak_hours": {
     "gfs": 14.0,
@@ -108,7 +108,7 @@
       "label": "91-92F",
       "lo": 91,
       "hi": 93,
-      "intraday": 0.1196,
+      "intraday": 0.1321,
       "d1_prior": 0.0088,
       "d1_now": 0.0049
     },
@@ -116,7 +116,7 @@
       "label": "89-90F",
       "lo": 89,
       "hi": 91,
-      "intraday": 0.2,
+      "intraday": 0.2727,
       "d1_prior": 0.012,
       "d1_now": 0.0099
     },
@@ -124,7 +124,7 @@
       "label": "87-88F",
       "lo": 87,
       "hi": 89,
-      "intraday": 0.2,
+      "intraday": 0.2727,
       "d1_prior": 0.0086,
       "d1_now": 0.0155
     },
@@ -132,7 +132,7 @@
       "label": "85-86F",
       "lo": 85,
       "hi": 87,
-      "intraday": 0.1196,
+      "intraday": 0.1321,
       "d1_prior": 0.0654,
       "d1_now": 0.1189
     },
@@ -140,7 +140,7 @@
       "label": "83-84F",
       "lo": 83,
       "hi": 85,
-      "intraday": 0.1321,
+      "intraday": 0.1196,
       "d1_prior": 0.0722,
       "d1_now": 0.0969
     },
@@ -148,7 +148,7 @@
       "label": "81-82F",
       "lo": 81,
       "hi": 83,
-      "intraday": 0.0632,
+      "intraday": 0.0341,
       "d1_prior": 0.0945,
       "d1_now": 0.0615
     },
@@ -322,5 +322,16 @@
     }
   ],
   "has_d1_comparison": true,
-  "raw_obs": []
+  "raw_obs": [
+    {
+      "time": "00:52",
+      "temp": 77.0,
+      "dewpoint": 69.8,
+      "wind": 8.1,
+      "sky": null,
+      "cloud_frac": null,
+      "precip_cum": null,
+      "slp_hpa": null
+    }
+  ]
 }
