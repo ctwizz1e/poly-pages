@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-11T23:00:13",
+  "generated_at": "2026-07-11T23:58:52",
   "date": "2026-07-12",
   "market": "kalshi",
   "bucket_start": "odd",
@@ -11,8 +11,8 @@
       "obs_date": "2026-07-11",
       "tmax_obs": 93.9,
       "tmin_obs": 75.0,
-      "expected_temp": 89.5,
-      "fo_expected_temp": 90.5,
+      "expected_temp": 90.1,
+      "fo_expected_temp": 89.9,
       "buckets": [
         {
           "label": ">=107F",
@@ -78,12 +78,12 @@
           "label": "99-100F",
           "lo": 99,
           "hi": 101,
-          "prob": 0.0006,
+          "prob": 0.0005,
           "fo_prob": 0.0014,
           "source_scores": {
             "gfs": 0.0233,
             "ecmwf": 0.0,
-            "hrrr": 0.0128,
+            "hrrr": 0.0,
             "nbm": 0.0,
             "weather_com": 0.0,
             "gem": 0.0
@@ -93,12 +93,12 @@
           "label": "97-98F",
           "lo": 97,
           "hi": 99,
-          "prob": 0.0011,
-          "fo_prob": 0.0211,
+          "prob": 0.0061,
+          "fo_prob": 0.0541,
           "source_scores": {
             "gfs": 0.1242,
-            "ecmwf": 0.0,
-            "hrrr": 0.0128,
+            "ecmwf": 0.0036,
+            "hrrr": 0.1711,
             "nbm": 0.0,
             "weather_com": 0.0018,
             "gem": 0.0
@@ -108,26 +108,41 @@
           "label": "95-96F",
           "lo": 95,
           "hi": 97,
-          "prob": 0.0368,
-          "fo_prob": 0.0088,
+          "prob": 0.0755,
+          "fo_prob": 0.0275,
           "source_scores": {
             "gfs": 0.1242,
             "ecmwf": 0.0036,
-            "hrrr": 0.1711,
-            "nbm": 0.0044,
+            "hrrr": 0.252,
+            "nbm": 0.0743,
             "weather_com": 0.0,
-            "gem": 0.019
+            "gem": 0.0051
           }
         },
         {
           "label": "93-94F",
           "lo": 93,
           "hi": 95,
-          "prob": 0.1252,
-          "fo_prob": 0.242,
+          "prob": 0.1105,
+          "fo_prob": 0.0822,
           "source_scores": {
             "gfs": 0.3312,
             "ecmwf": 0.0036,
+            "hrrr": 0.252,
+            "nbm": 0.1481,
+            "weather_com": 0.0018,
+            "gem": 0.0272
+          }
+        },
+        {
+          "label": "91-92F",
+          "lo": 91,
+          "hi": 93,
+          "prob": 0.0816,
+          "fo_prob": 0.2001,
+          "source_scores": {
+            "gfs": 0.0228,
+            "ecmwf": 0.0119,
             "hrrr": 0.252,
             "nbm": 0.1481,
             "weather_com": 0.0221,
@@ -135,32 +150,17 @@
           }
         },
         {
-          "label": "91-92F",
-          "lo": 91,
-          "hi": 93,
-          "prob": 0.1141,
-          "fo_prob": 0.1183,
-          "source_scores": {
-            "gfs": 0.0228,
-            "ecmwf": 0.0164,
-            "hrrr": 0.252,
-            "nbm": 0.1538,
-            "weather_com": 0.0826,
-            "gem": 0.0543
-          }
-        },
-        {
           "label": "89-90F",
           "lo": 89,
           "hi": 91,
-          "prob": 0.1237,
-          "fo_prob": 0.1586,
+          "prob": 0.0906,
+          "fo_prob": 0.2105,
           "source_scores": {
             "gfs": 0.0228,
             "ecmwf": 0.0164,
-            "hrrr": 0.252,
+            "hrrr": 0.1711,
             "nbm": 0.5,
-            "weather_com": 0.0855,
+            "weather_com": 0.0622,
             "gem": 0.0543
           }
         },
@@ -168,14 +168,14 @@
           "label": "87-88F",
           "lo": 87,
           "hi": 89,
-          "prob": 0.1259,
-          "fo_prob": 0.1864,
+          "prob": 0.1237,
+          "fo_prob": 0.1661,
           "source_scores": {
-            "gfs": 0.0181,
+            "gfs": 0.0228,
             "ecmwf": 0.0164,
-            "hrrr": 0.1711,
-            "nbm": 0.3333,
-            "weather_com": 0.1699,
+            "hrrr": 0.2504,
+            "nbm": 0.0743,
+            "weather_com": 0.0855,
             "gem": 0.0543
           }
         },
@@ -183,14 +183,14 @@
           "label": "85-86F",
           "lo": 85,
           "hi": 87,
-          "prob": 0.0181,
-          "fo_prob": 0.0034,
+          "prob": 0.0207,
+          "fo_prob": 0.0022,
           "source_scores": {
             "gfs": 0.0228,
-            "ecmwf": 0.0667,
-            "hrrr": 0.2504,
+            "ecmwf": 0.0119,
+            "hrrr": 0.6,
             "nbm": 0.0743,
-            "weather_com": 0.06,
+            "weather_com": 0.0394,
             "gem": 0.0543
           }
         },
@@ -198,12 +198,12 @@
           "label": "83-84F",
           "lo": 83,
           "hi": 85,
-          "prob": 0.0551,
-          "fo_prob": 0.0354,
+          "prob": 0.026,
+          "fo_prob": 0.032,
           "source_scores": {
-            "gfs": 0.0228,
+            "gfs": 0.0181,
             "ecmwf": 0.061,
-            "hrrr": 0.6,
+            "hrrr": 0.0128,
             "nbm": 0.0743,
             "weather_com": 0.0221,
             "gem": 0.0543
@@ -213,26 +213,26 @@
           "label": "81-82F",
           "lo": 81,
           "hi": 83,
-          "prob": 0.0102,
-          "fo_prob": 0.022,
+          "prob": 0.0069,
+          "fo_prob": 0.0782,
           "source_scores": {
-            "gfs": 0.0228,
-            "ecmwf": 0.061,
+            "gfs": 0.0181,
+            "ecmwf": 0.0164,
             "hrrr": 0.0128,
             "nbm": 0.0743,
             "weather_com": 0.01,
-            "gem": 0.0543
+            "gem": 0.0204
           }
         },
         {
           "label": "79-80F",
           "lo": 79,
           "hi": 81,
-          "prob": 0.0197,
-          "fo_prob": 0.0038,
+          "prob": 0.0183,
+          "fo_prob": 0.0009,
           "source_scores": {
             "gfs": 0.0181,
-            "ecmwf": 0.0119,
+            "ecmwf": 0.0164,
             "hrrr": 0.0128,
             "nbm": 0.0743,
             "weather_com": 0.01,
@@ -244,7 +244,7 @@
           "lo": 77,
           "hi": 79,
           "prob": 0.0016,
-          "fo_prob": 0.0004,
+          "fo_prob": 0.0005,
           "source_scores": {
             "gfs": 0.0,
             "ecmwf": 0.0036,
@@ -258,13 +258,13 @@
           "label": "75-76F",
           "lo": 75,
           "hi": 77,
-          "prob": 0.0048,
+          "prob": 0.0016,
           "fo_prob": 0.0004,
           "source_scores": {
             "gfs": 0.0,
-            "ecmwf": 0.0,
+            "ecmwf": 0.0036,
             "hrrr": 0.0128,
-            "nbm": 0.0743,
+            "nbm": 0.0044,
             "weather_com": 0.01,
             "gem": 0.0
           }
@@ -278,7 +278,7 @@
           "source_scores": {
             "gfs": 0.0,
             "ecmwf": 0.0036,
-            "hrrr": 0.0128,
+            "hrrr": 0.0,
             "nbm": 0.0026,
             "weather_com": 0.01,
             "gem": 0.0
@@ -292,10 +292,10 @@
           "fo_prob": 0.0004,
           "source_scores": {
             "gfs": 0.0,
-            "ecmwf": 0.0036,
+            "ecmwf": 0.0119,
             "hrrr": 0.0,
             "nbm": 0.0026,
-            "weather_com": 0.0018,
+            "weather_com": 0.01,
             "gem": 0.0
           }
         },
@@ -324,7 +324,7 @@
             "gfs": 0.0,
             "ecmwf": 0.0036,
             "hrrr": 0.0,
-            "nbm": 0.0026,
+            "nbm": 0.0,
             "weather_com": 0.0018,
             "gem": 0.0
           }
@@ -337,7 +337,7 @@
           "fo_prob": 0.0004,
           "source_scores": {
             "gfs": 0.0,
-            "ecmwf": 0.0036,
+            "ecmwf": 0.0119,
             "hrrr": 0.0,
             "nbm": 0.0,
             "weather_com": 0.0018,
