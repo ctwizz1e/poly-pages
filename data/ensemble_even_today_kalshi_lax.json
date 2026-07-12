@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-12T17:00:21",
+  "generated_at": "2026-07-12T18:00:30",
   "date": "2026-07-12",
   "market": "kalshi",
   "bucket_start": "even",
@@ -11,8 +11,8 @@
       "obs_date": "2026-07-11",
       "tmax_obs": 77.0,
       "tmin_obs": 66.0,
-      "expected_temp": 75.1,
-      "fo_expected_temp": 73.3,
+      "expected_temp": 75.3,
+      "fo_expected_temp": 73.2,
       "buckets": [
         {
           "label": ">=106F",
@@ -187,7 +187,7 @@
           "fo_prob": 0.0001,
           "source_scores": {
             "gfs": 0.0,
-            "ecmwf": 0.0118,
+            "ecmwf": 0.0,
             "hrrr": 0.0,
             "nbm": 0.0,
             "weather_com": 0.0,
@@ -198,29 +198,29 @@
           "label": "82-83F",
           "lo": 82,
           "hi": 84,
-          "prob": 0.0035,
+          "prob": 0.0027,
           "fo_prob": 0.0001,
           "source_scores": {
             "gfs": 0.0102,
             "ecmwf": 0.0726,
-            "hrrr": 0.0144,
+            "hrrr": 0.0,
             "nbm": 0.0,
             "weather_com": 0.0,
-            "gem": 0.0
+            "gem": 0.0142
           }
         },
         {
           "label": "80-81F",
           "lo": 80,
           "hi": 82,
-          "prob": 0.0544,
-          "fo_prob": 0.0001,
+          "prob": 0.0369,
+          "fo_prob": 0.0002,
           "source_scores": {
-            "gfs": 0.2308,
-            "ecmwf": 0.1026,
-            "hrrr": 0.0144,
+            "gfs": 0.1319,
+            "ecmwf": 0.0726,
+            "hrrr": 0.0113,
             "nbm": 0.0,
-            "weather_com": 0.0216,
+            "weather_com": 0.0,
             "gem": 0.0142
           }
         },
@@ -228,14 +228,14 @@
           "label": "78-79F",
           "lo": 78,
           "hi": 80,
-          "prob": 0.1553,
-          "fo_prob": 0.0021,
+          "prob": 0.0801,
+          "fo_prob": 0.0006,
           "source_scores": {
             "gfs": 0.2308,
             "ecmwf": 0.1026,
-            "hrrr": 0.0741,
+            "hrrr": 0.0144,
             "nbm": 0.0,
-            "weather_com": 0.0581,
+            "weather_com": 0.0303,
             "gem": 0.062
           }
         },
@@ -243,59 +243,59 @@
           "label": "76-77F",
           "lo": 76,
           "hi": 78,
-          "prob": 0.0199,
-          "fo_prob": 0.0027,
+          "prob": 0.012,
+          "fo_prob": 0.0039,
           "source_scores": {
-            "gfs": 0.0625,
+            "gfs": 0.0505,
             "ecmwf": 0.1217,
             "hrrr": 0.0741,
             "nbm": 0.0,
             "weather_com": 0.0581,
-            "gem": 0.062
+            "gem": 0.0142
           }
         },
         {
           "label": "74-75F",
           "lo": 74,
           "hi": 76,
-          "prob": 0.4281,
-          "fo_prob": 0.163,
+          "prob": 0.5562,
+          "fo_prob": 0.0659,
           "source_scores": {
             "gfs": 0.2308,
             "ecmwf": 0.5062,
             "hrrr": 0.4054,
             "nbm": 0.6667,
-            "weather_com": 0.2581,
-            "gem": 0.0938
+            "weather_com": 0.2241,
+            "gem": 0.1786
           }
         },
         {
           "label": "72-73F",
           "lo": 72,
           "hi": 74,
-          "prob": 0.4218,
-          "fo_prob": 0.565,
+          "prob": 0.1344,
+          "fo_prob": 0.5717,
           "source_scores": {
             "gfs": 0.0505,
             "ecmwf": 0.2131,
             "hrrr": 0.1071,
             "nbm": 0.4667,
             "weather_com": 0.2241,
-            "gem": 0.2857
+            "gem": 0.0938
           }
         },
         {
           "label": "70-71F",
           "lo": 70,
           "hi": 72,
-          "prob": 0.0038,
-          "fo_prob": 0.0416,
+          "prob": 0.0041,
+          "fo_prob": 0.0104,
           "source_scores": {
             "gfs": 0.0,
-            "ecmwf": 0.0118,
+            "ecmwf": 0.0,
             "hrrr": 0.0113,
             "nbm": 0.4667,
-            "weather_com": 0.023,
+            "weather_com": 0.0303,
             "gem": 0.0142
           }
         },
