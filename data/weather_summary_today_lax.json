@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-07-14T16:01:06",
+  "generated_at": "2026-07-14T18:01:09",
   "date": "2026-07-14",
   "day_type": "today",
-  "error": "claude exited 1: You've hit your session limit \u00b7 resets 5pm (America/New_York)"
+  "overall": "Los Angeles is wrapping up a warmer-than-model-consensus afternoon, with the running maximum already reaching 77.0\u00b0F as of 17:45 ET. Temperature velocity has flattened to 0.0\u00b0F/hr and the intraday model flags the peak at ~17:25 ET (roughly 20 minutes ago), suggesting the daily high is effectively locked in. Conditions align with the NWS narrative of a sunny afternoon with onshore westerly winds near 15 mph providing moderate marine influence.",
+  "forecast_obs_notes": "NWP models were split \u2014 GFS (76.4\u00b0F) and HRRR (76.0\u00b0F) tracked close to observed reality, while ECMWF (73.5\u00b0F) and NBM (73.6\u00b0F) ran notably cool, dragging the D1_NOW consensus toward 74\u201375\u00b0F despite observational evidence already exceeding that range. The intraday obs-driven model correctly overrides the cooler NWP signals, placing 76\u201377\u00b0F at 83% probability.",
+  "max_temp_prediction": "With the running max at 77.0\u00b0F, flat velocity, and peak timing confirmed just past 17:25 ET, today's TMAX almost certainly lands in the 76\u201377\u00b0F even bucket. The intraday model assigns 83% confidence to that bucket, well above the D1_NOW prior of 56% for 74\u201375\u00b0F, which is now definitively ruled out by observations. Confidence is high; the primary residual uncertainty is a minor nudge to 77\u201378\u00b0F if any late-afternoon mixing brings a brief uptick before the marine layer reasserts.",
+  "predicted_max": 77.0
 }
