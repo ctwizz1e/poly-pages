@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T08:50:21",
+  "generated_at": "2026-07-15T09:00:25",
   "date": "2026-07-15",
   "market": "kalshi",
   "even": {
@@ -8,12 +8,12 @@
       "label": "100-101F",
       "lo": 100,
       "hi": 102,
-      "prob": 0.1451
+      "prob": 0.1794
     },
     "daily_signals": {
-      "max_prob": 0.1451,
-      "gap": 0.0595,
-      "entropy": 2.057
+      "max_prob": 0.1794,
+      "gap": 0.0838,
+      "entropy": 2.0693
     },
     "hours": [
       {
@@ -24,27 +24,36 @@
         "top_hi": 100,
         "top_prob": 0.0754,
         "matches_daily": false
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "98-99F",
+        "top_lo": 98,
+        "top_hi": 100,
+        "top_prob": 0.0916,
+        "matches_daily": false
       }
     ],
     "abort_signal": "no_trade",
     "abort_precision": null,
     "recommendation": "skip",
-    "hours_available": 1,
-    "hours_disagree": 1,
-    "consensus_bucket": null
+    "hours_available": 2,
+    "hours_disagree": 2,
+    "consensus_bucket": "98-99F"
   },
   "odd": {
-    "daily_tier": 4,
+    "daily_tier": 1,
     "daily_top": {
       "label": "99-100F",
       "lo": 99,
       "hi": 101,
-      "prob": 0.1395
+      "prob": 0.4676
     },
     "daily_signals": {
-      "max_prob": 0.1395,
-      "gap": 0.1112,
-      "entropy": 2.123
+      "max_prob": 0.4676,
+      "gap": 0.4176,
+      "entropy": 1.3079
     },
     "hours": [
       {
@@ -55,12 +64,21 @@
         "top_hi": 101,
         "top_prob": 0.1321,
         "matches_daily": true
+      },
+      {
+        "hour": 9,
+        "time_label": "09:00",
+        "top_bucket": "99-100F",
+        "top_lo": 99,
+        "top_hi": 101,
+        "top_prob": 0.1261,
+        "matches_daily": true
       }
     ],
-    "abort_signal": "no_trade",
+    "abort_signal": "none",
     "abort_precision": null,
-    "recommendation": "skip",
-    "hours_available": 1,
+    "recommendation": "hold",
+    "hours_available": 2,
     "hours_disagree": 0,
     "consensus_bucket": null
   },
