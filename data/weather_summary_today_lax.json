@@ -1,6 +1,9 @@
 {
-  "generated_at": "2026-07-15T02:02:13",
+  "generated_at": "2026-07-15T04:01:54",
   "date": "2026-07-15",
   "day_type": "today",
-  "error": "claude timed out"
+  "overall": "Los Angeles is in the early overnight hours (~12:45 AM PT / 03:45 ET) with temperatures holding steady near 70\u00b0F and a running max of 70.0\u00b0F \u2014 well short of the expected afternoon peak. The elevated dewpoint of 62.6\u00b0F points to notable marine layer influence, and velocity is flat at 0.0\u00b0F/hr as expected for this pre-dawn window. No tropical or severe weather context applies to the LA basin specifically; nearby NWS alerts (Extreme Heat Warning in Phoenix, Heat Advisory for interior Monterey County) are for other regions.",
+  "forecast_obs_notes": "NWP models show meaningful spread: GFS (84.0\u00b0F) and ECMWF (83.8\u00b0F) are bullish, while HRRR (81.4\u00b0F) aligns closely with the official NWS forecast of 81\u00b0F, and NBM (75.8\u00b0F) is notably cooler. The higher-resolution HRRR is generally best-suited for mesoscale coastal California dynamics and corroborates the NWS narrative; GFS/ECMWF likely overestimate daytime heating given the marine moisture signature (dewpoint 62.6\u00b0F).",
+  "max_temp_prediction": "The active EVEN bucket model's top bucket is 72-73\u00b0F at 52.3% (Tier 2 / Good confidence), but this sits significantly below the NWS official forecast of 81\u00b0F and the NWP model consensus range of 75.8\u201384.0\u00b0F, suggesting the obs-driven intraday model is anchored too low given only overnight readings are in hand. Weighting the HRRR (81.4\u00b0F) and NWS narrative most heavily, with a modest downward adjustment for the elevated marine dewpoint and NBM's cooler signal, a daily high near 80\u201381\u00b0F appears most defensible. Confidence is moderate \u2014 NWS/HRRR alignment is encouraging, but the large inter-model spread and the ensemble bucket model's divergent lower signal introduce meaningful uncertainty.",
+  "predicted_max": 80.5
 }
