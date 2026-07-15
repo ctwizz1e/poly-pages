@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Atlanta TMAX Predictions</title>
+  <title>Weather Bot</title>
   <style>
     :root {
       --bg:         #f0f2f5;
@@ -12,21 +12,11 @@
       --text:       #24292e;
       --text-muted: #6a737d;
       --accent:     #0366d6;
-      --up:         #22863a;
-      --down:       #cb2431;
+      --win:        #22863a;
+      --loss:       #cb2431;
       --radius:     8px;
-      --shadow:     0 1px 4px rgba(0,0,0,.08);
-
-      /* Temperature bucket gradient (cool → hot) */
-      --t-1: #4a90e2;
-      --t-2: #5bba6f;
-      --t-3: #f5a623;
-      --t-4: #e8622a;
-      --t-5: #d0021b;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
       font-size: 14px;
@@ -35,2172 +25,434 @@
       line-height: 1.5;
     }
 
-    /* ── Header ─────────────────────────────────────────────── */
+    /* ── Header ── */
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 16px 24px;
+      padding: 14px 24px;
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 16px;
       flex-wrap: wrap;
     }
-    header h1 {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -.3px;
-    }
-    #location-nav { display: flex; gap: 8px; }
-    #location-nav .loc-link {
+    header h1 { font-size: 17px; font-weight: 600; }
+    #location-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+    #location-nav a {
       font-size: 13px; padding: 3px 10px; border-radius: 12px;
       text-decoration: none; color: var(--text-muted);
       border: 1px solid var(--border);
     }
-    #location-nav .loc-link.active { background: var(--accent, #3b82f6); color: #fff; border-color: transparent; }
-    #status-bar {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-left: auto;
-    }
+    #location-nav a.active { background: var(--accent); color: #fff; border-color: transparent; }
+    #status-bar { font-size: 12px; color: var(--text-muted); margin-left: auto; }
     #status-bar span { font-weight: 500; color: var(--text); }
 
-    /* ── Layout ─────────────────────────────────────────────── */
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-
-    section > h2 {
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-      user-select: none;
-      display: flex;
-      align-items: center;
-    }
-    section > h2::after {
-      content: "▾";
-      font-size: 16px;
-      margin-left: auto;
-      padding-left: 8px;
-      transition: transform .2s ease;
-      display: inline-block;
-    }
-    section.collapsed > h2::after {
-      transform: rotate(-90deg);
-    }
-    section.collapsed > .cards,
-    section.collapsed > .section-stats {
-      display: none;
-    }
-    .section-stats {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      align-items: baseline;
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
+    /* ── Tabs ── */
+    .tabs-header {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .card-header {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 2px solid var(--border);
+      padding: 0 24px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .card-header h3 {
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .card-header .meta {
-      font-size: 11px;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
-    .card-body { padding: 12px 16px; }
-
-    /* ── State row (running max / current / velocity) ──────── */
-    .state-row {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      padding: 8px 0 12px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 12px;
-    }
-    .state-row .stat { display: flex; flex-direction: column; }
-    .state-row .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted); }
-    .state-row .stat-value { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; }
-    .state-row .stat-value.up   { color: var(--down); }  /* heating up = red */
-    .state-row .stat-value.down { color: var(--accent); }
-
-    /* ── D1 forecast chips ──────────────────────────────────── */
-    .fcst-chips {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-    .fcst-chip {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 2px 7px;
-      border-radius: 12px;
-      background: #f1f3f5;
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    /* ── Probability tables ─────────────────────────────────── */
-    .prob-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-    .prob-table th {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .4px;
-      color: var(--text-muted);
-      font-weight: 600;
-      padding: 4px 8px 4px 0;
-      text-align: right;
-      white-space: nowrap;
-    }
-    .prob-table th:first-child { text-align: left; }
-    .prob-table td {
-      padding: 3px 8px 3px 0;
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-      white-space: nowrap;
-    }
-    .prob-table td:first-child { text-align: left; font-weight: 500; }
-    .prob-table tr.total-row td {
-      border-top: 1px solid var(--border);
-      font-weight: 600;
-      padding-top: 6px;
-    }
-    .prob-table tr:hover td { background: #f8f9fa; }
-
-    /* Probability bar */
-    .bar-cell { min-width: 120px; }
-    .bar-wrap {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .bar-bg {
-      flex: 1;
-      height: 8px;
-      background: #f1f3f5;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width .3s ease;
-    }
-    .bar-pct { font-size: 11px; font-variant-numeric: tabular-nums; min-width: 38px; text-align: right; }
-
-    /* Delta coloring */
-    .pos { color: var(--up); font-weight: 600; }
-    .neg { color: var(--down); font-weight: 600; }
-    .neu { color: var(--text-muted); }
-
-    /* ── Multi-hour table ───────────────────────────────────── */
-    .scroll-x { overflow-x: auto; }
-    .multi-table { border-collapse: collapse; font-size: 12px; min-width: 500px; }
-    .multi-table th {
-      font-size: 10px; text-transform: uppercase; letter-spacing: .4px;
-      color: var(--text-muted); font-weight: 600;
-      padding: 4px 12px 4px 0; text-align: right; white-space: nowrap;
-    }
-    .multi-table th:first-child { text-align: left; min-width: 80px; }
-    .multi-table td {
-      padding: 3px 12px 3px 0; text-align: right;
-      font-variant-numeric: tabular-nums; white-space: nowrap;
-    }
-    .multi-table td:first-child { text-align: left; font-weight: 500; }
-    .multi-table tr.sep td { border-top: 1px solid var(--border); }
-    .multi-table tr.state-r td { color: var(--text-muted); font-size: 11px; }
-    .multi-table tr:hover td { background: #f8f9fa; }
-    .cell-heat {
-      display: inline-block;
-      padding: 1px 6px;
-      border-radius: 3px;
-      font-size: 11px;
-    }
-
-    /* ── Value prediction card ──────────────────────────────── */
-    .value-display {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      padding: 8px 0;
-    }
-    .value-stat { display: flex; flex-direction: column; }
-    .value-stat .v-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
-    .value-stat .v-num { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
-    .value-stat .v-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-    .value-stat .v-num.value-up { color: var(--down); }
-    .value-stat .v-num.value-down { color: var(--accent); }
-
-    /* ── Source scores legend ───────────────────────────────── */
-    .source-legend {
-      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;
-    }
-    .src-chip {
-      font-size: 10px; padding: 2px 7px; border-radius: 10px;
-      border: 1px solid var(--border); background: #f1f3f5;
-      font-weight: 500; color: var(--text-muted);
-    }
-
-    /* ── Temp filter ────────────────────────────────────────── */
-    #temp-filter {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: var(--text-muted);
-      flex-shrink: 0;
-    }
-    #temp-filter span { font-weight: 500; }
-    #temp-filter input[type="number"] {
-      width: 58px;
-      padding: 3px 6px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-size: 12px;
-      font-family: inherit;
-      background: var(--surface);
-      color: var(--text);
-      -moz-appearance: textfield;
-    }
-    #temp-filter input[type="number"]::-webkit-outer-spin-button,
-    #temp-filter input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
-    #temp-filter input[type="number"]:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(3,102,214,.15);
-    }
-
-    /* ── Loading / error states ─────────────────────────────── */
-    .loading { padding: 24px; text-align: center; color: var(--text-muted); font-size: 12px; }
-    .error-note {
-      padding: 10px 12px;
-      background: #fff5f5;
-      border: 1px solid #fecdca;
-      border-radius: 6px;
-      font-size: 12px;
-      color: #b91c1c;
-      margin: 8px 0;
-    }
-
-    /* ── Full-width card ─────────────────────────────────────── */
-    .card-full { grid-column: 1 / -1; }
-    .chart-wrap { position: relative; height: 220px; }
-
-    /* ── Scrollable chart container ──────────────────────────── */
-    .chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .chart-scroll .chart-wrap { min-width: 1400px; }
-
-    /* ── Score sections ─────────────────────────────────────── */
-    .score-tier {
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 9px 13px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-    }
-    .score-meta-row {
-      display: flex;
-      gap: 12px;
-      align-items: baseline;
-      font-size: 12px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
-    .score-reason { color: var(--text-muted); font-size: 11px; }
-    .score-tops { margin-bottom: 10px; }
-    .score-top-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 4px;
-    }
-    .score-top-label { font-size: 12px; font-weight: 600; min-width: 76px; }
-    .score-signals {
-      display: flex;
-      gap: 16px;
-      font-size: 11px;
-      color: var(--text-muted);
-      flex-wrap: wrap;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
-    }
-    .score-signals strong { color: var(--text); }
-
-    .tier-badge {
-      display: inline-block;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 10px;
-      letter-spacing: .3px;
-    }
-    .abort-daily-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 0 10px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-    }
-    .abort-daily-bucket { font-size: 13px; font-weight: 700; }
-    .abort-daily-meta { font-size: 11px; color: var(--text-muted); }
-    .abort-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
-    .abort-table tr:hover td { background: #f8f9fa; }
-    .abort-time  { padding: 3px 8px 3px 0; color: var(--text-muted); font-variant-numeric: tabular-nums; width: 46px; }
-    .abort-bucket { padding: 3px 8px; font-weight: 600; }
-    .abort-prob  { padding: 3px 0 3px 8px; text-align: right; color: var(--text-muted); font-variant-numeric: tabular-nums; }
-    .abort-match    { color: var(--up);   font-weight: 600; padding: 3px 8px; font-size: 11px; }
-    .abort-disagree { color: var(--down); font-weight: 600; padding: 3px 8px; font-size: 11px; }
-    .abort-meta     { padding: 3px 8px; font-size: 11px; font-variant-numeric: tabular-nums; }
-    .abort-rec {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-    }
-    .abort-rec-icon { font-size: 16px; flex-shrink: 0; line-height: 1.4; }
-    .abort-rec-text { font-weight: 700; margin-bottom: 2px; }
-    .abort-rec-sub  { color: var(--text-muted); font-size: 11px; }
-    .abort-ok    { background: #f0fff4; border: 1px solid #9be9a8; }
-    .abort-warn  { background: #fff8e1; border: 1px solid #ffd54f; }
-    .abort-abort { background: #fff5f5; border: 1px solid #fecdca; }
-    .abort-skip  { background: #f8f9fa; border: 1px solid var(--border); }
-
-    /* ── Give-up classifier ─────────────────────────────────── */
-    .give-up-section { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
-    .give-up-label { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
-    .give-up-rec {
-      display: flex; align-items: flex-start; gap: 8px;
-      padding: 8px 11px; border-radius: 6px; font-size: 12px; margin-bottom: 8px;
-    }
-    .give-up-rec-icon  { font-size: 15px; flex-shrink: 0; line-height: 1.5; }
-    .give-up-rec-text  { font-weight: 700; margin-bottom: 1px; }
-    .give-up-rec-sub   { color: var(--text-muted); font-size: 11px; }
-    .give-up-fired     { background: #fff8e1; border: 1px solid #ffd54f; }
-    .give-up-watching  { background: #f0f7ff; border: 1px solid #90caf9; }
-    .give-up-inactive  { background: #f8f9fa; border: 1px solid var(--border); }
-    .give-up-bar-wrap  { height: 6px; border-radius: 3px; background: #e9ecef; margin: 4px 0 2px; overflow: hidden; }
-    .give-up-bar       { height: 100%; border-radius: 3px; transition: width .4s; }
-    .give-up-snaps     { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 4px; }
-    .give-up-snaps td  { padding: 2px 6px 2px 0; font-variant-numeric: tabular-nums; }
-    .give-up-snaps .gu-hour { color: var(--text-muted); width: 44px; }
-    .give-up-snaps .gu-rmax { font-weight: 600; }
-    .give-up-snaps .gu-prob { text-align: right; }
-    .give-up-snaps .gu-bar-cell { width: 70px; }
-    .gu-fired-row td   { background: #fffbea; }
-
-    /* ── Signal accuracy hints ──────────────────────────────── */
-    .signal-hint {
-      margin-top: 10px;
-      padding: 7px 11px;
-      border-radius: 5px;
-      font-size: 11px;
-      line-height: 1.6;
-    }
-    .signal-hint-green  { background: #f0fff4; border: 1px solid #9be9a8; color: #1a7f37; }
-    .signal-hint-orange { background: #fff8e1; border: 1px solid #ffd54f; color: #856404; }
-    .signal-hint-red    { background: #fff5f5; border: 1px solid #fecdca; color: #b91c1c; }
-    .signal-hint-muted  { background: #f8f9fa; border: 1px solid var(--border); color: var(--text-muted); }
-    .signal-hint-blue   { background: #f0f7ff; border: 1px solid #93c5fd; color: #1d4ed8; }
-    .signal-hint strong { font-weight: 700; }
-
-    /* ── Weather Summary card ───────────────────────────────── */
-    .weather-summary { display: flex; flex-direction: column; }
-    .weather-block {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .weather-block:first-child { padding-top: 0; }
-    .weather-block:last-child  { border-bottom: none; padding-bottom: 0; }
-    .weather-block-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 5px;
-    }
-    .weather-block-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-    .weather-block-max {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--down);
-    }
-    .weather-block-text {
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--text);
-    }
-
-    /* ── Tabs ───────────────────────────────────────────────── */
-    #tab-bar {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 24px;
     }
     .tab-btn {
-      padding: 7px 20px;
-      font-size: 13px;
-      font-weight: 600;
+      padding: 10px 20px;
+      font-size: 13px; font-weight: 500;
+      border: none; background: none; cursor: pointer;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+    }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    main { max-width: 960px; margin: 0 auto; padding: 20px 16px; }
+
+    /* ── Bets tab ── */
+    .day-section { margin-bottom: 24px; }
+    .day-section h2 {
+      font-size: 13px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .5px; color: var(--text-muted);
+      margin-bottom: 10px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .day-section h2 span { color: var(--text); }
+    .no-bets { font-size: 13px; color: var(--text-muted); padding: 8px 0; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .4px; color: var(--text-muted);
+      padding: 4px 10px 6px 0; text-align: left; white-space: nowrap;
+    }
+    thead th:last-child { text-align: center; }
+    tbody td {
+      padding: 6px 10px 6px 0; border-top: 1px solid var(--border);
+      vertical-align: middle; white-space: nowrap;
+    }
+    tbody tr:hover td { background: #f8f9fa; }
+
+    .ticker { font-family: monospace; font-size: 12px; color: var(--text-muted); }
+    .type-badge {
+      font-size: 11px; padding: 1px 6px; border-radius: 10px;
+      background: #f1f3f5; border: 1px solid var(--border); color: var(--text-muted);
+    }
+    .type-badge.daily { background: #ddf4ff; border-color: #b6e3ff; color: #0969da; }
+
+    .outcome {
+      display: inline-block; width: 28px; text-align: center;
+      font-weight: 700; font-size: 13px; padding: 2px 4px; border-radius: 4px;
+    }
+    .outcome.W { color: var(--win);  background: #dcffe4; }
+    .outcome.L { color: var(--loss); background: #ffebe9; }
+    .outcome.pending { color: var(--text-muted); background: #f1f3f5; font-weight: 400; font-size: 11px; }
+    .outcome.unknown { color: var(--text-muted); }
+    td.outcome-cell { text-align: center; }
+
+    /* ── Forecast tab ── */
+    .forecast-day { margin-bottom: 24px; }
+    .forecast-day > h2 {
+      font-size: 13px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .5px; color: var(--text-muted);
+      margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .forecast-day > h2 span { color: var(--text); }
+
+    .forecast-card {
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      background: var(--surface);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: background .15s, color .15s, border-color .15s;
+      padding: 16px 20px;
+      overflow-x: auto;
     }
-    .tab-btn:hover { background: #f6f8fa; color: var(--text); }
-    .tab-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-    .tab-pane { display: none; flex-direction: column; gap: 32px; }
-    .tab-pane.active { display: flex; }
 
-    /* ── Responsive ─────────────────────────────────────────── */
-    @media (max-width: 600px) {
-      .cards { grid-template-columns: 1fr; }
-      .value-display { gap: 16px; }
-      .value-stat .v-num { font-size: 22px; }
+    /* Each row: label | meta | bar */
+    .fc-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 500px;
     }
+    .fc-row + .fc-row { margin-top: 8px; }
+
+    .fc-label {
+      width: 56px; flex-shrink: 0;
+      font-size: 12px; font-weight: 600; text-align: right;
+      color: var(--text-muted);
+    }
+    .fc-label.daily-label   { color: #0969da; }
+    .fc-label.intraday-label { color: var(--win); }
+
+    .fc-meta {
+      width: 96px; flex-shrink: 0;
+      font-size: 12px; color: var(--text-muted);
+    }
+    .fc-meta strong { color: var(--text); font-size: 13px; }
+
+    .fc-bar {
+      flex: 1;
+      position: relative;
+      height: 22px;
+    }
+
+    /* Bands: positioned as % of bar width (= temperature scale) */
+    .fc-2s, .fc-1s, .fc-mu { position: absolute; top: 0; height: 100%; }
+
+    .fc-2s { border-radius: 6px; top: 5px; height: 12px; }
+    .fc-1s { border-radius: 4px; top: 3px; height: 16px; }
+    .fc-mu { width: 3px; border-radius: 2px; transform: translateX(-50%); }
+
+    .fc-row.daily-row   .fc-2s { background: rgba(9,105,218,.14); }
+    .fc-row.daily-row   .fc-1s { background: rgba(9,105,218,.42); }
+    .fc-row.daily-row   .fc-mu { background: #0969da; }
+
+    .fc-row.intra-row   .fc-2s { background: rgba(34,134,58,.14); }
+    .fc-row.intra-row   .fc-1s { background: rgba(34,134,58,.42); }
+    .fc-row.intra-row   .fc-mu { background: #22863a; }
+
+    /* Scale row */
+    .fc-scale-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      min-width: 500px;
+      margin-top: 10px;
+    }
+    .fc-scale-spacer { width: calc(56px + 96px + 12px + 12px); flex-shrink: 0; }
+    .fc-scale { flex: 1; position: relative; height: 16px; border-top: 1px solid var(--border); }
+    .fc-tick {
+      position: absolute; top: 2px;
+      font-size: 10px; color: var(--text-muted);
+      transform: translateX(-50%); white-space: nowrap;
+    }
+
+    /* Legend */
+    .fc-legend {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      margin-bottom: 14px; font-size: 12px; color: var(--text-muted);
+    }
+    .fc-legend-item { display: flex; align-items: center; gap: 5px; }
+    .fc-legend-swatch {
+      width: 14px; height: 10px; border-radius: 3px;
+    }
+
+    .no-forecast { font-size: 13px; color: var(--text-muted); padding: 8px 0; }
+    .loading { color: var(--text-muted); font-size: 13px; padding: 8px 0; }
+    .error   { color: var(--loss);       font-size: 13px; padding: 8px 0; }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1/dist/chartjs-adapter-luxon.umd.min.js"></script>
 </head>
 <body>
 
 <header>
-  <h1 id="page-title">TMAX Predictions</h1>
+  <h1 id="page-title">Weather Bot</h1>
   <nav id="location-nav">
-    <a href="?location=atl" class="loc-link">Atlanta</a>
-    <a href="?location=dc" class="loc-link">Washington DC</a>
-    <a href="?location=lax" class="loc-link">Los Angeles</a>
-    <a href="?location=nyc" class="loc-link">New York City</a>
+    <a href="?location=atl">Atlanta</a>
+    <a href="?location=bos">Boston</a>
+    <a href="?location=chi">Chicago</a>
+    <a href="?location=dal">Dallas</a>
+    <a href="?location=dc">Washington DC</a>
+    <a href="?location=lax">Los Angeles</a>
+    <a href="?location=mia">Miami</a>
+    <a href="?location=nyc">New York City</a>
+    <a href="?location=sfo">San Francisco</a>
   </nav>
-  <div id="temp-filter">
-    <span>Temp range:</span>
-    <input type="number" id="filter-min" placeholder="min" step="1">
-    <span>–</span>
-    <input type="number" id="filter-max" placeholder="max" step="1">
-    <span>°F</span>
-  </div>
-  <div id="status-bar">Last updated: <span id="last-updated">—</span> &nbsp;|&nbsp; Next refresh in <span id="countdown">15:00</span></div>
+  <div id="status-bar">Updated: <span id="last-updated">—</span></div>
 </header>
 
+<div class="tabs-header">
+  <button class="tab-btn active" data-tab="bets">Bets</button>
+  <button class="tab-btn" data-tab="forecast">Forecast</button>
+</div>
+
 <main>
-  <!-- Tab navigation -->
-  <div id="tab-bar">
-    <button class="tab-btn active" data-tab="today">Today</button>
-    <button class="tab-btn" data-tab="tomorrow">Tomorrow</button>
+  <div class="tab-panel active" id="tab-bets">
+    <div class="loading">Loading…</div>
   </div>
-
-  <!-- TODAY TAB ──────────────────────────────────────────────── -->
-  <div id="tab-today" class="tab-pane active">
-
-  <!-- TODAY ─────────────────────────────────────────────────── -->
-  <section id="section-today">
-    <h2>Today — <span id="today-label"></span></h2>
-    <div id="value-section-stats-today" class="section-stats"></div>
-    <div class="cards">
-      <div class="card card-full" id="card-intraday-even-hours" data-bucket="even" data-day="today">
-        <div class="card-header">
-          <h3>Intraday · Even Buckets · Hourly Snapshots</h3>
-          <span class="meta" id="meta-even-hours"></span>
-        </div>
-        <div class="card-body" id="body-even-hours"><div class="loading">Loading…</div></div>
-      </div>
-
-      <div class="card card-full" id="card-intraday-even-meta-hours" data-bucket="even" data-day="today">
-        <div class="card-header">
-          <h3>Meta · Even Buckets · Hourly Snapshots</h3>
-          <span class="meta" id="meta-even-meta-hours"></span>
-        </div>
-        <div class="card-body" id="body-even-meta-hours"><div class="loading">Loading…</div></div>
-      </div>
-
-      <div class="card card-full" id="card-intraday-odd-hours" data-bucket="odd" data-day="today">
-        <div class="card-header">
-          <h3>Intraday · Odd Buckets · Hourly Snapshots</h3>
-          <span class="meta" id="meta-odd-hours"></span>
-        </div>
-        <div class="card-body" id="body-odd-hours"><div class="loading">Loading…</div></div>
-      </div>
-
-      <div class="card card-full" id="card-intraday-odd-meta-hours" data-bucket="odd" data-day="today">
-        <div class="card-header">
-          <h3>Meta · Odd Buckets · Hourly Snapshots</h3>
-          <span class="meta" id="meta-odd-meta-hours"></span>
-        </div>
-        <div class="card-body" id="body-odd-meta-hours"><div class="loading">Loading…</div></div>
-      </div>
-
-      <div class="card" id="card-intraday-even-compare" data-bucket="even" data-day="today">
-        <div class="card-header">
-          <h3>Intraday · Even Buckets · Live vs D1</h3>
-          <span class="meta" id="meta-even-compare"></span>
-        </div>
-        <div class="card-body" id="body-even-compare"><div class="loading">Loading…</div></div>
-      </div>
-
-      <div class="card" id="card-intraday-odd-compare" data-bucket="odd" data-day="today">
-        <div class="card-header">
-          <h3>Intraday · Odd Buckets · Live vs D1</h3>
-          <span class="meta" id="meta-odd-compare"></span>
-        </div>
-        <div class="card-body" id="body-odd-compare"><div class="loading">Loading…</div></div>
-      </div>
-
-      <div class="card card-full" id="card-ensemble-even-today" data-bucket="even" data-day="today">
-        <div class="card-header">
-          <h3>Daily Ensemble · Even Buckets</h3>
-          <span class="meta" id="meta-ensemble-even-today"></span>
-        </div>
-        <div class="card-body" id="body-ensemble-even-today"><div class="loading">Loading…</div></div>
-      </div>
-
-      <div class="card card-full" id="card-ensemble-odd-today" data-bucket="odd" data-day="today">
-        <div class="card-header">
-          <h3>Daily Ensemble · Odd Buckets</h3>
-          <span class="meta" id="meta-ensemble-odd-today"></span>
-        </div>
-        <div class="card-body" id="body-ensemble-odd-today"><div class="loading">Loading…</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 2-DAY HISTORY ──────────────────────────────────────────── -->
-  <section id="section-timeseries">
-    <h2>2-Day Weather History</h2>
-    <div class="cards">
-      <div class="card card-full">
-        <div class="card-header">
-          <h3>Temperature · Observations &amp; Forecasts</h3>
-          <span class="meta" id="meta-temp-timeseries"></span>
-        </div>
-        <div class="card-body"><div class="chart-scroll"><div class="chart-wrap" style="height:280px"><canvas id="chart-temp"></canvas></div></div></div>
-      </div>
-      <div class="card card-full">
-        <div class="card-header">
-          <h3>Dewpoint · Observed (°F)</h3>
-          <span class="meta" id="meta-dewpoint-timeseries"></span>
-        </div>
-        <div class="card-body"><div class="chart-scroll"><div class="chart-wrap" style="height:200px"><canvas id="chart-dewpoint"></canvas></div></div></div>
-      </div>
-      <div class="card card-full">
-        <div class="card-header">
-          <h3>Wind Speed · Observed (mph)</h3>
-          <span class="meta" id="meta-wind-timeseries"></span>
-        </div>
-        <div class="card-body"><div class="chart-scroll"><div class="chart-wrap" style="height:200px"><canvas id="chart-wind"></canvas></div></div></div>
-      </div>
-      <div class="card card-full">
-        <div class="card-header">
-          <h3>Cloud Cover · Observed (fraction)</h3>
-          <span class="meta" id="meta-cloud-timeseries"></span>
-        </div>
-        <div class="card-body"><div class="chart-scroll"><div class="chart-wrap" style="height:200px"><canvas id="chart-cloud"></canvas></div></div></div>
-      </div>
-      <div class="card card-full">
-        <div class="card-header">
-          <h3>Precipitation Since Midnight · Observed (in)</h3>
-          <span class="meta" id="meta-precip-timeseries"></span>
-        </div>
-        <div class="card-body"><div class="chart-scroll"><div class="chart-wrap" style="height:200px"><canvas id="chart-precip"></canvas></div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCORE TODAY ───────────────────────────────────────── -->
-  <section id="section-score-today">
-    <h2>Score Today — <span id="score-today-date"></span></h2>
-    <div class="cards">
-      <div class="card card-full" id="card-weather-summary-today">
-        <div class="card-header">
-          <h3>Weather Summary · Today</h3>
-          <span class="meta" id="meta-weather-summary-today"></span>
-        </div>
-        <div class="card-body" id="body-weather-summary-today"><div class="loading">Loading…</div></div>
-      </div>
-      <div class="card" id="card-score-today-d1-even" data-bucket="even" data-day="today">
-        <div class="card-header">
-          <h3>Daily Prediction · Even Buckets</h3>
-          <span class="meta" id="meta-score-today-d1-even"></span>
-        </div>
-        <div class="card-body" id="body-score-today-d1-even"><div class="loading">Loading…</div></div>
-      </div>
-      <div class="card" id="card-score-today-d1-odd" data-bucket="odd" data-day="today">
-        <div class="card-header">
-          <h3>Daily Prediction · Odd Buckets</h3>
-          <span class="meta" id="meta-score-today-d1-odd"></span>
-        </div>
-        <div class="card-body" id="body-score-today-d1-odd"><div class="loading">Loading…</div></div>
-      </div>
-      <div class="card" id="card-score-today-even" data-bucket="even" data-day="today">
-        <div class="card-header">
-          <h3>Abort Signal · Even Buckets</h3>
-          <span class="meta" id="meta-score-today-even"></span>
-        </div>
-        <div class="card-body" id="body-score-today-even"><div class="loading">Loading…</div></div>
-      </div>
-      <div class="card" id="card-score-today-odd" data-bucket="odd" data-day="today">
-        <div class="card-header">
-          <h3>Abort Signal · Odd Buckets</h3>
-          <span class="meta" id="meta-score-today-odd"></span>
-        </div>
-        <div class="card-body" id="body-score-today-odd"><div class="loading">Loading…</div></div>
-      </div>
-    </div>
-  </section>
-
-  </div><!-- /tab-today -->
-
-  <!-- TOMORROW TAB ───────────────────────────────────────────── -->
-  <div id="tab-tomorrow" class="tab-pane">
-
-  <!-- TOMORROW ──────────────────────────────────────────────── -->
-  <section id="section-tomorrow">
-    <h2>Tomorrow — <span id="tomorrow-label"></span></h2>
-    <div id="value-section-stats-tomorrow" class="section-stats"></div>
-    <div class="cards">
-      <div class="card card-full" id="card-ensemble-even" data-bucket="even" data-day="tomorrow">
-        <div class="card-header">
-          <h3>Daily Ensemble · Even Buckets</h3>
-          <span class="meta" id="meta-ensemble-even"></span>
-        </div>
-        <div class="card-body" id="body-ensemble-even"><div class="loading">Loading…</div></div>
-      </div>
-
-      <div class="card card-full" id="card-ensemble-odd" data-bucket="odd" data-day="tomorrow">
-        <div class="card-header">
-          <h3>Daily Ensemble · Odd Buckets</h3>
-          <span class="meta" id="meta-ensemble-odd"></span>
-        </div>
-        <div class="card-body" id="body-ensemble-odd"><div class="loading">Loading…</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCORE TOMORROW ─────────────────────────────────────── -->
-  <section id="section-score-tomorrow">
-    <h2>Score Tomorrow — <span id="score-tomorrow-date"></span></h2>
-    <div class="cards">
-      <div class="card card-full" id="card-weather-summary-tomorrow">
-        <div class="card-header">
-          <h3>Weather Summary · Tomorrow</h3>
-          <span class="meta" id="meta-weather-summary-tomorrow"></span>
-        </div>
-        <div class="card-body" id="body-weather-summary-tomorrow"><div class="loading">Loading…</div></div>
-      </div>
-      <div class="card" id="card-score-tomorrow-even" data-bucket="even" data-day="tomorrow">
-        <div class="card-header">
-          <h3>Entry Signal · Even Buckets</h3>
-          <span class="meta" id="meta-score-tomorrow-even"></span>
-        </div>
-        <div class="card-body" id="body-score-tomorrow-even"><div class="loading">Loading…</div></div>
-      </div>
-      <div class="card" id="card-score-tomorrow-odd" data-bucket="odd" data-day="tomorrow">
-        <div class="card-header">
-          <h3>Entry Signal · Odd Buckets</h3>
-          <span class="meta" id="meta-score-tomorrow-odd"></span>
-        </div>
-        <div class="card-body" id="body-score-tomorrow-odd"><div class="loading">Loading…</div></div>
-      </div>
-      <div class="card" id="card-score-tomorrow-intra-even" data-bucket="even" data-day="tomorrow">
-        <div class="card-header">
-          <h3>Intraday Monitor · Even Buckets</h3>
-          <span class="meta" id="meta-score-tomorrow-intra-even"></span>
-        </div>
-        <div class="card-body" id="body-score-tomorrow-intra-even"><div class="loading">Loading…</div></div>
-      </div>
-      <div class="card" id="card-score-tomorrow-intra-odd" data-bucket="odd" data-day="tomorrow">
-        <div class="card-header">
-          <h3>Intraday Monitor · Odd Buckets</h3>
-          <span class="meta" id="meta-score-tomorrow-intra-odd"></span>
-        </div>
-        <div class="card-body" id="body-score-tomorrow-intra-odd"><div class="loading">Loading…</div></div>
-      </div>
-    </div>
-  </section>
-
-  </div><!-- /tab-tomorrow -->
-
+  <div class="tab-panel" id="tab-forecast">
+    <div class="loading">Loading…</div>
+  </div>
 </main>
 
 <script>
-// ── Location (from ?location=atl URL param) ───────────────────
-const LOCATION = (new URLSearchParams(window.location.search).get("location") || "atl").toLowerCase();
+const LOC = (new URLSearchParams(window.location.search).get("location") || "atl").toLowerCase();
 
-// ── Config ───────────────────────────────────────────────────
-const DATA_FILES = {
-  kalshi: {
-    intradayEvenHours:   `data/intraday_even_hours_today_kalshi_${LOCATION}.json`,
-    intradayOddHours:    `data/intraday_odd_hours_today_kalshi_${LOCATION}.json`,
-    intradayEvenCompare: `data/intraday_even_compare_today_kalshi_${LOCATION}.json`,
-    intradayOddCompare:  `data/intraday_odd_compare_today_kalshi_${LOCATION}.json`,
-    valueToday:          "data/value_today_kalshi.json",
-    valueTomorrow:       "data/value_tomorrow_kalshi.json",
-    ensembleEven:        `data/ensemble_even_tomorrow_kalshi_${LOCATION}.json`,
-    ensembleOdd:         `data/ensemble_odd_tomorrow_kalshi_${LOCATION}.json`,
-    ensembleEvenToday:   `data/ensemble_even_today_kalshi_${LOCATION}.json`,
-    ensembleOddToday:    `data/ensemble_odd_today_kalshi_${LOCATION}.json`,
-    scoreIntradayToday:      `data/score_intraday_today_kalshi_${LOCATION}.json`,
-    scoreIntradayTomorrow:   `data/score_intraday_tomorrow_kalshi_${LOCATION}.json`,
-    scorePredictionToday:    `data/score_prediction_today_kalshi_${LOCATION}.json`,
-    scorePredictionTomorrow: `data/score_prediction_tomorrow_kalshi_${LOCATION}.json`,
-  },
-  shared: {
-    obsTimeseries:        `data/obs_timeseries_${LOCATION}.json`,
-    fcstTimeseries:       `data/forecast_timeseries_${LOCATION}.json`,
-    marketConfig:         "data/market_config.json",
-    weatherSummaryToday:    `data/weather_summary_today_${LOCATION}.json`,
-    weatherSummaryTomorrow: `data/weather_summary_tomorrow_${LOCATION}.json`,
-  },
-};
-const REFRESH_MS = 15 * 60 * 1000;
-
-// Set page title to reflect active location
-const LOCATION_LABELS = { atl: "Atlanta", dc: "Washington DC", lax: "Los Angeles", nyc: "New York City" };
-const locationLabel = LOCATION_LABELS[LOCATION] || LOCATION.toUpperCase();
-document.title = `${locationLabel} TMAX Predictions`;
-document.getElementById("page-title").textContent = `${locationLabel} TMAX Predictions`;
-document.querySelectorAll("#location-nav .loc-link").forEach(a => {
-  const p = new URLSearchParams(new URL(a.href, location.href).search).get("location") || "atl";
-  if (p === LOCATION) a.classList.add("active");
+document.querySelectorAll("#location-nav a").forEach(a => {
+  const p = new URL(a.href, location.href).searchParams.get("location") || "atl";
+  if (p === LOC) a.classList.add("active");
 });
 
-// ── Temp filter state ─────────────────────────────────────────
-let loadedData = { kalshi: {}, polymarket: {}, shared: {} };
-let activeMarket = "kalshi";
-function getTempFilter() {
-  const minVal = el("filter-min").value;
-  const maxVal = el("filter-max").value;
-  return {
-    min: minVal !== "" ? parseFloat(minVal) : -Infinity,
-    max: maxVal !== "" ? parseFloat(maxVal) :  Infinity,
-  };
-}
-
-// ── Utilities ────────────────────────────────────────────────
-function fmtPct(p)  { return p == null ? "—" : (p * 100).toFixed(1) + "%"; }
-function fmtTemp(t) { return t == null ? "—" : t.toFixed(1) + "°F"; }
-function fmtHour(h) {
-  if (h == null) return "—";
-  const hr  = Math.floor(h);
-  const min = Math.round((h % 1) * 60);
-  const ampm = hr >= 12 ? "PM" : "AM";
-  const dh   = hr > 12 ? hr - 12 : hr === 0 ? 12 : hr;
-  return `${dh}:${String(min).padStart(2, "0")} ${ampm}`;
-}
-function fmtDate(iso) {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true });
-}
-function labelDate(str) {
-  if (!str) return "";
-  const [y, m, d] = str.split("-").map(Number);
-  return new Date(y, m - 1, d).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
-}
-
-// Temperature bucket → color (for Atlanta summer range roughly 78–100°F)
-function bucketColor(lo) {
-  if (lo == null || lo < 80)  return "#4a90e2";
-  if (lo < 84)                return "#5bba6f";
-  if (lo < 88)                return "#f5a623";
-  if (lo < 92)                return "#e8622a";
-  return "#d0021b";
-}
-
-function deltaClass(d) {
-  if (d == null) return "neu";
-  return d > 0.005 ? "pos" : d < -0.005 ? "neg" : "neu";
-}
-function fmtDelta(d) {
-  if (d == null) return "—";
-  return (d >= 0 ? "+" : "") + (d * 100).toFixed(1) + "%";
-}
-
-function el(id) { return document.getElementById(id); }
-function h(tag, cls, content) {
-  const e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (content != null) e.innerHTML = content;
-  return e;
-}
-
-// ── Bar cell ─────────────────────────────────────────────────
-function barCell(prob, lo, mini = false) {
-  const td = document.createElement("td");
-  if (mini) td.style.minWidth = "70px"; else td.className = "bar-cell";
-  const color = bucketColor(lo);
-  const pct = prob == null ? 0 : Math.round(prob * 100);
-  td.innerHTML = `
-    <div class="bar-wrap">
-      <div class="bar-bg"><div class="bar-fill" style="width:${Math.min(pct,100)}%;background:${color}"></div></div>
-      <span class="bar-pct">${fmtPct(prob)}</span>
-    </div>`;
-  return td;
-}
-
-// ── Fetch with cache-bust ─────────────────────────────────────
-async function fetchJSON(url) {
-  const res = await fetch(url + "?t=" + Date.now());
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
-}
-
-// ── Render: multi-hour intraday ───────────────────────────────
-function renderIntradayHours(data, bodyEl, metaEl) {
-  metaEl.textContent = fmtDate(data.generated_at);
-  if (!data.snapshots || data.snapshots.length === 0) {
-    let html = "";
-    if (data.d1_forecasts && Object.keys(data.d1_forecasts).length) {
-      const chips = Object.entries(data.d1_forecasts)
-        .map(([src, v]) => `<span class="fcst-chip">${src.toUpperCase()} ${v?.toFixed(1)}°F</span>`)
-        .join("");
-      html += `<div class="fcst-chips">${chips}</div>`;
-    }
-    if (data.predicted_peak_hour != null) {
-      html += `<div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">Peak predicted <strong style="color:var(--text)">~${fmtHour(data.predicted_peak_hour)} ET</strong></div>`;
-    }
-    html += '<div class="loading">No snapshot data yet — check back after 7am ET.</div>';
-    bodyEl.innerHTML = html;
-    return;
-  }
-
-  const snaps = data.snapshots;
-  const buckets = snaps[0].buckets;
-
-  // D1 forecast chips
-  let chipsHtml = "";
-  if (data.d1_forecasts && Object.keys(data.d1_forecasts).length) {
-    const chips = Object.entries(data.d1_forecasts)
-      .map(([src, v]) => `<span class="fcst-chip">${src.toUpperCase()} ${v?.toFixed(1)}°F</span>`)
-      .join("");
-    chipsHtml = `<div class="fcst-chips">${chips}</div>`;
-  }
-  if (data.predicted_peak_hour != null) {
-    chipsHtml += `<div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">Peak predicted <strong style="color:var(--text)">~${fmtHour(data.predicted_peak_hour)} ET</strong></div>`;
-  }
-
-  const table = document.createElement("table");
-  table.className = "multi-table";
-
-  // Header row
-  const thead = table.createTHead();
-  const hrow = thead.insertRow();
-  const thLabel = document.createElement("th"); thLabel.textContent = ""; hrow.appendChild(thLabel);
-  snaps.forEach(s => {
-    const th = document.createElement("th"); th.textContent = s.time_label; hrow.appendChild(th);
-  });
-
-  const tbody = table.createTBody();
-
-  // State rows
-  const stateRows = [
-    { label: "Run Max",  fn: s => fmtTemp(s.running_max) },
-    { label: "Current",  fn: s => fmtTemp(s.current_temp) },
-    { label: "Velocity", fn: s => (s.velocity >= 0 ? "+" : "") + s.velocity.toFixed(1) + "°F/h" },
-  ];
-  stateRows.forEach((sr, idx) => {
-    const tr = tbody.insertRow();
-    tr.className = "state-r" + (idx === stateRows.length - 1 ? " sep" : "");
-    const tdLabel = tr.insertCell(); tdLabel.textContent = sr.label;
-    snaps.forEach(s => {
-      const td = tr.insertCell();
-      td.textContent = sr.fn(s);
-      if (sr.label === "Velocity") td.className = s.velocity > 0.5 ? "pos" : s.velocity < -0.5 ? "neg" : "neu";
-    });
-  });
-
-  // Bucket rows
-  const { min: fMin, max: fMax } = getTempFilter();
-  let firstVisible = true;
-  buckets.forEach((bkt, bi) => {
-    if (bkt.lo < fMin || bkt.lo > fMax) return;
-    const tr = tbody.insertRow();
-    tr.className = firstVisible ? "sep" : "";
-    firstVisible = false;
-    const tdLabel = tr.insertCell();
-    tdLabel.textContent = bkt.label;
-    tdLabel.style.color = bucketColor(bkt.lo);
-    tdLabel.style.fontWeight = "600";
-    snaps.forEach(s => {
-      const p = s.buckets[bi]?.prob;
-      const td = tr.insertCell();
-      const pct = p == null ? 0 : Math.round(p * 100);
-      const alpha = 0.15 + pct * 0.007;
-      td.style.background = `rgba(${hexToRgb(bucketColor(bkt.lo))},${alpha.toFixed(2)})`;
-      td.innerHTML = `<span class="cell-heat">${fmtPct(p)}</span>`;
-    });
-  });
-
-  bodyEl.innerHTML = chipsHtml;
-  bodyEl.appendChild(document.createElement("div")).className = "scroll-x";
-  bodyEl.querySelector(".scroll-x").appendChild(table);
-}
-
-// ── Render: meta model by hour ───────────────────────────────
-function renderMetaHours(data, bodyEl, metaEl) {
-  metaEl.textContent = fmtDate(data.generated_at);
-  if (!data.has_meta) {
-    bodyEl.innerHTML = '<div class="loading">Meta model not available for this location/bucket.</div>';
-    return;
-  }
-  const snaps = (data.snapshots || []).filter(s => s.meta_buckets);
-  if (!snaps.length) {
-    bodyEl.innerHTML = '<div class="loading">No meta snapshot data yet — check back after 7am ET.</div>';
-    return;
-  }
-
-  const buckets = snaps[0].buckets;
-
-  let chipsHtml = "";
-  if (data.d1_forecasts && Object.keys(data.d1_forecasts).length) {
-    const chips = Object.entries(data.d1_forecasts)
-      .map(([src, v]) => `<span class="fcst-chip">${src.toUpperCase()} ${v?.toFixed(1)}°F</span>`)
-      .join("");
-    chipsHtml = `<div class="fcst-chips">${chips}</div>`;
-  }
-  if (data.predicted_peak_hour != null) {
-    chipsHtml += `<div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">Peak predicted <strong style="color:var(--text)">~${fmtHour(data.predicted_peak_hour)} ET</strong></div>`;
-  }
-
-  const table = document.createElement("table");
-  table.className = "multi-table";
-
-  const thead = table.createTHead();
-  const hrow = thead.insertRow();
-  const thLabel = document.createElement("th"); thLabel.textContent = ""; hrow.appendChild(thLabel);
-  snaps.forEach(s => {
-    const th = document.createElement("th"); th.textContent = s.time_label; hrow.appendChild(th);
-  });
-
-  const tbody = table.createTBody();
-
-  const stateRows = [
-    { label: "Run Max",  fn: s => fmtTemp(s.running_max) },
-    { label: "Current",  fn: s => fmtTemp(s.current_temp) },
-    { label: "Velocity", fn: s => (s.velocity >= 0 ? "+" : "") + s.velocity.toFixed(1) + "°F/h" },
-  ];
-  stateRows.forEach((sr, idx) => {
-    const tr = tbody.insertRow();
-    tr.className = "state-r" + (idx === stateRows.length - 1 ? " sep" : "");
-    const tdLabel = tr.insertCell(); tdLabel.textContent = sr.label;
-    snaps.forEach(s => {
-      const td = tr.insertCell();
-      td.textContent = sr.fn(s);
-      if (sr.label === "Velocity") td.className = s.velocity > 0.5 ? "pos" : s.velocity < -0.5 ? "neg" : "neu";
-    });
-  });
-
-  const { min: fMin, max: fMax } = getTempFilter();
-  let firstVisible = true;
-  buckets.forEach((bkt, bi) => {
-    if (bkt.lo < fMin || bkt.lo > fMax) return;
-    const tr = tbody.insertRow();
-    tr.className = firstVisible ? "sep" : "";
-    firstVisible = false;
-    const tdLabel = tr.insertCell();
-    tdLabel.textContent = bkt.label;
-    tdLabel.style.color = bucketColor(bkt.lo);
-    tdLabel.style.fontWeight = "600";
-    snaps.forEach(s => {
-      const p = s.meta_buckets[bi]?.prob;
-      const td = tr.insertCell();
-      const pct = p == null ? 0 : Math.round(p * 100);
-      const alpha = 0.15 + pct * 0.007;
-      td.style.background = `rgba(${hexToRgb(bucketColor(bkt.lo))},${alpha.toFixed(2)})`;
-      td.innerHTML = `<span class="cell-heat">${fmtPct(p)}</span>`;
-    });
-  });
-
-  bodyEl.innerHTML = chipsHtml;
-  const scrollDiv = document.createElement("div");
-  scrollDiv.className = "scroll-x";
-  scrollDiv.appendChild(table);
-  bodyEl.appendChild(scrollDiv);
-}
-
-// ── Render: compare D1 ───────────────────────────────────────
-function renderIntradayCompare(data, bodyEl, metaEl) {
-  metaEl.textContent = fmtDate(data.generated_at);
-
-  if (data.error) {
-    bodyEl.innerHTML = `<div class="loading">No snapshot data yet — check back after 7am ET.</div>`;
-    return;
-  }
-
-  // D1 forecast chips (shared by both D1-only and full intraday views)
-  let chipsHtml = "";
-  if (data.d1_forecasts && Object.keys(data.d1_forecasts).length) {
-    const chips = Object.entries(data.d1_forecasts)
-      .map(([src, v]) => `<span class="fcst-chip">${src.toUpperCase()} ${v?.toFixed(1)}°F</span>`)
-      .join("");
-    chipsHtml = `<div class="fcst-chips">${chips}</div>`;
-  }
-
-  // No intraday readings yet — show D1 baseline only
-  if (data.intraday_available === false) {
-    const hasD1  = data.has_d1_comparison && data.buckets?.some(b => b.d1_prior != null);
-    const hasNow = data.buckets?.some(b => b.d1_now != null);
-    const noteHtml = `<div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">Intraday readings not yet available — showing D1 baseline</div>`;
-    const table = document.createElement("table");
-    table.className = "prob-table";
-    const thead = table.createTHead();
-    const hrow = thead.insertRow();
-    [
-      ["Bucket", "left"],
-      ...(hasD1  ? [["D1 Prior", "left"]] : []),
-      ...(hasNow ? [["D1 Now",   "left"]] : []),
-    ].forEach(([text, align]) => {
-      const th = document.createElement("th");
-      th.textContent = text; th.style.textAlign = align;
-      hrow.appendChild(th);
-    });
-    const tbody = table.createTBody();
-    let totalD1Prior = 0, totalD1Now = 0;
-    const { min: cMin, max: cMax } = getTempFilter();
-    (data.buckets || []).filter(b => b.lo >= cMin && b.lo <= cMax).forEach(b => {
-      totalD1Prior += b.d1_prior || 0;
-      totalD1Now   += b.d1_now   || 0;
-      const tr = tbody.insertRow();
-      const tdLabel = tr.insertCell(); tdLabel.textContent = b.label;
-      tdLabel.style.color = bucketColor(b.lo); tdLabel.style.fontWeight = "600";
-      if (hasD1)  tr.appendChild(barCell(b.d1_prior, b.lo, true));
-      if (hasNow) tr.appendChild(barCell(b.d1_now,   b.lo, true));
-    });
-    const trow = tbody.insertRow(); trow.className = "total-row";
-    trow.insertCell().textContent = "TOTAL";
-    if (hasD1)  { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Prior); td.style.textAlign = "right"; }
-    if (hasNow) { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Now);   td.style.textAlign = "right"; }
-    bodyEl.innerHTML = noteHtml + chipsHtml;
-    bodyEl.appendChild(table);
-    return;
-  }
-
-  // State row
-  const stateHtml = `
-    <div class="state-row">
-      <div class="stat">
-        <span class="stat-label">As of</span>
-        <span class="stat-value">${data.time_label || "—"} ET</span>
-      </div>
-      <div class="stat">
-        <span class="stat-label">Run Max</span>
-        <span class="stat-value up">${fmtTemp(data.running_max)}</span>
-      </div>
-      <div class="stat">
-        <span class="stat-label">Current</span>
-        <span class="stat-value">${fmtTemp(data.current_temp)}</span>
-      </div>
-      <div class="stat">
-        <span class="stat-label">Velocity</span>
-        <span class="stat-value ${data.velocity > 0.5 ? 'up' : data.velocity < -0.5 ? 'down' : ''}">
-          ${data.velocity >= 0 ? "+" : ""}${data.velocity?.toFixed(1)}°F/h
-        </span>
-      </div>
-      ${data.dewpoint != null ? `<div class="stat">
-        <span class="stat-label">Dewpoint</span>
-        <span class="stat-value">${fmtTemp(data.dewpoint)}</span>
-      </div>` : ""}
-      ${data.predicted_peak_hour != null ? `<div class="stat">
-        <span class="stat-label">Peak ~</span>
-        <span class="stat-value">${fmtHour(data.predicted_peak_hour)} ET</span>
-      </div>` : ""}
-    </div>`;
-
-  const hasD1   = data.has_d1_comparison && data.buckets?.some(b => b.d1_prior != null);
-  const hasNow  = data.buckets?.some(b => b.d1_now != null);
-  const hasMeta = data.has_meta && data.buckets?.some(b => b.meta != null);
-
-  const table = document.createElement("table");
-  table.className = "prob-table";
-  const thead = table.createTHead();
-  const hrow = thead.insertRow();
-  [
-    ["Bucket",   "left"],
-    ["Intraday", "left"],
-    ...(hasMeta ? [["Meta ★", "left"]] : []),
-    ...(hasD1   ? [["D1 Prior", "left"]] : []),
-    ...(hasNow  ? [["D1 Now",   "left"]] : []),
-    ...(hasMeta ? [["Δ Meta",  "right"]] : []),
-    ...(hasD1   ? [["Δ Prior", "right"]] : []),
-    ...(hasNow  ? [["Δ Now",   "right"]] : []),
-  ].forEach(([text, align]) => {
-    const th = document.createElement("th");
-    th.textContent = text;
-    th.style.textAlign = align;
-    if (text === "Meta ★") th.style.color = "var(--accent)";
-    hrow.appendChild(th);
-  });
-
-  const tbody = table.createTBody();
-  let totalIntraday = 0, totalMeta = 0, totalD1Prior = 0, totalD1Now = 0;
-  const { min: cMin, max: cMax } = getTempFilter();
-  (data.buckets || []).filter(b => b.lo >= cMin && b.lo <= cMax).forEach(b => {
-    const tr = tbody.insertRow();
-    const deltaMeta  = (b.meta   != null && b.d1_prior != null) ? b.meta   - b.d1_prior : null;
-    const deltaPrior = (b.intraday != null && b.d1_prior != null) ? b.intraday - b.d1_prior : null;
-    const deltaNow   = (b.intraday != null && b.d1_now   != null) ? b.intraday - b.d1_now   : null;
-    totalIntraday += b.intraday || 0;
-    totalMeta     += b.meta     || 0;
-    totalD1Prior  += b.d1_prior || 0;
-    totalD1Now    += b.d1_now   || 0;
-
-    const tdLabel = tr.insertCell(); tdLabel.textContent = b.label;
-    tdLabel.style.color = bucketColor(b.lo); tdLabel.style.fontWeight = "600";
-
-    tr.appendChild(barCell(b.intraday, b.lo, true));
-    if (hasMeta) tr.appendChild(barCell(b.meta,    b.lo, true));
-    if (hasD1)   tr.appendChild(barCell(b.d1_prior, b.lo, true));
-    if (hasNow)  tr.appendChild(barCell(b.d1_now,   b.lo, true));
-    if (hasMeta) { const td = tr.insertCell(); td.className = deltaClass(deltaMeta);  td.textContent = fmtDelta(deltaMeta);  td.style.textAlign = "right"; }
-    if (hasD1)   { const td = tr.insertCell(); td.className = deltaClass(deltaPrior); td.textContent = fmtDelta(deltaPrior); td.style.textAlign = "right"; }
-    if (hasNow)  { const td = tr.insertCell(); td.className = deltaClass(deltaNow);   td.textContent = fmtDelta(deltaNow);   td.style.textAlign = "right"; }
-  });
-
-  // Total row
-  const trow = tbody.insertRow(); trow.className = "total-row";
-  const ttd = trow.insertCell(); ttd.textContent = "TOTAL";
-  const tiCell = trow.insertCell(); tiCell.textContent = fmtPct(totalIntraday); tiCell.style.textAlign = "right";
-  if (hasMeta) { const td = trow.insertCell(); td.textContent = fmtPct(totalMeta);   td.style.textAlign = "right"; td.style.color = "var(--accent)"; }
-  if (hasD1)   { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Prior); td.style.textAlign = "right"; }
-  if (hasNow)  { const td = trow.insertCell(); td.textContent = fmtPct(totalD1Now);   td.style.textAlign = "right"; }
-  if (hasMeta) trow.insertCell();
-  if (hasD1)   trow.insertCell();
-  if (hasNow)  trow.insertCell();
-
-  bodyEl.innerHTML = stateHtml + chipsHtml;
-  bodyEl.appendChild(table);
-}
-
-// ── Render: value model ───────────────────────────────────────
-function renderValue(data, statsEl) {
-  if (!data.horizons || data.horizons.length === 0) return;
-  statsEl.innerHTML = "";
-  data.horizons.forEach((h, i) => {
-    const diff = h.delta_vs_weighted;
-    const diffCls = diff == null ? "" : diff > 0.2 ? "value-up" : diff < -0.2 ? "value-down" : "";
-    const group = document.createElement("span");
-    group.style.cssText = `display:inline-flex;gap:10px;align-items:baseline;${i < data.horizons.length - 1 ? "border-right:1px solid var(--border);padding-right:16px;" : ""}`;
-    group.innerHTML =
-      `<span style="color:var(--text-muted);font-weight:600">${h.horizon.toUpperCase()}</span>` +
-      `<span>Wtd&nbsp;<strong>${h.weighted_avg != null ? h.weighted_avg.toFixed(1) + "°F" : "—"}</strong></span>` +
-      `<span>CI&nbsp;<strong>${h.ci_lo != null ? `${h.ci_lo}–${h.ci_hi}°F` : "—"}</strong></span>` +
-      (h.value_pred != null
-        ? `<span>Val&nbsp;<strong class="${diffCls}" style="font-size:13px">${h.value_pred.toFixed(1)}°F</strong>` +
-          (diff != null ? `&nbsp;<span style="color:var(--text-muted)">(${diff >= 0 ? "+" : ""}${diff.toFixed(1)})</span>` : "") + `</span>`
-        : "");
-    statsEl.appendChild(group);
-  });
-  const ts = document.createElement("span");
-  ts.style.cssText = "color:var(--text-muted);font-size:11px;margin-left:auto";
-  ts.textContent = fmtDate(data.generated_at);
-  statsEl.appendChild(ts);
-}
-
-// ── Render: daily ensemble ────────────────────────────────────
-function renderEnsemble(data, bodyEl, metaEl) {
-  metaEl.textContent = fmtDate(data.generated_at);
-  if (!data.horizons || data.horizons.length === 0) {
-    bodyEl.innerHTML = '<div class="loading">No data available.</div>';
-    return;
-  }
-
-  const frag = document.createDocumentFragment();
-  data.horizons.forEach(hz => {
-    // Source legend
-    const sources = hz.buckets?.[0]?.source_scores ? Object.keys(hz.buckets[0].source_scores) : [];
-    const srcLegend = sources.length
-      ? `<div class="source-legend">${sources.map(s => `<span class="src-chip">${s.toUpperCase()}</span>`).join("")}<span class="src-chip">ENS</span></div>`
-      : "";
-
-    const metaLine = document.createElement("p");
-    metaLine.style.cssText = "font-size:11px;color:var(--text-muted);margin-bottom:8px";
-    metaLine.textContent = `${hz.horizon.toUpperCase()} · target ${hz.target_date} · prev obs ${hz.obs_date}` +
-      (hz.tmax_obs != null ? `  ·  obs TMAX ${hz.tmax_obs}°F / TMIN ${hz.tmin_obs}°F` : "");
-    frag.appendChild(metaLine);
-    if (srcLegend) frag.appendChild(Object.assign(document.createElement("div"), { innerHTML: srcLegend }));
-
-    const hasFo = (hz.buckets || []).some(b => b.fo_prob != null);
-
-    const table = document.createElement("table");
-    table.className = "prob-table";
-    const thead = table.createTHead();
-    const hrow = thead.insertRow();
-    const cols = ["Bucket", ...sources.map(s => s.toUpperCase()), "Ens", ...(hasFo ? ["FO"] : [])];
-    cols.forEach((c, i) => {
-      const th = document.createElement("th");
-      th.textContent = c;
-      if (i === 0) th.style.textAlign = "left";
-      hrow.appendChild(th);
-    });
-
-    const tbody = table.createTBody();
-    let totalEns = 0, totalFo = 0;
-    const { min: eMin, max: eMax } = getTempFilter();
-    (hz.buckets || []).filter(b => b.lo >= eMin && b.lo <= eMax).forEach(b => {
-      const tr = tbody.insertRow();
-      const tdLabel = tr.insertCell();
-      tdLabel.textContent = b.label;
-      tdLabel.style.color = bucketColor(b.lo);
-      tdLabel.style.fontWeight = "600";
-
-      sources.forEach(s => {
-        const v = b.source_scores?.[s] ?? null;
-        tr.appendChild(barCell(v, b.lo, true));
-      });
-
-      totalEns += b.prob || 0;
-      tr.appendChild(barCell(b.prob, b.lo));
-
-      if (hasFo) {
-        totalFo += b.fo_prob || 0;
-        tr.appendChild(barCell(b.fo_prob ?? null, b.lo, true));
-      }
-    });
-
-    // Total + expected temp
-    const trow = tbody.insertRow(); trow.className = "total-row";
-    trow.insertCell().textContent = "TOTAL";
-    sources.forEach(() => trow.insertCell());
-    const totalCell = trow.insertCell();
-    totalCell.textContent = fmtPct(totalEns);
-    totalCell.style.cssText = "text-align:right;font-weight:600";
-    if (hasFo) {
-      const foTotalCell = trow.insertCell();
-      foTotalCell.textContent = fmtPct(totalFo);
-      foTotalCell.style.cssText = "text-align:right;font-weight:600";
-    }
-
-    if (hz.expected_temp != null) {
-      const erow = tbody.insertRow();
-      erow.insertCell().textContent = "Exp temp";
-      sources.forEach(() => erow.insertCell());
-      const ec = erow.insertCell();
-      ec.textContent = hz.expected_temp.toFixed(1) + "°F";
-      ec.style.cssText = "text-align:right;font-weight:700;font-size:13px;color:var(--text)";
-      if (hasFo) {
-        const fec = erow.insertCell();
-        fec.textContent = hz.fo_expected_temp != null ? hz.fo_expected_temp.toFixed(1) + "°F" : "—";
-        fec.style.cssText = "text-align:right;font-weight:700;font-size:13px;color:var(--text-muted)";
-      }
-    }
-
-    frag.appendChild(table);
-  });
-
-  bodyEl.innerHTML = "";
-  bodyEl.appendChild(frag);
-}
-
-// ── Helper: hex → rgb ─────────────────────────────────────────
-function hexToRgb(hex) {
-  const r = parseInt(hex.slice(1,3),16);
-  const g = parseInt(hex.slice(3,5),16);
-  const b = parseInt(hex.slice(5,7),16);
-  return `${r},${g},${b}`;
-}
-
-// ── Shared x-axis range for all timeseries charts ────────────
-// 7 days back → 2 days ahead, recomputed on each render call
-function chartXBounds() {
-  return {
-    min: new Date(Date.now() - 7 * 24 * 3600 * 1000).toISOString(),
-    max: new Date(Date.now() + 2 * 24 * 3600 * 1000).toISOString(),
-  };
-}
-
-// ── Timeseries charts ─────────────────────────────────────────
-const MODEL_COLORS = {
-  gfs:         "#0366d6",
-  ecmwf_hres:  "#e8622a",
-  hrrr:        "#22863a",
-  nbm:         "#6f42c1",
-  weather_com: "#cb2431",
-};
-const MODEL_LABELS = { gfs: "GFS", ecmwf_hres: "ECMWF", hrrr: "HRRR", nbm: "NBM", weather_com: "Weather.com" };
-
-function tsLabel(timeStr) {
-  const d = new Date(timeStr);
-  return d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", hour12: true });
-}
-
-let tempChart = null;
-
-function renderTempTimeseries(obsData, fcstData, metaEl) {
-  const ts = [obsData?.generated_at, fcstData?.generated_at].filter(Boolean).sort().pop();
-  if (metaEl) metaEl.textContent = fmtDate(ts);
-
-  const datasets = [];
-
-  if (obsData) {
-    function toPoints(arr) {
-      return (arr || []).filter(o => o.temp != null).map(o => ({ x: new Date(o.time), y: o.temp }));
-    }
-    datasets.push({
-      label: "MADIS (hourly)",
-      data: toPoints(obsData.observations),
-      borderColor: "#0366d6",
-      backgroundColor: "rgba(3,102,214,0.08)",
-      borderWidth: 1.5,
-      pointRadius: 2,
-      pointHoverRadius: 5,
-      tension: 0.3,
-      fill: true,
-      hidden: false,
-    });
-    datasets.push({
-      label: "OMO (climatesight)",
-      data: toPoints(obsData.obs_omo),
-      borderColor: "#6f42c1",
-      backgroundColor: "#6f42c1",
-      borderWidth: 0,
-      pointRadius: 5,
-      pointHoverRadius: 7,
-      showLine: false,
-      hidden: true,
-    });
-  }
-
-  if (fcstData) {
-    const fcsts = fcstData.forecasts || [];
-    const models = fcstData.models || [];
-    const modelExpected = fcstData.model_expected || {};
-
-    models.forEach(m => {
-      datasets.push({
-        label: MODEL_LABELS[m] || m.toUpperCase(),
-        data: fcsts.filter(f => f[m] != null).map(f => ({ x: new Date(f.time), y: f[m] })),
-        borderColor: MODEL_COLORS[m] || "#888",
-        backgroundColor: "transparent",
-        borderWidth: 1.5,
-        pointRadius: 2.5,
-        pointHoverRadius: 5,
-        tension: 0.3,
-        hidden: m !== "weather_com",
-      });
-    });
-
-    const MODEL_EXP_SERIES = [
-      { key: "even_kalshi",     label: "Model Even (Kalshi)",     color: "#0366d6", dash: [8, 4], hidden: false },
-      { key: "odd_kalshi",      label: "Model Odd (Kalshi)",      color: "#5b9bd5", dash: [4, 4], hidden: true  },
-    ];
-    MODEL_EXP_SERIES.forEach(series => {
-      const pts = [];
-      for (const [date, vals] of Object.entries(modelExpected)) {
-        const v = vals[series.key];
-        if (v != null) {
-          pts.push({ x: new Date(date + "T06:00:00"), y: v });
-          pts.push({ x: new Date(date + "T21:00:00"), y: v });
-        }
-      }
-      datasets.push({
-        label: series.label,
-        data: pts,
-        borderColor: series.color,
-        backgroundColor: "transparent",
-        borderWidth: 2,
-        borderDash: series.dash,
-        pointRadius: 0,
-        pointHoverRadius: 4,
-        tension: 0,
-        hidden: series.hidden,
-      });
-    });
-  }
-
-  if (!datasets.length) return;
-
-  if (tempChart) tempChart.destroy();
-  const _xb = chartXBounds();
-  tempChart = new Chart(document.getElementById("chart-temp").getContext("2d"), {
-    type: "line",
-    data: { datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: "nearest", intersect: false, axis: "x" },
-      plugins: {
-        legend: { display: true, position: "top", labels: { boxWidth: 10, font: { size: 11 } } },
-      },
-      scales: {
-        x: {
-          type: "time",
-          min: _xb.min,
-          max: _xb.max,
-          time: { displayFormats: { hour: "MMM d, h a", day: "MMM d" } },
-          ticks: { maxTicksLimit: 20, maxRotation: 0, font: { size: 10 } },
-        },
-        y: { title: { display: true, text: "°F", font: { size: 11 } } },
-      },
-    },
-  });
-}
-
-// ── Simple weather chart (obs + optional forecast fallback) ───
-const _wxCharts = {};
-function renderWxChart(id, obsData, obsField, fcstData, fcstField, yLabel, obsColor, fcstColor, beginAtZero = true) {
-  const datasets = [];
-
-  const obsPts = (obsData?.observations || [])
-    .filter(o => o[obsField] != null)
-    .map(o => ({ x: new Date(o.time), y: o[obsField] }));
-  if (obsPts.length) {
-    datasets.push({
-      label: "Observed",
-      data: obsPts,
-      borderColor: obsColor,
-      backgroundColor: obsColor.replace(")", ", 0.08)").replace("rgb", "rgba"),
-      borderWidth: 1.5,
-      pointRadius: 1.5,
-      pointHoverRadius: 4,
-      tension: 0.3,
-      fill: true,
-    });
-  }
-
-  const fcstPts = (fcstData?.forecasts || [])
-    .filter(f => f[fcstField] != null)
-    .map(f => ({ x: new Date(f.time), y: f[fcstField] }));
-  if (fcstPts.length) {
-    datasets.push({
-      label: "Forecast (model avg)",
-      data: fcstPts,
-      borderColor: fcstColor,
-      backgroundColor: "transparent",
-      borderWidth: 1.5,
-      borderDash: [5, 3],
-      pointRadius: 0,
-      pointHoverRadius: 4,
-      tension: 0.3,
-      fill: false,
-    });
-  }
-
-  if (!datasets.length) return;
-
-  if (_wxCharts[id]) _wxCharts[id].destroy();
-  const _wxb = chartXBounds();
-  _wxCharts[id] = new Chart(document.getElementById(id).getContext("2d"), {
-    type: "line",
-    data: { datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: "nearest", intersect: false, axis: "x" },
-      plugins: { legend: { display: datasets.length > 1, position: "top", labels: { boxWidth: 10, font: { size: 11 } } } },
-      scales: {
-        x: {
-          type: "time",
-          min: _wxb.min,
-          max: _wxb.max,
-          time: { displayFormats: { hour: "MMM d, h a", day: "MMM d" } },
-          ticks: { maxTicksLimit: 20, maxRotation: 0, font: { size: 10 } },
-        },
-        y: { title: { display: true, text: yLabel, font: { size: 11 } }, beginAtZero },
-      },
-    },
-  });
-}
-
-// ── Render: score prediction (entry signal) ───────────────
-function renderScorePrediction(data, bucketStart, bodyEl, metaEl) {
-  metaEl.textContent = fmtDate(data.generated_at);
-  if (data.error) { bodyEl.innerHTML = `<div class="error-note">${data.error}</div>`; return; }
-  const d = data[bucketStart];
-  if (!d) { bodyEl.innerHTML = '<div class="loading">No data</div>'; return; }
-
-  const TIER_COLOR = { 1: "#22863a", 2: "#0366d6", 3: "#cb2431", 4: "#6b7280" };
-  const TIER_LABEL = {
-    1: "✅ TIER 1 · BUY — 17% win rate (buy YES below 17¢)",
-    2: "🔵 TIER 2 · WAIT FOR 7AM — 16% base (buy below 57¢ only with 7am confirm)",
-    3: "❌ TIER 3 · SKIP — rare signal, no meaningful edge above T4 baseline",
-    4: "👁️ TIER 4 · WATCH — 11% base, but 7am confirm → 60% win rate",
-  };
-
-  const frag = document.createDocumentFragment();
-
-  const tierDiv = document.createElement("div");
-  tierDiv.className = "score-tier";
-  tierDiv.style.background = TIER_COLOR[d.tier] || "#888";
-  tierDiv.textContent = TIER_LABEL[d.tier];
-  frag.appendChild(tierDiv);
-
-  const metaRow = document.createElement("div");
-  metaRow.className = "score-meta-row";
-  metaRow.innerHTML = `<span>Expected: <strong>${Math.round(d.expected_accuracy * 100)}%</strong></span><span class="score-reason">${d.reason}</span>`;
-  frag.appendChild(metaRow);
-
-  const topsDiv = document.createElement("div");
-  topsDiv.className = "score-tops";
-  [["#1", d.top1], ["#2", d.top2]].forEach(([rank, t]) => {
-    if (!t) return;
-    const row = document.createElement("div");
-    row.className = "score-top-row";
-    const pct = Math.min(Math.round(t.prob * 100), 100);
-    const color = bucketColor(t.lo);
-    row.innerHTML = `
-      <span class="score-top-label" style="color:${color}">${rank} ${t.label}</span>
-      <div class="bar-wrap" style="flex:1">
-        <div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${color}"></div></div>
-        <span class="bar-pct">${fmtPct(t.prob)}</span>
-      </div>`;
-    topsDiv.appendChild(row);
-  });
-  frag.appendChild(topsDiv);
-
-  const gapPct = (d.signals.gap * 100).toFixed(1);
-  const gapQ = d.signals.gap > 0.10 ? "excellent" : d.signals.gap > 0.05 ? "good" : d.signals.gap > 0.03 ? "moderate" : "poor";
-  const ent = d.signals.entropy != null ? d.signals.entropy.toFixed(2) : "—";
-  const entQ = d.signals.entropy == null ? "—" : d.signals.entropy < 1.72 ? "excellent" : d.signals.entropy < 2.02 ? "good" : "poor";
-
-  const sigDiv = document.createElement("div");
-  sigDiv.className = "score-signals";
-  sigDiv.innerHTML = `
-    <span>Gap <strong>${gapPct}%</strong> <span class="neu">(${gapQ})</span></span>
-    <span>Entropy <strong>${ent}</strong> <span class="neu">(${entQ})</span></span>
-    <span>Max <strong>${Math.round(d.signals.max_prob * 100)}%</strong></span>`;
-  frag.appendChild(sigDiv);
-
-  const isOdd = bucketStart === "odd";
-  const dailyProb = d.top1 && d.top1.prob || 0;
-  const TIER_HINTS = {
-    1: `T1 base 17% win rate (n=108 days). Do NOT enter pre-market. If 7am confirms same bucket → ~57% (buy below 57¢). If 7/9/11 all agree → 88% (buy below 88¢, or 96% when h11≥40%). Top model prob: ${Math.round(dailyProb*100)}%.`,
-    2: `T2 base 16% (n=157 days). Do NOT enter pre-market. Wait for 7am intraday: if 7am confirms → ~57%, buy below 57¢. If 7am picks different bucket → skip day entirely.`,
-    3: `T3 rarely triggers — 0 signals in Jan 2025–Jun 2026 backtest. Treat as T4 if it appears.`,
-    4: `T4 base 11% (n=221). Do NOT enter pre-market. If 7am intraday confirms same bucket → 60% win rate (n=20, buy below 60¢). If 7am+9am both confirm → 63% (n=16, buy below 63¢). If 7/9/11 all confirm → 67% (n=9, buy below 67¢). Treat like T2 but wait for 7am.`,
-  };
-  const hintDiv = document.createElement("div");
-  hintDiv.className = "signal-hint signal-hint-muted";
-  hintDiv.textContent = TIER_HINTS[d.tier] || "";
-  frag.appendChild(hintDiv);
-
-  bodyEl.innerHTML = "";
-  bodyEl.appendChild(frag);
-}
-
-// ── Intraday accuracy estimates from backtests (2023–2026 May-Sep) ───────
-// 7am confirms daily: 31/54 = 57.4% (analyze_7am_vs_daily, 2023–2026 May-Sep)
-function _acc7amConfirm(dailyProb, isOdd) {
-  return 57;
-}
-// 7/9/11 all agree: 296/337 = 87.8%; h11≥35%: 292/323 = 90.4%; h11≥40%: 237/247 = 96.0%
-function _acc711Agree(h11Prob, isOdd) {
-  if (h11Prob >= 0.40) return 96;
-  if (h11Prob >= 0.35) return 90;
-  return 88;
-}
-
-function intradayAccuracyHint(d, bucketStart) {
-  const hours = d.hours || [];
-  const isOdd = bucketStart === "odd";
-  const h7  = hours.find(h => h.hour === 7);
-  const h9  = hours.find(h => h.hour === 9);
-  const h11 = hours.find(h => h.hour === 11);
-  const dailyProb = d.daily_top && d.daily_top.prob || 0;
-
-  if (!h7) return null;
-
-  // ── T4 recovery path (backtest 2023–2026 May-Sep, n=221 T4-daily days) ────
-  if (d.daily_tier === 4) {
-    if (h11 && h7.matches_daily && h9 && h9.matches_daily && h11.matches_daily)
-      return { cls: "signal-hint-green", text: `T4 recovery: 7+9+11am all confirm daily &rarr; <strong>67% win rate</strong> (6/9). Buy YES below <strong>67&cent;</strong>.` };
-    if (h9 && h7.matches_daily && h9.matches_daily)
-      return { cls: "signal-hint-green", text: `T4 recovery: 7am+9am both confirm daily &rarr; <strong>63% win rate</strong> (10/16). Buy YES below <strong>63&cent;</strong>. Hold for 11am.` };
-    if (h7.matches_daily)
-      return { cls: "signal-hint-green", text: `T4 recovery: 7am confirms daily &rarr; <strong>60% win rate</strong> (12/20). Buy YES below <strong>60&cent;</strong>. Wait for 9am.` };
-    return { cls: "signal-hint-red", text: `T4 day + 7am picks different bucket (${h7.top_bucket}) &rarr; no entry. Win rate only 6% when 7am diverges on T4 days. Skip.` };
-  }
-
-  if (h11) {
-    const h7b = h7.top_bucket, h9b = h9 && h9.top_bucket, h11b = h11.top_bucket;
-    const allSame = h7b === h9b && h9b === h11b;
-    if (allSame && h7.matches_daily && h9.matches_daily && h11.matches_daily) {
-      // Backtest: 95/128 = 74.2%; h11≥35%: 91/114 = 79.8%; h11≥40%: 66/71 = 93.0%
-      const acc = _acc711Agree(h11.top_prob, isOdd);
-      const buyThresh = acc;
-      return { cls: "signal-hint-green", text: `7/9/11am all agree with daily → <strong>${acc}% win rate</strong>. Buy YES below <strong>${buyThresh}¢</strong>. Hold full. <span style="font-weight:normal;opacity:.75">(h11 conf ${Math.round(h11.top_prob*100)}%)</span>` };
-    }
-    if (allSame && !h7.matches_daily) {
-      // Backtest: switch_7_9_11 = 85.1% precision → daily win rate only ~15%
-      return { cls: "signal-hint-red", text: `7/9/11am all pick <strong>${h11b}</strong>, diverging from daily → <strong>EXIT</strong>. Daily win rate only ~15% when all 3 hours switch. Sell YES above <strong>15¢</strong>.` };
-    }
-    if (h9 && h7b === h9b && h11b !== h9b) {
-      if (h11.matches_daily) {
-        return { cls: "signal-hint-orange", text: `11am updated back to daily after 7+9 diverged — monitoring. Hold, no action.` };
-      }
-      // 7+9 agreed, 11am switched: from backtest, 37% accuracy for the original 7+9 pick → EXIT
-      return { cls: "signal-hint-red", text: `7+9am agreed on daily's bucket, but 11am shifted away → <strong>EXIT or reduce 50%</strong>. When 11am breaks a 7+9 consensus, the original pick wins only <strong>37%</strong> of the time. Sell YES above <strong>40¢</strong>.` };
-    }
-    if (h9 && h7b !== h9b) {
-      // Backtest 2023-2026 May-Sep: 11 sides with 7am = 79.6% (49 days); 11 sides with 9am = 63.6% (44 days); all different = 22.2% (9 days)
-      if (h11b === h7b)  return { cls: "signal-hint-orange", text: `11am sides with 7am → <strong>80% win rate</strong> for ${h11b}. Buy below <strong>80¢</strong>. (9am was the outlier)` };
-      if (h11b === h9b)  return { cls: "signal-hint-orange", text: `11am sides with 9am → <strong>64% win rate</strong> for ${h11b}. Buy below <strong>64¢</strong>. (7am was the outlier)` };
-      return { cls: "signal-hint-red", text: `All three hours pick different buckets → <strong>22% win rate</strong>, chaotic signal. Do not add. Consider exiting.` };
-    }
-    const nMatch = [h7, h9, h11].filter(h => h && h.matches_daily).length;
-    return { cls: "signal-hint-orange", text: `${nMatch}/3 early hours agree with daily — mixed. Hold, monitor.` };
-  }
-
-  if (h9) {
-    if (h7.top_bucket === h9.top_bucket) {
-      if (h7.matches_daily && h9.matches_daily) {
-        // 7+9 agree with daily, waiting for 11am
-        return { cls: "signal-hint-green", text: `7+9am agree with daily → <strong>~81% win rate</strong>. Buy remaining below <strong>78¢</strong>. Wait for 11am to confirm 88%+.` };
-      }
-      // 7+9 agree but on a different bucket than daily
-      return { cls: "signal-hint-red", text: `7+9am both pick <strong>${h9.top_bucket}</strong>, diverging from daily → <strong>EXIT</strong> (82% precision this is wrong day). Sell YES above <strong>20¢</strong>. 11am will confirm.` };
-    }
-    // 7 and 9 disagree with each other
-    return { cls: "signal-hint-orange", text: `7am and 9am disagree → mixed signal, ~45% accuracy. Hold existing, no new entry. 11am breaks the tie.` };
-  }
-
-  // Only 7am so far
-  if (h7.matches_daily) {
-    // Backtest 2023-2026 May-Sep: 7am agrees → 31/54 = 57% (all days)
-    return { cls: "signal-hint-green", text: `7am confirms daily (${h7.top_bucket}) → <strong>57% win rate</strong> (n=54). Buy below <strong>57¢</strong>. Hold existing. Wait for 9am.` };
-  }
-  // Backtest 2023-2026 May-Sep: 7am disagrees → 27/414 = 6.5% (all days)
-  return { cls: "signal-hint-red", text: `7am picks different bucket (${h7.top_bucket}) → <strong>CAUTION</strong>. Daily win rate only 7% when 7am switches. Sell YES above <strong>7¢</strong>. Wait for 9am before re-entering.` };
-}
-
-// ── Meta model calibration hint ──────────────────────────
-// Calibration table from ATL/Kalshi holdout (Dec 2025–Jun 2026, 728 day×hour pairs).
-// Meta model stated top-bucket prob → actual win rate:
-//   < 25% stated → ~33% actual  (model under-confident ~10pp in this range)
-//   25–38% stated → ~31% actual  (slight under-confidence ~4pp)
-//   38–50% stated → ~40% actual  (well-calibrated)
-//   > 50% stated  → stated ≈ actual  (well-calibrated)
-// Overall top-bucket accuracy: 38%, ECE=0.044.
-function metaCalibrationHint(d) {
-  const hours = (d.hours || []).filter(h => h.meta_top_bucket && h.meta_top_prob != null);
-  if (!hours.length) return null;
-  const latest = hours[hours.length - 1];
-  const p = latest.meta_top_prob;
-  const statedPct = Math.round(p * 100);
-
-  let actualPct, note, cls;
-  if (p >= 0.50) {
-    actualPct = statedPct;
-    note = "well-calibrated";
-    cls  = "signal-hint-green";
-  } else if (p >= 0.38) {
-    actualPct = 40;
-    note = "well-calibrated";
-    cls  = "signal-hint-green";
-  } else if (p >= 0.25) {
-    actualPct = 31;
-    note = "slightly under-confident";
-    cls  = "signal-hint-orange";
-  } else {
-    actualPct = 33;
-    note = "under-confident at low range";
-    cls  = "signal-hint-orange";
-  }
-
-  return {
-    cls,
-    text: `★ Meta (${latest.time_label}): <strong>${latest.meta_top_bucket}</strong> stated ${statedPct}% &rarr; calibrated ~<strong>${actualPct}%</strong> actual (${note}) &middot; fair-value entry below <strong>${actualPct}&cent;</strong>`,
-  };
-}
-
-// ── Midpoint divergence hint ──────────────────────────────
-// When majority of intraday hours are >= 2 buckets ABOVE daily,
-// the actual outcome lands in the middle ~26-29% of the time (4.5x chance, p<0.001).
-// Backtest stats (intraday above daily only, 2025-01-01 to 2026-05-23):
-//   gap=2: intraday 37%, middle 29%, daily 24%
-//   gap=3: intraday 52%, middle 24%, daily  9%
-//   gap=4: intraday 68%, middle 26%, daily  0%
-const _MIDPOINT_STATS = { 2: [37,29,24], 3: [52,24,9], 4: [68,26,0] };
-
-function midpointDivergenceHint(d) {
-  if (!d.hours || d.hours.length === 0) return null;
-  const daily_lo = d.daily_top && d.daily_top.lo;
-  if (daily_lo == null) return null;
-
-  // Hours pointing >= 2 buckets (4 degrees F) above daily
-  const aboveHours = d.hours.filter(h => h.top_lo != null && (h.top_lo - daily_lo) >= 4);
-  if (aboveHours.length === 0 || aboveHours.length < Math.ceil(d.hours.length / 2)) return null;
-
-  // Most common intraday lo among above-hours
-  const freq = {};
-  aboveHours.forEach(h => { freq[h.top_lo] = (freq[h.top_lo] || 0) + 1; });
-  const intraday_lo = parseInt(Object.entries(freq).sort((a, b) => b[1] - a[1])[0][0]);
-  const gap = Math.round((intraday_lo - daily_lo) / 2);
-  if (gap < 2) return null;
-
-  const st = _MIDPOINT_STATS[Math.min(gap, 4)];
-  const mid_range = `${daily_lo + 2}-${intraday_lo - 1}F`;
-  const daily_label = d.daily_top.label;
-  const intra_label = aboveHours.length > 0 ? aboveHours.find(h => h.top_lo === intraday_lo).top_bucket : `${intraday_lo}F`;
-
-  return {
-    cls: "signal-hint-blue",
-    text: `Upward gap <strong>${gap}</strong> buckets (daily <strong>${daily_label}</strong> vs intraday <strong>${intra_label}</strong>) &mdash; ` +
-          `historical: intraday <strong>${st[0]}%</strong> &middot; middle <strong>${st[1]}%</strong> &middot; daily <strong>${st[2]}%</strong>` +
-          ` &middot; middle range: <strong>${mid_range}</strong>`
-  };
-}
-
-// ── Intraday consensus hint ────────────────────────────────
-// When hours diverge from daily, do they all point to the same alt bucket?
-// Backtest (2020-2026, odd buckets):
-//   4hr unified consensus:  9.7% daily win rate (3/31)
-//   4hr scattered:         20.8% daily win rate (10/48)
-//   3hr unified consensus: 17.3% daily win rate
-//   3hr scattered:         27.9% daily win rate
-function consensusHint(d) {
-  const nd = d.hours_disagree || 0;
-  if (nd < 2) return null;
-  if (d.abort_signal === "none" || d.abort_signal === "no_trade") return null;
-
-  const STATS = {
-    4: { consensus: 9.7,  consensusN: 31, scattered: 20.8, scatteredN: 48 },
-    3: { consensus: 17.3, consensusN: "~", scattered: 27.9, scatteredN: "~" },
-    2: { consensus: null, scattered: null },
-  };
-  const st = STATS[Math.min(nd, 4)] || STATS[4];
-
-  if (d.consensus_bucket) {
-    if (!st.consensus) return null;
-    return {
-      cls: "signal-hint-red",
-      text: `All ${nd} disagreeing hours converge on <strong>${d.consensus_bucket}</strong> — unified exit signal. Daily right only <strong>${st.consensus}%</strong> in this case (n=${st.consensusN}). Sell YES above <strong>${st.consensus}¢</strong>.`,
-    };
-  }
-  // scattered disagreement — only show if n>=3 (enough signal to comment on)
-  if (nd >= 3 && st.scattered) {
-    return {
-      cls: "signal-hint-orange",
-      text: `Hours disagree with daily but point to different buckets — scattered signal. Daily right ~<strong>${st.scattered}%</strong> in this case (weaker exit than unified consensus).`,
-    };
-  }
-  return null;
-}
-
-// ── Render: score intraday (abort signal) ─────────────────
-function renderScoreIntraday(data, bucketStart, bodyEl, metaEl) {
-  metaEl.textContent = fmtDate(data.generated_at);
-  if (data.error) { bodyEl.innerHTML = `<div class="error-note">${data.error}</div>`; return; }
-  const d = data[bucketStart];
-  if (!d) { bodyEl.innerHTML = '<div class="loading">No data</div>'; return; }
-
-  const TIER_COLOR = { 1: "#22863a", 2: "#0366d6", 3: "#e8622a", 4: "#cb2431" };
-  const TIER_SHORT = { 1: "T1", 2: "T2", 3: "T3", 4: "T4" };
-  const frag = document.createDocumentFragment();
-
-  const dailyRow = document.createElement("div");
-  dailyRow.className = "abort-daily-row";
-  dailyRow.innerHTML = `
-    <span class="tier-badge" style="background:${TIER_COLOR[d.daily_tier] || "#888"}">${TIER_SHORT[d.daily_tier]}</span>
-    <span class="abort-daily-bucket" style="color:${bucketColor(d.daily_top.lo)}">${d.daily_top.label}</span>
-    <span class="abort-daily-meta">${fmtPct(d.daily_top.prob)} · gap ${(d.daily_signals.gap * 100).toFixed(1)}%</span>`;
-  frag.appendChild(dailyRow);
-
-  if (d.hours && d.hours.length > 0) {
-    const tbl = document.createElement("table");
-    tbl.className = "abort-table";
-    const tbody = tbl.createTBody();
-    d.hours.forEach(hr => {
-      const tr = tbody.insertRow();
-      const matchCls = hr.matches_daily ? "abort-match" : "abort-disagree";
-      const matchTxt = hr.matches_daily ? "✓ MATCH" : "✗ DISAGREE";
-      tr.innerHTML = `
-        <td class="abort-time">${hr.time_label}</td>
-        <td class="abort-bucket" style="color:${bucketColor(hr.top_lo)}">${hr.top_bucket}</td>
-        <td class="${matchCls}">${matchTxt}</td>
-        <td class="abort-prob">${fmtPct(hr.top_prob)}</td>
-        ${hr.meta_top_bucket ? `<td class="abort-bucket" style="color:${bucketColor(hr.meta_top_lo)};opacity:.8" title="Meta model">★ ${hr.meta_top_bucket} ${fmtPct(hr.meta_top_prob)}</td>` : ''}`;
-    });
-    frag.appendChild(tbl);
-  } else {
-    const noData = document.createElement("div");
-    noData.style.cssText = "color:var(--text-muted);font-size:11px;padding:8px 0 10px";
-    noData.textContent = "No intraday data yet — check back after 7am ET";
-    frag.appendChild(noData);
-  }
-
-  const REC = {
-    none:     { cls: "abort-ok",    icon: "✅", text: "NO ABORT — HOLD",                               sub: "Win rate 84% when all 4 hours agree with daily (36% base). Buy YES below 80¢." },
-    "2hr":    { cls: "abort-warn",  icon: "⚠️", text: "2 HOURS DIVERGE — CAUTION",                    sub: "Daily right only 24% when 7+9 both switch (n=106). Exit if 11am also diverges." },
-    "3hr":    { cls: "abort-abort", icon: "🚨", text: "3 HOURS DIVERGE — EXIT or REDUCE 50%",          sub: `Daily right 22% when all 3 hours switch (n=95). Sell YES above 22¢. Precision: ${d.abort_precision ? Math.round(d.abort_precision * 100) : 78}%.` },
-    "4hr":    { cls: "abort-abort", icon: "🚨", text: "ALL 4 HOURS DIVERGE — EXIT NOW",               sub: `Daily right 16.5% when all 4 diverge (n=79). Sell YES above 17¢. Precision: ${d.abort_precision ? Math.round(d.abort_precision * 100) : 84}%.` },
-    no_trade: { cls: "abort-skip",  icon: "⬛", text: "TIER 3 — SKIP",                               sub: "T3 accuracy 19% — no edge. Do not trade." },
-  };
-  let sig = REC[d.abort_signal] || REC.none;
-  if (d.abort_signal === "no_trade" && d.daily_tier === 4) {
-    sig = { cls: "abort-warn", icon: "👁️", text: "TIER 4 — WATCH FOR 7AM INTRADAY",
-            sub: "Base 11% — no pre-market entry. 7am confirm → 60% (buy below 60¢) · 7+9 agree → 63% (62¢) · 7+9+11 agree → 67% (67¢)." };
-  }
-
-  const recDiv = document.createElement("div");
-  recDiv.className = `abort-rec ${sig.cls}`;
-  recDiv.innerHTML = `
-    <span class="abort-rec-icon">${sig.icon}</span>
-    <div>
-      <div class="abort-rec-text">${sig.text}</div>
-      <div class="abort-rec-sub">${sig.sub}</div>
-    </div>`;
-  frag.appendChild(recDiv);
-
-  const consHint = consensusHint(d);
-  if (consHint) {
-    const consDiv = document.createElement("div");
-    consDiv.className = `signal-hint ${consHint.cls}`;
-    consDiv.innerHTML = consHint.text;
-    frag.appendChild(consDiv);
-  }
-
-  const hint = intradayAccuracyHint(d, bucketStart);
-  if (hint) {
-    const hintDiv = document.createElement("div");
-    hintDiv.className = `signal-hint ${hint.cls}`;
-    hintDiv.innerHTML = hint.text;
-    frag.appendChild(hintDiv);
-  }
-
-  const midHint = midpointDivergenceHint(d);
-  if (midHint) {
-    const midDiv = document.createElement("div");
-    midDiv.className = `signal-hint ${midHint.cls}`;
-    midDiv.innerHTML = midHint.text;
-    frag.appendChild(midDiv);
-  }
-
-  const metaHint = metaCalibrationHint(d);
-  if (metaHint) {
-    const metaHintDiv = document.createElement("div");
-    metaHintDiv.className = `signal-hint ${metaHint.cls}`;
-    metaHintDiv.innerHTML = metaHint.text;
-    frag.appendChild(metaHintDiv);
-  }
-
-  // ── Give-up classifier section ────────────────────────────
-  const gu = data.give_up;
-  if (gu && gu.status !== "no_model") {
-    const sec = document.createElement("div");
-    sec.className = "give-up-section";
-
-    const lbl = document.createElement("div");
-    lbl.className = "give-up-label";
-    lbl.textContent = "Give Up on Higher Bets?";
-    sec.appendChild(lbl);
-
-    const recDiv = document.createElement("div");
-    if (gu.status === "no_data") {
-      recDiv.className = "give-up-rec give-up-inactive";
-      recDiv.innerHTML = `<span class="give-up-rec-icon">⏳</span><div>
-        <div class="give-up-rec-text">WAITING FOR DATA</div>
-        <div class="give-up-rec-sub">Signal available once intraday readings arrive (after 10am)</div></div>`;
-    } else if (gu.status === "fired") {
-      const fireTime = `${Math.floor(gu.fire_hour)}:${String(Math.round((gu.fire_hour % 1) * 60)).padStart(2,"0")}`;
-      recDiv.className = "give-up-rec give-up-fired";
-      recDiv.innerHTML = `<span class="give-up-rec-icon">🛑</span><div>
-        <div class="give-up-rec-text">GIVE UP — MAX LIKELY IN (fired ${fireTime})</div>
-        <div class="give-up-rec-sub">Running max ${gu.fire_running_max}°F · p=${(gu.fire_prob*100).toFixed(0)}% ≥ threshold ${(gu.threshold*100).toFixed(0)}% · ~${(100 - gu.threshold*100).toFixed(0)}% false-alarm rate</div></div>`;
-    } else {
-      const pct = Math.round((gu.current_prob || 0) * 100);
-      const barColor = pct >= 75 ? "#f59e0b" : pct >= 50 ? "#60a5fa" : "#9ca3af";
-      recDiv.className = "give-up-rec give-up-watching";
-      recDiv.innerHTML = `<span class="give-up-rec-icon">👀</span><div style="flex:1">
-        <div class="give-up-rec-text">STILL WATCHING — MAX NOT YET CONFIRMED</div>
-        <div class="give-up-rec-sub">Current running max ${gu.current_running_max}°F · threshold ${(gu.threshold*100).toFixed(0)}%</div>
-        <div class="give-up-bar-wrap"><div class="give-up-bar" style="width:${pct}%;background:${barColor}"></div></div>
-        <div style="font-size:10px;color:var(--text-muted)">Confidence max is in: ${pct}%</div>
-      </div>`;
-    }
-    sec.appendChild(recDiv);
-
-    // Snapshot table (last 8 readings)
-    if (gu.snapshots && gu.snapshots.length > 0) {
-      const snaps = gu.snapshots.slice(-8);
-      const tbl = document.createElement("table");
-      tbl.className = "give-up-snaps";
-      snaps.forEach(s => {
-        const fired = gu.fire_hour != null && Math.abs(s.hour - gu.fire_hour) < 0.01;
-        const pBar  = Math.round(s.prob * 100);
-        const bClr  = pBar >= (gu.threshold * 100) ? "#f59e0b" : pBar >= 50 ? "#60a5fa" : "#d1d5db";
-        const hh    = Math.floor(s.hour);
-        const mm    = String(Math.round((s.hour % 1) * 60)).padStart(2, "0");
-        const tr    = document.createElement("tr");
-        if (fired) tr.className = "gu-fired-row";
-        tr.innerHTML = `
-          <td class="gu-hour">${hh}:${mm}</td>
-          <td class="gu-rmax">${s.running_max}°F</td>
-          <td class="gu-prob">${pBar}%</td>
-          <td class="gu-bar-cell"><div class="give-up-bar-wrap" style="margin:0">
-            <div class="give-up-bar" style="width:${pBar}%;background:${bClr}"></div></div></td>
-          ${fired ? '<td style="font-size:10px;color:#92400e;padding-left:4px">← fired</td>' : '<td></td>'}`;
-        tbl.appendChild(tr);
-      });
-      sec.appendChild(tbl);
-    }
-
-    frag.appendChild(sec);
-  }
-
-  bodyEl.innerHTML = "";
-  bodyEl.appendChild(frag);
-}
-
-// ── Render: weather summary ───────────────────────────────────
-function renderWeatherSummary(data, bodyEl, metaEl) {
-  metaEl.textContent = fmtDate(data.generated_at);
-  if (!data.overall && data.error) {
-    bodyEl.innerHTML = `<div class="error-note">Summary unavailable: ${data.error}</div>`;
-    return;
-  }
-  const blocks = [
-    { label: "Overview",         text: data.overall,              extra: null },
-    { label: "Forecast Notes",   text: data.forecast_obs_notes,   extra: null },
-    {
-      label: "Max Temp Outlook",
-      text: data.max_temp_prediction,
-      extra: data.predicted_max != null
-        ? `<span class="weather-block-max">${data.predicted_max.toFixed(1)}°F</span>`
-        : null,
-    },
-  ];
-
-  const wrap = document.createElement("div");
-  wrap.className = "weather-summary";
-  blocks.forEach(b => {
-    const block = document.createElement("div");
-    block.className = "weather-block";
-
-    const header = document.createElement("div");
-    header.className = "weather-block-header";
-    const lbl = document.createElement("span");
-    lbl.className = "weather-block-label";
-    lbl.textContent = b.label;
-    header.appendChild(lbl);
-    if (b.extra) {
-      const extraSpan = document.createElement("span");
-      extraSpan.innerHTML = b.extra;
-      header.appendChild(extraSpan);
-    }
-
-    const textDiv = document.createElement("div");
-    textDiv.className = "weather-block-text";
-    textDiv.textContent = b.text || "—";
-
-    block.appendChild(header);
-    block.appendChild(textDiv);
-    wrap.appendChild(block);
-  });
-
-  bodyEl.innerHTML = "";
-  bodyEl.appendChild(wrap);
-}
-
-// ── Bucket filter ─────────────────────────────────────────────
-// Hide cards whose bucket start doesn't match the active market's config.
-// When the config is null (market not found / not yet posted) all cards are shown.
-function applyBucketFilter() {
-  const cfg = loadedData.shared?.marketConfig;
-  const todayStart   = cfg?.locations?.[LOCATION]?.today?.[activeMarket]   ?? cfg?.today?.[activeMarket]   ?? null;
-  const tomorrowStart = cfg?.locations?.[LOCATION]?.tomorrow?.[activeMarket] ?? cfg?.tomorrow?.[activeMarket] ?? null;
-
-  document.querySelectorAll(".card[data-bucket]").forEach(card => {
-    const bucket = card.getAttribute("data-bucket");  // "even" | "odd"
-    const day    = card.getAttribute("data-day");     // "today" | "tomorrow"
-    const activeStart = day === "today" ? todayStart : tomorrowStart;
-    // If config is unknown, show everything; otherwise hide non-matching bucket.
-    const visible = activeStart === null || bucket === activeStart;
-    card.style.display = visible ? "" : "none";
-  });
-}
-
-// ── Main load ─────────────────────────────────────────────────
-async function loadAll() {
-  const today = new Date();
-  const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
-  const fmt = d => d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
-  el("today-label").textContent          = fmt(today);
-  el("tomorrow-label").textContent       = fmt(tomorrow);
-  el("score-today-date").textContent     = fmt(today);
-  el("score-tomorrow-date").textContent  = fmt(tomorrow);
-
-  const fetches = [];
-  for (const market of ["kalshi"]) {
-    for (const [key, url] of Object.entries(DATA_FILES[market])) {
-      fetches.push([market, key, url]);
-    }
-  }
-  for (const [key, url] of Object.entries(DATA_FILES.shared)) {
-    fetches.push(["shared", key, url]);
-  }
-
-  const results = await Promise.allSettled(
-    fetches.map(async ([market, key, url]) => {
-      const data = await fetchJSON(url);
-      return [market, key, data];
-    })
-  );
-
-  loadedData = { kalshi: {}, shared: {} };
-  results.forEach(r => {
-    if (r.status === "fulfilled") {
-      const [market, key, data] = r.value;
-      loadedData[market][key] = data;
-    }
-  });
-
-  // Find most recent generated_at across all loaded files
-  const allData = [
-    ...Object.values(loadedData.kalshi),
-    ...Object.values(loadedData.shared),
-  ];
-  const times = allData.map(d => d.generated_at).filter(Boolean).sort();
-  if (times.length) el("last-updated").textContent = fmtDate(times[times.length - 1]);
-
-  const shared = loadedData.shared;
-  if (shared.obsTimeseries || shared.fcstTimeseries)
-    renderTempTimeseries(shared.obsTimeseries, shared.fcstTimeseries, el("meta-temp-timeseries"));
-  if (shared.obsTimeseries || shared.fcstTimeseries) {
-    const obs  = shared.obsTimeseries  || null;
-    const fcst = shared.fcstTimeseries || null;
-    renderWxChart("chart-dewpoint", obs, "dewpoint", null, null, "°F",   "#e8622a", "#888", false);
-    renderWxChart("chart-wind",   obs, "wind",   null,        null,          "mph",   "#0366d6", "#888");
-    renderWxChart("chart-cloud",  obs, "cloud",  fcst, "cloud_mean",  "fraction",  "#6f42c1", "#b08ee0");
-    renderWxChart("chart-precip", obs, "precip", fcst, "precip_mean", "in/hr",     "#22863a", "#5bba6f");
-    const ts = (obs || fcst)?.generated_at;
-    ["meta-dewpoint-timeseries", "meta-wind-timeseries", "meta-cloud-timeseries", "meta-precip-timeseries"]
-      .forEach(id => { const e = el(id); if (e) e.textContent = fmtDate(ts); });
-  }
-
-  rerender();
-
-  results.forEach(r => {
-    if (r.status === "rejected") console.warn("Failed to load:", r.reason);
-  });
-}
-
-// ── Re-render charts with current filter ─────────────────────
-function rerender() {
-  applyBucketFilter();
-  const d      = loadedData[activeMarket] || {};
-  const shared = loadedData.shared || {};
-  if (d.valueToday)          renderValue(d.valueToday,    el("value-section-stats-today"));
-  if (d.valueTomorrow)       renderValue(d.valueTomorrow, el("value-section-stats-tomorrow"));
-  if (d.intradayEvenHours)   renderIntradayHours(d.intradayEvenHours,   el("body-even-hours"),    el("meta-even-hours"));
-  if (d.intradayEvenHours)   renderMetaHours(d.intradayEvenHours,       el("body-even-meta-hours"), el("meta-even-meta-hours"));
-  if (d.intradayOddHours)    renderIntradayHours(d.intradayOddHours,    el("body-odd-hours"),     el("meta-odd-hours"));
-  if (d.intradayOddHours)    renderMetaHours(d.intradayOddHours,        el("body-odd-meta-hours"),  el("meta-odd-meta-hours"));
-  if (d.intradayEvenCompare) renderIntradayCompare(d.intradayEvenCompare, el("body-even-compare"), el("meta-even-compare"));
-  if (d.intradayOddCompare)  renderIntradayCompare(d.intradayOddCompare,  el("body-odd-compare"),  el("meta-odd-compare"));
-  if (d.ensembleEven)        renderEnsemble(d.ensembleEven,  el("body-ensemble-even"),  el("meta-ensemble-even"));
-  if (d.ensembleOdd)         renderEnsemble(d.ensembleOdd,   el("body-ensemble-odd"),   el("meta-ensemble-odd"));
-  if (d.ensembleEvenToday)   renderEnsemble(d.ensembleEvenToday, el("body-ensemble-even-today"), el("meta-ensemble-even-today"));
-  if (d.ensembleOddToday)    renderEnsemble(d.ensembleOddToday,  el("body-ensemble-odd-today"),  el("meta-ensemble-odd-today"));
-  if (d.scorePredictionToday) {
-    renderScorePrediction(d.scorePredictionToday, "even", el("body-score-today-d1-even"), el("meta-score-today-d1-even"));
-    renderScorePrediction(d.scorePredictionToday, "odd",  el("body-score-today-d1-odd"),  el("meta-score-today-d1-odd"));
-  }
-  if (d.scoreIntradayToday) {
-    renderScoreIntraday(d.scoreIntradayToday, "even", el("body-score-today-even"), el("meta-score-today-even"));
-    renderScoreIntraday(d.scoreIntradayToday, "odd",  el("body-score-today-odd"),  el("meta-score-today-odd"));
-  }
-  if (d.scorePredictionTomorrow) {
-    renderScorePrediction(d.scorePredictionTomorrow, "even", el("body-score-tomorrow-even"), el("meta-score-tomorrow-even"));
-    renderScorePrediction(d.scorePredictionTomorrow, "odd",  el("body-score-tomorrow-odd"),  el("meta-score-tomorrow-odd"));
-  }
-  if (d.scoreIntradayTomorrow) {
-    renderScoreIntraday(d.scoreIntradayTomorrow, "even", el("body-score-tomorrow-intra-even"), el("meta-score-tomorrow-intra-even"));
-    renderScoreIntraday(d.scoreIntradayTomorrow, "odd",  el("body-score-tomorrow-intra-odd"),  el("meta-score-tomorrow-intra-odd"));
-  }
-  if (shared.weatherSummaryToday)    renderWeatherSummary(shared.weatherSummaryToday,    el("body-weather-summary-today"),    el("meta-weather-summary-today"));
-  if (shared.weatherSummaryTomorrow) renderWeatherSummary(shared.weatherSummaryTomorrow, el("body-weather-summary-tomorrow"), el("meta-weather-summary-tomorrow"));
-  applyBucketFilter();
-}
-
-// ── Countdown + auto-refresh ──────────────────────────────────
-let remaining = REFRESH_MS;
-function tick() {
-  remaining -= 1000;
-  if (remaining <= 0) {
-    remaining = REFRESH_MS;
-    loadAll();
-  }
-  const m = String(Math.floor(remaining / 60000)).padStart(2, "0");
-  const s = String(Math.floor((remaining % 60000) / 1000)).padStart(2, "0");
-  el("countdown").textContent = `${m}:${s}`;
-}
-setInterval(tick, 1000);
-
-// Collapsible sections
-document.querySelectorAll("section > h2").forEach(h2 => {
-  h2.addEventListener("click", () => h2.closest("section").classList.toggle("collapsed"));
-});
-
-// Tab switching
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
     btn.classList.add("active");
     document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
   });
 });
 
-// Filter inputs re-render without re-fetching
-["filter-min", "filter-max"].forEach(id => {
-  el(id).addEventListener("input", rerender);
-});
+function fmt(v, d = 1) { return v == null ? "—" : Number(v).toFixed(d); }
 
-// Initial load
-loadAll();
+function renderOutcome(o) {
+  if (o === "W" || o === "L") return `<span class="outcome ${o}">${o}</span>`;
+  if (o === "pending")        return `<span class="outcome pending">pend</span>`;
+  return `<span class="outcome unknown">—</span>`;
+}
+
+// ─── Bets tab ───────────────────────────────────────────────────────────────
+
+function renderBetsDay(day) {
+  const sec = document.createElement("div");
+  sec.className = "day-section";
+  const date  = new Date(day.date + "T12:00:00");
+  const label = date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  sec.innerHTML = `<h2><span>${label}</span> — ${day.date}</h2>`;
+
+  if (!day.bets || day.bets.length === 0) {
+    sec.innerHTML += `<div class="no-bets">No bets placed.</div>`;
+    return sec;
+  }
+
+  const tbl = document.createElement("table");
+  tbl.innerHTML = `<thead><tr>
+    <th>Type</th><th>Market</th><th>Side</th>
+    <th>Entry (NO&nbsp;¢)</th><th>Model NO%</th><th>Edge</th>
+    <th>Size</th><th>μ&nbsp;/&nbsp;σ</th><th>Outcome</th>
+  </tr></thead>`;
+  const tb = document.createElement("tbody");
+  for (const bet of day.bets) {
+    const daily = bet.type === "daily";
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><span class="type-badge ${daily ? "daily" : ""}">${bet.type}</span></td>
+      <td class="ticker">${bet.ticker}</td>
+      <td>${(bet.side || "no").toUpperCase()}</td>
+      <td>${bet.no_price_cents != null ? bet.no_price_cents + "¢" : "—"}</td>
+      <td>${bet.model_no_prob != null ? (bet.model_no_prob * 100).toFixed(1) + "%" : "—"}</td>
+      <td>${bet.edge != null ? (bet.edge * 100).toFixed(1) + "%" : "—"}</td>
+      <td>${bet.size_usd != null ? "$" + bet.size_usd : "—"}</td>
+      <td>${bet.model_mu != null ? fmt(bet.model_mu) + "°&nbsp;/&nbsp;" + fmt(bet.model_sigma, 2) + "σ" : "—"}</td>
+      <td class="outcome-cell">${renderOutcome(bet.outcome)}</td>`;
+    tb.appendChild(tr);
+  }
+  tbl.appendChild(tb);
+  sec.appendChild(tbl);
+  return sec;
+}
+
+// ─── Forecast tab ────────────────────────────────────────────────────────────
+
+function computeScale(days) {
+  let lo = Infinity, hi = -Infinity;
+  for (const d of days) {
+    if (d.daily?.mu != null) {
+      lo = Math.min(lo, d.daily.mu - 2.5 * d.daily.sigma);
+      hi = Math.max(hi, d.daily.mu + 2.5 * d.daily.sigma);
+    }
+    for (const s of (d.intraday || [])) {
+      if (s.mu != null) {
+        lo = Math.min(lo, s.mu - 2.5 * s.sigma);
+        hi = Math.max(hi, s.mu + 2.5 * s.sigma);
+      }
+    }
+  }
+  if (!isFinite(lo)) return { lo: 50, hi: 110 };
+  const step = 5;
+  return { lo: Math.floor(lo / step) * step, hi: Math.ceil(hi / step) * step };
+}
+
+function buildForecastDay(day, scale) {
+  const { lo, hi } = scale;
+  const span = hi - lo;
+  const p = t => Math.max(0, Math.min(100, (t - lo) / span * 100));
+
+  const wrap = document.createElement("div");
+  wrap.className = "forecast-day";
+  const date  = new Date(day.date + "T12:00:00");
+  const label = date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  wrap.innerHTML = `<h2><span>${label}</span> — ${day.date}</h2>`;
+
+  const card = document.createElement("div");
+  card.className = "forecast-card";
+
+  // Collect rows: daily first, then intraday sorted by hour
+  const rows = [];
+  if (day.daily?.mu != null)
+    rows.push({ label: "Daily", rowCls: "daily-row", labelCls: "daily-label", mu: day.daily.mu, sigma: day.daily.sigma });
+  for (const s of (day.intraday || []).slice().sort((a, b) => a.hour - b.hour)) {
+    if (s.mu != null)
+      rows.push({ label: String(s.hour).padStart(2,"0") + "h", rowCls: "intra-row", labelCls: "intraday-label", mu: s.mu, sigma: s.sigma });
+  }
+
+  if (rows.length === 0) {
+    card.innerHTML = `<div class="no-forecast">No forecast data yet.</div>`;
+    wrap.appendChild(card);
+    return wrap;
+  }
+
+  // Legend
+  const legend = document.createElement("div");
+  legend.className = "fc-legend";
+  legend.innerHTML = `
+    <div class="fc-legend-item">
+      <div class="fc-legend-swatch" style="background:rgba(9,105,218,.42)"></div>±1σ (68%)
+    </div>
+    <div class="fc-legend-item">
+      <div class="fc-legend-swatch" style="background:rgba(9,105,218,.14)"></div>±2σ (95%)
+    </div>
+    <div class="fc-legend-item" style="color:#0969da;font-weight:600">■ Daily model</div>
+    <div class="fc-legend-item" style="color:#22863a;font-weight:600">■ Intraday snap</div>`;
+  card.appendChild(legend);
+
+  for (const row of rows) {
+    const rowEl = document.createElement("div");
+    rowEl.className = "fc-row " + row.rowCls;
+
+    const lo2 = p(row.mu - 2 * row.sigma), hi2 = p(row.mu + 2 * row.sigma);
+    const lo1 = p(row.mu - row.sigma),     hi1 = p(row.mu + row.sigma);
+    const muP = p(row.mu);
+
+    rowEl.innerHTML = `
+      <div class="fc-label ${row.labelCls}">${row.label}</div>
+      <div class="fc-meta"><strong>${fmt(row.mu)}°F</strong>&nbsp;±${fmt(row.sigma, 2)}σ</div>
+      <div class="fc-bar">
+        <div class="fc-2s" style="left:${lo2.toFixed(2)}%;width:${(hi2-lo2).toFixed(2)}%"></div>
+        <div class="fc-1s" style="left:${lo1.toFixed(2)}%;width:${(hi1-lo1).toFixed(2)}%"></div>
+        <div class="fc-mu" style="left:${muP.toFixed(2)}%"></div>
+      </div>`;
+    card.appendChild(rowEl);
+  }
+
+  // Temperature scale
+  const scaleRow = document.createElement("div");
+  scaleRow.className = "fc-scale-row";
+  scaleRow.innerHTML = `<div class="fc-scale-spacer"></div>`;
+  const scaleEl = document.createElement("div");
+  scaleEl.className = "fc-scale";
+
+  const tickStep = span <= 10 ? 1 : span <= 25 ? 2 : 5;
+  const firstTick = Math.ceil(lo / tickStep) * tickStep;
+  for (let t = firstTick; t <= hi; t += tickStep) {
+    const tick = document.createElement("div");
+    tick.className = "fc-tick";
+    tick.style.left = p(t).toFixed(2) + "%";
+    tick.textContent = t + "°";
+    scaleEl.appendChild(tick);
+  }
+  scaleRow.appendChild(scaleEl);
+  card.appendChild(scaleRow);
+
+  wrap.appendChild(card);
+  return wrap;
+}
+
+// ─── Load ────────────────────────────────────────────────────────────────────
+
+async function load() {
+  const t = Date.now();
+  const [betsRes, fcRes] = await Promise.allSettled([
+    fetch(`data/recent_bets_${LOC}.json?t=${t}`).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+    fetch(`data/forecast_${LOC}.json?t=${t}`).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+  ]);
+
+  if (betsRes.status === "fulfilled") {
+    const d = betsRes.value;
+    document.getElementById("page-title").textContent = `Weather Bot — ${d.location_name || LOC.toUpperCase()}`;
+    document.getElementById("last-updated").textContent = d.generated_at ? d.generated_at.replace("T", " ") : "—";
+  }
+
+  // Bets tab
+  const betsPanel = document.getElementById("tab-bets");
+  betsPanel.innerHTML = "";
+  if (betsRes.status === "fulfilled") {
+    const days = betsRes.value.days || [];
+    if (days.length === 0) {
+      betsPanel.innerHTML = `<div class="no-bets">No recent bet data available.</div>`;
+    } else {
+      for (const day of days) betsPanel.appendChild(renderBetsDay(day));
+    }
+  } else {
+    betsPanel.innerHTML = `<div class="error">Failed to load bets: ${betsRes.reason?.message || "unknown"}</div>`;
+  }
+
+  // Forecast tab
+  const fcPanel = document.getElementById("tab-forecast");
+  fcPanel.innerHTML = "";
+  if (fcRes.status === "fulfilled") {
+    const days = fcRes.value.days || [];
+    const hasData = days.some(d => d.daily || d.intraday?.length);
+    if (!hasData) {
+      fcPanel.innerHTML = `<div class="no-forecast">No forecast data available.</div>`;
+    } else {
+      const scale = computeScale(days);
+      for (const day of days) fcPanel.appendChild(buildForecastDay(day, scale));
+    }
+  } else {
+    fcPanel.innerHTML = `<div class="no-forecast">Forecast data will appear after the next scheduler run.</div>`;
+  }
+}
+
+load();
+setInterval(load, 5 * 60 * 1000);
 </script>
 </body>
 </html>
