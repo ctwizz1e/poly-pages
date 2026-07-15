@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-07-14T22:01:47",
-  "date": "2026-07-14",
+  "generated_at": "2026-07-15T00:01:20",
+  "date": "2026-07-15",
   "day_type": "today",
-  "overall": "Atlanta has already passed its daily high, with the running maximum locked at 84.2\u00b0F since 15:00 ET. The temperature peaked around 13:45 ET and has been cooling sharply since \u2014 currently at 75.2\u00b0F and dropping at -3.6\u00b0F/hr as of 21:49 ET. With flood advisories active in southeastern/south-central Georgia and a partly cloudy sky, afternoon convection likely aided the cooling trend.",
-  "forecast_obs_notes": "Model agreement on today's final TMAX is strong in hindsight: HRRR (84.8\u00b0F) and ECMWF (83.8\u00b0F) were closest to the observed running max of 84.2\u00b0F, while GFS (78.5\u00b0F) and NBM (78.8\u00b0F) ran too cool. The META model \u2014 the most reliable fused output \u2014 assigns 92% probability to the 84-85\u00b0F even bucket, fully consistent with the 84.2\u00b0F observed peak.",
-  "max_temp_prediction": "Today's TMAX is effectively finalized at 84.2\u00b0F. The give-up classifier fired at hour 15.58 with 96% confidence that the peak has passed, and the running maximum has shown zero change for over 6 hours. For the active ODD bucket market, 84.2\u00b0F falls squarely in the 83-84\u00b0F odd bucket (assuming 1\u00b0F offset from even buckets, covering 83.0\u201384.9\u00b0F), making that the highest-confidence trading target. Confidence is very high \u2014 this is an intraday lock, not a forecast.",
-  "predicted_max": 84.2
+  "overall": "No current observations are available to anchor intraday conditions, so analysis relies entirely on model guidance and the NWS narrative. The NWS forecasts a high near 87\u00b0F with a 40% chance of afternoon thunderstorms beginning after 11am, which introduces meaningful downside temperature risk if storms fire before peak heating. The day appears on track for a typical mid-summer warm pattern, though convective activity could suppress the maximum.",
+  "forecast_obs_notes": "NWP models show moderate spread: GFS is warmest at 88.4\u00b0F, ECMWF at 86.6\u00b0F, HRRR at 86.0\u00b0F, and NBM is the coolest at 84.1\u00b0F, yielding a simple average near 86.3\u00b0F. The D1_NOW bucket distribution is notably bimodal \u2014 elevated probability at both 78-79\u00b0F (23.7%) and 90-91\u00b0F (12.3%) \u2014 suggesting the probabilistic model is capturing storm-suppression scenarios alongside hotter outcomes, which aligns with the 40% PoP thunderstorm setup.",
+  "max_temp_prediction": "The most likely outcome is a high in the 85-88\u00b0F range, with the NWS 87\u00b0F call and the model cluster around 86\u00b0F serving as the central estimate. For the active ODD bucket market, the top bucket is 89-90\u00b0F at only 13.0% probability \u2014 the ensemble signals flag this as Tier 4 (Avoid) with a no_trade abort signal, meaning confidence in that specific bucket is low and the market is not favorable for a bet. A best-estimate TMAX of approximately 86.5\u00b0F reflects the model consensus with a slight downward lean from afternoon convective risk.",
+  "predicted_max": 86.5
 }
