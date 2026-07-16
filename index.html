@@ -318,7 +318,7 @@ function locSection(locName) {
 // size_usd = number of $1 contracts; cost = size_usd * no_price_cents / 100
 // Bets with live_no_bid >= 95 or <= 5 are treated as effectively settled for P&L purposes.
 function computeStats(bets) {
-  let cost = 0, settledCost = 0, realizedPnl = 0, wins = 0, losses = 0, pending = 0;
+  let cost = 0, settledCost = 0, realizedPnl = 0, unrealizedPnl = 0, wins = 0, losses = 0, pending = 0;
   for (const b of bets) {
     const np = b.no_price_cents, sz = b.size_usd;
     if (np == null || sz == null) continue;
@@ -336,10 +336,11 @@ function computeStats(bets) {
     } else {
       cost += bCost;
       pending++;
+      if (b.live_no_bid != null) unrealizedPnl += sz * (b.live_no_bid - np) / 100;
     }
   }
   const roi = settledCost > 0 ? realizedPnl / settledCost * 100 : null;
-  return { total: bets.length, wins, losses, pending, cost, settledCost, realizedPnl, roi };
+  return { total: bets.length, wins, losses, pending, cost, settledCost, realizedPnl, unrealizedPnl, roi };
 }
 
 function fmtMoney(v) {
@@ -349,28 +350,33 @@ function fmtMoney(v) {
 function renderTfoot(stats, colCount) {
   const pnlCls = stats.realizedPnl >= 0 ? "pnl-pos" : "pnl-neg";
   const roiStr = stats.roi != null ? ` · ROI&nbsp;${stats.roi.toFixed(1)}%` : "";
+  const unrealStr = stats.unrealizedPnl !== 0
+    ? ` · <span class="${stats.unrealizedPnl >= 0 ? "pnl-pos" : "pnl-neg"}">Unreal.&nbsp;${fmtMoney(stats.unrealizedPnl)}</span>`
+    : "";
   const html = `${stats.total}&nbsp;bet${stats.total !== 1 ? "s" : ""} · `
     + `${stats.wins}W&nbsp;${stats.losses}L&nbsp;${stats.pending}&nbsp;pend · `
     + `Cost&nbsp;$${stats.cost.toFixed(2)} · `
-    + `<span class="${pnlCls}">P&amp;L&nbsp;${fmtMoney(stats.realizedPnl)}${roiStr}</span>`;
+    + `<span class="${pnlCls}">P&amp;L&nbsp;${fmtMoney(stats.realizedPnl)}${roiStr}</span>${unrealStr}`;
   const tf = document.createElement("tfoot");
   tf.innerHTML = `<tr><td colspan="${colCount}">${html}</td></tr>`;
   return tf;
 }
 
 function renderTotalsBar(title, statsArr) {
-  const agg = { total: 0, wins: 0, losses: 0, pending: 0, cost: 0, settledCost: 0, realizedPnl: 0 };
+  const agg = { total: 0, wins: 0, losses: 0, pending: 0, cost: 0, settledCost: 0, realizedPnl: 0, unrealizedPnl: 0 };
   for (const s of statsArr) {
-    agg.total       += s.total;
-    agg.wins        += s.wins;
-    agg.losses      += s.losses;
-    agg.pending     += s.pending;
-    agg.cost        += s.cost;
-    agg.settledCost += s.settledCost;
-    agg.realizedPnl += s.realizedPnl;
+    agg.total          += s.total;
+    agg.wins           += s.wins;
+    agg.losses         += s.losses;
+    agg.pending        += s.pending;
+    agg.cost           += s.cost;
+    agg.settledCost    += s.settledCost;
+    agg.realizedPnl    += s.realizedPnl;
+    agg.unrealizedPnl  += s.unrealizedPnl;
   }
   const roi = agg.settledCost > 0 ? agg.realizedPnl / agg.settledCost * 100 : null;
   const pnlCls = agg.realizedPnl >= 0 ? "pnl-pos" : "pnl-neg";
+  const unrealCls = agg.unrealizedPnl >= 0 ? "pnl-pos" : "pnl-neg";
   const div = document.createElement("div");
   div.className = "totals-bar";
   div.innerHTML = `<h3>${title}</h3><div class="totals-grid">
@@ -379,6 +385,7 @@ function renderTotalsBar(title, statsArr) {
     <div class="totals-item"><div class="lbl">Pending</div><div class="val">${agg.pending}</div></div>
     <div class="totals-item"><div class="lbl">Total Cost</div><div class="val">$${agg.cost.toFixed(2)}</div></div>
     <div class="totals-item"><div class="lbl">Realized P&amp;L</div><div class="val ${pnlCls}">${fmtMoney(agg.realizedPnl)}</div></div>
+    ${agg.unrealizedPnl !== 0 ? `<div class="totals-item"><div class="lbl">Unrealized</div><div class="val ${unrealCls}">${fmtMoney(agg.unrealizedPnl)}</div></div>` : ""}
     ${roi != null ? `<div class="totals-item"><div class="lbl">ROI</div><div class="val ${pnlCls}">${roi.toFixed(1)}%</div></div>` : ""}
   </div>`;
   return div;
@@ -590,6 +597,55 @@ function buildForecastCard(locName, day, scale) {
   return card;
 }
 
+function buildCurrentSummaryCard(allForecast) {
+  const card = document.createElement("div");
+  card.className = "fc-card";
+  card.innerHTML = `<div class="fc-card-header"><span>Current Forecast Summary</span> — latest model read per location, as of last run</div>`;
+
+  const tbl = document.createElement("table");
+  tbl.innerHTML = `<thead><tr>
+    <th>Location</th><th>Daily&nbsp;μ&nbsp;/&nbsp;σ</th><th>Latest&nbsp;Snapshot</th><th>Obs&nbsp;Max&nbsp;So&nbsp;Far</th><th>As&nbsp;Of</th>
+  </tr></thead>`;
+  const tb = document.createElement("tbody");
+
+  for (const { code, name } of LOCATIONS) {
+    const data = allForecast[code];
+    const today = data?.days?.[0];
+    const tr = document.createElement("tr");
+
+    if (!today) {
+      tr.innerHTML = `<td>${name}</td><td colspan="4" class="no-data">No forecast data.</td>`;
+      tb.appendChild(tr);
+      continue;
+    }
+
+    const dailyStr = today.daily?.mu != null
+      ? `${fmt(today.daily.mu)}°F&nbsp;±&nbsp;${fmt(today.daily.sigma, 2)}σ`
+      : "—";
+
+    const intraday = (today.intraday || []).slice().sort((a, b) => a.hour - b.hour);
+    const latest = intraday.length ? intraday[intraday.length - 1] : null;
+    const latestStr = latest
+      ? `${String(latest.hour).padStart(2, "0")}h:&nbsp;${fmt(latest.mu)}°F&nbsp;±&nbsp;${fmt(latest.sigma, 2)}σ`
+      : "—";
+
+    const obsStr = today.obs_daily_max != null ? `${today.obs_daily_max}°F` : "—";
+    const asOf = data.generated_at ? data.generated_at.replace("T", " ") : "—";
+
+    tr.innerHTML = `
+      <td>${name}</td>
+      <td>${dailyStr}</td>
+      <td>${latestStr}</td>
+      <td>${obsStr}</td>
+      <td class="date-cell">${asOf}</td>`;
+    tb.appendChild(tr);
+  }
+
+  tbl.appendChild(tb);
+  card.appendChild(tbl);
+  return card;
+}
+
 function renderForecastTab(allForecast) {
   const panel = document.getElementById("tab-forecast");
   panel.innerHTML = "";
@@ -604,6 +660,8 @@ function renderForecastTab(allForecast) {
     panel.innerHTML = `<div class="no-forecast">No forecast data available.</div>`;
     return;
   }
+
+  panel.appendChild(buildCurrentSummaryCard(allForecast));
 
   // Sub-tab bar
   const subHeader = document.createElement("div");
