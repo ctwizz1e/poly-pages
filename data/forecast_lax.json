@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T20:30:20",
+  "generated_at": "2026-07-15T21:02:36",
   "location": "lax",
   "location_name": "Los Angeles, CA",
   "days": [
@@ -13,24 +13,33 @@
         {
           "hour": 7,
           "mu": 77.76,
-          "sigma": 2.01
+          "sigma": 2.01,
+          "obs_temp": 68.0,
+          "obs_max": 70.0
         },
         {
           "hour": 9,
           "mu": 77.84,
-          "sigma": 2.01
+          "sigma": 2.01,
+          "obs_temp": 68.0,
+          "obs_max": 70.0
         },
         {
           "hour": 11,
           "mu": 77.92,
-          "sigma": 2.03
+          "sigma": 2.03,
+          "obs_temp": 73.4,
+          "obs_max": 77.0
         },
         {
           "hour": 13,
           "mu": 78.17,
-          "sigma": 1.92
+          "sigma": 1.92,
+          "obs_temp": 77.0,
+          "obs_max": 78.8
         }
-      ]
+      ],
+      "obs_daily_max": 78.8
     },
     {
       "date": "2026-07-14",
@@ -38,7 +47,8 @@
         "mu": 74.93,
         "sigma": 6.13
       },
-      "intraday": []
+      "intraday": [],
+      "obs_daily_max": 77.0
     },
     {
       "date": "2026-07-13",
@@ -46,7 +56,8 @@
         "mu": 77.68,
         "sigma": 5.63
       },
-      "intraday": []
+      "intraday": [],
+      "obs_daily_max": 75.2
     }
   ]
 }

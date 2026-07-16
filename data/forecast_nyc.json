@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T20:30:27",
+  "generated_at": "2026-07-15T21:02:36",
   "location": "nyc",
   "location_name": "New York City, NY",
   "days": [
@@ -13,19 +13,26 @@
         {
           "hour": 7,
           "mu": 89.74,
-          "sigma": 2.85
+          "sigma": 2.85,
+          "obs_temp": 78.1,
+          "obs_max": 82.0
         },
         {
           "hour": 9,
           "mu": 90.37,
-          "sigma": 3.29
+          "sigma": 3.29,
+          "obs_temp": 82.0,
+          "obs_max": 84.9
         },
         {
           "hour": 11,
           "mu": 91.58,
-          "sigma": 3.01
+          "sigma": 3.01,
+          "obs_temp": 90.0,
+          "obs_max": 93.0
         }
-      ]
+      ],
+      "obs_daily_max": 95.0
     },
     {
       "date": "2026-07-14",
@@ -37,14 +44,19 @@
         {
           "hour": 9,
           "mu": 84.04,
-          "sigma": 3.4
+          "sigma": 3.4,
+          "obs_temp": 75.0,
+          "obs_max": 79.0
         },
         {
           "hour": 11,
           "mu": 87.48,
-          "sigma": 2.29
+          "sigma": 2.29,
+          "obs_temp": 82.0,
+          "obs_max": 85.0
         }
-      ]
+      ],
+      "obs_daily_max": 89.0
     },
     {
       "date": "2026-07-13",
@@ -52,7 +64,8 @@
         "mu": 84.98,
         "sigma": 3.35
       },
-      "intraday": []
+      "intraday": [],
+      "obs_daily_max": 83.0
     }
   ]
 }

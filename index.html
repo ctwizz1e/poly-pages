@@ -29,32 +29,25 @@
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
+      padding: 12px 24px;
       display: flex;
       align-items: center;
       gap: 16px;
-      flex-wrap: wrap;
     }
-    header h1 { font-size: 17px; font-weight: 600; }
-    #location-nav { display: flex; gap: 8px; flex-wrap: wrap; }
-    #location-nav a {
-      font-size: 13px; padding: 3px 10px; border-radius: 12px;
-      text-decoration: none; color: var(--text-muted);
-      border: 1px solid var(--border);
-    }
-    #location-nav a.active { background: var(--accent); color: #fff; border-color: transparent; }
+    header h1 { font-size: 16px; font-weight: 600; }
     #status-bar { font-size: 12px; color: var(--text-muted); margin-left: auto; }
     #status-bar span { font-weight: 500; color: var(--text); }
 
-    /* ── Tabs ── */
+    /* ── Tab bar ── */
     .tabs-header {
       background: var(--surface);
       border-bottom: 2px solid var(--border);
       padding: 0 24px;
       display: flex;
+      gap: 0;
     }
     .tab-btn {
-      padding: 10px 20px;
+      padding: 10px 22px;
       font-size: 13px; font-weight: 500;
       border: none; background: none; cursor: pointer;
       color: var(--text-muted);
@@ -67,136 +60,141 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    main { max-width: 960px; margin: 0 auto; padding: 20px 16px; }
-
-    /* ── Bets tab ── */
-    .day-section { margin-bottom: 24px; }
-    .day-section h2 {
-      font-size: 13px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: .5px; color: var(--text-muted);
-      margin-bottom: 10px; padding-bottom: 8px;
+    /* ── Sub-tab bar (for Forecast day picker) ── */
+    .subtabs-header {
+      display: flex; gap: 0;
+      margin-bottom: 16px;
       border-bottom: 1px solid var(--border);
     }
-    .day-section h2 span { color: var(--text); }
-    .no-bets { font-size: 13px; color: var(--text-muted); padding: 8px 0; }
+    .subtab-btn {
+      padding: 6px 16px;
+      font-size: 12px; font-weight: 500;
+      border: none; background: none; cursor: pointer;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .subtab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .subtab-btn:hover:not(.active) { color: var(--text); }
+    .subtab-panel { display: none; }
+    .subtab-panel.active { display: block; }
+
+    /* ── Main content area ── */
+    main { max-width: 1080px; margin: 0 auto; padding: 20px 16px; }
+
+    /* ── Location section ── */
+    .loc-section { margin-bottom: 28px; }
+    .loc-header {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .6px; color: var(--text-muted);
+      padding-bottom: 6px; margin-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .loc-header span { color: var(--text); }
+
+    /* ── Bet tables ── */
+    .no-data { font-size: 13px; color: var(--text-muted); padding: 4px 0 8px; }
 
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     thead th {
       font-size: 11px; font-weight: 600; text-transform: uppercase;
       letter-spacing: .4px; color: var(--text-muted);
-      padding: 4px 10px 6px 0; text-align: left; white-space: nowrap;
+      padding: 3px 10px 5px 0; text-align: left; white-space: nowrap;
     }
-    thead th:last-child { text-align: center; }
     tbody td {
-      padding: 6px 10px 6px 0; border-top: 1px solid var(--border);
+      padding: 5px 10px 5px 0; border-top: 1px solid var(--border);
       vertical-align: middle; white-space: nowrap;
     }
     tbody tr:hover td { background: #f8f9fa; }
 
     .ticker { font-family: monospace; font-size: 12px; color: var(--text-muted); }
-    .type-badge {
+    .date-cell { font-size: 12px; color: var(--text-muted); }
+    .snap-badge {
       font-size: 11px; padding: 1px 6px; border-radius: 10px;
       background: #f1f3f5; border: 1px solid var(--border); color: var(--text-muted);
     }
-    .type-badge.daily { background: #ddf4ff; border-color: #b6e3ff; color: #0969da; }
 
     .outcome {
-      display: inline-block; width: 28px; text-align: center;
-      font-weight: 700; font-size: 13px; padding: 2px 4px; border-radius: 4px;
+      display: inline-block; min-width: 28px; text-align: center;
+      font-weight: 700; font-size: 12px; padding: 2px 5px; border-radius: 4px;
     }
     .outcome.W { color: var(--win);  background: #dcffe4; }
     .outcome.L { color: var(--loss); background: #ffebe9; }
     .outcome.pending { color: var(--text-muted); background: #f1f3f5; font-weight: 400; font-size: 11px; }
     .outcome.unknown { color: var(--text-muted); }
-    td.outcome-cell { text-align: center; }
 
-    /* ── Forecast tab ── */
-    .forecast-day { margin-bottom: 24px; }
-    .forecast-day > h2 {
-      font-size: 13px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: .5px; color: var(--text-muted);
-      margin-bottom: 12px; padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-    .forecast-day > h2 span { color: var(--text); }
-
-    .forecast-card {
+    /* ── Forecast cards ── */
+    .fc-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 20px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
       overflow-x: auto;
     }
+    .fc-card-header {
+      font-size: 12px; font-weight: 600; color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .fc-card-header span { color: var(--text); }
 
-    /* Each row: label | meta | bar */
     .fc-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 500px;
+      display: flex; align-items: center; gap: 10px;
+      min-width: 520px;
+      margin-bottom: 6px;
     }
-    .fc-row + .fc-row { margin-top: 8px; }
-
     .fc-label {
-      width: 56px; flex-shrink: 0;
+      width: 52px; flex-shrink: 0;
       font-size: 12px; font-weight: 600; text-align: right;
-      color: var(--text-muted);
     }
-    .fc-label.daily-label   { color: #0969da; }
-    .fc-label.intraday-label { color: var(--win); }
+    .fc-label.daily-lbl { color: #0969da; }
+    .fc-label.intra-lbl { color: var(--win); }
 
     .fc-meta {
-      width: 96px; flex-shrink: 0;
+      width: 100px; flex-shrink: 0;
       font-size: 12px; color: var(--text-muted);
     }
     .fc-meta strong { color: var(--text); font-size: 13px; }
 
     .fc-bar {
-      flex: 1;
-      position: relative;
-      height: 22px;
+      flex: 1; position: relative; height: 22px;
     }
+    .fc-2s, .fc-1s, .fc-mu { position: absolute; }
+    .fc-2s { top: 5px; height: 12px; border-radius: 6px; }
+    .fc-1s { top: 3px; height: 16px; border-radius: 4px; }
+    .fc-mu { top: 0; height: 22px; width: 3px; border-radius: 2px; transform: translateX(-50%); }
 
-    /* Bands: positioned as % of bar width (= temperature scale) */
-    .fc-2s, .fc-1s, .fc-mu { position: absolute; top: 0; height: 100%; }
+    .daily-row .fc-2s { background: rgba(9,105,218,.14); }
+    .daily-row .fc-1s { background: rgba(9,105,218,.42); }
+    .daily-row .fc-mu { background: #0969da; }
 
-    .fc-2s { border-radius: 6px; top: 5px; height: 12px; }
-    .fc-1s { border-radius: 4px; top: 3px; height: 16px; }
-    .fc-mu { width: 3px; border-radius: 2px; transform: translateX(-50%); }
+    .intra-row .fc-2s { background: rgba(34,134,58,.14); }
+    .intra-row .fc-1s { background: rgba(34,134,58,.42); }
+    .intra-row .fc-mu { background: #22863a; }
 
-    .fc-row.daily-row   .fc-2s { background: rgba(9,105,218,.14); }
-    .fc-row.daily-row   .fc-1s { background: rgba(9,105,218,.42); }
-    .fc-row.daily-row   .fc-mu { background: #0969da; }
+    .fc-obs {
+      width: 140px; flex-shrink: 0;
+      font-size: 12px; color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .fc-obs .obs-val { color: var(--text); font-weight: 500; }
+    .fc-obs .obs-max { color: var(--text-muted); }
 
-    .fc-row.intra-row   .fc-2s { background: rgba(34,134,58,.14); }
-    .fc-row.intra-row   .fc-1s { background: rgba(34,134,58,.42); }
-    .fc-row.intra-row   .fc-mu { background: #22863a; }
-
-    /* Scale row */
     .fc-scale-row {
-      display: flex; align-items: flex-start; gap: 12px;
-      min-width: 500px;
-      margin-top: 10px;
+      display: flex; align-items: flex-start; gap: 10px;
+      min-width: 520px; margin-top: 6px;
     }
-    .fc-scale-spacer { width: calc(56px + 96px + 12px + 12px); flex-shrink: 0; }
-    .fc-scale { flex: 1; position: relative; height: 16px; border-top: 1px solid var(--border); }
+    .fc-scale-spc { width: calc(52px + 100px + 10px + 10px); flex-shrink: 0; }
+    .fc-scale     { flex: 1; position: relative; height: 16px; border-top: 1px solid var(--border); }
     .fc-tick {
       position: absolute; top: 2px;
       font-size: 10px; color: var(--text-muted);
       transform: translateX(-50%); white-space: nowrap;
     }
+    /* Spacer accounting for obs column */
+    .fc-obs-spc { width: 140px; flex-shrink: 0; }
 
-    /* Legend */
-    .fc-legend {
-      display: flex; gap: 16px; flex-wrap: wrap;
-      margin-bottom: 14px; font-size: 12px; color: var(--text-muted);
-    }
-    .fc-legend-item { display: flex; align-items: center; gap: 5px; }
-    .fc-legend-swatch {
-      width: 14px; height: 10px; border-radius: 3px;
-    }
-
-    .no-forecast { font-size: 13px; color: var(--text-muted); padding: 8px 0; }
+    .no-forecast { font-size: 13px; color: var(--text-muted); padding: 4px 0; }
     .loading { color: var(--text-muted); font-size: 13px; padding: 8px 0; }
     .error   { color: var(--loss);       font-size: 13px; padding: 8px 0; }
   </style>
@@ -204,42 +202,38 @@
 <body>
 
 <header>
-  <h1 id="page-title">Weather Bot</h1>
-  <nav id="location-nav">
-    <a href="?location=atl">Atlanta</a>
-    <a href="?location=bos">Boston</a>
-    <a href="?location=chi">Chicago</a>
-    <a href="?location=dal">Dallas</a>
-    <a href="?location=dc">Washington DC</a>
-    <a href="?location=lax">Los Angeles</a>
-    <a href="?location=mia">Miami</a>
-    <a href="?location=nyc">New York City</a>
-    <a href="?location=sfo">San Francisco</a>
-  </nav>
+  <h1>Weather Bot</h1>
   <div id="status-bar">Updated: <span id="last-updated">—</span></div>
 </header>
 
 <div class="tabs-header">
-  <button class="tab-btn active" data-tab="bets">Bets</button>
-  <button class="tab-btn" data-tab="forecast">Forecast</button>
+  <button class="tab-btn active" data-tab="daily">Daily</button>
+  <button class="tab-btn"        data-tab="intraday">Intraday</button>
+  <button class="tab-btn"        data-tab="forecast">Forecast</button>
 </div>
 
 <main>
-  <div class="tab-panel active" id="tab-bets">
-    <div class="loading">Loading…</div>
-  </div>
-  <div class="tab-panel" id="tab-forecast">
-    <div class="loading">Loading…</div>
-  </div>
+  <div class="tab-panel active" id="tab-daily">   <div class="loading">Loading…</div></div>
+  <div class="tab-panel"        id="tab-intraday"><div class="loading">Loading…</div></div>
+  <div class="tab-panel"        id="tab-forecast"><div class="loading">Loading…</div></div>
 </main>
 
 <script>
-const LOC = (new URLSearchParams(window.location.search).get("location") || "atl").toLowerCase();
+// ─── Config ─────────────────────────────────────────────────────────────────
 
-document.querySelectorAll("#location-nav a").forEach(a => {
-  const p = new URL(a.href, location.href).searchParams.get("location") || "atl";
-  if (p === LOC) a.classList.add("active");
-});
+const LOCATIONS = [
+  { code: "atl", name: "Atlanta, GA" },
+  { code: "bos", name: "Boston, MA" },
+  { code: "chi", name: "Chicago, IL" },
+  { code: "dal", name: "Dallas, TX" },
+  { code: "lax", name: "Los Angeles, CA" },
+  { code: "mia", name: "Miami, FL" },
+  { code: "nyc", name: "New York City, NY" },
+  { code: "sfo", name: "San Francisco, CA" },
+  { code: "dc",  name: "Washington, DC" },
+];
+
+// ─── Tab switching ───────────────────────────────────────────────────────────
 
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {
@@ -250,65 +244,146 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
   });
 });
 
+function wireSubtabs(container) {
+  container.querySelectorAll(".subtab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      container.querySelectorAll(".subtab-btn").forEach(b => b.classList.remove("active"));
+      container.querySelectorAll(".subtab-panel").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      container.querySelector(".subtab-panel[data-day='" + btn.dataset.day + "']").classList.add("active");
+    });
+  });
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
 function fmt(v, d = 1) { return v == null ? "—" : Number(v).toFixed(d); }
 
+function dayLabel(dateStr) {
+  const d = new Date(dateStr + "T12:00:00");
+  return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+}
+
 function renderOutcome(o) {
-  if (o === "W" || o === "L") return `<span class="outcome ${o}">${o}</span>`;
-  if (o === "pending")        return `<span class="outcome pending">pend</span>`;
+  if (o === "W") return `<span class="outcome W">W</span>`;
+  if (o === "L") return `<span class="outcome L">L</span>`;
+  if (o === "pending") return `<span class="outcome pending">pend</span>`;
   return `<span class="outcome unknown">—</span>`;
 }
 
-// ─── Bets tab ───────────────────────────────────────────────────────────────
+function locSection(locName) {
+  const div = document.createElement("div");
+  div.className = "loc-section";
+  div.innerHTML = `<div class="loc-header"><span>${locName}</span></div>`;
+  return div;
+}
 
-function renderBetsDay(day) {
-  const sec = document.createElement("div");
-  sec.className = "day-section";
-  const date  = new Date(day.date + "T12:00:00");
-  const label = date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
-  sec.innerHTML = `<h2><span>${label}</span> — ${day.date}</h2>`;
+// ─── Daily tab ───────────────────────────────────────────────────────────────
 
-  if (!day.bets || day.bets.length === 0) {
-    sec.innerHTML += `<div class="no-bets">No bets placed.</div>`;
-    return sec;
+function renderDailyTab(allBets) {
+  const panel = document.getElementById("tab-daily");
+  panel.innerHTML = "";
+
+  for (const { code, name } of LOCATIONS) {
+    const data = allBets[code];
+    const sec = locSection(name);
+
+    const bets = (data?.days || []).flatMap(d =>
+      d.bets.filter(b => b.type === "daily").map(b => ({ ...b, date: d.date }))
+    );
+
+    if (bets.length === 0) {
+      sec.innerHTML += `<div class="no-data">No daily bets.</div>`;
+      panel.appendChild(sec);
+      continue;
+    }
+
+    const tbl = document.createElement("table");
+    tbl.innerHTML = `<thead><tr>
+      <th>Date</th><th>Market</th><th>Side</th>
+      <th>NO&nbsp;¢</th><th>Model&nbsp;NO%</th><th>Size</th>
+      <th>μ&nbsp;/&nbsp;σ</th><th>Outcome</th>
+    </tr></thead>`;
+    const tb = document.createElement("tbody");
+    for (const b of bets) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="date-cell">${dayLabel(b.date)}</td>
+        <td class="ticker">${b.ticker}</td>
+        <td>${(b.side || "no").toUpperCase()}</td>
+        <td>${b.no_price_cents != null ? b.no_price_cents + "¢" : "—"}</td>
+        <td>${b.model_no_prob != null ? (b.model_no_prob * 100).toFixed(1) + "%" : "—"}</td>
+        <td>${b.size_usd != null ? "$" + b.size_usd : "—"}</td>
+        <td>${b.model_mu != null ? fmt(b.model_mu) + "°&nbsp;/&nbsp;" + fmt(b.model_sigma, 2) + "σ" : "—"}</td>
+        <td>${renderOutcome(b.outcome)}</td>`;
+      tb.appendChild(tr);
+    }
+    tbl.appendChild(tb);
+    sec.appendChild(tbl);
+    panel.appendChild(sec);
   }
+}
 
-  const tbl = document.createElement("table");
-  tbl.innerHTML = `<thead><tr>
-    <th>Type</th><th>Market</th><th>Side</th>
-    <th>Entry (NO&nbsp;¢)</th><th>Model NO%</th><th>Edge</th>
-    <th>Size</th><th>μ&nbsp;/&nbsp;σ</th><th>Outcome</th>
-  </tr></thead>`;
-  const tb = document.createElement("tbody");
-  for (const bet of day.bets) {
-    const daily = bet.type === "daily";
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td><span class="type-badge ${daily ? "daily" : ""}">${bet.type}</span></td>
-      <td class="ticker">${bet.ticker}</td>
-      <td>${(bet.side || "no").toUpperCase()}</td>
-      <td>${bet.no_price_cents != null ? bet.no_price_cents + "¢" : "—"}</td>
-      <td>${bet.model_no_prob != null ? (bet.model_no_prob * 100).toFixed(1) + "%" : "—"}</td>
-      <td>${bet.edge != null ? (bet.edge * 100).toFixed(1) + "%" : "—"}</td>
-      <td>${bet.size_usd != null ? "$" + bet.size_usd : "—"}</td>
-      <td>${bet.model_mu != null ? fmt(bet.model_mu) + "°&nbsp;/&nbsp;" + fmt(bet.model_sigma, 2) + "σ" : "—"}</td>
-      <td class="outcome-cell">${renderOutcome(bet.outcome)}</td>`;
-    tb.appendChild(tr);
+// ─── Intraday tab ────────────────────────────────────────────────────────────
+
+function renderIntradayTab(allBets) {
+  const panel = document.getElementById("tab-intraday");
+  panel.innerHTML = "";
+
+  for (const { code, name } of LOCATIONS) {
+    const data = allBets[code];
+    const sec = locSection(name);
+
+    const bets = (data?.days || []).flatMap(d =>
+      d.bets.filter(b => b.type.startsWith("intraday_")).map(b => ({ ...b, date: d.date }))
+    );
+
+    if (bets.length === 0) {
+      sec.innerHTML += `<div class="no-data">No intraday bets.</div>`;
+      panel.appendChild(sec);
+      continue;
+    }
+
+    const tbl = document.createElement("table");
+    tbl.innerHTML = `<thead><tr>
+      <th>Date</th><th>Snap</th><th>Market</th><th>Side</th>
+      <th>NO&nbsp;¢</th><th>Model&nbsp;NO%</th><th>Edge</th>
+      <th>Size</th><th>Outcome</th>
+    </tr></thead>`;
+    const tb = document.createElement("tbody");
+    for (const b of bets) {
+      const snap = b.type.replace("intraday_", "");
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="date-cell">${dayLabel(b.date)}</td>
+        <td><span class="snap-badge">${snap}</span></td>
+        <td class="ticker">${b.ticker}</td>
+        <td>${(b.side || "no").toUpperCase()}</td>
+        <td>${b.no_price_cents != null ? b.no_price_cents + "¢" : "—"}</td>
+        <td>${b.model_no_prob != null ? (b.model_no_prob * 100).toFixed(1) + "%" : "—"}</td>
+        <td>${b.edge != null ? (b.edge * 100).toFixed(1) + "%" : "—"}</td>
+        <td>${b.size_usd != null ? "$" + b.size_usd : "—"}</td>
+        <td>${renderOutcome(b.outcome)}</td>`;
+      tb.appendChild(tr);
+    }
+    tbl.appendChild(tb);
+    sec.appendChild(tbl);
+    panel.appendChild(sec);
   }
-  tbl.appendChild(tb);
-  sec.appendChild(tbl);
-  return sec;
 }
 
 // ─── Forecast tab ────────────────────────────────────────────────────────────
 
-function computeScale(days) {
+function computeScale(allForecast, dayIndex) {
   let lo = Infinity, hi = -Infinity;
-  for (const d of days) {
-    if (d.daily?.mu != null) {
-      lo = Math.min(lo, d.daily.mu - 2.5 * d.daily.sigma);
-      hi = Math.max(hi, d.daily.mu + 2.5 * d.daily.sigma);
+  for (const data of Object.values(allForecast)) {
+    const day = data?.days?.[dayIndex];
+    if (!day) continue;
+    if (day.daily?.mu != null) {
+      lo = Math.min(lo, day.daily.mu - 2.5 * day.daily.sigma);
+      hi = Math.max(hi, day.daily.mu + 2.5 * day.daily.sigma);
     }
-    for (const s of (d.intraday || [])) {
+    for (const s of (day.intraday || [])) {
       if (s.mu != null) {
         lo = Math.min(lo, s.mu - 2.5 * s.sigma);
         hi = Math.max(hi, s.mu + 2.5 * s.sigma);
@@ -320,75 +395,61 @@ function computeScale(days) {
   return { lo: Math.floor(lo / step) * step, hi: Math.ceil(hi / step) * step };
 }
 
-function buildForecastDay(day, scale) {
+function buildForecastCard(locName, day, scale) {
   const { lo, hi } = scale;
   const span = hi - lo;
   const p = t => Math.max(0, Math.min(100, (t - lo) / span * 100));
 
-  const wrap = document.createElement("div");
-  wrap.className = "forecast-day";
-  const date  = new Date(day.date + "T12:00:00");
-  const label = date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
-  wrap.innerHTML = `<h2><span>${label}</span> — ${day.date}</h2>`;
-
   const card = document.createElement("div");
-  card.className = "forecast-card";
+  card.className = "fc-card";
+  card.innerHTML = `<div class="fc-card-header"><span>${locName}</span></div>`;
 
-  // Collect rows: daily first, then intraday sorted by hour
   const rows = [];
-  if (day.daily?.mu != null)
-    rows.push({ label: "Daily", rowCls: "daily-row", labelCls: "daily-label", mu: day.daily.mu, sigma: day.daily.sigma });
-  for (const s of (day.intraday || []).slice().sort((a, b) => a.hour - b.hour)) {
+  if (day?.daily?.mu != null)
+    rows.push({ label: "Daily", rowCls: "daily-row", lblCls: "daily-lbl", mu: day.daily.mu, sigma: day.daily.sigma, obs: null, obsMax: day.obs_daily_max });
+  for (const s of ((day?.intraday || []).slice().sort((a, b) => a.hour - b.hour))) {
     if (s.mu != null)
-      rows.push({ label: String(s.hour).padStart(2,"0") + "h", rowCls: "intra-row", labelCls: "intraday-label", mu: s.mu, sigma: s.sigma });
+      rows.push({ label: String(s.hour).padStart(2, "0") + "h", rowCls: "intra-row", lblCls: "intra-lbl", mu: s.mu, sigma: s.sigma, obs: s.obs_temp, obsMax: s.obs_max });
   }
 
   if (rows.length === 0) {
-    card.innerHTML = `<div class="no-forecast">No forecast data yet.</div>`;
-    wrap.appendChild(card);
-    return wrap;
+    card.innerHTML += `<div class="no-forecast">No forecast data.</div>`;
+    return card;
   }
 
-  // Legend
-  const legend = document.createElement("div");
-  legend.className = "fc-legend";
-  legend.innerHTML = `
-    <div class="fc-legend-item">
-      <div class="fc-legend-swatch" style="background:rgba(9,105,218,.42)"></div>±1σ (68%)
-    </div>
-    <div class="fc-legend-item">
-      <div class="fc-legend-swatch" style="background:rgba(9,105,218,.14)"></div>±2σ (95%)
-    </div>
-    <div class="fc-legend-item" style="color:#0969da;font-weight:600">■ Daily model</div>
-    <div class="fc-legend-item" style="color:#22863a;font-weight:600">■ Intraday snap</div>`;
-  card.appendChild(legend);
-
   for (const row of rows) {
-    const rowEl = document.createElement("div");
-    rowEl.className = "fc-row " + row.rowCls;
-
     const lo2 = p(row.mu - 2 * row.sigma), hi2 = p(row.mu + 2 * row.sigma);
     const lo1 = p(row.mu - row.sigma),     hi1 = p(row.mu + row.sigma);
     const muP = p(row.mu);
 
+    let obsHtml = "";
+    if (row.obs != null) {
+      obsHtml = `<span class="obs-val">${row.obs}°F</span> <span class="obs-max">/ max ${row.obsMax != null ? row.obsMax + "°F" : "—"}</span>`;
+    } else if (row.obsMax != null) {
+      // Daily row — show obs max for the day
+      obsHtml = `<span class="obs-max">Obs max: <span class="obs-val">${row.obsMax}°F</span></span>`;
+    }
+
+    const rowEl = document.createElement("div");
+    rowEl.className = "fc-row " + row.rowCls;
     rowEl.innerHTML = `
-      <div class="fc-label ${row.labelCls}">${row.label}</div>
+      <div class="fc-label ${row.lblCls}">${row.label}</div>
       <div class="fc-meta"><strong>${fmt(row.mu)}°F</strong>&nbsp;±${fmt(row.sigma, 2)}σ</div>
       <div class="fc-bar">
         <div class="fc-2s" style="left:${lo2.toFixed(2)}%;width:${(hi2-lo2).toFixed(2)}%"></div>
         <div class="fc-1s" style="left:${lo1.toFixed(2)}%;width:${(hi1-lo1).toFixed(2)}%"></div>
         <div class="fc-mu" style="left:${muP.toFixed(2)}%"></div>
-      </div>`;
+      </div>
+      <div class="fc-obs">${obsHtml}</div>`;
     card.appendChild(rowEl);
   }
 
-  // Temperature scale
+  // Scale row
   const scaleRow = document.createElement("div");
   scaleRow.className = "fc-scale-row";
-  scaleRow.innerHTML = `<div class="fc-scale-spacer"></div>`;
+  scaleRow.innerHTML = `<div class="fc-scale-spc"></div>`;
   const scaleEl = document.createElement("div");
   scaleEl.className = "fc-scale";
-
   const tickStep = span <= 10 ? 1 : span <= 25 ? 2 : 5;
   const firstTick = Math.ceil(lo / tickStep) * tickStep;
   for (let t = firstTick; t <= hi; t += tickStep) {
@@ -399,56 +460,92 @@ function buildForecastDay(day, scale) {
     scaleEl.appendChild(tick);
   }
   scaleRow.appendChild(scaleEl);
+  scaleRow.innerHTML += `<div class="fc-obs-spc"></div>`;
   card.appendChild(scaleRow);
 
-  wrap.appendChild(card);
-  return wrap;
+  return card;
+}
+
+function renderForecastTab(allForecast) {
+  const panel = document.getElementById("tab-forecast");
+  panel.innerHTML = "";
+
+  // Collect unique dates across all locations (up to 3 days back)
+  const dateSet = new Set();
+  for (const data of Object.values(allForecast)) {
+    for (const day of (data?.days || [])) dateSet.add(day.date);
+  }
+  const dates = [...dateSet].sort().reverse().slice(0, 3);
+  if (dates.length === 0) {
+    panel.innerHTML = `<div class="no-forecast">No forecast data available.</div>`;
+    return;
+  }
+
+  // Sub-tab bar
+  const subHeader = document.createElement("div");
+  subHeader.className = "subtabs-header";
+  const today = new Date().toISOString().slice(0, 10);
+  dates.forEach((date, i) => {
+    const label = date === today ? "Today" : dayLabel(date);
+    const btn = document.createElement("button");
+    btn.className = "subtab-btn" + (i === 0 ? " active" : "");
+    btn.dataset.day = date;
+    btn.textContent = label;
+    subHeader.appendChild(btn);
+  });
+  panel.appendChild(subHeader);
+
+  // Sub-tab panels (one per date)
+  dates.forEach((date, di) => {
+    const dayPanel = document.createElement("div");
+    dayPanel.className = "subtab-panel" + (di === 0 ? " active" : "");
+    dayPanel.dataset.day = date;
+
+    // Compute scale across all locations for this date
+    const scale = computeScale(allForecast, di);
+
+    for (const { code, name } of LOCATIONS) {
+      const data = allForecast[code];
+      const day = data?.days?.[di];
+      dayPanel.appendChild(buildForecastCard(name, day, scale));
+    }
+    panel.appendChild(dayPanel);
+  });
+
+  wireSubtabs(panel);
 }
 
 // ─── Load ────────────────────────────────────────────────────────────────────
 
+async function fetchJson(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+
 async function load() {
   const t = Date.now();
-  const [betsRes, fcRes] = await Promise.allSettled([
-    fetch(`data/recent_bets_${LOC}.json?t=${t}`).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
-    fetch(`data/forecast_${LOC}.json?t=${t}`).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+
+  const [betsResults, fcResults] = await Promise.all([
+    Promise.allSettled(LOCATIONS.map(l => fetchJson(`data/recent_bets_${l.code}.json?t=${t}`))),
+    Promise.allSettled(LOCATIONS.map(l => fetchJson(`data/forecast_${l.code}.json?t=${t}`))),
   ]);
 
-  if (betsRes.status === "fulfilled") {
-    const d = betsRes.value;
-    document.getElementById("page-title").textContent = `Weather Bot — ${d.location_name || LOC.toUpperCase()}`;
-    document.getElementById("last-updated").textContent = d.generated_at ? d.generated_at.replace("T", " ") : "—";
+  const allBets = {}, allForecast = {};
+  LOCATIONS.forEach(({ code }, i) => {
+    if (betsResults[i].status === "fulfilled") allBets[code] = betsResults[i].value;
+    if (fcResults[i].status   === "fulfilled") allForecast[code] = fcResults[i].value;
+  });
+
+  // Timestamp from first successful bets result
+  const firstBets = Object.values(allBets)[0];
+  if (firstBets?.generated_at) {
+    document.getElementById("last-updated").textContent = firstBets.generated_at.replace("T", " ");
   }
 
-  // Bets tab
-  const betsPanel = document.getElementById("tab-bets");
-  betsPanel.innerHTML = "";
-  if (betsRes.status === "fulfilled") {
-    const days = betsRes.value.days || [];
-    if (days.length === 0) {
-      betsPanel.innerHTML = `<div class="no-bets">No recent bet data available.</div>`;
-    } else {
-      for (const day of days) betsPanel.appendChild(renderBetsDay(day));
-    }
-  } else {
-    betsPanel.innerHTML = `<div class="error">Failed to load bets: ${betsRes.reason?.message || "unknown"}</div>`;
-  }
-
-  // Forecast tab
-  const fcPanel = document.getElementById("tab-forecast");
-  fcPanel.innerHTML = "";
-  if (fcRes.status === "fulfilled") {
-    const days = fcRes.value.days || [];
-    const hasData = days.some(d => d.daily || d.intraday?.length);
-    if (!hasData) {
-      fcPanel.innerHTML = `<div class="no-forecast">No forecast data available.</div>`;
-    } else {
-      const scale = computeScale(days);
-      for (const day of days) fcPanel.appendChild(buildForecastDay(day, scale));
-    }
-  } else {
-    fcPanel.innerHTML = `<div class="no-forecast">Forecast data will appear after the next scheduler run.</div>`;
-  }
+  renderDailyTab(allBets);
+  renderIntradayTab(allBets);
+  renderForecastTab(allForecast);
 }
 
 load();
