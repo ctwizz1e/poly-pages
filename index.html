@@ -105,6 +105,7 @@
       padding: 5px 10px 5px 0; border-top: 1px solid var(--border);
       vertical-align: middle; white-space: nowrap;
     }
+    tbody td.market-cell { white-space: normal; }
     tbody tr:hover td { background: #f8f9fa; }
 
     .ticker { font-family: monospace; font-size: 12px; color: var(--text-muted); }
@@ -402,9 +403,12 @@ function renderDailyTab(allBets) {
     const tb = document.createElement("tbody");
     for (const b of bets) {
       const tr = document.createElement("tr");
+      const market = b.bucket_label
+        ? `<span style="font-weight:500">${b.bucket_label}</span><br><span class="ticker">${b.ticker}</span>`
+        : `<span class="ticker">${b.ticker}</span>`;
       tr.innerHTML = `
         <td class="date-cell">${dayLabel(b.date)}</td>
-        <td class="ticker">${b.ticker}</td>
+        <td class="market-cell">${market}</td>
         <td>${(b.side || "no").toUpperCase()}</td>
         <td>${b.no_price_cents != null ? b.no_price_cents + "¢" : "—"}</td>
         <td>${b.model_no_prob != null ? (b.model_no_prob * 100).toFixed(1) + "%" : "—"}</td>
@@ -455,10 +459,13 @@ function renderIntradayTab(allBets) {
     for (const b of bets) {
       const snap = b.type.replace("intraday_", "");
       const tr = document.createElement("tr");
+      const market = b.bucket_label
+        ? `<span style="font-weight:500">${b.bucket_label}</span><br><span class="ticker">${b.ticker}</span>`
+        : `<span class="ticker">${b.ticker}</span>`;
       tr.innerHTML = `
         <td class="date-cell">${dayLabel(b.date)}</td>
         <td><span class="snap-badge">${snap}</span></td>
-        <td class="ticker">${b.ticker}</td>
+        <td class="market-cell">${market}</td>
         <td>${(b.side || "no").toUpperCase()}</td>
         <td>${b.no_price_cents != null ? b.no_price_cents + "¢" : "—"}</td>
         <td>${b.model_no_prob != null ? (b.model_no_prob * 100).toFixed(1) + "%" : "—"}</td>
