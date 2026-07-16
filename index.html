@@ -291,10 +291,18 @@ function dayLabel(dateStr) {
   return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
 }
 
-function renderOutcome(o) {
+function renderOutcome(o, liveNoBid) {
   if (o === "W") return `<span class="outcome W">W</span>`;
   if (o === "L") return `<span class="outcome L">L</span>`;
-  if (o === "pending") return `<span class="outcome pending">pend</span>`;
+  if (o === "pending") {
+    if (liveNoBid != null) {
+      if (liveNoBid >= 95) return `<span class="outcome W" title="NO bid ${liveNoBid}¢ — effectively won">≈W</span>`;
+      if (liveNoBid <=  5) return `<span class="outcome L" title="NO bid ${liveNoBid}¢ — effectively lost">≈L</span>`;
+      const cls = liveNoBid >= 60 ? "pnl-pos" : liveNoBid <= 40 ? "pnl-neg" : "";
+      return `<span class="outcome pending"><span class="${cls}">${liveNoBid}¢</span></span>`;
+    }
+    return `<span class="outcome pending">pend</span>`;
+  }
   return `<span class="outcome unknown">—</span>`;
 }
 
@@ -308,17 +316,20 @@ function locSection(locName) {
 // ─── Stats / P&L ─────────────────────────────────────────────────────────────
 
 // size_usd = number of $1 contracts; cost = size_usd * no_price_cents / 100
+// Bets with live_no_bid >= 95 or <= 5 are treated as effectively settled for P&L purposes.
 function computeStats(bets) {
   let cost = 0, settledCost = 0, realizedPnl = 0, wins = 0, losses = 0, pending = 0;
   for (const b of bets) {
     const np = b.no_price_cents, sz = b.size_usd;
     if (np == null || sz == null) continue;
     const bCost = sz * np / 100;
-    if (b.outcome === "W") {
+    const effectiveW = b.outcome === "W" || (b.outcome === "pending" && b.live_no_bid >= 95);
+    const effectiveL = b.outcome === "L" || (b.outcome === "pending" && b.live_no_bid != null && b.live_no_bid <= 5);
+    if (effectiveW) {
       cost += bCost; settledCost += bCost;
       realizedPnl += sz * (100 - np) / 100;
       wins++;
-    } else if (b.outcome === "L") {
+    } else if (effectiveL) {
       cost += bCost; settledCost += bCost;
       realizedPnl -= bCost;
       losses++;
@@ -414,7 +425,7 @@ function renderDailyTab(allBets) {
         <td>${b.model_no_prob != null ? (b.model_no_prob * 100).toFixed(1) + "%" : "—"}</td>
         <td>${b.size_usd != null ? "$" + b.size_usd : "—"}</td>
         <td>${b.model_mu != null ? fmt(b.model_mu) + "°&nbsp;/&nbsp;" + fmt(b.model_sigma, 2) + "σ" : "—"}</td>
-        <td>${renderOutcome(b.outcome)}</td>`;
+        <td>${renderOutcome(b.outcome, b.live_no_bid)}</td>`;
       tb.appendChild(tr);
     }
     tbl.appendChild(tb);
@@ -471,7 +482,7 @@ function renderIntradayTab(allBets) {
         <td>${b.model_no_prob != null ? (b.model_no_prob * 100).toFixed(1) + "%" : "—"}</td>
         <td>${b.edge != null ? (b.edge * 100).toFixed(1) + "%" : "—"}</td>
         <td>${b.size_usd != null ? "$" + b.size_usd : "—"}</td>
-        <td>${renderOutcome(b.outcome)}</td>`;
+        <td>${renderOutcome(b.outcome, b.live_no_bid)}</td>`;
       tb.appendChild(tr);
     }
     tbl.appendChild(tb);
