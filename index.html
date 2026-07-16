@@ -304,11 +304,80 @@ function locSection(locName) {
   return div;
 }
 
+// ─── Stats / P&L ─────────────────────────────────────────────────────────────
+
+// size_usd = number of $1 contracts; cost = size_usd * no_price_cents / 100
+function computeStats(bets) {
+  let cost = 0, settledCost = 0, realizedPnl = 0, wins = 0, losses = 0, pending = 0;
+  for (const b of bets) {
+    const np = b.no_price_cents, sz = b.size_usd;
+    if (np == null || sz == null) continue;
+    const bCost = sz * np / 100;
+    if (b.outcome === "W") {
+      cost += bCost; settledCost += bCost;
+      realizedPnl += sz * (100 - np) / 100;
+      wins++;
+    } else if (b.outcome === "L") {
+      cost += bCost; settledCost += bCost;
+      realizedPnl -= bCost;
+      losses++;
+    } else {
+      cost += bCost;
+      pending++;
+    }
+  }
+  const roi = settledCost > 0 ? realizedPnl / settledCost * 100 : null;
+  return { total: bets.length, wins, losses, pending, cost, settledCost, realizedPnl, roi };
+}
+
+function fmtMoney(v) {
+  return (v >= 0 ? "+" : "-") + "$" + Math.abs(v).toFixed(2);
+}
+
+function renderTfoot(stats, colCount) {
+  const pnlCls = stats.realizedPnl >= 0 ? "pnl-pos" : "pnl-neg";
+  const roiStr = stats.roi != null ? ` · ROI&nbsp;${stats.roi.toFixed(1)}%` : "";
+  const html = `${stats.total}&nbsp;bet${stats.total !== 1 ? "s" : ""} · `
+    + `${stats.wins}W&nbsp;${stats.losses}L&nbsp;${stats.pending}&nbsp;pend · `
+    + `Cost&nbsp;$${stats.cost.toFixed(2)} · `
+    + `<span class="${pnlCls}">P&amp;L&nbsp;${fmtMoney(stats.realizedPnl)}${roiStr}</span>`;
+  const tf = document.createElement("tfoot");
+  tf.innerHTML = `<tr><td colspan="${colCount}">${html}</td></tr>`;
+  return tf;
+}
+
+function renderTotalsBar(title, statsArr) {
+  const agg = { total: 0, wins: 0, losses: 0, pending: 0, cost: 0, settledCost: 0, realizedPnl: 0 };
+  for (const s of statsArr) {
+    agg.total       += s.total;
+    agg.wins        += s.wins;
+    agg.losses      += s.losses;
+    agg.pending     += s.pending;
+    agg.cost        += s.cost;
+    agg.settledCost += s.settledCost;
+    agg.realizedPnl += s.realizedPnl;
+  }
+  const roi = agg.settledCost > 0 ? agg.realizedPnl / agg.settledCost * 100 : null;
+  const pnlCls = agg.realizedPnl >= 0 ? "pnl-pos" : "pnl-neg";
+  const div = document.createElement("div");
+  div.className = "totals-bar";
+  div.innerHTML = `<h3>${title}</h3><div class="totals-grid">
+    <div class="totals-item"><div class="lbl">Bets</div><div class="val">${agg.total}</div></div>
+    <div class="totals-item"><div class="lbl">W / L</div><div class="val">${agg.wins} / ${agg.losses}</div></div>
+    <div class="totals-item"><div class="lbl">Pending</div><div class="val">${agg.pending}</div></div>
+    <div class="totals-item"><div class="lbl">Total Cost</div><div class="val">$${agg.cost.toFixed(2)}</div></div>
+    <div class="totals-item"><div class="lbl">Realized P&amp;L</div><div class="val ${pnlCls}">${fmtMoney(agg.realizedPnl)}</div></div>
+    ${roi != null ? `<div class="totals-item"><div class="lbl">ROI</div><div class="val ${pnlCls}">${roi.toFixed(1)}%</div></div>` : ""}
+  </div>`;
+  return div;
+}
+
 // ─── Daily tab ───────────────────────────────────────────────────────────────
 
 function renderDailyTab(allBets) {
   const panel = document.getElementById("tab-daily");
   panel.innerHTML = "";
+  const allStats = [];
 
   for (const { code, name } of LOCATIONS) {
     const data = allBets[code];
@@ -345,9 +414,14 @@ function renderDailyTab(allBets) {
       tb.appendChild(tr);
     }
     tbl.appendChild(tb);
+    const stats = computeStats(bets);
+    allStats.push(stats);
+    tbl.appendChild(renderTfoot(stats, 8));
     sec.appendChild(tbl);
     panel.appendChild(sec);
   }
+
+  if (allStats.length) panel.appendChild(renderTotalsBar("All Locations — Daily", allStats));
 }
 
 // ─── Intraday tab ────────────────────────────────────────────────────────────
@@ -355,6 +429,7 @@ function renderDailyTab(allBets) {
 function renderIntradayTab(allBets) {
   const panel = document.getElementById("tab-intraday");
   panel.innerHTML = "";
+  const allStats = [];
 
   for (const { code, name } of LOCATIONS) {
     const data = allBets[code];
@@ -393,9 +468,14 @@ function renderIntradayTab(allBets) {
       tb.appendChild(tr);
     }
     tbl.appendChild(tb);
+    const stats = computeStats(bets);
+    allStats.push(stats);
+    tbl.appendChild(renderTfoot(stats, 9));
     sec.appendChild(tbl);
     panel.appendChild(sec);
   }
+
+  if (allStats.length) panel.appendChild(renderTotalsBar("All Locations — Intraday", allStats));
 }
 
 // ─── Forecast tab ────────────────────────────────────────────────────────────
