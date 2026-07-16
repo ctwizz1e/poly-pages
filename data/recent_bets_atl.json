@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T23:30:03",
+  "generated_at": "2026-07-15T23:43:22",
   "location": "atl",
   "location_name": "Atlanta, GA",
   "days": [
@@ -9,6 +9,7 @@
         {
           "type": "daily",
           "ticker": "KXHIGHTATL-26JUL15-B87.5",
+          "bucket_label": "87-88\u00b0F",
           "side": "no",
           "no_price_cents": 59,
           "model_no_prob": 0.82423,
@@ -16,11 +17,13 @@
           "size_usd": 1,
           "model_mu": 85.0,
           "model_sigma": 3.49,
-          "outcome": "pending"
+          "outcome": "pending",
+          "live_no_bid": 99
         },
         {
           "type": "daily",
           "ticker": "KXHIGHTATL-26JUL15-B89.5",
+          "bucket_label": "89-90\u00b0F",
           "side": "no",
           "no_price_cents": 73,
           "model_no_prob": 0.89932,
@@ -28,11 +31,13 @@
           "size_usd": 1,
           "model_mu": 85.0,
           "model_sigma": 3.49,
-          "outcome": "pending"
+          "outcome": "pending",
+          "live_no_bid": 0
         },
         {
           "type": "daily",
           "ticker": "KXHIGHTATL-26JUL15-T90",
+          "bucket_label": "\u226591\u00b0F",
           "side": "no",
           "no_price_cents": 91,
           "model_no_prob": 0.9569,
@@ -40,27 +45,32 @@
           "size_usd": 1,
           "model_mu": 85.0,
           "model_sigma": 3.49,
-          "outcome": "pending"
+          "outcome": "pending",
+          "live_no_bid": 99
         },
         {
           "type": "intraday_09h",
           "ticker": "KXHIGHTATL-26JUL15-B85.5",
+          "bucket_label": "85-86\u00b0F",
           "side": "no",
           "no_price_cents": 79,
           "model_no_prob": 0.96434,
           "edge": 0.17434,
           "size_usd": 3,
-          "outcome": "pending"
+          "outcome": "pending",
+          "live_no_bid": 99
         },
         {
           "type": "intraday_13h",
           "ticker": "KXHIGHTATL-26JUL15-B85.5",
+          "bucket_label": "85-86\u00b0F",
           "side": "no",
           "no_price_cents": 86,
           "model_no_prob": 0.99202,
           "edge": 0.13202,
           "size_usd": 3,
-          "outcome": "pending"
+          "outcome": "pending",
+          "live_no_bid": 99
         }
       ]
     },
@@ -70,22 +80,26 @@
         {
           "type": "intraday_11h",
           "ticker": "KXHIGHTATL-26JUL14-B81.5",
+          "bucket_label": "81-82\u00b0F",
           "side": "no",
           "no_price_cents": 63,
           "model_no_prob": 0.97658,
           "edge": 0.34658,
           "size_usd": 1,
-          "outcome": "W"
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_11h",
           "ticker": "KXHIGHTATL-26JUL14-B79.5",
+          "bucket_label": "79-80\u00b0F",
           "side": "no",
           "no_price_cents": 72,
           "model_no_prob": 0.99757,
           "edge": 0.27757,
           "size_usd": 1,
-          "outcome": "W"
+          "outcome": "W",
+          "live_no_bid": null
         }
       ]
     },
