@@ -336,12 +336,16 @@ function renderOutcome(o, liveNoBid) {
     if (liveNoBid != null) {
       if (liveNoBid >= 95) return `<span class="outcome W" title="NO bid ${liveNoBid}¢ — effectively won">≈W</span>`;
       if (liveNoBid <=  5) return `<span class="outcome L" title="NO bid ${liveNoBid}¢ — effectively lost">≈L</span>`;
-      const cls = liveNoBid >= 60 ? "pnl-pos" : liveNoBid <= 40 ? "pnl-neg" : "";
-      return `<span class="outcome pending"><span class="${cls}">${liveNoBid}¢</span></span>`;
     }
     return `<span class="outcome pending">pend</span>`;
   }
   return `<span class="outcome unknown">—</span>`;
+}
+
+function renderCurrentPrice(liveNoBid) {
+  if (liveNoBid == null) return "—";
+  const cls = liveNoBid >= 60 ? "pnl-pos" : liveNoBid <= 40 ? "pnl-neg" : "";
+  return `<span class="${cls}">${liveNoBid}¢</span>`;
 }
 
 function locSection(locName) {
@@ -453,7 +457,7 @@ function renderDailyContent(allBets, selectedDay) {
     tbl.innerHTML = `<thead><tr>
       <th>Date</th><th>Market</th><th>Side</th>
       <th>NO&nbsp;¢</th><th>Model&nbsp;NO%</th><th>Size</th>
-      <th>μ&nbsp;/&nbsp;σ</th><th>Outcome</th>
+      <th>μ&nbsp;/&nbsp;σ</th><th>Current&nbsp;Mkt&nbsp;¢</th><th>Outcome</th>
     </tr></thead>`;
     const tb = document.createElement("tbody");
     for (const b of bets) {
@@ -469,13 +473,14 @@ function renderDailyContent(allBets, selectedDay) {
         <td>${b.model_no_prob != null ? (b.model_no_prob * 100).toFixed(1) + "%" : "—"}</td>
         <td>${b.size_usd != null ? "$" + b.size_usd : "—"}</td>
         <td>${b.model_mu != null ? fmt(b.model_mu) + "°&nbsp;/&nbsp;" + fmt(b.model_sigma, 2) + "σ" : "—"}</td>
+        <td>${renderCurrentPrice(b.live_no_bid)}</td>
         <td>${renderOutcome(b.outcome, b.live_no_bid)}</td>`;
       tb.appendChild(tr);
     }
     tbl.appendChild(tb);
     const stats = computeStats(bets);
     allStats.push(stats);
-    tbl.appendChild(renderTfoot(stats, 8));
+    tbl.appendChild(renderTfoot(stats, 9));
     sec.appendChild(tbl);
     container.appendChild(sec);
   }
@@ -524,7 +529,7 @@ function renderIntradayContent(allBets, selectedDay) {
     tbl.innerHTML = `<thead><tr>
       <th>Date</th><th>Snap</th><th>Market</th><th>Side</th>
       <th>NO&nbsp;¢</th><th>Model&nbsp;NO%</th><th>Edge</th>
-      <th>Size</th><th>Outcome</th>
+      <th>Size</th><th>Current&nbsp;Mkt&nbsp;¢</th><th>Outcome</th>
     </tr></thead>`;
     const tb = document.createElement("tbody");
     for (const b of bets) {
@@ -542,13 +547,14 @@ function renderIntradayContent(allBets, selectedDay) {
         <td>${b.model_no_prob != null ? (b.model_no_prob * 100).toFixed(1) + "%" : "—"}</td>
         <td>${b.edge != null ? (b.edge * 100).toFixed(1) + "%" : "—"}</td>
         <td>${b.size_usd != null ? "$" + b.size_usd : "—"}</td>
+        <td>${renderCurrentPrice(b.live_no_bid)}</td>
         <td>${renderOutcome(b.outcome, b.live_no_bid)}</td>`;
       tb.appendChild(tr);
     }
     tbl.appendChild(tb);
     const stats = computeStats(bets);
     allStats.push(stats);
-    tbl.appendChild(renderTfoot(stats, 9));
+    tbl.appendChild(renderTfoot(stats, 10));
     sec.appendChild(tbl);
     container.appendChild(sec);
   }
