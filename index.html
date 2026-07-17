@@ -291,6 +291,44 @@ function dayLabel(dateStr) {
   return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
 }
 
+function todayStr() { return new Date().toISOString().slice(0, 10); }
+
+// Unique bet dates (descending) across all locations for bets matching typeMatch.
+function collectDates(allBets, typeMatch) {
+  const set = new Set();
+  for (const data of Object.values(allBets)) {
+    for (const d of (data?.days || [])) {
+      if (d.bets.some(b => typeMatch(b.type))) set.add(d.date);
+    }
+  }
+  return [...set].sort().reverse();
+}
+
+// Day-picker filter bar. `selected` is "all" or a date string; onSelect(value) fires on click.
+function buildDayFilterBar(dates, selected, onSelect) {
+  const bar = document.createElement("div");
+  bar.className = "subtabs-header";
+  const today = todayStr();
+
+  const makeBtn = (value, label, active) => {
+    const btn = document.createElement("button");
+    btn.className = "subtab-btn" + (active ? " active" : "");
+    btn.textContent = label;
+    btn.addEventListener("click", () => {
+      bar.querySelectorAll(".subtab-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      onSelect(value);
+    });
+    return btn;
+  };
+
+  bar.appendChild(makeBtn("all", "All Days", selected === "all"));
+  for (const date of dates) {
+    bar.appendChild(makeBtn(date, date === today ? "Today" : dayLabel(date), selected === date));
+  }
+  return bar;
+}
+
 function renderOutcome(o, liveNoBid) {
   if (o === "W") return `<span class="outcome W">W</span>`;
   if (o === "L") return `<span class="outcome L">L</span>`;
@@ -393,22 +431,21 @@ function renderTotalsBar(title, statsArr) {
 
 // ─── Daily tab ───────────────────────────────────────────────────────────────
 
-function renderDailyTab(allBets) {
-  const panel = document.getElementById("tab-daily");
-  panel.innerHTML = "";
+function renderDailyContent(allBets, selectedDay) {
+  const container = document.createElement("div");
   const allStats = [];
 
   for (const { code, name } of LOCATIONS) {
     const data = allBets[code];
     const sec = locSection(name);
 
-    const bets = (data?.days || []).flatMap(d =>
-      d.bets.filter(b => b.type === "daily").map(b => ({ ...b, date: d.date }))
-    );
+    const bets = (data?.days || [])
+      .filter(d => selectedDay === "all" || d.date === selectedDay)
+      .flatMap(d => d.bets.filter(b => b.type === "daily").map(b => ({ ...b, date: d.date })));
 
     if (bets.length === 0) {
       sec.innerHTML += `<div class="no-data">No daily bets.</div>`;
-      panel.appendChild(sec);
+      container.appendChild(sec);
       continue;
     }
 
@@ -440,30 +477,46 @@ function renderDailyTab(allBets) {
     allStats.push(stats);
     tbl.appendChild(renderTfoot(stats, 8));
     sec.appendChild(tbl);
-    panel.appendChild(sec);
+    container.appendChild(sec);
   }
 
-  if (allStats.length) panel.appendChild(renderTotalsBar("All Locations — Daily", allStats));
+  if (allStats.length) container.appendChild(renderTotalsBar("All Locations — Daily", allStats));
+  return container;
+}
+
+function renderDailyTab(allBets) {
+  const panel = document.getElementById("tab-daily");
+  panel.innerHTML = "";
+
+  const dates = collectDates(allBets, t => t === "daily");
+  const contentDiv = document.createElement("div");
+
+  panel.appendChild(buildDayFilterBar(dates, "all", (day) => {
+    contentDiv.innerHTML = "";
+    contentDiv.appendChild(renderDailyContent(allBets, day));
+  }));
+
+  contentDiv.appendChild(renderDailyContent(allBets, "all"));
+  panel.appendChild(contentDiv);
 }
 
 // ─── Intraday tab ────────────────────────────────────────────────────────────
 
-function renderIntradayTab(allBets) {
-  const panel = document.getElementById("tab-intraday");
-  panel.innerHTML = "";
+function renderIntradayContent(allBets, selectedDay) {
+  const container = document.createElement("div");
   const allStats = [];
 
   for (const { code, name } of LOCATIONS) {
     const data = allBets[code];
     const sec = locSection(name);
 
-    const bets = (data?.days || []).flatMap(d =>
-      d.bets.filter(b => b.type.startsWith("intraday_")).map(b => ({ ...b, date: d.date }))
-    );
+    const bets = (data?.days || [])
+      .filter(d => selectedDay === "all" || d.date === selectedDay)
+      .flatMap(d => d.bets.filter(b => b.type.startsWith("intraday_")).map(b => ({ ...b, date: d.date })));
 
     if (bets.length === 0) {
       sec.innerHTML += `<div class="no-data">No intraday bets.</div>`;
-      panel.appendChild(sec);
+      container.appendChild(sec);
       continue;
     }
 
@@ -497,10 +550,27 @@ function renderIntradayTab(allBets) {
     allStats.push(stats);
     tbl.appendChild(renderTfoot(stats, 9));
     sec.appendChild(tbl);
-    panel.appendChild(sec);
+    container.appendChild(sec);
   }
 
-  if (allStats.length) panel.appendChild(renderTotalsBar("All Locations — Intraday", allStats));
+  if (allStats.length) container.appendChild(renderTotalsBar("All Locations — Intraday", allStats));
+  return container;
+}
+
+function renderIntradayTab(allBets) {
+  const panel = document.getElementById("tab-intraday");
+  panel.innerHTML = "";
+
+  const dates = collectDates(allBets, t => t.startsWith("intraday_"));
+  const contentDiv = document.createElement("div");
+
+  panel.appendChild(buildDayFilterBar(dates, "all", (day) => {
+    contentDiv.innerHTML = "";
+    contentDiv.appendChild(renderIntradayContent(allBets, day));
+  }));
+
+  contentDiv.appendChild(renderIntradayContent(allBets, "all"));
+  panel.appendChild(contentDiv);
 }
 
 // ─── Forecast tab ────────────────────────────────────────────────────────────
