@@ -1,8 +1,41 @@
 {
-  "generated_at": "2026-07-17T23:59:04",
+  "generated_at": "2026-07-18T00:30:28",
   "location": "nyc",
   "location_name": "New York City, NY",
   "days": [
+    {
+      "date": "2026-07-18",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHNY-26JUL18-B79.5",
+          "bucket_label": "79-80\u00b0F",
+          "side": "no",
+          "no_price_cents": 65,
+          "model_no_prob": 0.85327,
+          "edge": null,
+          "size_usd": 2,
+          "model_mu": 76.27,
+          "model_sigma": 3.72,
+          "outcome": "pending",
+          "live_no_bid": 72
+        },
+        {
+          "type": "daily",
+          "ticker": "KXHIGHNY-26JUL18-B81.5",
+          "bucket_label": "81-82\u00b0F",
+          "side": "no",
+          "no_price_cents": 77,
+          "model_no_prob": 0.91911,
+          "edge": null,
+          "size_usd": 2,
+          "model_mu": 76.27,
+          "model_sigma": 3.72,
+          "outcome": "pending",
+          "live_no_bid": 76
+        }
+      ]
+    },
     {
       "date": "2026-07-17",
       "bets": [
@@ -70,61 +103,6 @@
           "model_no_prob": 0.93583,
           "edge": 0.26583,
           "size_usd": 7,
-          "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
-    },
-    {
-      "date": "2026-07-15",
-      "bets": [
-        {
-          "type": "daily",
-          "ticker": "KXHIGHNY-26JUL15-B97.5",
-          "bucket_label": "97-98\u00b0F",
-          "side": "no",
-          "no_price_cents": 66,
-          "model_no_prob": 0.99999,
-          "edge": null,
-          "size_usd": 1,
-          "model_mu": 79.92,
-          "model_sigma": 3.83,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_07h",
-          "ticker": "KXHIGHNY-26JUL15-B97.5",
-          "bucket_label": "97-98\u00b0F",
-          "side": "no",
-          "no_price_cents": 67,
-          "model_no_prob": 0.9922,
-          "edge": 0.3222,
-          "size_usd": 3,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_09h",
-          "ticker": "KXHIGHNY-26JUL15-B97.5",
-          "bucket_label": "97-98\u00b0F",
-          "side": "no",
-          "no_price_cents": 65,
-          "model_no_prob": 0.97552,
-          "edge": 0.32552,
-          "size_usd": 3,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_11h",
-          "ticker": "KXHIGHNY-26JUL15-B97.5",
-          "bucket_label": "97-98\u00b0F",
-          "side": "no",
-          "no_price_cents": 63,
-          "model_no_prob": 0.9597,
-          "edge": 0.3297,
-          "size_usd": 3,
           "outcome": "W",
           "live_no_bid": null
         }
