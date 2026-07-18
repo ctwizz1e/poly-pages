@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-07-17T23:58:11",
+  "generated_at": "2026-07-18T00:30:03",
   "location": "atl",
   "location_name": "Atlanta, GA",
   "days": [
+    {
+      "date": "2026-07-18",
+      "daily": {
+        "mu": 87.22,
+        "sigma": 4.8
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-07-17",
       "daily": null,
@@ -11,21 +20,21 @@
           "hour": 7,
           "mu": 93.92,
           "sigma": 2.1,
-          "obs_temp": 75.9,
-          "obs_max": 77.0
+          "obs_temp": 75.2,
+          "obs_max": 78.8
         },
         {
           "hour": 9,
           "mu": 93.23,
           "sigma": 2.1,
-          "obs_temp": 80.1,
+          "obs_temp": 80.6,
           "obs_max": 84.2
         },
         {
           "hour": 11,
           "mu": 93.01,
           "sigma": 1.98,
-          "obs_temp": 87.1,
+          "obs_temp": 87.8,
           "obs_max": 89.6
         }
       ],
@@ -39,30 +48,6 @@
       },
       "intraday": [],
       "obs_daily_max": 91.9
-    },
-    {
-      "date": "2026-07-15",
-      "daily": {
-        "mu": 85.0,
-        "sigma": 3.49
-      },
-      "intraday": [
-        {
-          "hour": 9,
-          "mu": 89.73,
-          "sigma": 1.81,
-          "obs_temp": 77.0,
-          "obs_max": 78.8
-        },
-        {
-          "hour": 13,
-          "mu": 89.26,
-          "sigma": 1.14,
-          "obs_temp": 84.2,
-          "obs_max": 86.0
-        }
-      ],
-      "obs_daily_max": 89.6
     }
   ]
 }
