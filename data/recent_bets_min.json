@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-19T06:32:09",
+  "generated_at": "2026-07-19T07:32:13",
   "location": "min",
   "location_name": "Minneapolis, MN",
   "days": [
@@ -18,7 +18,7 @@
           "model_mu": 89.11,
           "model_sigma": 5.11,
           "outcome": "pending",
-          "live_no_bid": 71
+          "live_no_bid": 63
         },
         {
           "type": "daily",
@@ -32,7 +32,19 @@
           "model_mu": 89.11,
           "model_sigma": 5.11,
           "outcome": "pending",
-          "live_no_bid": 46
+          "live_no_bid": 48
+        },
+        {
+          "type": "intraday_07h",
+          "ticker": "KXHIGHTMIN-26JUL19-B88.5",
+          "bucket_label": "88-89\u00b0F",
+          "side": "no",
+          "no_price_cents": 72,
+          "model_no_prob": 0.97584,
+          "edge": 0.25584,
+          "size_usd": 8,
+          "outcome": "pending",
+          "live_no_bid": 63
         }
       ]
     },
@@ -50,8 +62,8 @@
           "size_usd": 5,
           "model_mu": 87.6,
           "model_sigma": 5.27,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "daily",
@@ -64,8 +76,8 @@
           "size_usd": 5,
           "model_mu": 87.6,
           "model_sigma": 5.27,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "L",
+          "live_no_bid": null
         },
         {
           "type": "intraday_07h",
@@ -76,8 +88,8 @@
           "model_no_prob": 0.95748,
           "edge": 0.20748,
           "size_usd": 7,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_09h",
@@ -88,8 +100,8 @@
           "model_no_prob": 0.95529,
           "edge": 0.16529,
           "size_usd": 7,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_11h",
@@ -100,8 +112,8 @@
           "model_no_prob": 0.96849,
           "edge": 0.15849,
           "size_usd": 7,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_13h",
@@ -112,8 +124,8 @@
           "model_no_prob": 0.88392,
           "edge": 0.10392,
           "size_usd": 7,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         }
       ]
     },
