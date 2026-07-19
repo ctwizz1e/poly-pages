@@ -1,8 +1,41 @@
 {
-  "generated_at": "2026-07-18T23:32:11",
+  "generated_at": "2026-07-19T00:01:55",
   "location": "sea",
   "location_name": "Seattle, WA",
   "days": [
+    {
+      "date": "2026-07-19",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHTSEA-26JUL19-T77",
+          "bucket_label": "\u226476\u00b0F",
+          "side": "no",
+          "no_price_cents": 91,
+          "model_no_prob": 0.98337,
+          "edge": null,
+          "size_usd": 3,
+          "model_mu": 80.54,
+          "model_sigma": 2.13,
+          "outcome": "pending",
+          "live_no_bid": 92
+        },
+        {
+          "type": "daily",
+          "ticker": "KXHIGHTSEA-26JUL19-B77.5",
+          "bucket_label": "77-78\u00b0F",
+          "side": "no",
+          "no_price_cents": 79,
+          "model_no_prob": 0.85969,
+          "edge": null,
+          "size_usd": 3,
+          "model_mu": 80.54,
+          "model_sigma": 2.13,
+          "outcome": "pending",
+          "live_no_bid": 72
+        }
+      ]
+    },
     {
       "date": "2026-07-18",
       "bets": [
@@ -135,47 +168,6 @@
     {
       "date": "2026-07-17",
       "bets": []
-    },
-    {
-      "date": "2026-07-16",
-      "bets": [
-        {
-          "type": "intraday_09h",
-          "ticker": "KXHIGHTSEA-26JUL16-B73.5",
-          "bucket_label": "73-74\u00b0F",
-          "side": "no",
-          "no_price_cents": 73,
-          "model_no_prob": 0.95832,
-          "edge": 0.22832,
-          "size_usd": 4,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_09h",
-          "ticker": "KXHIGHTSEA-26JUL16-B71.5",
-          "bucket_label": "71-72\u00b0F",
-          "side": "no",
-          "no_price_cents": 75,
-          "model_no_prob": 0.98802,
-          "edge": 0.23802,
-          "size_usd": 4,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_09h",
-          "ticker": "KXHIGHTSEA-26JUL16-B69.5",
-          "bucket_label": "69-70\u00b0F",
-          "side": "no",
-          "no_price_cents": 86,
-          "model_no_prob": 0.99755,
-          "edge": 0.13755,
-          "size_usd": 4,
-          "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
     }
   ]
 }
