@@ -613,7 +613,7 @@ function computeScale(allForecast, dayIndex) {
   return { lo: Math.floor(lo / step) * step, hi: Math.ceil(hi / step) * step };
 }
 
-function buildForecastCard(locName, day, scale) {
+function buildForecastCard(locName, day, scale, generatedAt) {
   const { lo, hi } = scale;
   const span = hi - lo;
   const p = t => Math.max(0, Math.min(100, (t - lo) / span * 100));
@@ -625,9 +625,26 @@ function buildForecastCard(locName, day, scale) {
   const rows = [];
   if (day?.daily?.mu != null)
     rows.push({ label: "Daily", rowCls: "daily-row", lblCls: "daily-lbl", mu: day.daily.mu, sigma: day.daily.sigma, obs: null, obsMax: day.obs_daily_max });
-  for (const s of ((day?.intraday || []).slice().sort((a, b) => a.hour - b.hour))) {
+  const sortedIntraday = (day?.intraday || []).slice().sort((a, b) => a.hour - b.hour);
+  for (const s of sortedIntraday) {
     if (s.mu != null)
       rows.push({ label: String(s.hour).padStart(2, "0") + "h", rowCls: "intra-row", lblCls: "intra-lbl", mu: s.mu, sigma: s.sigma, obs: s.obs_temp, obsMax: s.obs_max });
+  }
+
+  // Latest-run row: the freshest reading, labeled with the actual last-run
+  // clock time instead of being snapped to an intraday hour bucket.
+  if (generatedAt) {
+    const latestSnap = sortedIntraday.length ? sortedIntraday[sortedIntraday.length - 1] : null;
+    const latestMu = latestSnap?.mu ?? day?.daily?.mu;
+    const latestSigma = latestSnap?.sigma ?? day?.daily?.sigma;
+    if (latestMu != null) {
+      rows.push({
+        label: generatedAt.slice(11, 16),
+        rowCls: "latest-row", lblCls: "latest-lbl",
+        mu: latestMu, sigma: latestSigma,
+        obs: latestSnap?.obs_temp ?? null, obsMax: latestSnap?.obs_max ?? day?.obs_daily_max,
+      });
+    }
   }
 
   if (rows.length === 0) {
