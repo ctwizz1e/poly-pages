@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-07-19T23:59:21",
+  "generated_at": "2026-07-20T00:30:33",
   "location": "mia",
   "location_name": "Miami, FL",
   "days": [
+    {
+      "date": "2026-07-20",
+      "daily": {
+        "mu": 86.67,
+        "sigma": 3.12
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-07-19",
       "daily": {
@@ -14,14 +23,14 @@
           "hour": 11,
           "mu": 91.64,
           "sigma": 1.41,
-          "obs_temp": 89.6,
+          "obs_temp": 87.8,
           "obs_max": 91.4
         },
         {
           "hour": 13,
           "mu": 91.74,
           "sigma": 1.37,
-          "obs_temp": 87.8,
+          "obs_temp": 89.6,
           "obs_max": 91.4
         }
       ],
@@ -50,27 +59,6 @@
         }
       ],
       "obs_daily_max": 91.4
-    },
-    {
-      "date": "2026-07-17",
-      "daily": null,
-      "intraday": [
-        {
-          "hour": 11,
-          "mu": 92.28,
-          "sigma": 1.77,
-          "obs_temp": 89.6,
-          "obs_max": 91.4
-        },
-        {
-          "hour": 13,
-          "mu": 93.08,
-          "sigma": 1.66,
-          "obs_temp": 91.4,
-          "obs_max": 93.2
-        }
-      ],
-      "obs_daily_max": 93.2
     }
   ]
 }
