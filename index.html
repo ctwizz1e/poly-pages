@@ -742,7 +742,8 @@ function renderForecastTab(allForecast) {
     for (const { code, name } of LOCATIONS) {
       const data = allForecast[code];
       const day = data?.days?.[di];
-      dayPanel.appendChild(buildForecastCard(name, day, scale));
+      const generatedAt = (di === 0 && data?.generated_at) ? data.generated_at : null;
+      dayPanel.appendChild(buildForecastCard(name, day, scale, generatedAt));
     }
     panel.appendChild(dayPanel);
   });
