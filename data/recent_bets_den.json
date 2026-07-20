@@ -1,11 +1,24 @@
 {
-  "generated_at": "2026-07-20T06:31:32",
+  "generated_at": "2026-07-20T07:31:34",
   "location": "den",
   "location_name": "Denver, CO",
   "days": [
     {
       "date": "2026-07-20",
-      "bets": []
+      "bets": [
+        {
+          "type": "intraday_07h",
+          "ticker": "KXHIGHDEN-26JUL20-B101.5",
+          "bucket_label": "101-102\u00b0F",
+          "side": "no",
+          "no_price_cents": 75,
+          "model_no_prob": 0.88001,
+          "edge": 0.13001,
+          "size_usd": 8,
+          "outcome": "pending",
+          "live_no_bid": 74
+        }
+      ]
     },
     {
       "date": "2026-07-19",
@@ -21,8 +34,8 @@
           "size_usd": 3,
           "model_mu": 96.51,
           "model_sigma": 4.46,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         }
       ]
     },
