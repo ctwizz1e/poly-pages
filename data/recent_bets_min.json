@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20T10:32:05",
+  "generated_at": "2026-07-20T11:32:06",
   "location": "min",
   "location_name": "Minneapolis, MN",
   "days": [
@@ -18,7 +18,7 @@
           "model_mu": 91.6,
           "model_sigma": 6.28,
           "outcome": "pending",
-          "live_no_bid": 59
+          "live_no_bid": 58
         },
         {
           "type": "daily",
@@ -32,7 +32,7 @@
           "model_mu": 91.6,
           "model_sigma": 6.28,
           "outcome": "pending",
-          "live_no_bid": 65
+          "live_no_bid": 60
         },
         {
           "type": "intraday_09h",
@@ -56,7 +56,31 @@
           "edge": 0.26247,
           "size_usd": 8,
           "outcome": "pending",
-          "live_no_bid": 59
+          "live_no_bid": 58
+        },
+        {
+          "type": "intraday_11h",
+          "ticker": "KXHIGHTMIN-26JUL20-B90.5",
+          "bucket_label": "90-91\u00b0F",
+          "side": "no",
+          "no_price_cents": 85,
+          "model_no_prob": 0.99725,
+          "edge": 0.14725,
+          "size_usd": 8,
+          "outcome": "pending",
+          "live_no_bid": 85
+        },
+        {
+          "type": "intraday_11h",
+          "ticker": "KXHIGHTMIN-26JUL20-B92.5",
+          "bucket_label": "92-93\u00b0F",
+          "side": "no",
+          "no_price_cents": 61,
+          "model_no_prob": 0.9312,
+          "edge": 0.3212,
+          "size_usd": 8,
+          "outcome": "pending",
+          "live_no_bid": 58
         }
       ]
     },
