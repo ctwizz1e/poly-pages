@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-07-20T20:30:45",
+  "generated_at": "2026-07-21T07:40:40",
   "location": "chi",
   "location_name": "Chicago, IL",
   "days": [
+    {
+      "date": "2026-07-21",
+      "daily": {
+        "mu": 83.06,
+        "sigma": 3.89
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-07-20",
       "daily": {
@@ -64,37 +73,6 @@
         }
       ],
       "obs_daily_max": 78.8
-    },
-    {
-      "date": "2026-07-18",
-      "daily": {
-        "mu": 88.28,
-        "sigma": 4.02
-      },
-      "intraday": [
-        {
-          "hour": 7.0,
-          "mu": 92.93,
-          "sigma": 1.58,
-          "obs_temp": 78.8,
-          "obs_max": 82.4
-        },
-        {
-          "hour": 9.0,
-          "mu": 91.82,
-          "sigma": 1.58,
-          "obs_temp": 80.6,
-          "obs_max": 82.4
-        },
-        {
-          "hour": 11.0,
-          "mu": 92.05,
-          "sigma": 1.58,
-          "obs_temp": 87.8,
-          "obs_max": 88.0
-        }
-      ],
-      "obs_daily_max": 91.4
     }
   ]
 }
