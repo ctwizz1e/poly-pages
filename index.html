@@ -379,19 +379,22 @@ function locSection(locName) {
 
 // count = actual filled contracts (not size_usd — the $ knob and the contract
 // count diverge whenever floor(size_usd*100/no_price_cents) != size_usd numerically).
-// cost = count * no_price_cents / 100.
+// cost = count * no_price_cents / 100, falling back to size_usd (like renderCost)
+// when count isn't populated yet — otherwise those bets vanish from the totals
+// entirely instead of just losing precision.
 // Bets with live_no_bid >= 95 or <= 5 are treated as effectively settled for P&L purposes.
 function computeStats(bets) {
   let cost = 0, settledCost = 0, realizedPnl = 0, unrealizedPnl = 0, wins = 0, losses = 0, pending = 0;
   for (const b of bets) {
     const np = b.no_price_cents, ct = b.count;
-    if (np == null || ct == null) continue;
-    const bCost = ct * np / 100;
+    const haveActual = np != null && ct != null;
+    if (!haveActual && b.size_usd == null) continue;
+    const bCost = haveActual ? ct * np / 100 : b.size_usd;
     const effectiveW = b.outcome === "W" || (b.outcome === "pending" && b.live_no_bid >= 95);
     const effectiveL = b.outcome === "L" || (b.outcome === "pending" && b.live_no_bid != null && b.live_no_bid <= 5);
     if (effectiveW) {
       cost += bCost; settledCost += bCost;
-      realizedPnl += ct * (100 - np) / 100;
+      if (haveActual) realizedPnl += ct * (100 - np) / 100;
       wins++;
     } else if (effectiveL) {
       cost += bCost; settledCost += bCost;
@@ -400,7 +403,7 @@ function computeStats(bets) {
     } else {
       cost += bCost;
       pending++;
-      if (b.live_no_bid != null) unrealizedPnl += ct * (b.live_no_bid - np) / 100;
+      if (haveActual && b.live_no_bid != null) unrealizedPnl += ct * (b.live_no_bid - np) / 100;
     }
   }
   const roi = settledCost > 0 ? realizedPnl / settledCost * 100 : null;
