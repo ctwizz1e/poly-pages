@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-07-20T20:31:11",
+  "generated_at": "2026-07-21T07:41:05",
   "location": "sfo",
   "location_name": "San Francisco, CA",
   "days": [
+    {
+      "date": "2026-07-21",
+      "daily": {
+        "mu": 77.08,
+        "sigma": 5.4
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-07-20",
       "daily": {
@@ -50,30 +59,6 @@
         }
       ],
       "obs_daily_max": 66.2
-    },
-    {
-      "date": "2026-07-18",
-      "daily": {
-        "mu": 64.75,
-        "sigma": 3.63
-      },
-      "intraday": [
-        {
-          "hour": 11.0,
-          "mu": 70.16,
-          "sigma": 1.6,
-          "obs_temp": 60.8,
-          "obs_max": 60.8
-        },
-        {
-          "hour": 13.0,
-          "mu": 71.01,
-          "sigma": 1.66,
-          "obs_temp": 62.6,
-          "obs_max": 66.2
-        }
-      ],
-      "obs_daily_max": 71.6
     }
   ]
 }
