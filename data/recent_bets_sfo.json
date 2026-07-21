@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-21T12:31:09",
+  "generated_at": "2026-07-21T13:01:11",
   "location": "sfo",
   "location_name": "San Francisco, CA",
   "days": [
@@ -18,7 +18,7 @@
           "model_mu": 77.08,
           "model_sigma": 5.4,
           "outcome": "pending",
-          "live_no_bid": 39
+          "live_no_bid": 41
         },
         {
           "type": "intraday_12.0h",
@@ -30,7 +30,19 @@
           "edge": 0.13305,
           "size_usd": 1,
           "outcome": "pending",
-          "live_no_bid": 80
+          "live_no_bid": 81
+        },
+        {
+          "type": "intraday_12.5h",
+          "ticker": "KXHIGHTSFO-26JUL21-B81.5",
+          "bucket_label": "81-82\u00b0F",
+          "side": "no",
+          "no_price_cents": 81,
+          "model_no_prob": 0.9529,
+          "edge": 0.1429,
+          "size_usd": 1,
+          "outcome": "pending",
+          "live_no_bid": 81
         }
       ]
     },
