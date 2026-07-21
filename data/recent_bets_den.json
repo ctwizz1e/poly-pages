@@ -1,8 +1,27 @@
 {
-  "generated_at": "2026-07-20T20:31:35",
+  "generated_at": "2026-07-21T07:41:30",
   "location": "den",
   "location_name": "Denver, CO",
   "days": [
+    {
+      "date": "2026-07-21",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHDEN-26JUL21-B91.5",
+          "bucket_label": "91-92\u00b0F",
+          "side": "no",
+          "no_price_cents": 81,
+          "model_no_prob": 0.86195,
+          "edge": null,
+          "size_usd": 2,
+          "model_mu": 94.68,
+          "model_sigma": 4.46,
+          "outcome": "pending",
+          "live_no_bid": 90
+        }
+      ]
+    },
     {
       "date": "2026-07-20",
       "bets": [
@@ -15,8 +34,8 @@
           "model_no_prob": 0.88001,
           "edge": 0.13001,
           "size_usd": 8,
-          "outcome": "pending",
-          "live_no_bid": 98
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_09h",
@@ -27,8 +46,8 @@
           "model_no_prob": 0.94196,
           "edge": 0.21196,
           "size_usd": 8,
-          "outcome": "pending",
-          "live_no_bid": 98
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_11h",
@@ -39,8 +58,8 @@
           "model_no_prob": 0.88001,
           "edge": 0.20001,
           "size_usd": 8,
-          "outcome": "pending",
-          "live_no_bid": 98
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_13.0h",
@@ -51,8 +70,8 @@
           "model_no_prob": 0.94018,
           "edge": 0.24018,
           "size_usd": 8,
-          "outcome": "pending",
-          "live_no_bid": 98
+          "outcome": "W",
+          "live_no_bid": null
         }
       ]
     },
@@ -70,47 +89,6 @@
           "size_usd": 3,
           "model_mu": 96.51,
           "model_sigma": 4.46,
-          "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
-    },
-    {
-      "date": "2026-07-18",
-      "bets": [
-        {
-          "type": "intraday_07h",
-          "ticker": "KXHIGHDEN-26JUL18-B91.5",
-          "bucket_label": "91-92\u00b0F",
-          "side": "no",
-          "no_price_cents": 74,
-          "model_no_prob": 0.88739,
-          "edge": 0.14739,
-          "size_usd": 7,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_09h",
-          "ticker": "KXHIGHDEN-26JUL18-B91.5",
-          "bucket_label": "91-92\u00b0F",
-          "side": "no",
-          "no_price_cents": 74,
-          "model_no_prob": 0.94528,
-          "edge": 0.20528,
-          "size_usd": 7,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_11h",
-          "ticker": "KXHIGHDEN-26JUL18-B91.5",
-          "bucket_label": "91-92\u00b0F",
-          "side": "no",
-          "no_price_cents": 85,
-          "model_no_prob": 0.94353,
-          "edge": 0.09353,
-          "size_usd": 7,
           "outcome": "W",
           "live_no_bid": null
         }
