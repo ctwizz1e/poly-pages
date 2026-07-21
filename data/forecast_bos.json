@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-07-20T20:31:02",
+  "generated_at": "2026-07-21T07:40:57",
   "location": "bos",
   "location_name": "Boston, MA",
   "days": [
+    {
+      "date": "2026-07-21",
+      "daily": {
+        "mu": 75.97,
+        "sigma": 4.13
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-07-20",
       "daily": {
@@ -78,44 +87,6 @@
         }
       ],
       "obs_daily_max": 81.0
-    },
-    {
-      "date": "2026-07-18",
-      "daily": {
-        "mu": 79.7,
-        "sigma": 4.21
-      },
-      "intraday": [
-        {
-          "hour": 7.0,
-          "mu": 83.32,
-          "sigma": 2.19,
-          "obs_temp": 69.8,
-          "obs_max": 72.0
-        },
-        {
-          "hour": 9.0,
-          "mu": 83.33,
-          "sigma": 2.13,
-          "obs_temp": 75.0,
-          "obs_max": 79.0
-        },
-        {
-          "hour": 11.0,
-          "mu": 85.08,
-          "sigma": 1.99,
-          "obs_temp": 80.6,
-          "obs_max": 82.4
-        },
-        {
-          "hour": 13.0,
-          "mu": 84.93,
-          "sigma": 1.81,
-          "obs_temp": 78.8,
-          "obs_max": 82.4
-        }
-      ],
-      "obs_daily_max": 82.4
     }
   ]
 }

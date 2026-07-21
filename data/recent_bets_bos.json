@@ -1,8 +1,41 @@
 {
-  "generated_at": "2026-07-20T20:31:02",
+  "generated_at": "2026-07-21T07:40:57",
   "location": "bos",
   "location_name": "Boston, MA",
   "days": [
+    {
+      "date": "2026-07-21",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHTBOS-26JUL21-B79.5",
+          "bucket_label": "79-80\u00b0F",
+          "side": "no",
+          "no_price_cents": 73,
+          "model_no_prob": 0.86621,
+          "edge": null,
+          "size_usd": 2,
+          "model_mu": 75.97,
+          "model_sigma": 4.13,
+          "outcome": "pending",
+          "live_no_bid": 71
+        },
+        {
+          "type": "daily",
+          "ticker": "KXHIGHTBOS-26JUL21-B81.5",
+          "bucket_label": "81-82\u00b0F",
+          "side": "no",
+          "no_price_cents": 70,
+          "model_no_prob": 0.92049,
+          "edge": null,
+          "size_usd": 2,
+          "model_mu": 75.97,
+          "model_sigma": 4.13,
+          "outcome": "pending",
+          "live_no_bid": 55
+        }
+      ]
+    },
     {
       "date": "2026-07-20",
       "bets": [
@@ -17,8 +50,8 @@
           "size_usd": 3,
           "model_mu": 78.78,
           "model_sigma": 3.91,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "L",
+          "live_no_bid": null
         },
         {
           "type": "daily",
@@ -31,8 +64,8 @@
           "size_usd": 3,
           "model_mu": 78.78,
           "model_sigma": 3.91,
-          "outcome": "pending",
-          "live_no_bid": 99
+          "outcome": "W",
+          "live_no_bid": null
         }
       ]
     },
@@ -78,89 +111,6 @@
           "size_usd": 3,
           "model_mu": 76.11,
           "model_sigma": 3.94,
-          "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
-    },
-    {
-      "date": "2026-07-18",
-      "bets": [
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTBOS-26JUL18-B84.5",
-          "bucket_label": "84-85\u00b0F",
-          "side": "no",
-          "no_price_cents": 70,
-          "model_no_prob": 0.90075,
-          "edge": null,
-          "size_usd": 3,
-          "model_mu": 79.7,
-          "model_sigma": 4.21,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTBOS-26JUL18-B86.5",
-          "bucket_label": "86-87\u00b0F",
-          "side": "no",
-          "no_price_cents": 75,
-          "model_no_prob": 0.94777,
-          "edge": null,
-          "size_usd": 3,
-          "model_mu": 79.7,
-          "model_sigma": 4.21,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTBOS-26JUL18-T87",
-          "bucket_label": "\u226588\u00b0F",
-          "side": "no",
-          "no_price_cents": 83,
-          "model_no_prob": 0.97563,
-          "edge": null,
-          "size_usd": 3,
-          "model_mu": 79.7,
-          "model_sigma": 4.21,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_07h",
-          "ticker": "KXHIGHTBOS-26JUL18-B86.5",
-          "bucket_label": "86-87\u00b0F",
-          "side": "no",
-          "no_price_cents": 80,
-          "model_no_prob": 0.86809,
-          "edge": 0.06809,
-          "size_usd": 7,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_07h",
-          "ticker": "KXHIGHTBOS-26JUL18-T87",
-          "bucket_label": "\u226588\u00b0F",
-          "side": "no",
-          "no_price_cents": 83,
-          "model_no_prob": 0.97161,
-          "edge": 0.14161,
-          "size_usd": 7,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_09h",
-          "ticker": "KXHIGHTBOS-26JUL18-B86.5",
-          "bucket_label": "86-87\u00b0F",
-          "side": "no",
-          "no_price_cents": 79,
-          "model_no_prob": 0.87055,
-          "edge": 0.08055,
-          "size_usd": 7,
           "outcome": "W",
           "live_no_bid": null
         }
