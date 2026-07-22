@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-07-21T23:32:11",
+  "generated_at": "2026-07-22T00:00:19",
   "location": "den",
   "location_name": "Denver, CO",
   "days": [
+    {
+      "date": "2026-07-22",
+      "daily": {
+        "mu": 94.34,
+        "sigma": 6.19
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-07-21",
       "daily": {
@@ -120,44 +129,6 @@
         }
       ],
       "obs_daily_max": 100.0
-    },
-    {
-      "date": "2026-07-19",
-      "daily": {
-        "mu": 96.51,
-        "sigma": 4.46
-      },
-      "intraday": [
-        {
-          "hour": 7.0,
-          "mu": 97.38,
-          "sigma": 2.13,
-          "obs_temp": 68.0,
-          "obs_max": 75.9
-        },
-        {
-          "hour": 9.0,
-          "mu": 97.37,
-          "sigma": 2.13,
-          "obs_temp": 71.1,
-          "obs_max": 75.9
-        },
-        {
-          "hour": 11.0,
-          "mu": 97.37,
-          "sigma": 1.48,
-          "obs_temp": 79.0,
-          "obs_max": 82.9
-        },
-        {
-          "hour": 13.0,
-          "mu": 97.38,
-          "sigma": 1.5,
-          "obs_temp": 89.1,
-          "obs_max": 91.9
-        }
-      ],
-      "obs_daily_max": 97.0
     }
   ]
 }
