@@ -1,8 +1,41 @@
 {
-  "generated_at": "2026-07-21T23:58:29",
+  "generated_at": "2026-07-22T00:00:26",
   "location": "lax",
   "location_name": "Los Angeles, CA",
   "days": [
+    {
+      "date": "2026-07-22",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHLAX-26JUL22-B81.5",
+          "bucket_label": "81-82\u00b0F",
+          "side": "no",
+          "no_price_cents": 75,
+          "model_no_prob": 0.9633,
+          "edge": null,
+          "size_usd": 6,
+          "model_mu": 74.78,
+          "model_sigma": 3.47,
+          "outcome": "pending",
+          "live_no_bid": 79
+        },
+        {
+          "type": "daily",
+          "ticker": "KXHIGHLAX-26JUL22-T82",
+          "bucket_label": "\u226583\u00b0F",
+          "side": "no",
+          "no_price_cents": 70,
+          "model_no_prob": 0.99101,
+          "edge": null,
+          "size_usd": 6,
+          "model_mu": 74.78,
+          "model_sigma": 3.47,
+          "outcome": "pending",
+          "live_no_bid": 74
+        }
+      ]
+    },
     {
       "date": "2026-07-21",
       "bets": []
@@ -54,35 +87,6 @@
           "no_price_cents": 61,
           "model_no_prob": 0.83317,
           "edge": 0.22317,
-          "size_usd": 8,
-          "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
-    },
-    {
-      "date": "2026-07-19",
-      "bets": [
-        {
-          "type": "intraday_07h",
-          "ticker": "KXHIGHLAX-26JUL19-T80",
-          "bucket_label": "\u226581\u00b0F",
-          "side": "no",
-          "no_price_cents": 85,
-          "model_no_prob": 0.94061,
-          "edge": 0.09061,
-          "size_usd": 8,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_09h",
-          "ticker": "KXHIGHLAX-26JUL19-T80",
-          "bucket_label": "\u226581\u00b0F",
-          "side": "no",
-          "no_price_cents": 89,
-          "model_no_prob": 0.95291,
-          "edge": 0.06291,
           "size_usd": 8,
           "outcome": "W",
           "live_no_bid": null

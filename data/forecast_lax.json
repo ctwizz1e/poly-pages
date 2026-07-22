@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-07-21T23:58:29",
+  "generated_at": "2026-07-22T00:00:26",
   "location": "lax",
   "location_name": "Los Angeles, CA",
   "days": [
+    {
+      "date": "2026-07-22",
+      "daily": {
+        "mu": 74.78,
+        "sigma": 3.47
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-07-21",
       "daily": {
@@ -63,7 +72,7 @@
           "hour": 11.5,
           "mu": 79.67,
           "sigma": 1.78,
-          "obs_temp": 77.0,
+          "obs_temp": 75.2,
           "obs_max": 77.0
         },
         {
@@ -71,14 +80,14 @@
           "mu": 79.75,
           "sigma": 1.78,
           "obs_temp": 77.0,
-          "obs_max": 78.1
+          "obs_max": 78.8
         },
         {
           "hour": 12.5,
           "mu": 79.59,
           "sigma": 2.12,
-          "obs_temp": 77.0,
-          "obs_max": 78.1
+          "obs_temp": 75.2,
+          "obs_max": 78.8
         },
         {
           "hour": 13.0,
@@ -101,7 +110,7 @@
           "hour": 7.0,
           "mu": 83.35,
           "sigma": 2.12,
-          "obs_temp": 68.0,
+          "obs_temp": 69.8,
           "obs_max": 69.8
         },
         {
@@ -122,49 +131,11 @@
           "hour": 13.0,
           "mu": 79.75,
           "sigma": 2.1,
-          "obs_temp": 78.1,
-          "obs_max": 81.0
+          "obs_temp": 78.8,
+          "obs_max": 82.4
         }
       ],
-      "obs_daily_max": 81.0
-    },
-    {
-      "date": "2026-07-19",
-      "daily": {
-        "mu": 76.41,
-        "sigma": 4.0
-      },
-      "intraday": [
-        {
-          "hour": 7.0,
-          "mu": 77.22,
-          "sigma": 2.1,
-          "obs_temp": 68.0,
-          "obs_max": 69.8
-        },
-        {
-          "hour": 9.0,
-          "mu": 76.98,
-          "sigma": 2.1,
-          "obs_temp": 69.8,
-          "obs_max": 70.0
-        },
-        {
-          "hour": 11.0,
-          "mu": 76.95,
-          "sigma": 2.1,
-          "obs_temp": 71.6,
-          "obs_max": 72.0
-        },
-        {
-          "hour": 13.0,
-          "mu": 77.77,
-          "sigma": 2.1,
-          "obs_temp": 75.2,
-          "obs_max": 75.9
-        }
-      ],
-      "obs_daily_max": 78.8
+      "obs_daily_max": 82.4
     }
   ]
 }
