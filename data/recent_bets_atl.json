@@ -1,8 +1,27 @@
 {
-  "generated_at": "2026-07-21T23:58:06",
+  "generated_at": "2026-07-22T00:00:04",
   "location": "atl",
   "location_name": "Atlanta, GA",
   "days": [
+    {
+      "date": "2026-07-22",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHTATL-26JUL22-B89.5",
+          "bucket_label": "89-90\u00b0F",
+          "side": "no",
+          "no_price_cents": 70,
+          "model_no_prob": 0.83081,
+          "edge": null,
+          "size_usd": 4,
+          "model_mu": 86.65,
+          "model_sigma": 3.0,
+          "outcome": "pending",
+          "live_no_bid": 67
+        }
+      ]
+    },
     {
       "date": "2026-07-21",
       "bets": []
@@ -60,47 +79,6 @@
           "edge": 0.09869,
           "size_usd": 8,
           "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
-    },
-    {
-      "date": "2026-07-19",
-      "bets": [
-        {
-          "type": "intraday_07h",
-          "ticker": "KXHIGHTATL-26JUL19-B90.5",
-          "bucket_label": "90-91\u00b0F",
-          "side": "no",
-          "no_price_cents": 79,
-          "model_no_prob": 0.8757,
-          "edge": 0.0857,
-          "size_usd": 8,
-          "outcome": "L",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_09h",
-          "ticker": "KXHIGHTATL-26JUL19-B90.5",
-          "bucket_label": "90-91\u00b0F",
-          "side": "no",
-          "no_price_cents": 84,
-          "model_no_prob": 0.94302,
-          "edge": 0.10302,
-          "size_usd": 8,
-          "outcome": "L",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_11h",
-          "ticker": "KXHIGHTATL-26JUL19-B90.5",
-          "bucket_label": "90-91\u00b0F",
-          "side": "no",
-          "no_price_cents": 89,
-          "model_no_prob": 0.95574,
-          "edge": 0.06574,
-          "size_usd": 8,
-          "outcome": "L",
           "live_no_bid": null
         }
       ]
