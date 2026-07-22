@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-07-21T23:59:06",
+  "generated_at": "2026-07-22T00:00:58",
   "location": "chi",
   "location_name": "Chicago, IL",
   "days": [
+    {
+      "date": "2026-07-22",
+      "daily": {
+        "mu": 72.34,
+        "sigma": 5.44
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-07-21",
       "daily": {
@@ -14,7 +23,7 @@
           "hour": 8.0,
           "mu": 87.49,
           "sigma": 1.5,
-          "obs_temp": 75.0,
+          "obs_temp": 75.2,
           "obs_max": 77.0
         },
         {
@@ -28,7 +37,7 @@
           "hour": 9.0,
           "mu": 87.83,
           "sigma": 1.62,
-          "obs_temp": 75.9,
+          "obs_temp": 75.2,
           "obs_max": 78.8
         },
         {
@@ -42,7 +51,7 @@
           "hour": 10.0,
           "mu": 87.73,
           "sigma": 1.66,
-          "obs_temp": 78.1,
+          "obs_temp": 78.8,
           "obs_max": 81.0
         },
         {
@@ -56,7 +65,7 @@
           "hour": 11.0,
           "mu": 87.19,
           "sigma": 1.79,
-          "obs_temp": 81.0,
+          "obs_temp": 80.6,
           "obs_max": 82.9
         }
       ],
@@ -92,37 +101,6 @@
         }
       ],
       "obs_daily_max": 82.4
-    },
-    {
-      "date": "2026-07-19",
-      "daily": {
-        "mu": 78.59,
-        "sigma": 4.15
-      },
-      "intraday": [
-        {
-          "hour": 7.0,
-          "mu": 81.73,
-          "sigma": 1.98,
-          "obs_temp": 71.6,
-          "obs_max": 73.4
-        },
-        {
-          "hour": 9.0,
-          "mu": 82.51,
-          "sigma": 1.63,
-          "obs_temp": 71.6,
-          "obs_max": 73.4
-        },
-        {
-          "hour": 11.0,
-          "mu": 82.06,
-          "sigma": 1.63,
-          "obs_temp": 73.4,
-          "obs_max": 75.2
-        }
-      ],
-      "obs_daily_max": 78.8
     }
   ]
 }
