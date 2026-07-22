@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-07-21T23:32:33",
+  "generated_at": "2026-07-22T00:00:49",
   "location": "min",
   "location_name": "Minneapolis, MN",
   "days": [
+    {
+      "date": "2026-07-22",
+      "daily": {
+        "mu": 76.97,
+        "sigma": 3.14
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-07-21",
       "daily": {
@@ -113,44 +122,6 @@
         }
       ],
       "obs_daily_max": 91.9
-    },
-    {
-      "date": "2026-07-19",
-      "daily": {
-        "mu": 89.11,
-        "sigma": 5.11
-      },
-      "intraday": [
-        {
-          "hour": 7.0,
-          "mu": 92.68,
-          "sigma": 1.62,
-          "obs_temp": 71.6,
-          "obs_max": 78.8
-        },
-        {
-          "hour": 9.0,
-          "mu": 91.98,
-          "sigma": 1.44,
-          "obs_temp": 73.4,
-          "obs_max": 78.8
-        },
-        {
-          "hour": 11.0,
-          "mu": 91.97,
-          "sigma": 1.43,
-          "obs_temp": 80.6,
-          "obs_max": 82.9
-        },
-        {
-          "hour": 13.0,
-          "mu": 92.61,
-          "sigma": 1.48,
-          "obs_temp": 84.2,
-          "obs_max": 87.8
-        }
-      ],
-      "obs_daily_max": 89.6
     }
   ]
 }
