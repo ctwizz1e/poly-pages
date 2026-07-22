@@ -406,7 +406,7 @@ function computeStats(bets) {
       if (haveActual && b.live_no_bid != null) unrealizedPnl += ct * (b.live_no_bid - np) / 100;
     }
   }
-  const roi = settledCost > 0 ? realizedPnl / settledCost * 100 : null;
+  const roi = cost > 0 ? (realizedPnl + unrealizedPnl) / cost * 100 : null;
   return { total: bets.length, wins, losses, pending, cost, settledCost, realizedPnl, unrealizedPnl, roi };
 }
 
@@ -441,7 +441,7 @@ function renderTotalsBar(title, statsArr) {
     agg.realizedPnl    += s.realizedPnl;
     agg.unrealizedPnl  += s.unrealizedPnl;
   }
-  const roi = agg.settledCost > 0 ? agg.realizedPnl / agg.settledCost * 100 : null;
+  const roi = agg.cost > 0 ? (agg.realizedPnl + agg.unrealizedPnl) / agg.cost * 100 : null;
   const pnlCls = agg.realizedPnl >= 0 ? "pnl-pos" : "pnl-neg";
   const unrealCls = agg.unrealizedPnl >= 0 ? "pnl-pos" : "pnl-neg";
   const div = document.createElement("div");
