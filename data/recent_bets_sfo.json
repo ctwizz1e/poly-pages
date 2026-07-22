@@ -1,11 +1,24 @@
 {
-  "generated_at": "2026-07-22T07:01:21",
+  "generated_at": "2026-07-22T07:31:10",
   "location": "sfo",
   "location_name": "San Francisco, CA",
   "days": [
     {
       "date": "2026-07-22",
-      "bets": []
+      "bets": [
+        {
+          "type": "intraday_07.0h",
+          "ticker": "KXHIGHTSFO-26JUL22-B74.5",
+          "bucket_label": "74-75\u00b0F",
+          "side": "no",
+          "no_price_cents": 79,
+          "model_no_prob": 0.95789,
+          "edge": 0.16789,
+          "size_usd": 5,
+          "outcome": "pending",
+          "live_no_bid": 79
+        }
+      ]
     },
     {
       "date": "2026-07-21",
@@ -21,8 +34,8 @@
           "size_usd": 3,
           "model_mu": 77.08,
           "model_sigma": 5.4,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "L",
+          "live_no_bid": null
         },
         {
           "type": "intraday_12.0h",
@@ -33,8 +46,8 @@
           "model_no_prob": 0.95305,
           "edge": 0.13305,
           "size_usd": 1,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_12.5h",
@@ -45,8 +58,8 @@
           "model_no_prob": 0.9529,
           "edge": 0.1429,
           "size_usd": 1,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_13.0h",
@@ -57,8 +70,8 @@
           "model_no_prob": 0.94506,
           "edge": 0.17506,
           "size_usd": 1,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         }
       ]
     },
