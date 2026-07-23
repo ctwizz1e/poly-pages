@@ -1,8 +1,28 @@
 {
-  "generated_at": "2026-07-22T23:58:06",
+  "generated_at": "2026-07-23T00:00:03",
   "location": "atl",
   "location_name": "Atlanta, GA",
   "days": [
+    {
+      "date": "2026-07-23",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHTATL-26JUL23-B90.5",
+          "bucket_label": "90-91\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 67,
+          "model_no_prob": 0.86737,
+          "edge": null,
+          "size_usd": 1,
+          "count": 1,
+          "model_mu": 86.91,
+          "model_sigma": 3.12,
+          "outcome": "pending",
+          "live_no_bid": 56
+        }
+      ]
+    },
     {
       "date": "2026-07-22",
       "bets": [
@@ -52,54 +72,6 @@
     {
       "date": "2026-07-21",
       "bets": []
-    },
-    {
-      "date": "2026-07-20",
-      "bets": [
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTATL-26JUL20-B93.5",
-          "bucket_label": "93-94\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 63,
-          "model_no_prob": 0.90285,
-          "edge": null,
-          "size_usd": 3,
-          "count": 4,
-          "model_mu": 88.52,
-          "model_sigma": 5.08,
-          "outcome": "L",
-          "live_no_bid": null
-        },
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTATL-26JUL20-B95.5",
-          "bucket_label": "95-96\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 71,
-          "model_no_prob": 0.93855,
-          "edge": null,
-          "size_usd": 3,
-          "count": 4,
-          "model_mu": 88.52,
-          "model_sigma": 5.08,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_09h",
-          "ticker": "KXHIGHTATL-26JUL20-B91.5",
-          "bucket_label": "91-92\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 79,
-          "model_no_prob": 0.88869,
-          "edge": 0.09869,
-          "size_usd": 8,
-          "count": 10,
-          "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
     }
   ]
 }
