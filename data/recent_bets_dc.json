@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-23T08:00:14",
+  "generated_at": "2026-07-23T08:30:12",
   "location": "dc",
   "location_name": "Washington, DC",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 82.08,
           "model_sigma": 3.71,
           "outcome": "pending",
-          "live_no_bid": 51
+          "live_no_bid": 50
         },
         {
           "type": "daily",
@@ -34,7 +34,7 @@
           "model_mu": 82.08,
           "model_sigma": 3.71,
           "outcome": "pending",
-          "live_no_bid": 60
+          "live_no_bid": 64
         },
         {
           "type": "intraday_07.0h",
@@ -47,7 +47,7 @@
           "size_usd": 2,
           "count": 2,
           "outcome": "pending",
-          "live_no_bid": 81
+          "live_no_bid": 91
         },
         {
           "type": "intraday_07.0h",
@@ -60,7 +60,7 @@
           "size_usd": 2,
           "count": 3,
           "outcome": "pending",
-          "live_no_bid": 51
+          "live_no_bid": 50
         },
         {
           "type": "intraday_07.5h",
@@ -73,7 +73,7 @@
           "size_usd": 2,
           "count": 2,
           "outcome": "pending",
-          "live_no_bid": 81
+          "live_no_bid": 91
         },
         {
           "type": "intraday_07.5h",
@@ -86,7 +86,33 @@
           "size_usd": 2,
           "count": 3,
           "outcome": "pending",
-          "live_no_bid": 51
+          "live_no_bid": 50
+        },
+        {
+          "type": "intraday_08.0h",
+          "ticker": "KXHIGHTDC-26JUL23-B80.5",
+          "bucket_label": "80-81\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 90,
+          "model_no_prob": 0.99931,
+          "edge": 0.11931,
+          "size_usd": 2,
+          "count": 2,
+          "outcome": "pending",
+          "live_no_bid": 91
+        },
+        {
+          "type": "intraday_08.0h",
+          "ticker": "KXHIGHTDC-26JUL23-B82.5",
+          "bucket_label": "82-83\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 60,
+          "model_no_prob": 0.98382,
+          "edge": 0.41382,
+          "size_usd": 2,
+          "count": 3,
+          "outcome": "pending",
+          "live_no_bid": 50
         }
       ]
     },
