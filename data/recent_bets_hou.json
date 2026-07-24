@@ -1,8 +1,12 @@
 {
-  "generated_at": "2026-07-23T20:31:26",
+  "generated_at": "2026-07-24T01:18:27",
   "location": "hou",
   "location_name": "Houston, TX",
   "days": [
+    {
+      "date": "2026-07-24",
+      "bets": []
+    },
     {
       "date": "2026-07-23",
       "bets": []
@@ -10,54 +14,6 @@
     {
       "date": "2026-07-22",
       "bets": []
-    },
-    {
-      "date": "2026-07-21",
-      "bets": [
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTHOU-26JUL21-B98.5",
-          "bucket_label": "98-99\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 61,
-          "model_no_prob": 0.85808,
-          "edge": null,
-          "size_usd": 2,
-          "count": 3,
-          "model_mu": 95.09,
-          "model_sigma": 3.39,
-          "outcome": "L",
-          "live_no_bid": null
-        },
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTHOU-26JUL21-B100.5",
-          "bucket_label": "100-101\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 75,
-          "model_no_prob": 0.93278,
-          "edge": null,
-          "size_usd": 2,
-          "count": 2,
-          "model_mu": 95.09,
-          "model_sigma": 3.39,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_09.0h",
-          "ticker": "KXHIGHTHOU-26JUL21-T98",
-          "bucket_label": "\u00e2\u2030\u00a497\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 92,
-          "model_no_prob": 1,
-          "edge": 0.08,
-          "size_usd": 3,
-          "count": 3,
-          "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
     }
   ]
 }
