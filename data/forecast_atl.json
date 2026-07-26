@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-07-25T23:58:09",
+  "generated_at": "2026-07-26T00:00:04",
   "location": "atl",
   "location_name": "Atlanta, GA",
   "days": [
+    {
+      "date": "2026-07-26",
+      "daily": {
+        "mu": 86.66,
+        "sigma": 3.56
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-07-25",
       "daily": {
@@ -49,7 +58,7 @@
           "hour": 9.5,
           "mu": 89.01,
           "sigma": 1.87,
-          "obs_temp": 77.0,
+          "obs_temp": 75.2,
           "obs_max": 77.0
         },
         {
@@ -91,7 +100,7 @@
           "hour": 12.5,
           "mu": 89.07,
           "sigma": 2.34,
-          "obs_temp": 82.4,
+          "obs_temp": 84.2,
           "obs_max": 84.9
         },
         {
@@ -102,7 +111,7 @@
           "obs_max": 88.0
         }
       ],
-      "obs_daily_max": 88.0
+      "obs_daily_max": 89.6
     },
     {
       "date": "2026-07-24",
@@ -201,79 +210,6 @@
         }
       ],
       "obs_daily_max": 88.0
-    },
-    {
-      "date": "2026-07-23",
-      "daily": {
-        "mu": 86.91,
-        "sigma": 3.12
-      },
-      "intraday": [
-        {
-          "hour": 7.5,
-          "mu": 92.99,
-          "sigma": 2.02,
-          "obs_temp": 75.2,
-          "obs_max": 77.0
-        },
-        {
-          "hour": 8.0,
-          "mu": 93.02,
-          "sigma": 2.02,
-          "obs_temp": 75.2,
-          "obs_max": 77.0
-        },
-        {
-          "hour": 8.5,
-          "mu": 93.27,
-          "sigma": 2.44,
-          "obs_temp": 75.2,
-          "obs_max": 77.0
-        },
-        {
-          "hour": 9.0,
-          "mu": 93.3,
-          "sigma": 2.44,
-          "obs_temp": 77.0,
-          "obs_max": 80.6
-        },
-        {
-          "hour": 9.5,
-          "mu": 93.03,
-          "sigma": 1.9,
-          "obs_temp": 78.8,
-          "obs_max": 80.6
-        },
-        {
-          "hour": 10.0,
-          "mu": 92.95,
-          "sigma": 1.9,
-          "obs_temp": 80.6,
-          "obs_max": 82.4
-        },
-        {
-          "hour": 10.5,
-          "mu": 92.99,
-          "sigma": 2.14,
-          "obs_temp": 80.6,
-          "obs_max": 82.4
-        },
-        {
-          "hour": 11.0,
-          "mu": 92.96,
-          "sigma": 2.14,
-          "obs_temp": 82.4,
-          "obs_max": 82.9
-        },
-        {
-          "hour": 11.5,
-          "mu": 92.94,
-          "sigma": 1.72,
-          "obs_temp": 82.4,
-          "obs_max": 82.9
-        }
-      ],
-      "obs_daily_max": 89.6
     }
   ]
 }
