@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26T08:02:24",
+  "generated_at": "2026-07-26T08:32:02",
   "location": "min",
   "location_name": "Minneapolis, MN",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 89.66,
           "model_sigma": 7.65,
           "outcome": "pending",
-          "live_no_bid": 65
+          "live_no_bid": 64
         },
         {
           "type": "daily",
@@ -49,7 +49,33 @@
           "model_mu": 89.66,
           "model_sigma": 7.65,
           "outcome": "pending",
+          "live_no_bid": 91
+        },
+        {
+          "type": "intraday_07.0h",
+          "ticker": "KXHIGHTMIN-26JUL26-T94",
+          "bucket_label": "\u00e2\u2030\u00a493\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 92,
+          "model_no_prob": 0.99705,
+          "edge": 0.07705,
+          "size_usd": 1,
+          "count": 1,
+          "outcome": "pending",
           "live_no_bid": 92
+        },
+        {
+          "type": "intraday_07.0h",
+          "ticker": "KXHIGHTMIN-26JUL26-B94.5",
+          "bucket_label": "94-95\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 78,
+          "model_no_prob": 0.93535,
+          "edge": 0.18535,
+          "size_usd": 1,
+          "count": 1,
+          "outcome": "pending",
+          "live_no_bid": 73
         }
       ]
     },
