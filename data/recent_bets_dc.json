@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-28T07:00:14",
+  "generated_at": "2026-07-28T07:30:16",
   "location": "dc",
   "location_name": "Washington, DC",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 88.27,
           "model_sigma": 3.48,
           "outcome": "pending",
-          "live_no_bid": 74
+          "live_no_bid": 73
         },
         {
           "type": "daily",
@@ -34,7 +34,33 @@
           "model_mu": 88.27,
           "model_sigma": 3.48,
           "outcome": "pending",
-          "live_no_bid": 55
+          "live_no_bid": 53
+        },
+        {
+          "type": "intraday_07.0h",
+          "ticker": "KXHIGHTDC-26JUL28-B84.5",
+          "bucket_label": "84-85\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 76,
+          "model_no_prob": 0.95292,
+          "edge": 0.22292,
+          "size_usd": 3,
+          "count": 3,
+          "outcome": "pending",
+          "live_no_bid": 73
+        },
+        {
+          "type": "intraday_07.0h",
+          "ticker": "KXHIGHTDC-26JUL28-B86.5",
+          "bucket_label": "86-87\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 62,
+          "model_no_prob": 0.84335,
+          "edge": 0.25335,
+          "size_usd": 3,
+          "count": 4,
+          "outcome": "pending",
+          "live_no_bid": 53
         }
       ]
     },
@@ -53,8 +79,8 @@
           "count": 1,
           "model_mu": 90.22,
           "model_sigma": 3.53,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_07.0h",
@@ -66,8 +92,8 @@
           "edge": 0.28791,
           "size_usd": 3,
           "count": 4,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_07.5h",
@@ -79,8 +105,8 @@
           "edge": 0.3405,
           "size_usd": 3,
           "count": 4,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_07.5h",
@@ -92,8 +118,8 @@
           "edge": 0.3245,
           "size_usd": 3,
           "count": 5,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "L",
+          "live_no_bid": null
         },
         {
           "type": "intraday_08.0h",
@@ -105,8 +131,8 @@
           "edge": 0.31655,
           "size_usd": 3,
           "count": 4,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_08.5h",
@@ -118,8 +144,8 @@
           "edge": 0.05974,
           "size_usd": 3,
           "count": 3,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_11.5h",
@@ -131,8 +157,8 @@
           "edge": 0.24661,
           "size_usd": 3,
           "count": 4,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "L",
+          "live_no_bid": null
         },
         {
           "type": "intraday_12.0h",
@@ -144,8 +170,8 @@
           "edge": 0.36576,
           "size_usd": 3,
           "count": 5,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "L",
+          "live_no_bid": null
         }
       ]
     },
