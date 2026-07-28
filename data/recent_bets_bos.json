@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-28T11:31:09",
+  "generated_at": "2026-07-28T12:01:19",
   "location": "bos",
   "location_name": "Boston, MA",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 82.88,
           "model_sigma": 3,
           "outcome": "pending",
-          "live_no_bid": 94
+          "live_no_bid": 96
         },
         {
           "type": "daily",
@@ -34,7 +34,7 @@
           "model_mu": 82.88,
           "model_sigma": 3,
           "outcome": "pending",
-          "live_no_bid": 80
+          "live_no_bid": 78
         },
         {
           "type": "intraday_09.5h",
@@ -46,6 +46,19 @@
           "edge": 0.22342,
           "size_usd": 3,
           "count": 4,
+          "outcome": "pending",
+          "live_no_bid": 74
+        },
+        {
+          "type": "intraday_11.5h",
+          "ticker": "KXHIGHTBOS-26JUL28-B83.5",
+          "bucket_label": "83-84\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 79,
+          "model_no_prob": 0.89303,
+          "edge": 0.13303,
+          "size_usd": 3,
+          "count": 3,
           "outcome": "pending",
           "live_no_bid": 74
         }
