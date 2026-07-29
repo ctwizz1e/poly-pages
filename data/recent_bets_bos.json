@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29T07:31:10",
+  "generated_at": "2026-07-29T08:01:16",
   "location": "bos",
   "location_name": "Boston, MA",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 73.19,
           "model_sigma": 3.89,
           "outcome": "pending",
-          "live_no_bid": 82
+          "live_no_bid": 79
         },
         {
           "type": "daily",
@@ -34,7 +34,7 @@
           "model_mu": 73.19,
           "model_sigma": 3.89,
           "outcome": "pending",
-          "live_no_bid": 51
+          "live_no_bid": 46
         },
         {
           "type": "daily",
@@ -49,7 +49,7 @@
           "model_mu": 73.19,
           "model_sigma": 3.89,
           "outcome": "pending",
-          "live_no_bid": 70
+          "live_no_bid": 87
         },
         {
           "type": "intraday_07.0h",
@@ -62,7 +62,33 @@
           "size_usd": 4,
           "count": 5,
           "outcome": "pending",
-          "live_no_bid": 70
+          "live_no_bid": 87
+        },
+        {
+          "type": "intraday_07.5h",
+          "ticker": "KXHIGHTBOS-26JUL29-B72.5",
+          "bucket_label": "72-73\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 57,
+          "model_no_prob": 0.90864,
+          "edge": 0.36864,
+          "size_usd": 4,
+          "count": 7,
+          "outcome": "pending",
+          "live_no_bid": 46
+        },
+        {
+          "type": "intraday_07.5h",
+          "ticker": "KXHIGHTBOS-26JUL29-B74.5",
+          "bucket_label": "74-75\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 75,
+          "model_no_prob": 0.99918,
+          "edge": 0.27918,
+          "size_usd": 4,
+          "count": 5,
+          "outcome": "pending",
+          "live_no_bid": 87
         }
       ]
     },
