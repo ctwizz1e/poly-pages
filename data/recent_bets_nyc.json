@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29T07:30:32",
+  "generated_at": "2026-07-29T08:00:38",
   "location": "nyc",
   "location_name": "New York City, NY",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 80.39,
           "model_sigma": 5.96,
           "outcome": "pending",
-          "live_no_bid": 59
+          "live_no_bid": 57
         },
         {
           "type": "daily",
@@ -34,7 +34,33 @@
           "model_mu": 80.39,
           "model_sigma": 5.96,
           "outcome": "pending",
-          "live_no_bid": 89
+          "live_no_bid": 88
+        },
+        {
+          "type": "intraday_07.5h",
+          "ticker": "KXHIGHNY-26JUL29-B76.5",
+          "bucket_label": "76-77\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 92,
+          "model_no_prob": 0.97789,
+          "edge": 0.05789,
+          "size_usd": 4,
+          "count": 4,
+          "outcome": "pending",
+          "live_no_bid": 88
+        },
+        {
+          "type": "intraday_07.5h",
+          "ticker": "KXHIGHNY-26JUL29-B78.5",
+          "bucket_label": "78-79\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 65,
+          "model_no_prob": 0.87622,
+          "edge": 0.25622,
+          "size_usd": 4,
+          "count": 6,
+          "outcome": "pending",
+          "live_no_bid": 57
         }
       ]
     },
