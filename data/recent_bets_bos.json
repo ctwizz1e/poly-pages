@@ -1,8 +1,12 @@
 {
-  "generated_at": "2026-07-30T15:31:13",
+  "generated_at": "2026-07-31T16:43:43",
   "location": "bos",
   "location_name": "Boston, MA",
   "days": [
+    {
+      "date": "2026-07-31",
+      "bets": []
+    },
     {
       "date": "2026-07-30",
       "bets": [
@@ -18,8 +22,8 @@
           "count": 2,
           "model_mu": 66.79,
           "model_sigma": 2.22,
-          "outcome": "pending",
-          "live_no_bid": 99
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_07.0h",
@@ -31,8 +35,8 @@
           "edge": 0.09409,
           "size_usd": 4,
           "count": 4,
-          "outcome": "pending",
-          "live_no_bid": 99
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_07.5h",
@@ -44,8 +48,8 @@
           "edge": 0.28066,
           "size_usd": 4,
           "count": 6,
-          "outcome": "pending",
-          "live_no_bid": 99
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_08.0h",
@@ -57,8 +61,8 @@
           "edge": 0.0988,
           "size_usd": 4,
           "count": 4,
-          "outcome": "pending",
-          "live_no_bid": 99
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_08.5h",
@@ -70,8 +74,8 @@
           "edge": 0.07422,
           "size_usd": 4,
           "count": 4,
-          "outcome": "pending",
-          "live_no_bid": 99
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_12.0h",
@@ -83,8 +87,8 @@
           "edge": 0.1864,
           "size_usd": 4,
           "count": 5,
-          "outcome": "pending",
-          "live_no_bid": 5
+          "outcome": "L",
+          "live_no_bid": null
         },
         {
           "type": "intraday_12.5h",
@@ -96,8 +100,8 @@
           "edge": 0.11257,
           "size_usd": 4,
           "count": 4,
-          "outcome": "pending",
-          "live_no_bid": 93
+          "outcome": "W",
+          "live_no_bid": null
         }
       ]
     },
@@ -237,80 +241,6 @@
           "edge": 0.41471,
           "size_usd": 4,
           "count": 7,
-          "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
-    },
-    {
-      "date": "2026-07-28",
-      "bets": [
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTBOS-26JUL28-B77.5",
-          "bucket_label": "77-78\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 85,
-          "model_no_prob": 0.94465,
-          "edge": null,
-          "size_usd": 3,
-          "count": 3,
-          "model_mu": 82.88,
-          "model_sigma": 3,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTBOS-26JUL28-B79.5",
-          "bucket_label": "79-80\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 82,
-          "model_no_prob": 0.85847,
-          "edge": null,
-          "size_usd": 3,
-          "count": 3,
-          "model_mu": 82.88,
-          "model_sigma": 3,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_09.5h",
-          "ticker": "KXHIGHTBOS-26JUL28-B83.5",
-          "bucket_label": "83-84\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 68,
-          "model_no_prob": 0.87342,
-          "edge": 0.22342,
-          "size_usd": 3,
-          "count": 4,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_11.5h",
-          "ticker": "KXHIGHTBOS-26JUL28-B83.5",
-          "bucket_label": "83-84\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 79,
-          "model_no_prob": 0.89303,
-          "edge": 0.13303,
-          "size_usd": 3,
-          "count": 3,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_12.0h",
-          "ticker": "KXHIGHTBOS-26JUL28-B83.5",
-          "bucket_label": "83-84\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 82,
-          "model_no_prob": 0.90205,
-          "edge": 0.11205,
-          "size_usd": 3,
-          "count": 3,
           "outcome": "W",
           "live_no_bid": null
         }
