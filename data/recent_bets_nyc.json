@@ -1,8 +1,43 @@
 {
-  "generated_at": "2026-07-31T23:58:43",
+  "generated_at": "2026-08-01T00:00:30",
   "location": "nyc",
   "location_name": "New York City, NY",
   "days": [
+    {
+      "date": "2026-08-01",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHNY-26AUG01-B84.5",
+          "bucket_label": "84-85\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 56,
+          "model_no_prob": 0.83615,
+          "edge": null,
+          "size_usd": 1,
+          "count": 1,
+          "model_mu": 81.73,
+          "model_sigma": 3.61,
+          "outcome": "pending",
+          "live_no_bid": 50
+        },
+        {
+          "type": "daily",
+          "ticker": "KXHIGHNY-26AUG01-B86.5",
+          "bucket_label": "86-87\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 80,
+          "model_no_prob": 0.90658,
+          "edge": null,
+          "size_usd": 1,
+          "count": 1,
+          "model_mu": 81.73,
+          "model_sigma": 3.61,
+          "outcome": "pending",
+          "live_no_bid": 73
+        }
+      ]
+    },
     {
       "date": "2026-07-31",
       "bets": []
@@ -10,106 +45,6 @@
     {
       "date": "2026-07-30",
       "bets": []
-    },
-    {
-      "date": "2026-07-29",
-      "bets": [
-        {
-          "type": "daily",
-          "ticker": "KXHIGHNY-26JUL29-B78.5",
-          "bucket_label": "78-79\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 75,
-          "model_no_prob": 0.87326,
-          "edge": null,
-          "size_usd": 3,
-          "count": 4,
-          "model_mu": 80.39,
-          "model_sigma": 5.96,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "daily",
-          "ticker": "KXHIGHNY-26JUL29-B82.5",
-          "bucket_label": "82-83\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 80,
-          "model_no_prob": 0.87487,
-          "edge": null,
-          "size_usd": 3,
-          "count": 3,
-          "model_mu": 80.39,
-          "model_sigma": 5.96,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_07.5h",
-          "ticker": "KXHIGHNY-26JUL29-B76.5",
-          "bucket_label": "76-77\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 92,
-          "model_no_prob": 0.97789,
-          "edge": 0.05789,
-          "size_usd": 4,
-          "count": 4,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_07.5h",
-          "ticker": "KXHIGHNY-26JUL29-B78.5",
-          "bucket_label": "78-79\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 65,
-          "model_no_prob": 0.87622,
-          "edge": 0.25622,
-          "size_usd": 4,
-          "count": 6,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_08.0h",
-          "ticker": "KXHIGHNY-26JUL29-B76.5",
-          "bucket_label": "76-77\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 92,
-          "model_no_prob": 0.99797,
-          "edge": 0.07797,
-          "size_usd": 4,
-          "count": 4,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_08.0h",
-          "ticker": "KXHIGHNY-26JUL29-B78.5",
-          "bucket_label": "78-79\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 63,
-          "model_no_prob": 0.92432,
-          "edge": 0.32432,
-          "size_usd": 4,
-          "count": 6,
-          "outcome": "W",
-          "live_no_bid": null
-        },
-        {
-          "type": "intraday_08.5h",
-          "ticker": "KXHIGHNY-26JUL29-B76.5",
-          "bucket_label": "76-77\u00c2\u00b0F",
-          "side": "no",
-          "no_price_cents": 92,
-          "model_no_prob": 0.9632,
-          "edge": 0.0532,
-          "size_usd": 4,
-          "count": 4,
-          "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
     }
   ]
 }
