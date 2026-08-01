@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T11:00:29",
+  "generated_at": "2026-08-01T11:30:29",
   "location": "nyc",
   "location_name": "New York City, NY",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 81.73,
           "model_sigma": 3.61,
           "outcome": "pending",
-          "live_no_bid": 50
+          "live_no_bid": 74
         },
         {
           "type": "daily",
@@ -34,7 +34,7 @@
           "model_mu": 81.73,
           "model_sigma": 3.61,
           "outcome": "pending",
-          "live_no_bid": 59
+          "live_no_bid": 33
         },
         {
           "type": "intraday_07.0h",
@@ -47,7 +47,20 @@
           "size_usd": 1,
           "count": 2,
           "outcome": "pending",
-          "live_no_bid": 50
+          "live_no_bid": 74
+        },
+        {
+          "type": "intraday_11.0h",
+          "ticker": "KXHIGHNY-26AUG01-B84.5",
+          "bucket_label": "84-85\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 56,
+          "model_no_prob": 0.82232,
+          "edge": 0.29232,
+          "size_usd": 1,
+          "count": 1,
+          "outcome": "pending",
+          "live_no_bid": 74
         }
       ]
     },
