@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T08:00:12",
+  "generated_at": "2026-08-01T08:30:12",
   "location": "dc",
   "location_name": "Washington, DC",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 91.32,
           "model_sigma": 3.85,
           "outcome": "pending",
-          "live_no_bid": 58
+          "live_no_bid": 59
         },
         {
           "type": "daily",
@@ -34,7 +34,7 @@
           "model_mu": 91.32,
           "model_sigma": 3.85,
           "outcome": "pending",
-          "live_no_bid": 66
+          "live_no_bid": 72
         },
         {
           "type": "intraday_07.0h",
@@ -73,7 +73,33 @@
           "size_usd": 1,
           "count": 1,
           "outcome": "pending",
-          "live_no_bid": 58
+          "live_no_bid": 59
+        },
+        {
+          "type": "intraday_08.0h",
+          "ticker": "KXHIGHTDC-26AUG01-T89",
+          "bucket_label": "\u00e2\u2030\u00a488\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 76,
+          "model_no_prob": 0.99167,
+          "edge": 0.26167,
+          "size_usd": 1,
+          "count": 1,
+          "outcome": "pending",
+          "live_no_bid": 72
+        },
+        {
+          "type": "intraday_08.0h",
+          "ticker": "KXHIGHTDC-26AUG01-B89.5",
+          "bucket_label": "89-90\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 67,
+          "model_no_prob": 0.86404,
+          "edge": 0.22404,
+          "size_usd": 1,
+          "count": 1,
+          "outcome": "pending",
+          "live_no_bid": 59
         }
       ]
     },
