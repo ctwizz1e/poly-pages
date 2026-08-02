@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-02T13:31:52",
+  "generated_at": "2026-08-02T14:01:54",
   "location": "sea",
   "location_name": "Seattle, WA",
   "days": [
@@ -34,7 +34,7 @@
           "model_mu": 70.1,
           "model_sigma": 1,
           "outcome": "pending",
-          "live_no_bid": 88
+          "live_no_bid": 90
         },
         {
           "type": "intraday_07.0h",
@@ -47,7 +47,33 @@
           "size_usd": 2,
           "count": 2,
           "outcome": "pending",
-          "live_no_bid": 88
+          "live_no_bid": 90
+        },
+        {
+          "type": "intraday_10.5h",
+          "ticker": "KXHIGHTSEA-26AUG02-B70.5",
+          "bucket_label": "70-71\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 52,
+          "model_no_prob": 0.81727,
+          "edge": 0.32727,
+          "size_usd": 2,
+          "count": 3,
+          "outcome": "pending",
+          "live_no_bid": 50
+        },
+        {
+          "type": "intraday_10.5h",
+          "ticker": "KXHIGHTSEA-26AUG02-B72.5",
+          "bucket_label": "72-73\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 90,
+          "model_no_prob": 0.98516,
+          "edge": 0.09516,
+          "size_usd": 2,
+          "count": 2,
+          "outcome": "pending",
+          "live_no_bid": 90
         }
       ]
     },
