@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-02T08:00:36",
+  "generated_at": "2026-08-02T08:30:31",
   "location": "nyc",
   "location_name": "New York City, NY",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 78.98,
           "model_sigma": 3.85,
           "outcome": "pending",
-          "live_no_bid": 69
+          "live_no_bid": 67
         },
         {
           "type": "daily",
@@ -34,7 +34,7 @@
           "model_mu": 78.98,
           "model_sigma": 3.85,
           "outcome": "pending",
-          "live_no_bid": 48
+          "live_no_bid": 57
         },
         {
           "type": "intraday_07.5h",
@@ -47,7 +47,20 @@
           "size_usd": 2,
           "count": 2,
           "outcome": "pending",
-          "live_no_bid": 69
+          "live_no_bid": 67
+        },
+        {
+          "type": "intraday_08.0h",
+          "ticker": "KXHIGHNY-26AUG02-B80.5",
+          "bucket_label": "80-81\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 75,
+          "model_no_prob": 0.78027,
+          "edge": 0.05027,
+          "size_usd": 2,
+          "count": 2,
+          "outcome": "pending",
+          "live_no_bid": 67
         }
       ]
     },
@@ -66,8 +79,8 @@
           "count": 1,
           "model_mu": 81.73,
           "model_sigma": 3.61,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "daily",
@@ -81,8 +94,8 @@
           "count": 1,
           "model_mu": 81.73,
           "model_sigma": 3.61,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "L",
+          "live_no_bid": null
         },
         {
           "type": "intraday_07.0h",
@@ -94,8 +107,8 @@
           "edge": 0.30674,
           "size_usd": 1,
           "count": 2,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_11.0h",
@@ -107,8 +120,8 @@
           "edge": 0.29232,
           "size_usd": 1,
           "count": 1,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_11.5h",
@@ -120,8 +133,8 @@
           "edge": 0.0798,
           "size_usd": 1,
           "count": 1,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         }
       ]
     },
