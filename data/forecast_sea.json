@@ -1,13 +1,21 @@
 {
-  "generated_at": "2026-08-03T12:31:53",
+  "generated_at": "2026-08-03T13:01:52",
   "location": "sea",
   "location_name": "Seattle, WA",
   "days": [
     {
       "date": "2026-08-03",
       "daily": null,
-      "intraday": [],
-      "obs_daily_max": null
+      "intraday": [
+        {
+          "hour": 9.5,
+          "mu": 76.62,
+          "sigma": 1.13,
+          "obs_temp": 60.8,
+          "obs_max": 60.8
+        }
+      ],
+      "obs_daily_max": 60.8
     },
     {
       "date": "2026-08-02",
@@ -104,11 +112,11 @@
           "hour": 13.0,
           "mu": 69.82,
           "sigma": 1.31,
-          "obs_temp": 66.2,
+          "obs_temp": 64.4,
           "obs_max": 69.1
         }
       ],
-      "obs_daily_max": 69.8
+      "obs_daily_max": 71.6
     },
     {
       "date": "2026-08-01",
