@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T07:30:04",
+  "generated_at": "2026-08-04T08:00:04",
   "location": "atl",
   "location_name": "Atlanta, GA",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 80.85,
           "model_sigma": 5.25,
           "outcome": "pending",
-          "live_no_bid": 63
+          "live_no_bid": 66
         },
         {
           "type": "daily",
@@ -34,7 +34,7 @@
           "model_mu": 80.85,
           "model_sigma": 5.25,
           "outcome": "pending",
-          "live_no_bid": 64
+          "live_no_bid": 65
         },
         {
           "type": "intraday_07.0h",
@@ -47,7 +47,46 @@
           "size_usd": 1,
           "count": 1,
           "outcome": "pending",
-          "live_no_bid": 89
+          "live_no_bid": 91
+        },
+        {
+          "type": "intraday_07.5h",
+          "ticker": "KXHIGHTATL-26AUG04-T84",
+          "bucket_label": "\u00e2\u2030\u00a483\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 96,
+          "model_no_prob": 0.99646,
+          "edge": 0.05646,
+          "size_usd": 1,
+          "count": 1,
+          "outcome": "pending",
+          "live_no_bid": 91
+        },
+        {
+          "type": "intraday_07.5h",
+          "ticker": "KXHIGHTATL-26AUG04-B84.5",
+          "bucket_label": "84-85\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 89,
+          "model_no_prob": 0.96171,
+          "edge": 0.10171,
+          "size_usd": 1,
+          "count": 1,
+          "outcome": "pending",
+          "live_no_bid": 84
+        },
+        {
+          "type": "intraday_07.5h",
+          "ticker": "KXHIGHTATL-26AUG04-B86.5",
+          "bucket_label": "86-87\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 67,
+          "model_no_prob": 0.82011,
+          "edge": 0.18011,
+          "size_usd": 1,
+          "count": 1,
+          "outcome": "pending",
+          "live_no_bid": 66
         }
       ]
     },
