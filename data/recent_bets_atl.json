@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T07:00:04",
+  "generated_at": "2026-08-04T07:30:04",
   "location": "atl",
   "location_name": "Atlanta, GA",
   "days": [
@@ -19,7 +19,7 @@
           "model_mu": 80.85,
           "model_sigma": 5.25,
           "outcome": "pending",
-          "live_no_bid": 65
+          "live_no_bid": 63
         },
         {
           "type": "daily",
@@ -35,6 +35,19 @@
           "model_sigma": 5.25,
           "outcome": "pending",
           "live_no_bid": 64
+        },
+        {
+          "type": "intraday_07.0h",
+          "ticker": "KXHIGHTATL-26AUG04-T84",
+          "bucket_label": "\u00e2\u2030\u00a483\u00c2\u00b0F",
+          "side": "no",
+          "no_price_cents": 94,
+          "model_no_prob": 0.97279,
+          "edge": 0.05279,
+          "size_usd": 1,
+          "count": 1,
+          "outcome": "pending",
+          "live_no_bid": 89
         }
       ]
     },
@@ -51,8 +64,8 @@
           "edge": 0.24997,
           "size_usd": 1,
           "count": 1,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "L",
+          "live_no_bid": null
         },
         {
           "type": "intraday_10.5h",
@@ -64,8 +77,8 @@
           "edge": 0.14814,
           "size_usd": 1,
           "count": 1,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_11.0h",
@@ -77,8 +90,8 @@
           "edge": 0.05044,
           "size_usd": 1,
           "count": 1,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_12.0h",
@@ -90,8 +103,8 @@
           "edge": 0.06044,
           "size_usd": 1,
           "count": 1,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         },
         {
           "type": "intraday_12.5h",
@@ -103,8 +116,8 @@
           "edge": 0.15945,
           "size_usd": 1,
           "count": 1,
-          "outcome": "pending",
-          "live_no_bid": 0
+          "outcome": "W",
+          "live_no_bid": null
         }
       ]
     },
