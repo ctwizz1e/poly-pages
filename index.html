@@ -421,15 +421,15 @@ function fmtMoney(v) {
 }
 
 function renderTfoot(stats, colCount) {
-  const pnlCls = stats.realizedPnl >= 0 ? "pnl-pos" : "pnl-neg";
+  const pnlCls = stats.pnl >= 0 ? "pnl-pos" : "pnl-neg";
   const roiStr = stats.roi != null ? ` · ROI&nbsp;${stats.roi.toFixed(1)}%` : "";
-  const unrealStr = stats.unrealizedPnl !== 0
-    ? ` · <span class="${stats.unrealizedPnl >= 0 ? "pnl-pos" : "pnl-neg"}">Unreal.&nbsp;${fmtMoney(stats.unrealizedPnl)}</span>`
+  const capturedStr = stats.capturedPct != null
+    ? ` · ${stats.capturedPct.toFixed(0)}%&nbsp;captured`
     : "";
   const html = `${stats.total}&nbsp;bet${stats.total !== 1 ? "s" : ""} · `
     + `${stats.wins}W&nbsp;${stats.losses}L&nbsp;${stats.pending}&nbsp;pend · `
     + `Cost&nbsp;$${stats.cost.toFixed(2)} · `
-    + `<span class="${pnlCls}">P&amp;L&nbsp;${fmtMoney(stats.realizedPnl)}${roiStr}</span>${unrealStr}`;
+    + `<span class="${pnlCls}">P&amp;L&nbsp;${fmtMoney(stats.pnl)}${roiStr}</span>${capturedStr}`;
   const tf = document.createElement("tfoot");
   tf.innerHTML = `<tr><td colspan="${colCount}">${html}</td></tr>`;
   return tf;
