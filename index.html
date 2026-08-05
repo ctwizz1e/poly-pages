@@ -383,6 +383,10 @@ function locSection(locName) {
 // when count isn't populated yet — otherwise those bets vanish from the totals
 // entirely instead of just losing precision.
 // Bets with live_no_bid >= 95 or <= 5 are treated as effectively settled for P&L purposes.
+//
+// pnl is the single mark-to-market total (realized + unrealized) — the headline number.
+// capturedPct is how much of that total is "locked in": the fraction of cost that's
+// already settled (W/L) vs still priced off a live quote that can move before it resolves.
 function computeStats(bets) {
   let cost = 0, settledCost = 0, realizedPnl = 0, unrealizedPnl = 0, wins = 0, losses = 0, pending = 0;
   for (const b of bets) {
@@ -406,8 +410,10 @@ function computeStats(bets) {
       if (haveActual && b.live_no_bid != null) unrealizedPnl += ct * (b.live_no_bid - np) / 100;
     }
   }
-  const roi = cost > 0 ? (realizedPnl + unrealizedPnl) / cost * 100 : null;
-  return { total: bets.length, wins, losses, pending, cost, settledCost, realizedPnl, unrealizedPnl, roi };
+  const pnl = realizedPnl + unrealizedPnl;
+  const roi = cost > 0 ? pnl / cost * 100 : null;
+  const capturedPct = cost > 0 ? settledCost / cost * 100 : null;
+  return { total: bets.length, wins, losses, pending, cost, settledCost, realizedPnl, unrealizedPnl, pnl, roi, capturedPct };
 }
 
 function fmtMoney(v) {
