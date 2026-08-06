@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-08-05T23:59:54",
+  "generated_at": "2026-08-06T00:01:57",
   "location": "bos",
   "location_name": "Boston, MA",
   "days": [
+    {
+      "date": "2026-08-06",
+      "daily": {
+        "mu": 89.07,
+        "sigma": 2.99
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-08-05",
       "daily": null,
@@ -32,7 +41,7 @@
           "hour": 8.5,
           "mu": 87.65,
           "sigma": 2.79,
-          "obs_temp": 75.2,
+          "obs_temp": 77.0,
           "obs_max": 78.8
         },
         {
@@ -67,15 +76,15 @@
           "hour": 11.0,
           "mu": 87.08,
           "sigma": 3.2,
-          "obs_temp": 82.4,
-          "obs_max": 82.4
+          "obs_temp": 80.6,
+          "obs_max": 84.2
         },
         {
           "hour": 11.5,
           "mu": 86.89,
           "sigma": 2.23,
           "obs_temp": 82.4,
-          "obs_max": 82.4
+          "obs_max": 84.2
         },
         {
           "hour": 12.0,
@@ -96,7 +105,7 @@
           "mu": 86.83,
           "sigma": 2.92,
           "obs_temp": 84.2,
-          "obs_max": 86.0
+          "obs_max": 87.8
         }
       ],
       "obs_daily_max": 87.8
@@ -198,41 +207,6 @@
         }
       ],
       "obs_daily_max": 87.8
-    },
-    {
-      "date": "2026-08-03",
-      "daily": null,
-      "intraday": [
-        {
-          "hour": 11.5,
-          "mu": 76.86,
-          "sigma": 1.68,
-          "obs_temp": 73.4,
-          "obs_max": 78.8
-        },
-        {
-          "hour": 12.0,
-          "mu": 76.47,
-          "sigma": 1.68,
-          "obs_temp": 73.4,
-          "obs_max": 78.8
-        },
-        {
-          "hour": 12.5,
-          "mu": 77.07,
-          "sigma": 1.68,
-          "obs_temp": 72.0,
-          "obs_max": 78.8
-        },
-        {
-          "hour": 13.0,
-          "mu": 77.8,
-          "sigma": 1.68,
-          "obs_temp": 72.0,
-          "obs_max": 78.8
-        }
-      ],
-      "obs_daily_max": 79.0
     }
   ]
 }
