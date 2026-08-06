@@ -1,11 +1,14 @@
 {
-  "generated_at": "2026-08-06T13:32:35",
+  "generated_at": "2026-08-06T13:45:30",
   "location": "okc",
   "location_name": "OKC",
   "days": [
     {
       "date": "2026-08-06",
-      "daily": null,
+      "daily": {
+        "mu": 98.2,
+        "sigma": 5.53
+      },
       "intraday": [
         {
           "hour": 7.5,
@@ -61,24 +64,31 @@
           "mu": 95.99,
           "sigma": 3.07,
           "obs_temp": 90.0,
-          "obs_max": 90.0
+          "obs_max": 91.9
         },
         {
           "hour": 11.5,
           "mu": 96.35,
           "sigma": 2.47,
           "obs_temp": 89.6,
-          "obs_max": 90.0
+          "obs_max": 91.9
         },
         {
           "hour": 12.0,
           "mu": 97.23,
           "sigma": 2.4,
-          "obs_temp": null,
-          "obs_max": 90.0
+          "obs_temp": 91.9,
+          "obs_max": 91.9
+        },
+        {
+          "hour": 12.5,
+          "mu": 94.61,
+          "sigma": 2.68,
+          "obs_temp": 91.4,
+          "obs_max": 91.9
         }
       ],
-      "obs_daily_max": 90.0
+      "obs_daily_max": 91.9
     },
     {
       "date": "2026-08-05",

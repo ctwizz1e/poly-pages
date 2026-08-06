@@ -1,11 +1,14 @@
 {
-  "generated_at": "2026-08-06T13:31:29",
+  "generated_at": "2026-08-06T13:45:30",
   "location": "hou",
   "location_name": "Houston, TX",
   "days": [
     {
       "date": "2026-08-06",
-      "daily": null,
+      "daily": {
+        "mu": 97.03,
+        "sigma": 3.26
+      },
       "intraday": [
         {
           "hour": 7.0,
@@ -68,24 +71,31 @@
           "mu": 98.04,
           "sigma": 1.41,
           "obs_temp": 90.0,
-          "obs_max": 91.4
+          "obs_max": 91.9
         },
         {
           "hour": 11.5,
           "mu": 97.72,
           "sigma": 1.44,
           "obs_temp": 91.4,
-          "obs_max": 91.4
+          "obs_max": 91.9
         },
         {
           "hour": 12.0,
           "mu": 98.06,
           "sigma": 1.44,
-          "obs_temp": 91.4,
-          "obs_max": 91.4
+          "obs_temp": 91.9,
+          "obs_max": 93.2
+        },
+        {
+          "hour": 12.5,
+          "mu": 97.97,
+          "sigma": 1.4,
+          "obs_temp": 93.2,
+          "obs_max": 93.2
         }
       ],
-      "obs_daily_max": 91.4
+      "obs_daily_max": 93.2
     },
     {
       "date": "2026-08-05",

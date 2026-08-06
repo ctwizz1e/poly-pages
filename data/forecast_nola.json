@@ -1,11 +1,14 @@
 {
-  "generated_at": "2026-08-06T13:32:44",
+  "generated_at": "2026-08-06T13:45:30",
   "location": "nola",
   "location_name": "NOLA",
   "days": [
     {
       "date": "2026-08-06",
-      "daily": null,
+      "daily": {
+        "mu": 93.76,
+        "sigma": 1.68
+      },
       "intraday": [
         {
           "hour": 7.0,
@@ -68,24 +71,31 @@
           "mu": 92.46,
           "sigma": 1.71,
           "obs_temp": 90.0,
-          "obs_max": 90.0
+          "obs_max": 91.0
         },
         {
           "hour": 11.5,
           "mu": 93.69,
           "sigma": 1.33,
           "obs_temp": 89.6,
-          "obs_max": 90.0
+          "obs_max": 91.0
         },
         {
           "hour": 12.0,
           "mu": 93.72,
           "sigma": 1.32,
           "obs_temp": 89.6,
-          "obs_max": 90.0
+          "obs_max": 91.4
+        },
+        {
+          "hour": 12.5,
+          "mu": 94.11,
+          "sigma": 1.44,
+          "obs_temp": 91.4,
+          "obs_max": 91.4
         }
       ],
-      "obs_daily_max": 90.0
+      "obs_daily_max": 91.4
     },
     {
       "date": "2026-08-05",
