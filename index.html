@@ -630,6 +630,171 @@ function renderIntradayTab(allBets) {
   panel.appendChild(contentDiv);
 }
 
+// ─── Contrarian tab ──────────────────────────────────────────────────────────
+// Deliberately separate rendering path from Daily/Intraday above — this is a
+// separate test strategy (buys YES on candidates the live NO bot skips for
+// exceeding max_edge) backed by its own weather_contrarian_bet ledger, and its
+// stats must never blend into the live bot's P&L numbers. See
+// migrations/25_weather_contrarian_bet.sql and contrarian_intraday_bot.py.
+
+function computeContrarianStats(bets) {
+  let cost = 0, settledCost = 0, realizedPnl = 0, unrealizedPnl = 0, wins = 0, losses = 0, pending = 0;
+  for (const b of bets) {
+    const yp = b.yes_price_cents, ct = b.count;
+    const haveActual = yp != null && ct != null;
+    if (!haveActual && b.size_usd == null) continue;
+    const bCost = haveActual ? ct * yp / 100 : b.size_usd;
+    const effectiveW = b.outcome === "W" || (b.outcome === "pending" && b.live_yes_bid >= 95);
+    const effectiveL = b.outcome === "L" || (b.outcome === "pending" && b.live_yes_bid != null && b.live_yes_bid <= 5);
+    if (effectiveW) {
+      cost += bCost; settledCost += bCost;
+      if (haveActual) realizedPnl += ct * (100 - yp) / 100;
+      wins++;
+    } else if (effectiveL) {
+      cost += bCost; settledCost += bCost;
+      realizedPnl -= bCost;
+      losses++;
+    } else {
+      cost += bCost;
+      pending++;
+      if (haveActual && b.live_yes_bid != null) unrealizedPnl += ct * (b.live_yes_bid - yp) / 100;
+    }
+  }
+  const pnl = realizedPnl + unrealizedPnl;
+  const roi = cost > 0 ? pnl / cost * 100 : null;
+  const capturedPct = cost > 0 ? settledCost / cost * 100 : null;
+  return { total: bets.length, wins, losses, pending, cost, settledCost, realizedPnl, unrealizedPnl, pnl, roi, capturedPct };
+}
+
+function renderContrarianTfoot(stats, colCount) {
+  const pnlCls = stats.pnl >= 0 ? "pnl-pos" : "pnl-neg";
+  const roiStr = stats.roi != null ? ` · ROI&nbsp;${stats.roi.toFixed(1)}%` : "";
+  const capturedStr = stats.capturedPct != null
+    ? ` · ${stats.capturedPct.toFixed(0)}%&nbsp;captured`
+    : "";
+  const html = `${stats.total}&nbsp;bet${stats.total !== 1 ? "s" : ""} · `
+    + `${stats.wins}W&nbsp;${stats.losses}L&nbsp;${stats.pending}&nbsp;pend · `
+    + `Cost&nbsp;$${stats.cost.toFixed(2)} · `
+    + `<span class="${pnlCls}">P&amp;L&nbsp;${fmtMoney(stats.pnl)}${roiStr}</span>${capturedStr}`;
+  const tf = document.createElement("tfoot");
+  tf.innerHTML = `<tr><td colspan="${colCount}">${html}</td></tr>`;
+  return tf;
+}
+
+function renderContrarianTotalsBar(title, statsArr) {
+  const agg = { total: 0, wins: 0, losses: 0, pending: 0, cost: 0, settledCost: 0, realizedPnl: 0, unrealizedPnl: 0 };
+  for (const s of statsArr) {
+    agg.total          += s.total;
+    agg.wins           += s.wins;
+    agg.losses         += s.losses;
+    agg.pending        += s.pending;
+    agg.cost           += s.cost;
+    agg.settledCost    += s.settledCost;
+    agg.realizedPnl    += s.realizedPnl;
+    agg.unrealizedPnl  += s.unrealizedPnl;
+  }
+  const pnl = agg.realizedPnl + agg.unrealizedPnl;
+  const roi = agg.cost > 0 ? pnl / agg.cost * 100 : null;
+  const capturedPct = agg.cost > 0 ? agg.settledCost / agg.cost * 100 : null;
+  const pnlCls = pnl >= 0 ? "pnl-pos" : "pnl-neg";
+  const div = document.createElement("div");
+  div.className = "totals-bar";
+  div.innerHTML = `<h3>${title}</h3><div class="totals-grid">
+    <div class="totals-item"><div class="lbl">Bets</div><div class="val">${agg.total}</div></div>
+    <div class="totals-item"><div class="lbl">W / L</div><div class="val">${agg.wins} / ${agg.losses}</div></div>
+    <div class="totals-item"><div class="lbl">Pending</div><div class="val">${agg.pending}</div></div>
+    <div class="totals-item"><div class="lbl">Total Cost</div><div class="val">$${agg.cost.toFixed(2)}</div></div>
+    <div class="totals-item"><div class="lbl">P&amp;L</div><div class="val ${pnlCls}">${fmtMoney(pnl)}</div></div>
+    ${roi != null ? `<div class="totals-item"><div class="lbl">ROI</div><div class="val ${pnlCls}">${roi.toFixed(1)}%</div></div>` : ""}
+    ${capturedPct != null ? `<div class="totals-item"><div class="lbl">Captured</div><div class="val">${capturedPct.toFixed(0)}%</div></div>` : ""}
+  </div>`;
+  return div;
+}
+
+function renderContrarianContent(allContrarianBets, selectedDay) {
+  const container = document.createElement("div");
+  const allStats = [];
+
+  for (const { code, name } of LOCATIONS) {
+    const data = allContrarianBets[code];
+    const sec = locSection(name);
+
+    const bets = (data?.days || [])
+      .filter(d => selectedDay === "all" || d.date === selectedDay)
+      .flatMap(d => d.bets.map(b => ({ ...b, date: d.date })));
+
+    if (bets.length === 0) {
+      sec.innerHTML += `<div class="no-data">No contrarian bets.</div>`;
+      container.appendChild(sec);
+      continue;
+    }
+
+    const tbl = document.createElement("table");
+    tbl.innerHTML = `<thead><tr>
+      <th>Date</th><th>Snap</th><th>Market</th><th>Side</th>
+      <th>YES&nbsp;¢</th><th>Model&nbsp;NO%</th><th>NO&nbsp;Edge</th><th>vs&nbsp;max_edge</th>
+      <th>Size</th><th>Current&nbsp;Mkt&nbsp;¢</th><th>Outcome</th>
+    </tr></thead>`;
+    const tb = document.createElement("tbody");
+    for (const b of bets) {
+      const snap = b.type.replace("intraday_", "");
+      const tr = document.createElement("tr");
+      const market = b.bucket_label
+        ? `<span style="font-weight:500">${b.bucket_label}</span><br><span class="ticker">${b.ticker}</span>`
+        : `<span class="ticker">${b.ticker}</span>`;
+      const margin = (b.no_edge != null && b.source_max_edge != null)
+        ? `+${((b.no_edge - b.source_max_edge) * 100).toFixed(1)}pt`
+        : "—";
+      tr.innerHTML = `
+        <td class="date-cell">${dayLabel(b.date)}</td>
+        <td><span class="snap-badge">${snap}</span></td>
+        <td class="market-cell">${market}</td>
+        <td>YES</td>
+        <td>${b.yes_price_cents != null ? b.yes_price_cents + "¢" : "—"}</td>
+        <td>${b.p_no_model != null ? (b.p_no_model * 100).toFixed(1) + "%" : "—"}</td>
+        <td>${b.no_edge != null ? (b.no_edge * 100).toFixed(1) + "%" : "—"}</td>
+        <td>${margin}</td>
+        <td>${b.size_usd != null && b.count != null && b.yes_price_cents != null ? "$" + (b.count * b.yes_price_cents / 100).toFixed(2) : (b.size_usd != null ? "$" + b.size_usd : "—")}</td>
+        <td>${renderCurrentPrice(b.live_yes_bid)}</td>
+        <td>${renderOutcome(b.outcome, b.live_yes_bid)}</td>`;
+      tb.appendChild(tr);
+    }
+    tbl.appendChild(tb);
+    const stats = computeContrarianStats(bets);
+    allStats.push(stats);
+    tbl.appendChild(renderContrarianTfoot(stats, 11));
+    sec.appendChild(tbl);
+    container.appendChild(sec);
+  }
+
+  if (allStats.length) container.appendChild(renderContrarianTotalsBar("All Locations — Contrarian Test Strategy", allStats));
+  return container;
+}
+
+function renderContrarianTab(allContrarianBets) {
+  const panel = document.getElementById("tab-contrarian");
+  panel.innerHTML = "";
+
+  const note = document.createElement("div");
+  note.className = "strategy-note";
+  note.innerHTML = `<strong>Separate test strategy.</strong> Buys YES on intraday candidates the
+    live NO bot is currently skipping for exceeding max_edge — a different ledger
+    (<code>weather_contrarian_bet</code>) from the Daily/Intraday tabs, tracked here so it never
+    blends into the live bot's numbers above.`;
+  panel.appendChild(note);
+
+  const dates = collectDates(allContrarianBets, () => true);
+  const contentDiv = document.createElement("div");
+
+  panel.appendChild(buildDayFilterBar(dates, "all", (day) => {
+    contentDiv.innerHTML = "";
+    contentDiv.appendChild(renderContrarianContent(allContrarianBets, day));
+  }));
+
+  contentDiv.appendChild(renderContrarianContent(allContrarianBets, "all"));
+  panel.appendChild(contentDiv);
+}
+
 // ─── Forecast tab ────────────────────────────────────────────────────────────
 
 function computeScale(allForecast, dayIndex) {
@@ -802,15 +967,17 @@ async function fetchJson(url) {
 async function load() {
   const t = Date.now();
 
-  const [betsResults, fcResults] = await Promise.all([
+  const [betsResults, contrarianResults, fcResults] = await Promise.all([
     Promise.allSettled(LOCATIONS.map(l => fetchJson(`data/recent_bets_${l.code}.json?t=${t}`))),
+    Promise.allSettled(LOCATIONS.map(l => fetchJson(`data/recent_contrarian_bets_${l.code}.json?t=${t}`))),
     Promise.allSettled(LOCATIONS.map(l => fetchJson(`data/forecast_${l.code}.json?t=${t}`))),
   ]);
 
-  const allBets = {}, allForecast = {};
+  const allBets = {}, allContrarianBets = {}, allForecast = {};
   LOCATIONS.forEach(({ code }, i) => {
-    if (betsResults[i].status === "fulfilled") allBets[code] = betsResults[i].value;
-    if (fcResults[i].status   === "fulfilled") allForecast[code] = fcResults[i].value;
+    if (betsResults[i].status       === "fulfilled") allBets[code] = betsResults[i].value;
+    if (contrarianResults[i].status === "fulfilled") allContrarianBets[code] = contrarianResults[i].value;
+    if (fcResults[i].status         === "fulfilled") allForecast[code] = fcResults[i].value;
   });
 
   // Timestamp from first successful bets result
@@ -821,6 +988,7 @@ async function load() {
 
   renderDailyTab(allBets);
   renderIntradayTab(allBets);
+  renderContrarianTab(allContrarianBets);
   renderForecastTab(allForecast);
 }
 
