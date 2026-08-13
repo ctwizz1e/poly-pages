@@ -254,6 +254,7 @@
   <button class="tab-btn active" data-tab="daily">Daily</button>
   <button class="tab-btn"        data-tab="intraday">Intraday</button>
   <button class="tab-btn"        data-tab="contrarian">Contrarian</button>
+  <button class="tab-btn"        data-tab="confidence">Confidence Entry</button>
   <button class="tab-btn"        data-tab="forecast">Forecast</button>
 </div>
 
@@ -261,6 +262,7 @@
   <div class="tab-panel active" id="tab-daily">     <div class="loading">Loading…</div></div>
   <div class="tab-panel"        id="tab-intraday">  <div class="loading">Loading…</div></div>
   <div class="tab-panel"        id="tab-contrarian"><div class="loading">Loading…</div></div>
+  <div class="tab-panel"        id="tab-confidence"><div class="loading">Loading…</div></div>
   <div class="tab-panel"        id="tab-forecast">  <div class="loading">Loading…</div></div>
 </main>
 
@@ -795,6 +797,97 @@ function renderContrarianTab(allContrarianBets) {
   panel.appendChild(contentDiv);
 }
 
+// ─── Confidence Entry tab ────────────────────────────────────────────────────
+// Separate strategy from Daily/Intraday above (own weather_confidence_bet
+// ledger, migrations/26_weather_confidence_bet.sql) but same NO-side polarity
+// and field names (no_price_cents/live_no_bid/count/size_usd) -- so unlike
+// Contrarian (YES-side, needed its own compute*/render*Tfoot/TotalsBar copies)
+// this reuses computeStats/renderTfoot/renderTotalsBar/renderCost as-is. The
+// only strategy-specific bit is the confidence_level (90%/95%) column, and the
+// bot's LATE_CROSSING_CUTOFF_HOUR=9:30am gate mentioned in the note below.
+
+function renderConfidenceContent(allConfidenceBets, selectedDay) {
+  const container = document.createElement("div");
+  const allStats = [];
+
+  for (const { code, name } of LOCATIONS) {
+    const data = allConfidenceBets[code];
+    const sec = locSection(name);
+
+    const bets = (data?.days || [])
+      .filter(d => selectedDay === "all" || d.date === selectedDay)
+      .flatMap(d => d.bets.map(b => ({ ...b, date: d.date })));
+
+    if (bets.length === 0) {
+      sec.innerHTML += `<div class="no-data">No confidence-entry bets.</div>`;
+      container.appendChild(sec);
+      continue;
+    }
+
+    const tbl = document.createElement("table");
+    tbl.innerHTML = `<thead><tr>
+      <th>Date</th><th>Snap</th><th>Market</th><th>Side</th><th>Level</th>
+      <th>NO&nbsp;¢</th><th>Model&nbsp;NO%</th>
+      <th>Size</th><th>Current&nbsp;Mkt&nbsp;¢</th><th>Outcome</th>
+    </tr></thead>`;
+    const tb = document.createElement("tbody");
+    for (const b of bets) {
+      const snap = b.type.replace("intraday_", "");
+      const tr = document.createElement("tr");
+      const market = b.bucket_label
+        ? `<span style="font-weight:500">${b.bucket_label}</span><br><span class="ticker">${b.ticker}</span>`
+        : `<span class="ticker">${b.ticker}</span>`;
+      tr.innerHTML = `
+        <td class="date-cell">${dayLabel(b.date)}</td>
+        <td><span class="snap-badge">${snap}</span></td>
+        <td class="market-cell">${market}</td>
+        <td>NO</td>
+        <td>${b.confidence_level != null ? (b.confidence_level * 100).toFixed(0) + "%" : "—"}</td>
+        <td>${b.no_price_cents != null ? b.no_price_cents + "¢" : "—"}</td>
+        <td>${b.p_no_model != null ? (b.p_no_model * 100).toFixed(1) + "%" : "—"}</td>
+        <td>${renderCost(b)}</td>
+        <td>${renderCurrentPrice(b.live_no_bid)}</td>
+        <td>${renderOutcome(b.outcome, b.live_no_bid)}</td>`;
+      tb.appendChild(tr);
+    }
+    tbl.appendChild(tb);
+    const stats = computeStats(bets);
+    allStats.push(stats);
+    tbl.appendChild(renderTfoot(stats, 10));
+    sec.appendChild(tbl);
+    container.appendChild(sec);
+  }
+
+  if (allStats.length) container.appendChild(renderTotalsBar("All Locations — Confidence Entry", allStats));
+  return container;
+}
+
+function renderConfidenceTab(allConfidenceBets) {
+  const panel = document.getElementById("tab-confidence");
+  panel.innerHTML = "";
+
+  const note = document.createElement("div");
+  note.className = "strategy-note";
+  note.innerHTML = `<strong>Separate strategy.</strong> Buys NO the instant the existing weather-only
+    model's own P(NO) first crosses 90% or 95% confidence for a bucket, independent of market
+    price/edge — a first crossing after 9:30am local is skipped entirely (see
+    MARKET_AWARE_INTRADAY_FINDINGS.md Findings 6/7/8 and confidence_entry_intraday_bot.py). Own ledger
+    (<code>weather_confidence_bet</code>), tracked here so it never blends into the Daily/Intraday
+    numbers above.`;
+  panel.appendChild(note);
+
+  const dates = collectDates(allConfidenceBets, () => true);
+  const contentDiv = document.createElement("div");
+
+  panel.appendChild(buildDayFilterBar(dates, "all", (day) => {
+    contentDiv.innerHTML = "";
+    contentDiv.appendChild(renderConfidenceContent(allConfidenceBets, day));
+  }));
+
+  contentDiv.appendChild(renderConfidenceContent(allConfidenceBets, "all"));
+  panel.appendChild(contentDiv);
+}
+
 // ─── Forecast tab ────────────────────────────────────────────────────────────
 
 function computeScale(allForecast, dayIndex) {
@@ -967,16 +1060,18 @@ async function fetchJson(url) {
 async function load() {
   const t = Date.now();
 
-  const [betsResults, contrarianResults, fcResults] = await Promise.all([
+  const [betsResults, contrarianResults, confidenceResults, fcResults] = await Promise.all([
     Promise.allSettled(LOCATIONS.map(l => fetchJson(`data/recent_bets_${l.code}.json?t=${t}`))),
     Promise.allSettled(LOCATIONS.map(l => fetchJson(`data/recent_contrarian_bets_${l.code}.json?t=${t}`))),
+    Promise.allSettled(LOCATIONS.map(l => fetchJson(`data/recent_confidence_bets_${l.code}.json?t=${t}`))),
     Promise.allSettled(LOCATIONS.map(l => fetchJson(`data/forecast_${l.code}.json?t=${t}`))),
   ]);
 
-  const allBets = {}, allContrarianBets = {}, allForecast = {};
+  const allBets = {}, allContrarianBets = {}, allConfidenceBets = {}, allForecast = {};
   LOCATIONS.forEach(({ code }, i) => {
     if (betsResults[i].status       === "fulfilled") allBets[code] = betsResults[i].value;
     if (contrarianResults[i].status === "fulfilled") allContrarianBets[code] = contrarianResults[i].value;
+    if (confidenceResults[i].status === "fulfilled") allConfidenceBets[code] = confidenceResults[i].value;
     if (fcResults[i].status         === "fulfilled") allForecast[code] = fcResults[i].value;
   });
 
@@ -989,6 +1084,7 @@ async function load() {
   renderDailyTab(allBets);
   renderIntradayTab(allBets);
   renderContrarianTab(allContrarianBets);
+  renderConfidenceTab(allConfidenceBets);
   renderForecastTab(allForecast);
 }
 
