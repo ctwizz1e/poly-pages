@@ -1,11 +1,26 @@
 {
-  "generated_at": "2026-08-14T02:30:33",
+  "generated_at": "2026-08-14T08:21:36",
   "location": "nyc",
   "location_name": "New York City, NY",
   "days": [
     {
       "date": "2026-08-14",
-      "bets": []
+      "bets": [
+        {
+          "type": "intraday_04.0h",
+          "ticker": "KXHIGHNY-26AUG14-T85",
+          "bucket_label": "\u226484\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 43,
+          "p_no_model": 0.96245,
+          "no_edge": 0.34245,
+          "source_max_edge": 0.2,
+          "size_usd": 2.0,
+          "count": 4,
+          "outcome": "pending",
+          "live_yes_bid": 29
+        }
+      ]
     },
     {
       "date": "2026-08-13",
@@ -21,8 +36,8 @@
           "source_max_edge": 0.2,
           "size_usd": 2.0,
           "count": 3,
-          "outcome": "pending",
-          "live_yes_bid": 0
+          "outcome": "L",
+          "live_yes_bid": null
         }
       ]
     },
