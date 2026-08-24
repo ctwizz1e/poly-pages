@@ -1,11 +1,26 @@
 {
-  "generated_at": "2026-08-24T08:01:56",
+  "generated_at": "2026-08-24T08:32:00",
   "location": "min",
   "location_name": "Minneapolis, MN",
   "days": [
     {
       "date": "2026-08-24",
-      "bets": []
+      "bets": [
+        {
+          "type": "intraday_07.0h",
+          "ticker": "KXHIGHTMIN-26AUG24-B80.5",
+          "bucket_label": "80-81\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 35,
+          "p_no_model": 0.97259,
+          "no_edge": 0.28259,
+          "source_max_edge": 0.2,
+          "size_usd": 2.0,
+          "count": 5,
+          "outcome": "pending",
+          "live_yes_bid": 29
+        }
+      ]
     },
     {
       "date": "2026-08-23",
@@ -21,8 +36,8 @@
           "source_max_edge": 0.2,
           "size_usd": 2.0,
           "count": 5,
-          "outcome": "pending",
-          "live_yes_bid": 0
+          "outcome": "L",
+          "live_yes_bid": null
         }
       ]
     },
