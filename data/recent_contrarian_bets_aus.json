@@ -1,19 +1,64 @@
 {
-  "generated_at": "2026-08-23T21:34:33",
+  "generated_at": "2026-08-23T21:44:10",
   "location": "aus",
   "location_name": "AUS",
   "days": [
     {
       "date": "2026-08-23",
-      "bets": []
+      "bets": [
+        {
+          "type": "intraday_03.0h",
+          "ticker": "KXHIGHAUS-26AUG23-B106.5",
+          "bucket_label": "106-107\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 51,
+          "p_no_model": 0.86631,
+          "no_edge": 0.33631,
+          "source_max_edge": 0.2,
+          "size_usd": 2.0,
+          "count": 3,
+          "outcome": "pending",
+          "live_yes_bid": 66
+        }
+      ]
     },
     {
       "date": "2026-08-22",
-      "bets": []
+      "bets": [
+        {
+          "type": "intraday_03.0h",
+          "ticker": "KXHIGHAUS-26AUG22-B104.5",
+          "bucket_label": "104-105\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 52,
+          "p_no_model": 0.76471,
+          "no_edge": 0.24471,
+          "source_max_edge": 0.2,
+          "size_usd": 2.0,
+          "count": 3,
+          "outcome": "L",
+          "live_yes_bid": null
+        }
+      ]
     },
     {
       "date": "2026-08-21",
-      "bets": []
+      "bets": [
+        {
+          "type": "intraday_10.0h",
+          "ticker": "KXHIGHAUS-26AUG21-B103.5",
+          "bucket_label": "103-104\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 71,
+          "p_no_model": 0.85239,
+          "no_edge": 0.51239,
+          "source_max_edge": 0.2,
+          "size_usd": 2.0,
+          "count": 2,
+          "outcome": "W",
+          "live_yes_bid": null
+        }
+      ]
     }
   ]
 }
