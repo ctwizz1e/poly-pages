@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-08-25T23:58:27",
+  "generated_at": "2026-08-26T00:00:24",
   "location": "lax",
   "location_name": "Los Angeles, CA",
   "days": [
+    {
+      "date": "2026-08-26",
+      "daily": {
+        "mu": 80.86,
+        "sigma": 3.8
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-08-25",
       "daily": {
@@ -29,14 +38,14 @@
           "mu": 87.02,
           "sigma": 1.91,
           "obs_temp": 73.4,
-          "obs_max": 78.1
+          "obs_max": 78.8
         },
         {
           "hour": 8.5,
           "mu": 86.7,
           "sigma": 1.57,
-          "obs_temp": 75.2,
-          "obs_max": 78.1
+          "obs_temp": 77.0,
+          "obs_max": 78.8
         },
         {
           "hour": 9.0,
@@ -70,7 +79,7 @@
           "hour": 11.0,
           "mu": 86.41,
           "sigma": 1.59,
-          "obs_temp": 84.2,
+          "obs_temp": 82.4,
           "obs_max": 84.2
         },
         {
@@ -197,69 +206,6 @@
           "mu": 84.13,
           "sigma": 1.59,
           "obs_temp": 80.6,
-          "obs_max": 84.2
-        }
-      ],
-      "obs_daily_max": 84.2
-    },
-    {
-      "date": "2026-08-23",
-      "daily": null,
-      "intraday": [
-        {
-          "hour": 7.0,
-          "mu": 84.98,
-          "sigma": 1.61,
-          "obs_temp": 71.6,
-          "obs_max": 73.4
-        },
-        {
-          "hour": 7.5,
-          "mu": 85.24,
-          "sigma": 1.95,
-          "obs_temp": 71.6,
-          "obs_max": 73.4
-        },
-        {
-          "hour": 8.0,
-          "mu": 86.65,
-          "sigma": 1.95,
-          "obs_temp": 73.4,
-          "obs_max": 78.8
-        },
-        {
-          "hour": 8.5,
-          "mu": 86.52,
-          "sigma": 1.61,
-          "obs_temp": 77.0,
-          "obs_max": 78.8
-        },
-        {
-          "hour": 9.0,
-          "mu": 86.37,
-          "sigma": 1.61,
-          "obs_temp": 78.8,
-          "obs_max": 82.9
-        },
-        {
-          "hour": 9.5,
-          "mu": 85.99,
-          "sigma": 1.8,
-          "obs_temp": 80.6,
-          "obs_max": 82.9
-        },
-        {
-          "hour": 10.0,
-          "mu": 86.3,
-          "sigma": 1.8,
-          "obs_temp": 84.2,
-          "obs_max": 84.2
-        },
-        {
-          "hour": 10.5,
-          "mu": 86.33,
-          "sigma": 1.59,
-          "obs_temp": 82.4,
           "obs_max": 84.2
         }
       ],
