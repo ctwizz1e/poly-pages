@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-08-25T23:31:46",
+  "generated_at": "2026-08-26T00:00:32",
   "location": "sea",
   "location_name": "Seattle, WA",
   "days": [
+    {
+      "date": "2026-08-26",
+      "daily": {
+        "mu": 77.4,
+        "sigma": 3.08
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-08-25",
       "daily": {
@@ -201,69 +210,6 @@
         }
       ],
       "obs_daily_max": 80.6
-    },
-    {
-      "date": "2026-08-23",
-      "daily": null,
-      "intraday": [
-        {
-          "hour": 7.0,
-          "mu": 76.35,
-          "sigma": 1.34,
-          "obs_temp": 60.8,
-          "obs_max": 62.6
-        },
-        {
-          "hour": 7.5,
-          "mu": 76.28,
-          "sigma": 1.16,
-          "obs_temp": 60.8,
-          "obs_max": 62.6
-        },
-        {
-          "hour": 8.0,
-          "mu": 76.51,
-          "sigma": 1.16,
-          "obs_temp": 60.8,
-          "obs_max": 63.0
-        },
-        {
-          "hour": 8.5,
-          "mu": 76.57,
-          "sigma": 1.31,
-          "obs_temp": 62.6,
-          "obs_max": 63.0
-        },
-        {
-          "hour": 9.0,
-          "mu": 75.92,
-          "sigma": 1.31,
-          "obs_temp": 62.6,
-          "obs_max": 64.4
-        },
-        {
-          "hour": 9.5,
-          "mu": 75.76,
-          "sigma": 1.12,
-          "obs_temp": 64.4,
-          "obs_max": 64.4
-        },
-        {
-          "hour": 10.0,
-          "mu": 75.21,
-          "sigma": 1.12,
-          "obs_temp": 64.4,
-          "obs_max": 66.2
-        },
-        {
-          "hour": 10.5,
-          "mu": 75.15,
-          "sigma": 1.31,
-          "obs_temp": 66.2,
-          "obs_max": 66.2
-        }
-      ],
-      "obs_daily_max": 75.2
     }
   ]
 }
