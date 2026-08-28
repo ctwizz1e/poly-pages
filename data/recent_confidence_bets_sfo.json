@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T03:01:31",
+  "generated_at": "2026-08-28T03:32:14",
   "location": "sfo",
   "location_name": "San Francisco, CA",
   "days": [
@@ -13,7 +13,34 @@
     },
     {
       "date": "2026-08-26",
-      "bets": []
+      "bets": [
+        {
+          "type": "intraday_01.0h",
+          "ticker": "KXHIGHTSFO-26AUG26-B72.5",
+          "bucket_label": "72-73\u00b0F",
+          "side": "no",
+          "confidence_level": 0.9,
+          "no_price_cents": 93,
+          "p_no_model": 0.90856,
+          "size_usd": 3.0,
+          "count": 3,
+          "outcome": "W",
+          "live_no_bid": null
+        },
+        {
+          "type": "intraday_01.0h",
+          "ticker": "KXHIGHTSFO-26AUG26-T72",
+          "bucket_label": "\u226471\u00b0F",
+          "side": "no",
+          "confidence_level": 0.9,
+          "no_price_cents": 90,
+          "p_no_model": 0.93881,
+          "size_usd": 3.0,
+          "count": 3,
+          "outcome": "W",
+          "live_no_bid": null
+        }
+      ]
     }
   ]
 }
