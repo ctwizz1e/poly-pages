@@ -1,8 +1,46 @@
 {
-  "generated_at": "2026-08-29T09:01:34",
+  "generated_at": "2026-08-31T21:47:06",
   "location": "min",
   "location_name": "Minneapolis, MN",
   "days": [
+    {
+      "date": "2026-08-31",
+      "bets": [
+        {
+          "type": "intraday_03.0h",
+          "ticker": "KXHIGHTMIN-26AUG31-B87.5",
+          "bucket_label": "87-88\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 35,
+          "p_no_model": 0.99607,
+          "no_edge": 0.30607,
+          "source_max_edge": 0.2,
+          "size_usd": 1.0,
+          "count": 2,
+          "outcome": "pending",
+          "live_yes_bid": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "bets": [
+        {
+          "type": "intraday_03.0h",
+          "ticker": "KXHIGHTMIN-26AUG30-B88.5",
+          "bucket_label": "88-89\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 41,
+          "p_no_model": 0.95368,
+          "no_edge": 0.26368,
+          "source_max_edge": 0.2,
+          "size_usd": 1.0,
+          "count": 2,
+          "outcome": "L",
+          "live_yes_bid": null
+        }
+      ]
+    },
     {
       "date": "2026-08-29",
       "bets": [
@@ -17,33 +55,10 @@
           "source_max_edge": 0.2,
           "size_usd": 1.0,
           "count": 2,
-          "outcome": "pending",
-          "live_yes_bid": 32
-        }
-      ]
-    },
-    {
-      "date": "2026-08-28",
-      "bets": [
-        {
-          "type": "intraday_04.0h",
-          "ticker": "KXHIGHTMIN-26AUG28-B82.5",
-          "bucket_label": "82-83\u00b0F",
-          "side": "yes",
-          "yes_price_cents": 30,
-          "p_no_model": 0.95884,
-          "no_edge": 0.21884,
-          "source_max_edge": 0.2,
-          "size_usd": 1.0,
-          "count": 3,
-          "outcome": "W",
+          "outcome": "L",
           "live_yes_bid": null
         }
       ]
-    },
-    {
-      "date": "2026-08-27",
-      "bets": []
     }
   ]
 }
