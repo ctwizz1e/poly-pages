@@ -1,11 +1,26 @@
 {
-  "generated_at": "2026-09-01T09:01:42",
+  "generated_at": "2026-09-01T09:31:40",
   "location": "hou",
   "location_name": "Houston, TX",
   "days": [
     {
       "date": "2026-09-01",
-      "bets": []
+      "bets": [
+        {
+          "type": "intraday_08.0h",
+          "ticker": "KXHIGHTHOU-26SEP01-T89",
+          "bucket_label": "\u226488\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 71,
+          "p_no_model": 0.93017,
+          "no_edge": 0.60017,
+          "source_max_edge": 0.2,
+          "size_usd": 1.0,
+          "count": 1,
+          "outcome": "pending",
+          "live_yes_bid": 67
+        }
+      ]
     },
     {
       "date": "2026-08-31",
@@ -21,8 +36,8 @@
           "source_max_edge": 0.2,
           "size_usd": 1.0,
           "count": 2,
-          "outcome": "pending",
-          "live_yes_bid": 0
+          "outcome": "L",
+          "live_yes_bid": null
         }
       ]
     },
