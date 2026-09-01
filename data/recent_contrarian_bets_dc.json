@@ -1,49 +1,49 @@
 {
-  "generated_at": "2026-08-29T09:30:09",
+  "generated_at": "2026-08-31T21:44:22",
   "location": "dc",
   "location_name": "Washington, DC",
   "days": [
     {
-      "date": "2026-08-29",
-      "bets": []
-    },
-    {
-      "date": "2026-08-28",
+      "date": "2026-08-31",
       "bets": [
         {
           "type": "intraday_04.0h",
-          "ticker": "KXHIGHTDC-26AUG28-B85.5",
-          "bucket_label": "85-86\u00b0F",
+          "ticker": "KXHIGHTDC-26AUG31-T91",
+          "bucket_label": "\u226490\u00b0F",
           "side": "yes",
-          "yes_price_cents": 31,
-          "p_no_model": 0.96217,
-          "no_edge": 0.23217,
+          "yes_price_cents": 41,
+          "p_no_model": 0.96048,
+          "no_edge": 0.31048,
           "source_max_edge": 0.2,
           "size_usd": 1.0,
-          "count": 3,
+          "count": 2,
+          "outcome": "pending",
+          "live_yes_bid": 99
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "bets": [
+        {
+          "type": "intraday_14.0h",
+          "ticker": "KXHIGHTDC-26AUG30-B87.5",
+          "bucket_label": "87-88\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 43,
+          "p_no_model": 0.97826,
+          "no_edge": 0.25826,
+          "source_max_edge": 0.2,
+          "size_usd": 1.0,
+          "count": 2,
           "outcome": "L",
           "live_yes_bid": null
         }
       ]
     },
     {
-      "date": "2026-08-27",
-      "bets": [
-        {
-          "type": "intraday_10.0h",
-          "ticker": "KXHIGHTDC-26AUG27-B87.5",
-          "bucket_label": "87-88\u00b0F",
-          "side": "yes",
-          "yes_price_cents": 31,
-          "p_no_model": 0.95714,
-          "no_edge": 0.20714,
-          "source_max_edge": 0.2,
-          "size_usd": 1.0,
-          "count": 3,
-          "outcome": "W",
-          "live_yes_bid": null
-        }
-      ]
+      "date": "2026-08-29",
+      "bets": []
     }
   ]
 }
