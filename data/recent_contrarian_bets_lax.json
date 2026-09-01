@@ -1,8 +1,31 @@
 {
-  "generated_at": "2026-08-29T09:00:14",
+  "generated_at": "2026-08-31T21:44:33",
   "location": "lax",
   "location_name": "Los Angeles, CA",
   "days": [
+    {
+      "date": "2026-08-31",
+      "bets": [
+        {
+          "type": "intraday_01.0h",
+          "ticker": "KXHIGHLAX-26AUG31-T79",
+          "bucket_label": "\u226580\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 72,
+          "p_no_model": 0.98607,
+          "no_edge": 0.66607,
+          "source_max_edge": 0.2,
+          "size_usd": 1.0,
+          "count": 1,
+          "outcome": "pending",
+          "live_yes_bid": 1
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "bets": []
+    },
     {
       "date": "2026-08-29",
       "bets": [
@@ -17,33 +40,10 @@
           "source_max_edge": 0.2,
           "size_usd": 1.0,
           "count": 3,
-          "outcome": "pending",
-          "live_yes_bid": 23
+          "outcome": "L",
+          "live_yes_bid": null
         }
       ]
-    },
-    {
-      "date": "2026-08-28",
-      "bets": [
-        {
-          "type": "intraday_10.0h",
-          "ticker": "KXHIGHLAX-26AUG28-B86.5",
-          "bucket_label": "86-87\u00b0F",
-          "side": "yes",
-          "yes_price_cents": 33,
-          "p_no_model": 0.9308,
-          "no_edge": 0.2108,
-          "source_max_edge": 0.2,
-          "size_usd": 1.0,
-          "count": 3,
-          "outcome": "pending",
-          "live_yes_bid": 0
-        }
-      ]
-    },
-    {
-      "date": "2026-08-27",
-      "bets": []
     }
   ]
 }
