@@ -1,45 +1,60 @@
 {
-  "generated_at": "2026-08-29T09:30:01",
+  "generated_at": "2026-08-31T21:43:53",
   "location": "atl",
   "location_name": "Atlanta, GA",
   "days": [
     {
-      "date": "2026-08-29",
-      "bets": []
-    },
-    {
-      "date": "2026-08-28",
+      "date": "2026-08-31",
       "bets": [
         {
-          "type": "intraday_04.0h",
-          "ticker": "KXHIGHTATL-26AUG28-B90.5",
-          "bucket_label": "90-91\u00b0F",
+          "type": "intraday_16.0h",
+          "ticker": "KXHIGHTATL-26AUG31-B94.5",
+          "bucket_label": "94-95\u00b0F",
           "side": "yes",
-          "yes_price_cents": 54,
-          "p_no_model": 0.88606,
-          "no_edge": 0.38606,
+          "yes_price_cents": 76,
+          "p_no_model": 0.87037,
+          "no_edge": 0.52037,
           "source_max_edge": 0.2,
           "size_usd": 1.0,
           "count": 1,
-          "outcome": "L",
+          "outcome": "pending",
+          "live_yes_bid": 99
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "bets": [
+        {
+          "type": "intraday_04.0h",
+          "ticker": "KXHIGHTATL-26AUG30-B91.5",
+          "bucket_label": "91-92\u00b0F",
+          "side": "yes",
+          "yes_price_cents": 60,
+          "p_no_model": 0.8823,
+          "no_edge": 0.4323,
+          "source_max_edge": 0.2,
+          "size_usd": 1.0,
+          "count": 1,
+          "outcome": "W",
           "live_yes_bid": null
         }
       ]
     },
     {
-      "date": "2026-08-27",
+      "date": "2026-08-29",
       "bets": [
         {
-          "type": "intraday_11.5h",
-          "ticker": "KXHIGHTATL-26AUG27-T86",
-          "bucket_label": "\u226485\u00b0F",
+          "type": "intraday_09.5h",
+          "ticker": "KXHIGHTATL-26AUG29-B90.5",
+          "bucket_label": "90-91\u00b0F",
           "side": "yes",
-          "yes_price_cents": 69,
-          "p_no_model": 0.94819,
-          "no_edge": 0.58819,
+          "yes_price_cents": 31,
+          "p_no_model": 0.9857,
+          "no_edge": 0.2257,
           "source_max_edge": 0.2,
           "size_usd": 1.0,
-          "count": 1,
+          "count": 3,
           "outcome": "L",
           "live_yes_bid": null
         }
