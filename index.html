@@ -826,7 +826,7 @@ function renderConfidenceContent(allConfidenceBets, selectedDay) {
 
     const tbl = document.createElement("table");
     tbl.innerHTML = `<thead><tr>
-      <th>Date</th><th>Snap</th><th>Market</th><th>Side</th><th>Level</th>
+      <th>Date</th><th>Snap</th><th>Venue</th><th>Market</th><th>Side</th><th>Level</th>
       <th>NO&nbsp;¢</th><th>Model&nbsp;NO%</th>
       <th>Size</th><th>Current&nbsp;Mkt&nbsp;¢</th><th>Outcome</th>
     </tr></thead>`;
@@ -837,9 +837,14 @@ function renderConfidenceContent(allConfidenceBets, selectedDay) {
       const market = b.bucket_label
         ? `<span style="font-weight:500">${b.bucket_label}</span><br><span class="ticker">${b.ticker}</span>`
         : `<span class="ticker">${b.ticker}</span>`;
+      // Venue (trading platform: Kalshi/Polymarket) is distinct from the "Market"
+      // column above (which weather-bucket contract, same meaning as every other
+      // tab's "Market" column) -- this is the only strategy that trades both.
+      const venue = b.market === "polymarket" ? "Polymarket" : "Kalshi";
       tr.innerHTML = `
         <td class="date-cell">${dayLabel(b.date)}</td>
         <td><span class="snap-badge">${snap}</span></td>
+        <td><span class="snap-badge">${venue}</span></td>
         <td class="market-cell">${market}</td>
         <td>NO</td>
         <td>${b.confidence_level != null ? (b.confidence_level * 100).toFixed(0) + "%" : "—"}</td>
@@ -853,7 +858,7 @@ function renderConfidenceContent(allConfidenceBets, selectedDay) {
     tbl.appendChild(tb);
     const stats = computeStats(bets);
     allStats.push(stats);
-    tbl.appendChild(renderTfoot(stats, 10));
+    tbl.appendChild(renderTfoot(stats, 11));
     sec.appendChild(tbl);
     container.appendChild(sec);
   }
