@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-09-13T23:59:35",
+  "generated_at": "2026-09-14T00:00:58",
   "location": "dal",
   "location_name": "Dallas, TX",
   "days": [
+    {
+      "date": "2026-09-14",
+      "daily": {
+        "mu": 95.64,
+        "sigma": 2.4
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-09-13",
       "daily": {
@@ -28,7 +37,7 @@
           "hour": 8.0,
           "mu": 100.76,
           "sigma": 2.08,
-          "obs_temp": 81.0,
+          "obs_temp": 80.6,
           "obs_max": 89.6
         },
         {
@@ -42,7 +51,7 @@
           "hour": 9.0,
           "mu": 100.75,
           "sigma": 1.91,
-          "obs_temp": 84.0,
+          "obs_temp": 84.2,
           "obs_max": 89.6
         },
         {
@@ -56,14 +65,14 @@
           "hour": 10.0,
           "mu": 100.57,
           "sigma": 2.03,
-          "obs_temp": 87.8,
+          "obs_temp": 86.0,
           "obs_max": 90.0
         },
         {
           "hour": 10.5,
           "mu": 100.63,
           "sigma": 1.96,
-          "obs_temp": 89.6,
+          "obs_temp": 87.8,
           "obs_max": 90.0
         },
         {
@@ -204,76 +213,6 @@
         }
       ],
       "obs_daily_max": 102.2
-    },
-    {
-      "date": "2026-09-11",
-      "daily": null,
-      "intraday": [
-        {
-          "hour": 9.0,
-          "mu": 99.72,
-          "sigma": 2.62,
-          "obs_temp": 82.4,
-          "obs_max": 84.9
-        },
-        {
-          "hour": 9.5,
-          "mu": 99.44,
-          "sigma": 2.66,
-          "obs_temp": 84.2,
-          "obs_max": 84.9
-        },
-        {
-          "hour": 10.0,
-          "mu": 99.75,
-          "sigma": 2.3,
-          "obs_temp": 84.2,
-          "obs_max": 89.6
-        },
-        {
-          "hour": 10.5,
-          "mu": 99.18,
-          "sigma": 2.35,
-          "obs_temp": 87.8,
-          "obs_max": 89.6
-        },
-        {
-          "hour": 11.0,
-          "mu": 99.81,
-          "sigma": 2.71,
-          "obs_temp": 87.8,
-          "obs_max": 91.9
-        },
-        {
-          "hour": 11.5,
-          "mu": 99.85,
-          "sigma": 2.69,
-          "obs_temp": 91.4,
-          "obs_max": 91.9
-        },
-        {
-          "hour": 12.0,
-          "mu": 100.04,
-          "sigma": 2.7,
-          "obs_temp": 93.2,
-          "obs_max": 93.2
-        },
-        {
-          "hour": 12.5,
-          "mu": 99.67,
-          "sigma": 2.66,
-          "obs_temp": 91.4,
-          "obs_max": 93.2
-        },
-        {
-          "hour": 13.0,
-          "mu": 99.87,
-          "sigma": 2.41,
-          "obs_temp": 93.2,
-          "obs_max": 96.8
-        }
-      ],
-      "obs_daily_max": 100.4
     }
   ]
 }
