@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-09-13T23:58:20",
+  "generated_at": "2026-09-14T00:00:14",
   "location": "dc",
   "location_name": "Washington, DC",
   "days": [
+    {
+      "date": "2026-09-14",
+      "daily": {
+        "mu": 81.31,
+        "sigma": 2.94
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-09-13",
       "daily": {
@@ -35,7 +44,7 @@
           "hour": 8.5,
           "mu": 88.95,
           "sigma": 2.14,
-          "obs_temp": 75.0,
+          "obs_temp": 75.2,
           "obs_max": 75.2
         },
         {
@@ -190,55 +199,6 @@
         }
       ],
       "obs_daily_max": 81.0
-    },
-    {
-      "date": "2026-09-11",
-      "daily": null,
-      "intraday": [
-        {
-          "hour": 10.0,
-          "mu": 86.24,
-          "sigma": 1.48,
-          "obs_temp": 73.4,
-          "obs_max": 82.4
-        },
-        {
-          "hour": 10.5,
-          "mu": 86.11,
-          "sigma": 2.14,
-          "obs_temp": 75.2,
-          "obs_max": 82.4
-        },
-        {
-          "hour": 11.0,
-          "mu": 86.52,
-          "sigma": 2.14,
-          "obs_temp": 77.0,
-          "obs_max": 82.4
-        },
-        {
-          "hour": 11.5,
-          "mu": 86.55,
-          "sigma": 1.47,
-          "obs_temp": 77.0,
-          "obs_max": 82.4
-        },
-        {
-          "hour": 12.0,
-          "mu": 86.25,
-          "sigma": 1.47,
-          "obs_temp": 78.8,
-          "obs_max": 82.4
-        },
-        {
-          "hour": 12.5,
-          "mu": 86.18,
-          "sigma": 2.14,
-          "obs_temp": 80.6,
-          "obs_max": 82.4
-        }
-      ],
-      "obs_daily_max": 82.4
     }
   ]
 }
