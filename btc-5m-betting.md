@@ -7,6 +7,9 @@ lives. For what has already been tested (and rejected), read the investigation l
 ## Status (2026-09-29)
 
 - **Dry-run only. Not approved for real money.** The live bot runs with `--dry-run`.
+- **Gathering data only (user decision, 2026-09-29).** Don't change the live decision rule
+  while dry-run data accumulates, even for backtest-validated filters like price ≥ 0.5. A rule
+  change would split the live sample.
 - **Nothing schedules it.** There is no cron job, scheduler job or process-manager entry. The
   bot and the settler are started by hand.
 - **The old Strat Bot is gone.** `syncStratBot.ts`, `python/api/main.py` and the
