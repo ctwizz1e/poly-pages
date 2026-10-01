@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-09-30T23:58:52",
+  "generated_at": "2026-10-01T00:00:41",
   "location": "mia",
   "location_name": "Miami, FL",
   "days": [
+    {
+      "date": "2026-10-01",
+      "daily": {
+        "mu": 79.99,
+        "sigma": 6.57
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-09-30",
       "daily": {
@@ -84,7 +93,7 @@
           "hour": 12.0,
           "mu": 85.84,
           "sigma": 0.77,
-          "obs_temp": 80.1,
+          "obs_temp": 80.6,
           "obs_max": 84.2
         },
         {
@@ -201,62 +210,6 @@
         }
       ],
       "obs_daily_max": 84.2
-    },
-    {
-      "date": "2026-09-28",
-      "daily": null,
-      "intraday": [
-        {
-          "hour": 10.0,
-          "mu": 89.62,
-          "sigma": 0.88,
-          "obs_temp": 82.4,
-          "obs_max": 84.2
-        },
-        {
-          "hour": 10.5,
-          "mu": 89.82,
-          "sigma": 0.88,
-          "obs_temp": 82.4,
-          "obs_max": 84.2
-        },
-        {
-          "hour": 11.0,
-          "mu": 89.88,
-          "sigma": 0.93,
-          "obs_temp": 84.2,
-          "obs_max": 84.9
-        },
-        {
-          "hour": 11.5,
-          "mu": 89.83,
-          "sigma": 0.8,
-          "obs_temp": 84.2,
-          "obs_max": 84.9
-        },
-        {
-          "hour": 12.0,
-          "mu": 89.55,
-          "sigma": 0.8,
-          "obs_temp": 86.0,
-          "obs_max": 87.8
-        },
-        {
-          "hour": 12.5,
-          "mu": 89.13,
-          "sigma": 0.92,
-          "obs_temp": 86.0,
-          "obs_max": 87.8
-        },
-        {
-          "hour": 13.0,
-          "mu": 89.61,
-          "sigma": 0.92,
-          "obs_temp": 86.0,
-          "obs_max": 87.8
-        }
-      ],
-      "obs_daily_max": 89.6
     }
   ]
 }
