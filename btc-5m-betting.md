@@ -4,12 +4,15 @@ Orientation for the BTC side of the repo: what exists, how to run it, and where 
 lives. For what has already been tested (and rejected), read the investigation log
 [python/models/btc_5m/README.md](../python/models/btc_5m/README.md) before trying a new idea.
 
-## Status (2026-09-29)
+## Status (2026-10-01)
 
 - **Dry-run only. Not approved for real money.** The live bot runs with `--dry-run`.
 - **Gathering data only (user decision, 2026-09-29).** Don't change the live decision rule
-  while dry-run data accumulates, even for backtest-validated filters like price ≥ 0.5. A rule
-  change would split the live sample.
+  while dry-run data accumulates, even for a backtest-validated change. A rule change splits
+  the live sample into "before" and "after" and makes neither as trustworthy. The price ≥ 0.5
+  filter, tiered sizing, and the model-probability exit stop were all exceptions made
+  deliberately (each shipped the same day it was validated) — not a reversal of this rule, but
+  don't take that as license to change things casually either.
 - **Nothing schedules it.** There is no cron job, scheduler job or process-manager entry. The
   bot and the settler are started by hand.
 - **The old Strat Bot is gone.** `syncStratBot.ts`, `python/api/main.py` and the
@@ -19,6 +22,9 @@ lives. For what has already been tested (and rejected), read the investigation l
 - **Open issue:** the live trigger rate is still well above the backtest's rate (see "Open /
   unresolved" in the investigation log). Don't treat it as resolved because the live win rate
   looks fine at small n.
+- **New, unconfirmed against live data:** the model-probability exit stop (added 2026-10-01)
+  hasn't fired in live/dry-run yet. Watch the investigation log's "Open/unresolved" section for
+  how that plays out before trusting it the way the entry-side filters are now trusted.
 
 ## What it bets on
 
@@ -27,7 +33,7 @@ its starting price. The model treats a market as a digital option, with fair P(u
 the move so far is `ln(S_t / S_0)`, and volatility is trailing 30-minute realized volatility
 from Coinbase ticks.
 
-The live rule, as of 2026-09-28 (the log gives the reasoning behind each item):
+The live rule, as of 2026-10-01 (the log gives the reasoning behind each item):
 
 1. The bot checks each market at T-240, 180, 120 and 60 seconds, polling every 5 seconds.
 2. The market price is the last real trade for each token, from `data-api.polymarket.com/trades`.
@@ -35,12 +41,17 @@ The live rule, as of 2026-09-28 (the log gives the reasoning behind each item):
 3. A side is bet only if its edge (model probability minus market price) exceeds 0.10.
 4. **Momentum only:** it bets only the side currently ahead, never the contrarian side.
 5. **Magnitude filter:** it requires `|ln(S_t/S_0)| >= 0.0003 * sqrt(elapsed_secs / 60)`.
-6. **One entry per market:** the first check that passes wins.
-7. **Order:** a GTC buy at best ask + 1¢, sized from the live order book.
-8. **Size:** $1 flat by default. `--bet-fraction-of-balance 0.01` sizes at 1% of the USDC
-   balance, floored at $1 and capped at 5%.
-
-A price ≥ 0.5 filter is validated in backtest but **not implemented in the bot yet**.
+6. **Price filter:** the side's own signal price must be ≥ 0.5 (`MIN_ENTRY_PRICE`).
+7. **One entry per market:** the first checkpoint that passes all filters wins.
+8. **Entry order:** a GTC buy at best ask + 1¢, sized from the live order book.
+9. **Size:** $1 flat by default, or `--bet-fraction-of-balance 0.01` for 1% of the USDC
+   balance (floored at $1, capped at 5%), then scaled 1.5x/1.0x/1.25x by a price tier
+   (`priceTierWeight`: <0.65 / 0.65-0.85 / >0.85).
+10. **Exit stop (added 2026-10-01):** every poll tick while a position is open, the bot
+    re-evaluates the model's own probability for the held side. If it drops below
+    `MODEL_PROB_STOP_THRESHOLD` (0.40), the bot exits immediately with a market SELL (FOK) —
+    no near-resolution cutoff, it keeps trying right up to the market's end time. Otherwise the
+    position rides to settlement as before.
 
 ## Running it
 
@@ -71,7 +82,9 @@ Postgres pulls in `python/models/btc_5m/cache/`.
 
 DB tables: `market` / `clob_market_token` / `market_outcome` (market type `btc_5m` = 5),
 `market_price_history` (real trade prints since the rebuild), `btc_trade` (BTC ticks),
-`strat_order` (the bot's orders and decisions).
+`strat_order` (the bot's orders and decisions — `exit_price`/`exit_reason`/`exited_at`
+(migration 30) are set together, alongside `final_value`, on an early exit; `NULL` on a
+normal held-to-settlement trade).
 
 ## Gotchas
 
@@ -87,3 +100,12 @@ DB tables: `market` / `clob_market_token` / `market_outcome` (market type `btc_5
 - **Tick density drives the backtest.** Weeks backed by sparse Binance.us ticks produced a fake
   edge; those weeks were re-sourced from Coinbase. `api.binance.com` is geoblocked from this
   environment.
+- **Open positions are tracked in memory only**, not in the DB. A bot restart while a position
+  is open means that position rides to settlement unmonitored by the exit stop (the settler
+  still settles it normally once the market resolves — it just never gets a chance to exit
+  early). Short-lived in practice (positions live at most ~4 minutes), but worth knowing before
+  assuming every position got a fair shot at the exit stop.
+- **The exit is a market order (FOK), not a limit order**, on purpose — a stop that might not
+  fill defeats the point. If the SELL fails (e.g. a FOK with no fillable liquidity), the bot
+  logs an error and leaves the position open to retry next poll tick (5s later); it does not
+  fall back to a limit order or widen anything.
