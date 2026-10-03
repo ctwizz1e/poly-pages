@@ -19,9 +19,13 @@ lives. For what has already been tested (and rejected), read the investigation l
   `stop-loss-bot` scripts in `package.json` point to files that no longer exist. The
   fair-value bot reuses Strat Bot's `strat_order` table, and tags its rows with
   `decision->>'bot' = 'btc5m_fairvalue'`.
-- **Open issue:** the live trigger rate is still well above the backtest's rate (see "Open /
-  unresolved" in the investigation log). Don't treat it as resolved because the live win rate
-  looks fine at small n.
+- **Open issue, root cause found 2026-10-03:** the live trigger rate is well above the
+  backtest's because `data-api /trades` is delayed ~2 minutes live (median ~105s), so the bot's
+  "market price" was a stale print while the model is fresh. **Fixed 2026-10-03**: the signal
+  now comes from the CLOB market websocket (~0.5s lag). Not yet confirmed — need post-switch
+  decisions to check the trigger rate and late-checkpoint mix now match the backtest. Details in
+  "Open / unresolved" in the investigation log. Treat all pre-2026-10-03 live decisions/P&L as
+  a different (flawed-signal) sample. **Don't go live until the post-switch check passes.**
 - **New, unconfirmed against live data:** the model-probability exit stop (added 2026-10-01)
   hasn't fired in live/dry-run yet. Watch the investigation log's "Open/unresolved" section for
   how that plays out before trusting it the way the entry-side filters are now trusted.
@@ -36,8 +40,10 @@ from Coinbase ticks.
 The live rule, as of 2026-10-01 (the log gives the reasoning behind each item):
 
 1. The bot checks each market at T-240, 180, 120 and 60 seconds, polling every 5 seconds.
-2. The market price is the last real trade for each token, from `data-api.polymarket.com/trades`.
-   If either side's last trade is more than 90 seconds old, the bot skips that check.
+2. The market price is the last real trade for each token, from Polymarket's CLOB market
+   websocket (`polymarketMarketWsClient.ts`; since 2026-10-03 — `data-api /trades` is delayed
+   ~2 minutes live and was the source before that). If either side's last trade is more than 90
+   seconds old (or none has been seen since the market's subscription), the bot skips that check.
 3. A side is bet only if its edge (model probability minus market price) exceeds 0.10.
 4. **Momentum only:** it bets only the side currently ahead, never the contrarian side.
 5. **Magnitude filter:** it requires `|ln(S_t/S_0)| >= 0.0003 * sqrt(elapsed_secs / 60)`.
