@@ -1,8 +1,28 @@
 {
-  "generated_at": "2026-10-03T23:33:01",
+  "generated_at": "2026-10-04T00:02:11",
   "location": "phl",
   "location_name": "PHL",
   "days": [
+    {
+      "date": "2026-10-04",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHPHIL-26OCT04-B68.5",
+          "bucket_label": "68-69\u00b0F",
+          "side": "no",
+          "no_price_cents": 69,
+          "model_no_prob": 0.97274,
+          "edge": null,
+          "size_usd": 2.0,
+          "count": 2,
+          "outcome": "pending",
+          "live_no_bid": 83,
+          "model_mu": 64.73,
+          "model_sigma": 1.45
+        }
+      ]
+    },
     {
       "date": "2026-10-03",
       "bets": [
@@ -55,41 +75,6 @@
           "live_no_bid": null,
           "model_mu": 84.74,
           "model_sigma": 1.2
-        }
-      ]
-    },
-    {
-      "date": "2026-10-01",
-      "bets": [
-        {
-          "type": "daily",
-          "ticker": "KXHIGHPHIL-26OCT01-B84.5",
-          "bucket_label": "84-85\u00b0F",
-          "side": "no",
-          "no_price_cents": 78,
-          "model_no_prob": 0.98054,
-          "edge": null,
-          "size_usd": 2.0,
-          "count": 2,
-          "outcome": "W",
-          "live_no_bid": null,
-          "model_mu": 81.05,
-          "model_sigma": 1.19
-        },
-        {
-          "type": "daily",
-          "ticker": "KXHIGHPHIL-26OCT01-T85",
-          "bucket_label": "\u226586\u00b0F",
-          "side": "no",
-          "no_price_cents": 96,
-          "model_no_prob": 0.99998,
-          "edge": null,
-          "size_usd": 2.0,
-          "count": 2,
-          "outcome": "W",
-          "live_no_bid": null,
-          "model_mu": 81.05,
-          "model_sigma": 1.19
         }
       ]
     }
