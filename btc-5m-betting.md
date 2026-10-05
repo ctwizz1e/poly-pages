@@ -22,10 +22,13 @@ lives. For what has already been tested (and rejected), read the investigation l
 - **Open issue, root cause found 2026-10-03:** the live trigger rate is well above the
   backtest's because `data-api /trades` is delayed ~2 minutes live (median ~105s), so the bot's
   "market price" was a stale print while the model is fresh. **Fixed 2026-10-03**: the signal
-  now comes from the CLOB market websocket (~0.5s lag). Not yet confirmed — need post-switch
-  decisions to check the trigger rate and late-checkpoint mix now match the backtest. Details in
-  "Open / unresolved" in the investigation log. Treat all pre-2026-10-03 live decisions/P&L as
-  a different (flawed-signal) sample. **Don't go live until the post-switch check passes.**
+  now comes from the CLOB market websocket (~0.5s lag). **Confirmed 2026-10-05**: checkpoints
+  are evenly populated again and trade prices match the book. The remaining trigger-rate gap
+  (48% live vs 18% all-weeks backtest) is regime drift — the backtest's own last two weeks
+  show 34-38% — not a defect. Treat all pre-2026-10-03 live decisions/P&L as a different
+  (flawed-signal) sample. **Still open: whether the edge exists in the newest regime.** Only 26
+  ws-signal dry-run trades exist so far (ROI -4.5%, inconclusive); live volume is ~13/day.
+  Don't go live on current evidence.
 - **New, unconfirmed against live data:** the model-probability exit stop (added 2026-10-01)
   hasn't fired in live/dry-run yet. Watch the investigation log's "Open/unresolved" section for
   how that plays out before trusting it the way the entry-side filters are now trusted.
