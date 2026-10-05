@@ -26,9 +26,11 @@ lives. For what has already been tested (and rejected), read the investigation l
   are evenly populated again and trade prices match the book. The remaining trigger-rate gap
   (48% live vs 18% all-weeks backtest) is regime drift — the backtest's own last two weeks
   show 34-38% — not a defect. Treat all pre-2026-10-03 live decisions/P&L as a different
-  (flawed-signal) sample. **Still open: whether the edge exists in the newest regime.** Only 26
-  ws-signal dry-run trades exist so far (ROI -4.5%, inconclusive); live volume is ~13/day.
-  Don't go live on current evidence.
+  (flawed-signal) sample. **Edge check (2026-10-05):** live is consistent with the backtest's
+  recent weeks, but those weeks show ~zero edge (full rule, last 2 weeks: +2.6% at zero cost,
+  95% CI -6%..+11%) versus +6.9% over all 14 weeks, and executable entry costs ~4.7c over the
+  signal price. 26 ws-signal dry-run trades so far (ROI -4.5% incl. exit stop, inconclusive).
+  Don't go live on current evidence; see the investigation log (#10).
 - **New, unconfirmed against live data:** the model-probability exit stop (added 2026-10-01)
   hasn't fired in live/dry-run yet. Watch the investigation log's "Open/unresolved" section for
   how that plays out before trusting it the way the entry-side filters are now trusted.
