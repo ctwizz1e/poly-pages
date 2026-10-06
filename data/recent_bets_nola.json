@@ -1,8 +1,28 @@
 {
-  "generated_at": "2026-10-05T23:32:37",
+  "generated_at": "2026-10-06T00:01:22",
   "location": "nola",
   "location_name": "NOLA",
   "days": [
+    {
+      "date": "2026-10-06",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHTNOLA-26OCT06-B86.5",
+          "bucket_label": "86-87\u00b0F",
+          "side": "no",
+          "no_price_cents": 89,
+          "model_no_prob": 0.96635,
+          "edge": null,
+          "size_usd": 2.0,
+          "count": 2,
+          "outcome": "pending",
+          "live_no_bid": 73,
+          "model_mu": 82.68,
+          "model_sigma": 1.55
+        }
+      ]
+    },
     {
       "date": "2026-10-05",
       "bets": [
@@ -40,41 +60,6 @@
           "live_no_bid": null,
           "model_mu": 81.98,
           "model_sigma": 1.57
-        }
-      ]
-    },
-    {
-      "date": "2026-10-03",
-      "bets": [
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTNOLA-26OCT03-B85.5",
-          "bucket_label": "85-86\u00b0F",
-          "side": "no",
-          "no_price_cents": 74,
-          "model_no_prob": 0.80758,
-          "edge": null,
-          "size_usd": 2.0,
-          "count": 2,
-          "outcome": "W",
-          "live_no_bid": null,
-          "model_mu": 83.25,
-          "model_sigma": 1.55
-        },
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTNOLA-26OCT03-T81",
-          "bucket_label": "\u226480\u00b0F",
-          "side": "no",
-          "no_price_cents": 96,
-          "model_no_prob": 0.98212,
-          "edge": null,
-          "size_usd": 2.0,
-          "count": 2,
-          "outcome": "W",
-          "live_no_bid": null,
-          "model_mu": 83.25,
-          "model_sigma": 1.55
         }
       ]
     }
