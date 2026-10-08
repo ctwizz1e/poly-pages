@@ -1,8 +1,28 @@
 {
-  "generated_at": "2026-10-07T23:32:15",
+  "generated_at": "2026-10-08T00:00:46",
   "location": "satx",
   "location_name": "SATX",
   "days": [
+    {
+      "date": "2026-10-08",
+      "bets": [
+        {
+          "type": "daily",
+          "ticker": "KXHIGHTSATX-26OCT08-B88.5",
+          "bucket_label": "88-89\u00b0F",
+          "side": "no",
+          "no_price_cents": 90,
+          "model_no_prob": 0.96527,
+          "edge": null,
+          "size_usd": 2.0,
+          "count": 2,
+          "outcome": "pending",
+          "live_no_bid": 90,
+          "model_mu": 91.31,
+          "model_sigma": 1.0
+        }
+      ]
+    },
     {
       "date": "2026-10-07",
       "bets": []
@@ -10,39 +30,6 @@
     {
       "date": "2026-10-06",
       "bets": []
-    },
-    {
-      "date": "2026-10-05",
-      "bets": [
-        {
-          "type": "daily",
-          "ticker": "KXHIGHTSATX-26OCT05-B88.5",
-          "bucket_label": "88-89\u00b0F",
-          "side": "no",
-          "no_price_cents": 86,
-          "model_no_prob": 0.96068,
-          "edge": null,
-          "size_usd": 2.0,
-          "count": 2,
-          "outcome": "W",
-          "live_no_bid": null,
-          "model_mu": 85.74,
-          "model_sigma": 1.0
-        },
-        {
-          "type": "intraday_15.0h",
-          "ticker": "KXHIGHTSATX-26OCT05-B88.5",
-          "bucket_label": "88-89\u00b0F",
-          "side": "no",
-          "no_price_cents": 90,
-          "model_no_prob": 0.97693,
-          "edge": 0.09693,
-          "size_usd": 2.0,
-          "count": 2,
-          "outcome": "W",
-          "live_no_bid": null
-        }
-      ]
     }
   ]
 }
