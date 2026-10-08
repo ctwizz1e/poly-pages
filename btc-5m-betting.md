@@ -106,6 +106,13 @@ normal held-to-settlement trade).
   `/book`'s `bestBid`/`bestAsk` are per token and fine for execution.
 - **Validate with random 10-fold CV by market**, not a single chronological split. There are
   only about 14 weeks of data. Report results at both zero cost and 2¢ cost.
+- **Real costs are large relative to the edge (checked 2026-10-08).** Markets charge a taker
+  fee of `0.07 * p * (1 - p)` USDC per share on top of the price (~1.3-1.5c at our prices), and
+  entry slippage (ask minus the last-trade signal price) is adverse-selected: ~2-4c on the
+  trades we pick. Net of both, the backtested edge is ~zero to negative (see the investigation
+  log, "REAL EXECUTION COSTS").
+- **Minimum order size is 5 shares** on these markets (CLOB `minimum_order_size`). The bot's
+  current $1-1.50 dry-run bets (1-2.7 shares) would be rejected live.
 - **Never size with Kelly on the raw model probability.** The model is overconfident in the
   tail, and Kelly sizing hit a 97%+ drawdown in backtest.
 - **Tick density drives the backtest.** Weeks backed by sparse Binance.us ticks produced a fake
