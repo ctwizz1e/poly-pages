@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-10-15T23:59:03",
+  "generated_at": "2026-10-16T00:01:15",
   "location": "dal",
   "location_name": "Dallas, TX",
   "days": [
+    {
+      "date": "2026-10-16",
+      "daily": {
+        "mu": 68.31,
+        "sigma": 2.5
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-10-15",
       "daily": {
@@ -14,7 +23,7 @@
           "hour": 4.0,
           "mu": 89.95,
           "sigma": 1.55,
-          "obs_temp": 78.1,
+          "obs_temp": 78.8,
           "obs_max": 80.6
         },
         {
@@ -56,7 +65,7 @@
           "hour": 7.0,
           "mu": 90.23,
           "sigma": 1.7,
-          "obs_temp": 73.9,
+          "obs_temp": 73.4,
           "obs_max": 80.6
         },
         {
@@ -84,7 +93,7 @@
           "hour": 9.0,
           "mu": 90.16,
           "sigma": 1.62,
-          "obs_temp": 75.9,
+          "obs_temp": 75.2,
           "obs_max": 80.6
         },
         {
@@ -98,14 +107,14 @@
           "hour": 17.0,
           "mu": 90.35,
           "sigma": 1.24,
-          "obs_temp": 87.1,
+          "obs_temp": 87.8,
           "obs_max": 89.6
         },
         {
           "hour": 19.0,
           "mu": 89.93,
           "sigma": 1.22,
-          "obs_temp": 79.0,
+          "obs_temp": 78.8,
           "obs_max": 89.6
         }
       ],
@@ -253,34 +262,6 @@
         }
       ],
       "obs_daily_max": 93.2
-    },
-    {
-      "date": "2026-10-13",
-      "daily": null,
-      "intraday": [
-        {
-          "hour": 16.0,
-          "mu": 93.92,
-          "sigma": 0.91,
-          "obs_temp": 93.2,
-          "obs_max": 93.9
-        },
-        {
-          "hour": 17.0,
-          "mu": 93.5,
-          "sigma": 0.9,
-          "obs_temp": 93.2,
-          "obs_max": 93.9
-        },
-        {
-          "hour": 19.0,
-          "mu": 94.12,
-          "sigma": 0.9,
-          "obs_temp": 89.6,
-          "obs_max": 93.9
-        }
-      ],
-      "obs_daily_max": 93.9
     }
   ]
 }
