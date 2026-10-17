@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-10-16T23:58:49",
+  "generated_at": "2026-10-17T00:00:55",
   "location": "mia",
   "location_name": "Miami, FL",
   "days": [
+    {
+      "date": "2026-10-17",
+      "daily": {
+        "mu": 85.42,
+        "sigma": 8.72
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-10-16",
       "daily": {
@@ -43,20 +52,20 @@
           "mu": 91.22,
           "sigma": 0.98,
           "obs_temp": 84.2,
-          "obs_max": 86.0
+          "obs_max": 87.8
         },
         {
           "hour": 9.5,
           "mu": 91.07,
           "sigma": 0.92,
-          "obs_temp": 84.2,
-          "obs_max": 86.0
+          "obs_temp": 86.0,
+          "obs_max": 87.8
         },
         {
           "hour": 10.0,
           "mu": 91.26,
           "sigma": 0.92,
-          "obs_temp": 84.2,
+          "obs_temp": 86.0,
           "obs_max": 87.8
         },
         {
@@ -70,14 +79,14 @@
           "hour": 11.0,
           "mu": 91.22,
           "sigma": 0.9,
-          "obs_temp": 87.8,
+          "obs_temp": 86.0,
           "obs_max": 89.6
         },
         {
           "hour": 11.5,
           "mu": 91.35,
           "sigma": 0.77,
-          "obs_temp": 89.6,
+          "obs_temp": 87.8,
           "obs_max": 89.6
         },
         {
@@ -98,7 +107,7 @@
           "hour": 13.0,
           "mu": 90.82,
           "sigma": 0.88,
-          "obs_temp": 90.0,
+          "obs_temp": 89.6,
           "obs_max": 90.0
         }
       ],
@@ -169,72 +178,6 @@
         }
       ],
       "obs_daily_max": 90.0
-    },
-    {
-      "date": "2026-10-14",
-      "daily": {
-        "mu": 84.53,
-        "sigma": 5.94
-      },
-      "intraday": [
-        {
-          "hour": 7.0,
-          "mu": 88.84,
-          "sigma": 0.9,
-          "obs_temp": 78.8,
-          "obs_max": 80.6
-        },
-        {
-          "hour": 10.0,
-          "mu": 87.25,
-          "sigma": 0.84,
-          "obs_temp": 86.0,
-          "obs_max": 87.8
-        },
-        {
-          "hour": 10.5,
-          "mu": 87.62,
-          "sigma": 0.9,
-          "obs_temp": 86.0,
-          "obs_max": 87.8
-        },
-        {
-          "hour": 11.0,
-          "mu": 88.08,
-          "sigma": 0.9,
-          "obs_temp": 87.8,
-          "obs_max": 87.8
-        },
-        {
-          "hour": 11.5,
-          "mu": 88.3,
-          "sigma": 0.77,
-          "obs_temp": 84.2,
-          "obs_max": 87.8
-        },
-        {
-          "hour": 12.0,
-          "mu": 87.98,
-          "sigma": 0.77,
-          "obs_temp": 84.2,
-          "obs_max": 87.8
-        },
-        {
-          "hour": 12.5,
-          "mu": 88.4,
-          "sigma": 0.88,
-          "obs_temp": 87.8,
-          "obs_max": 87.8
-        },
-        {
-          "hour": 13.0,
-          "mu": 88.1,
-          "sigma": 0.88,
-          "obs_temp": 84.2,
-          "obs_max": 87.8
-        }
-      ],
-      "obs_daily_max": 87.8
     }
   ]
 }
