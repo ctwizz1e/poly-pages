@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-10-16T23:58:59",
+  "generated_at": "2026-10-17T00:01:06",
   "location": "chi",
   "location_name": "Chicago, IL",
   "days": [
+    {
+      "date": "2026-10-17",
+      "daily": {
+        "mu": 54.21,
+        "sigma": 1.77
+      },
+      "intraday": [],
+      "obs_daily_max": null
+    },
     {
       "date": "2026-10-16",
       "daily": {
@@ -28,7 +37,7 @@
           "hour": 8.0,
           "mu": 60.6,
           "sigma": 1.32,
-          "obs_temp": 51.1,
+          "obs_temp": 51.8,
           "obs_max": 59.0
         },
         {
@@ -56,21 +65,21 @@
           "hour": 10.0,
           "mu": 61.19,
           "sigma": 1.32,
-          "obs_temp": 52.0,
+          "obs_temp": 51.8,
           "obs_max": 59.0
         },
         {
           "hour": 10.5,
           "mu": 61.11,
           "sigma": 1.47,
-          "obs_temp": 51.8,
+          "obs_temp": 53.6,
           "obs_max": 59.0
         },
         {
           "hour": 11.0,
           "mu": 61.11,
           "sigma": 1.47,
-          "obs_temp": 52.0,
+          "obs_temp": 51.8,
           "obs_max": 59.0
         },
         {
@@ -148,72 +157,6 @@
         }
       ],
       "obs_daily_max": 66.2
-    },
-    {
-      "date": "2026-10-14",
-      "daily": {
-        "mu": 67.92,
-        "sigma": 3.19
-      },
-      "intraday": [
-        {
-          "hour": 9.0,
-          "mu": 69.05,
-          "sigma": 1.32,
-          "obs_temp": 62.6,
-          "obs_max": 66.9
-        },
-        {
-          "hour": 9.5,
-          "mu": 69.05,
-          "sigma": 1.18,
-          "obs_temp": 64.4,
-          "obs_max": 66.9
-        },
-        {
-          "hour": 10.0,
-          "mu": 69.05,
-          "sigma": 1.18,
-          "obs_temp": 64.4,
-          "obs_max": 66.9
-        },
-        {
-          "hour": 10.5,
-          "mu": 69.07,
-          "sigma": 1.32,
-          "obs_temp": 66.2,
-          "obs_max": 66.9
-        },
-        {
-          "hour": 11.0,
-          "mu": 69.01,
-          "sigma": 1.32,
-          "obs_temp": 64.4,
-          "obs_max": 66.9
-        },
-        {
-          "hour": 11.5,
-          "mu": 68.99,
-          "sigma": 1.17,
-          "obs_temp": 64.4,
-          "obs_max": 66.9
-        },
-        {
-          "hour": 12.0,
-          "mu": 68.99,
-          "sigma": 1.17,
-          "obs_temp": 64.4,
-          "obs_max": 66.9
-        },
-        {
-          "hour": 12.5,
-          "mu": 68.99,
-          "sigma": 1.32,
-          "obs_temp": 64.4,
-          "obs_max": 66.9
-        }
-      ],
-      "obs_daily_max": 66.9
     }
   ]
 }
