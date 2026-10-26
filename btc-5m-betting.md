@@ -6,6 +6,14 @@ lives. For what has already been tested (and rejected), read the investigation l
 
 ## Status (2026-10-01)
 
+- **Fair value switched to 60s TWAP on 2026-10-26 (dry-run).** These markets have resolved on
+  a 60s TWAP (end vs start) since ~2026-08-07, not spot. The bot now prices with `twapProbUp`
+  against a TWAP strike (the 60s TWAP ending at market start), and the momentum/magnitude
+  filters and exit stop use that strike too. Decisions log `fair_value_model: "twap60"`, `strike`
+  and the old `spot_model_prob_up`. **Before/after split:** treat dry-run decisions and P&L
+  before the switch (spot N(d2) vs S_0) and after it as different samples, like the 2026-10-03
+  signal-source split. It takes effect only once the bot is restarted. See the README entry
+  "CORRECTION 2026-10-26".
 - **Dry-run only. Not approved for real money.** The live bot runs with `--dry-run`.
 - **Gathering data only (user decision, 2026-09-29).** Don't change the live decision rule
   while dry-run data accumulates, even for a backtest-validated change. A rule change splits
